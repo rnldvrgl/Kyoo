@@ -31,4 +31,4 @@ $theme-colors: map-merge($theme-colors , $custom-colors );
 @import 'util';
 
 // Dashboard
-@import 'dashboard';
+@import 'custom';
