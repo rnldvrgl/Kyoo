@@ -29,3 +29,6 @@ $theme-colors: map-merge($theme-colors , $custom-colors );
 
 // Utils SCSS
 @import 'util';
+
+// Dashboard
+@import 'dashboard';

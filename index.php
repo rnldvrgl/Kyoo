@@ -25,27 +25,25 @@
 <body>
 
 	<!-- Landing Page Navigation Bar -->
-	<nav class="navbar navbar-dark navbar-expand-lg navbar-scroll fixed-top border-bottom bg-kyoodark">
-		<div class="d-flex container justify-content-between">
-			<!-- Left Elements -->
-			<div class="d-flex my-2 my-sm-0">
-				<!-- Brand -->
-				<a class="navbar-brand" href="#">
-					<img src="assets/img/kyoo-logo.svg" alt="" style="width: 3rem;">
-				</a>
-			</div>
-			<!-- Toggler -->
+
+
+	<nav class="navbar navbar-expand-lg bg-kyoodark navbar-dark">
+		<div class="container-fluid">
+			<!-- Brand -->
+			<a class="navbar-brand" href="#">
+				<img src="assets/img/kyoo-logo.svg" alt="" width="40" height="34">
+			</a>
+
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
+				<i class="fa-solid fa-bars"></i>
 			</button>
 
-			<!-- Center Elements -->
-			<div class="collapse navbar-collapse d-flex container justify-content-between" id="navbarSupportedContent">
-				<ul class="navbar-nav flex-row d-none d-md-flex">
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 					<li class="nav-item me-3 me-lg-1">
 						<a class="nav-link active" aria-current="page" href="#">
 							<span>
-								<i class="bi bi-house"></i>
+								<i class="fa-solid fa-house-chimney"></i>
 							</span>
 							HOME
 						</a>
@@ -53,7 +51,7 @@
 					<li class="nav-item me-3 me-lg-1">
 						<a class="nav-link" href="#">
 							<span>
-								<i class="bi bi-house"></i>
+								<i class="fa-solid fa-file-circle-question"></i>
 							</span>
 							FAQs
 						</a>
@@ -61,24 +59,19 @@
 					<li class="nav-item me-3 me-lg-1">
 						<a class="nav-link" href="#">
 							<span>
-								<i class="bi bi-envelope-check-fill"></i>
+								<i class="fa-solid fa-message"></i>
 							</span>
 							SEND FEEDBACK
 						</a>
 					</li>
 				</ul>
-
-				<!-- Right Elements -->
-				<ul class="navbar-nav flex-row d-none d-md-flex">
-					<li class="nav-item me-3 me-lg-1">
-						<a class="btn btn-kyoored" href="pages/auth/login.php">
-							LOGIN
-						</a>
-					</li>
-				</ul>
+			</div>
+			<div class="d-flex ">
+				<a class="btn btn-kyoored" href="pages/auth/login.php">LOGIN</a>
 			</div>
 		</div>
 	</nav>
+
 
 	<li class="nav-item me-3 me-lg-1">
 		<a class="btn btn-outline-kyoored " href="#!">
