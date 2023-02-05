@@ -1,0 +1,31 @@
+// 1. Include functions first (so you can manipulate colors, SVGs, calc, etc)
+@import "../../node_modules/bootstrap/scss/functions";
+
+// 2. Include any default variable overrides here
+
+// 3. Include remainder of required Bootstrap stylesheets
+@import "../../node_modules/bootstrap/scss/variables";
+
+// 4. Include any default map overrides here
+$custom-colors:(
+	"kyoored" : #8C3D3D,
+	"kyoodark" : #323232,
+);
+
+$theme-colors: map-merge($theme-colors , $custom-colors );
+
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
+// 8. Add additional custom code here
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+	--bs-body-font-family: 'Poppins',
+		sans-serif;
+}
+
+// Globals SCSS
+@import 'globals';
+
+// Utils SCSS
+@import 'util';

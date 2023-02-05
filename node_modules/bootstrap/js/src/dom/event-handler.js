@@ -1,11 +1,11 @@
 /**
  * --------------------------------------------------------------------------
- * Bootstrap (v5.3.0-alpha1): dom/event-handler.js
+ * Bootstrap (v5.2.3): dom/event-handler.js
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  * --------------------------------------------------------------------------
  */
 
-import { getjQuery } from '../util/index.js'
+import { getjQuery } from '../util/index'
 
 /**
  * Constants
@@ -198,8 +198,9 @@ function removeHandler(element, events, typeEvent, handler, delegationSelector) 
 function removeNamespacedHandlers(element, events, typeEvent, namespace) {
   const storeElementEvent = events[typeEvent] || {}
 
-  for (const [handlerKey, event] of Object.entries(storeElementEvent)) {
+  for (const handlerKey of Object.keys(storeElementEvent)) {
     if (handlerKey.includes(namespace)) {
+      const event = storeElementEvent[handlerKey]
       removeHandler(element, events, typeEvent, event.callable, event.delegationSelector)
     }
   }
@@ -247,10 +248,11 @@ const EventHandler = {
       }
     }
 
-    for (const [keyHandlers, event] of Object.entries(storeElementEvent)) {
+    for (const keyHandlers of Object.keys(storeElementEvent)) {
       const handlerKey = keyHandlers.replace(stripUidRegex, '')
 
       if (!inNamespace || originalTypeEvent.includes(handlerKey)) {
+        const event = storeElementEvent[keyHandlers]
         removeHandler(element, events, typeEvent, event.callable, event.delegationSelector)
       }
     }
@@ -298,8 +300,8 @@ const EventHandler = {
   }
 }
 
-function hydrateObj(obj, meta = {}) {
-  for (const [key, value] of Object.entries(meta)) {
+function hydrateObj(obj, meta) {
+  for (const [key, value] of Object.entries(meta || {})) {
     try {
       obj[key] = value
     } catch {
