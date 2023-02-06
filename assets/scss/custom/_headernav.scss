@@ -29,6 +29,18 @@
 	font-weight: 600;
 }
 
+.header-nav .datetime .day {
+	font-size: 14px;
+	font-weight: 600;
+	color: white;
+}
+
+.header-nav .datetime .date{
+	font-size: 14px;
+	font-weight: 200;
+	color: white;
+}
+
 .header-nav .badge-number {
 	position: absolute;
 	inset: 4px 6px auto auto;
