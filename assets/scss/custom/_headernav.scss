@@ -19,12 +19,26 @@
 }
 
 .header-nav .nav-profile img {
+	height: 36px;
+	width: 36px;
 	max-height: 36px;
 }
 
 .header-nav .nav-profile span {
 	font-size: 14px;
 	font-weight: 600;
+}
+
+.header-nav .datetime .day {
+	font-size: 14px;
+	font-weight: 600;
+	color: white;
+}
+
+.header-nav .datetime .date{
+	font-size: 14px;
+	font-weight: 200;
+	color: white;
 }
 
 .header-nav .badge-number {
@@ -123,5 +137,5 @@
 }
 
 .header-nav .profile .dropdown-item:hover {
-	background-color: #f6f9ff;
+	background-color: #fff6f6;
 }

@@ -7,80 +7,75 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-	<!-- Bootstrap CSS -->
-
-	<!-- Custom SCSS -->
+	<!-- Bootstrap CSS and Custom SCSS -->
 	<link rel="stylesheet" href="dist/style.css">
 
 	<!-- Font Awesome Icons -->
 	<script src="https://kit.fontawesome.com/98a2b5e7f0.js" crossorigin="anonymous"></script>
 
-	<!-- Google Fonts -->
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
 </head>
 
 <body>
-
-	<!-- Landing Page Navigation Bar -->
-
-
+	<!-- Navbar -->
 	<nav class="navbar navbar-expand-lg bg-kyoodark navbar-dark">
+		<!-- Container wrapper -->
 		<div class="container-fluid">
-			<!-- Brand -->
-			<a class="navbar-brand" href="#">
-				<img src="assets/img/kyoo-logo.svg" alt="" width="40" height="34">
+
+			<!-- Navbar brand -->
+			<a class="navbar-brand d-none d-lg-block" href="#">
+				<img src="assets/img/kyoo-logo.png" alt="" width="40" height="34">
 			</a>
 
+			<!-- Toggle Button -->
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<i class="fa-solid fa-bars"></i>
 			</button>
 
+			<!-- Collapsible wrapper -->
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<!-- Left links -->
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-					<li class="nav-item me-3 me-lg-1">
-						<a class="nav-link active" aria-current="page" href="#">
-							<span>
-								<i class="fa-solid fa-house-chimney"></i>
-							</span>
+					<li class="nav-item">
+						<a class="nav-link active" href="#">
+							<i class="fa-solid fa-house-chimney"></i>
 							HOME
 						</a>
 					</li>
-					<li class="nav-item me-3 me-lg-1">
+					<li class="nav-item">
 						<a class="nav-link" href="#">
-							<span>
-								<i class="fa-solid fa-file-circle-question"></i>
-							</span>
+							<i class="fa-solid fa-file-circle-question"></i>
 							FAQs
 						</a>
 					</li>
-					<li class="nav-item me-3 me-lg-1">
+					<li class="nav-item">
 						<a class="nav-link" href="#">
-							<span>
-								<i class="fa-solid fa-message"></i>
-							</span>
+							<i class="fa-solid fa-message"></i>
 							SEND FEEDBACK
 						</a>
 					</li>
 				</ul>
+				<!-- Left links -->
+				<!-- Login -->
+				<a class="btn btn-kyoored me-3" href="pages/auth/login.php">LOGIN</a>
 			</div>
-			<div class="d-flex ">
-				<a class="btn btn-kyoored" href="pages/auth/login.php">LOGIN</a>
-			</div>
+			<!-- Collapsible wrapper -->
 		</div>
+		<!-- Container wrapper -->
 	</nav>
-
-
-	<li class="nav-item me-3 me-lg-1">
-		<a class="btn btn-outline-kyoored " href="#!">
-			VIEW QUEUE
-		</a>
-	</li>
+	<!-- Navbar -->
 
 	<div class="d-flex align-items-center justify-content-center text-center" style="height: 2000px;">
 		<p class="h3">Scroll down to see the effect of change the navbar background-color</p>
 	</div>
 
-	<?php include('pages/includes/footer.php') ?>
+	<!-- Bootstrap JS -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+
+	<script src="assets/js/chart.min.js"></script>
+	<script src="assets/js/validate.js"></script>
+	<script src="assets/js/main.js"></script>
+</body>
+
+<!-- Form Validate -->
+
+</html>
