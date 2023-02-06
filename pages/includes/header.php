@@ -13,6 +13,9 @@
 	<!-- Custom SCSS -->
 	<link rel="stylesheet" href="../../dist/style.css">
 
+	<!-- DataTable CSS -->
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css">k
+
 	<!-- Font Awesome Icons -->
 	<script src="https://kit.fontawesome.com/98a2b5e7f0.js" crossorigin="anonymous"></script>
 
