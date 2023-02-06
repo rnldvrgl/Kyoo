@@ -136,14 +136,14 @@
 	margin-bottom: 30px;
 	border: none;
 	border-radius: 5px;
-	box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
+	box-shadow: 0px 0 30px #32323223;
 }
 
 .card-header,
 .card-footer {
 	border-color: #ebeef4;
 	background-color: #fff;
-	color: #b37b79;
+	color: #323232;
 	padding: 15px;
 }
 
@@ -151,7 +151,7 @@
 	padding: 20px 0 15px 0;
 	font-size: 18px;
 	font-weight: 500;
-	color: #700101;
+	color: #323232;
 	font-family: "Poppins", sans-serif;
 }
 
@@ -166,7 +166,7 @@
 }
 
 .card-img-overlay {
-	background-color: rgba(255, 255, 255, 0.6);
+	background-color: rgba(255, 255, 255, 0.541);
 }
 
 /* Alerts */
@@ -251,16 +251,16 @@
 .nav-tabs-bordered .nav-link {
 	margin-bottom: -2px;
 	border: none;
-	color: #2c384e;
+	color: #4e2c2c;
 }
 
 .nav-tabs-bordered .nav-link:hover,
 .nav-tabs-bordered .nav-link:focus {
-	color: #4154f1;
+	color: #f14141;
 }
 
 .nav-tabs-bordered .nav-link.active {
 	background-color: #fff;
-	color: #4154f1;
-	border-bottom: 2px solid #4154f1;
+	color: #f14141;
+	border-bottom: 2px solid #f14141;
 }

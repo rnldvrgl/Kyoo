@@ -5,12 +5,6 @@
 	line-height: 1;
 }
 
-@media (min-width: 1200px) {
-	.logo {
-		width: 280px;
-	}
-}
-
 .logo img {
 	max-height: 26px;
 	margin-right: 6px;
@@ -29,13 +23,17 @@
 	box-shadow: 0px 2px 10px rgba(110, 110, 110, 0.76);
 	background-color: #fff;
 	padding-left: 20px;
-	/* Toggle Sidebar Button */
-	/* Search Bar */
 }
 
 .header .toggle-sidebar-btn {
-	font-size: 32px;
+	font-size: 24px;
 	padding-left: 10px;
 	cursor: pointer;
 	color: white;
+}
+
+@media (min-width: 1200px) {
+	.logo {
+		width: 280px;
+	}
 }
