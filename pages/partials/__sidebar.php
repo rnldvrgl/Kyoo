@@ -18,7 +18,7 @@
 				</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link collapsed" href="../main-admin/faq.php">
+				<a class="nav-link collapsed" href="../main-admin/faquestions.php">
 					<i class="fa-solid fa-file-circle-question"></i> <span>F.A.Q</span>
 				</a>
 			</li>

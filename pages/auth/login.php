@@ -23,7 +23,9 @@
 				<!-- Left Item -->
 				<div class="d-none d-lg-flex flex-column justify-content-center align-items-center col-md-5 col-lg-6 text-center">
 					<!-- Kyoo Logo -->
-					<img class="img-fluid mb-3" src="../../assets/img/kyoo-logo.svg" alt="Kyoo Logo">
+					<a href="../../index.php">
+						<img class="img-fluid mb-3" src="../../assets/img/kyoo-logo.svg" alt="Kyoo Logo">
+					</a>
 					<h4 class="fw-semibold text-uppercase">Queueing Management System</h4>
 				</div>
 

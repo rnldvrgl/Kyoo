@@ -230,6 +230,4 @@
 	</script>
 </body>
 
-<!-- Form Validate -->
-
 </html>
