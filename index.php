@@ -41,12 +41,12 @@
 							HOME
 						</a>
 					</li>
-					<li class="nav-item">
+					<l i class="nav-item">
 						<a class="nav-link" href="#">
 							<i class="fa-solid fa-file-circle-question"></i>
 							FAQs
 						</a>
-					</li>
+					</l>
 					<li class="nav-item">
 						<a class="nav-link" href="#">
 							<i class="fa-solid fa-message"></i>
