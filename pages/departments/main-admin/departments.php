@@ -10,6 +10,12 @@
 	<!-- Bootstrap CSS and Custom SCSS -->
 	<link rel="stylesheet" href="../../../dist/style.css">
 
+	<!-- jQuery Framework CDN -->
+	<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+
+	<!-- jQuery DataTables.net CSS-->
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.css">
+
 	<!-- Font Awesome Icons -->
 	<script src="https://kit.fontawesome.com/98a2b5e7f0.js" crossorigin="anonymous"></script>
 
@@ -104,28 +110,28 @@
 				<div class="col-lg-8">
 					<div class="card">
 						<div class="card-body">
-							<h5 class="card-title">Example Card</h5>
-							<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel ex error magnam earum quia? Aut distinctio autem quis ullam magnam modi amet repellat, enim quasi esse, non totam ipsa quo.</p>
+							<!-- Dito ko lalagay yung DataTable -->
+							<h5 class="card-title">Departments</h5>
+							<table id="departments-table" class="display">
+								<thead>
+									<tr>
+										<th>Column 1</th>
+										<th>Column 2</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>Row 1 Data 1</td>
+										<td>Row 1 Data 2</td>
+									</tr>
+									<tr>
+										<td>Row 2 Data 1</td>
+										<td>Row 2 Data 2</td>
+									</tr>
+								</tbody>
+							</table>
 						</div>
 					</div>
-					<!-- <table id="table_id" class="display">
-						<thead>
-							<tr>
-								<th>Column 1</th>
-								<th>Column 2</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>Row 1 Data 1</td>
-								<td>Row 1 Data 2</td>
-							</tr>
-							<tr>
-								<td>Row 2 Data 1</td>
-								<td>Row 2 Data 2</td>
-							</tr>
-						</tbody>
-					</table> -->
 				</div>
 				<div class="col-lg-4">
 					<div class="card">
@@ -149,9 +155,14 @@
 	<!-- Bootstrap JS -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 
+	<!-- DataTable JS -->
+	<script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
 
 	<!-- Main JS -->
 	<script src="../../../assets/js/main.js"></script>
+
+	<!-- DataTable JS -->
+	<script src="../../../assets/js/datatables.js"></script>
 </body>
 
 </html>

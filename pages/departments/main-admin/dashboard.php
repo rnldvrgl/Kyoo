@@ -10,6 +10,12 @@
 	<!-- Bootstrap CSS and Custom SCSS -->
 	<link rel="stylesheet" href="../../../dist/style.css">
 
+	<!-- jQuery Framework CDN -->
+	<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+
+	<!-- jQuery DataTables.net CSS-->
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.css">
+
 	<!-- Font Awesome Icons -->
 	<script src="https://kit.fontawesome.com/98a2b5e7f0.js" crossorigin="anonymous"></script>
 
@@ -230,7 +236,7 @@
 	<script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
 
 	<!-- Main JS -->
-	<script src="../../assets/js/main.js"></script>
+	<script src="../../../assets/js/main.js"></script>
 </body>
 
 </html>
