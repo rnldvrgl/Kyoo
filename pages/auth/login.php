@@ -1,3 +1,18 @@
+<?php
+session_start();
+
+// if (isset($_SESSION['account_id'])) {
+//     if (isset($_SESSION['access_type']) == "Admin") {
+//         header("Location: users/admin/pages/admin-home.php");
+//     } else if (isset($_SESSION['access_type']) == "Sales Agent") {
+//         header("Location: users/sales-agent/pages/sales-agent-home.php");
+//     } else if (isset($_SESSION['access_type']) == "Warehouse") {
+//         header("Location: users/warehouse/pages/warehouse-home.php");
+//     } else if (isset($_SESSION['access_type']) == "Super Admin") {
+//         header("Location: users/super-admin/pages/manage-admin.php");
+//     }
+// }
+?>
 <!doctype html>
 <html lang="en">
 
@@ -29,18 +44,24 @@
 
 				<!-- Right Item -->
 				<div class="col-md-7 col-lg-6">
-					<form class="d-flex flex-column justify-content-center align-items-center" method="get" action="../departments/main-admin/dashboard.php">
+					<form class="d-flex flex-column justify-content-center align-items-center" method="POST" action="../../Core/login.php">
 						<div class="text-center mb-3">
 							<img class="mb-3" src="../../assets/img/avatar.svg" alt="avatar icon">
 							<h4 class="fw-semibold">WELCOME</h4>
 						</div>
 						<!-- Input Email -->
+						<?php
+						if (isset($_SESSION['err'])) {
+							$err = $_SESSION['err'];
+							echo "<p>$err</p>";
+						}
+						?>
 						<div class="input-group mb-3">
 							<span class="input-group-text">
 								<i class="fa-solid fa-user fa-red" id="email-addon"></i>
 							</span>
 							<div class="form-floating">
-								<input type="email" class="form-control" id="email" placeholder="Place email here" aria-label="email" aria-describedby="email-addon" required>
+								<input type="email" name="email" class="form-control" id="email" placeholder="Place email here" aria-label="email" aria-describedby="email-addon" value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email'], ENT_QUOTES) : ''; ?>" required>
 								<label for="email">Email</label>
 							</div>
 						</div>
@@ -50,14 +71,14 @@
 								<i class="fa-solid fa-lock fa-red" id="password-addon"></i>
 							</span>
 							<div class="form-floating">
-								<input type="password" class="form-control" id="password" placeholder="Password" aria-label="password" aria-describedby="password-addon" required>
+								<input type="password" name="password" class="form-control" id="password" placeholder="Password" aria-label="password" aria-describedby="password-addon" value="<?php echo isset($_POST['password']) ? htmlspecialchars($_POST['password'], ENT_QUOTES) : ''; ?>" required>
 								<label for="password">Password</label>
 							</div>
 						</div>
 
 						<!-- Sign in button -->
 						<div class="d-grid gap-2 col-6 mx-auto">
-							<button type="submit" class="btn btn-block btn-kyoored">SIGN IN</button>
+							<button type="submit" name="submit" class="btn btn-block btn-kyoored">SIGN IN</button>
 						</div>
 					</form>
 				</div>
