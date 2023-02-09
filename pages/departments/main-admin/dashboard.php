@@ -1,3 +1,27 @@
+<?php
+
+session_start();
+
+require '../../../Core/functions.php';
+
+if (isset($_SESSION['sid']) !== session_id() && isset($_SESSION['authorized']) !== TRUE) {
+	redirect('../../auth/login.php');
+}
+
+// Uncomment to check if user's information are saved into the session
+// dd($_SESSION['user_info']);
+
+use Core\Database;
+
+// require connection to the database
+$config = require '../../../config/connection.php';
+
+require '../../../Core/Database.php';
+
+// instantiate the Database
+$db = new Database($config['database']);
+
+?>
 <!doctype html>
 <html lang="en">
 
