@@ -11,7 +11,7 @@
 			<ul class="d-flex align-items-center">
 				<li class="nav-item d-none d-md-block datetime pe-3 text-center">
 					<h6 class="day mb-0">Thursday</h6>
-					<span class="date">February 06, 2023</span>
+					<span class="date">February 09, 2023</span>
 				</li>
 				<li class=" nav-item dropdown pe-3">
 					<a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
@@ -45,7 +45,7 @@
 							<hr class="dropdown-divider" />
 						</li>
 						<li>
-							<a class="dropdown-item d-flex align-items-center" href="../../auth/login.php">
+							<a class="dropdown-item d-flex align-items-center" href="../../../Core/logout.php">
 								<i class="fa-solid fa-arrow-right-from-bracket"></i>
 								<span>Sign Out</span>
 							</a>

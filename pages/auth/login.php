@@ -1,17 +1,55 @@
 <?php
 session_start();
 
-// if (isset($_SESSION['account_id'])) {
-//     if (isset($_SESSION['access_type']) == "Admin") {
-//         header("Location: users/admin/pages/admin-home.php");
-//     } else if (isset($_SESSION['access_type']) == "Sales Agent") {
-//         header("Location: users/sales-agent/pages/sales-agent-home.php");
-//     } else if (isset($_SESSION['access_type']) == "Warehouse") {
-//         header("Location: users/warehouse/pages/warehouse-home.php");
-//     } else if (isset($_SESSION['access_type']) == "Super Admin") {
-//         header("Location: users/super-admin/pages/manage-admin.php");
-//     }
-// }
+require '../../Core/functions.php';
+
+// Conditional statement
+if (isset($_SESSION['sid'])) {
+
+	// Arrays of user information
+	$info = $_SESSION['user_info'];
+
+	// Loop through accounts table and get IDs
+	foreach ($info['accounts'] as $ids) {
+		$account_id = $ids['account_id'];
+		$role_id = $ids['role_id'];
+		$dept_id = $ids['dept_id'];
+	}
+
+	if (isset($account_id)) {
+		if ($dept_id == 1) {
+			// Department = Office
+			if ($role_id == 1) {
+				// Role = Main Admin
+				redirect('../departments/main-admin/dashboard.php');
+			}
+		} else if ($dept_id == 2) {
+			// Department = Registrar
+			if ($role_id == 2) {
+				// Role = Department Admin
+				redirect('../departments/department-admin/dashboard.php');
+			} else if ($role_id == 3) {
+				// Role = Department Staff
+				redirect('../departments/department-staff/dashboard.php');
+			}
+		} else if ($dept_id == 3) {
+			// Department = Cashier
+			if ($role_id == 2) {
+				// Role = Department Admin
+				redirect('../departments/department-admin/dashboard.php');
+			} else if ($role_id == 3) {
+				// Role = Department Staff
+				redirect('../departments/department-staff/dashboard.php');
+			}
+		} else if ($dept_id == 4) {
+			// Department = Library
+			if ($role_id == 4) {
+				// Role = Librarian
+				redirect('../departments/library/dashboard.php');
+			}
+		}
+	}
+}
 ?>
 <!doctype html>
 <html lang="en">
