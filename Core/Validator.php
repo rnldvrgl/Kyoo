@@ -4,6 +4,7 @@ namespace Core;
 
 class Validator
 {
+    // For General Validation
     public static function validate($data)
     {
         $data = trim($data); // Strip spaces sa start at end ng string
@@ -13,6 +14,7 @@ class Validator
         return $data;
     }
 
+    // For Email Validation
     public static function email($data)
     {
         return filter_var($data, FILTER_VALIDATE_EMAIL);
@@ -32,7 +34,7 @@ class Validator
         }
     }
 
-    // For Register User
+    // For CRUD Users
     public static function password($data)
     {
         // code here ...

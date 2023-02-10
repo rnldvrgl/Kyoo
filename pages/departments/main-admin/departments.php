@@ -112,7 +112,6 @@ $db = new Database($config['database']);
 										<label for="floatingStatus">Status</label>
 									</div>
 								</div>
-
 								<!-- Modal Footer -->
 								<div class="modal-footer d-flex justify-content-between">
 									<button class="btn text-danger" data-bs-dismiss="modal">
@@ -177,8 +176,8 @@ $db = new Database($config['database']);
 												<td><?= $created_at; ?></td>
 												<td><?= $updated_at; ?></td>
 												<td>
-													<a href="#">Update</a>
-													<a href="#">Delete</a>
+													<a href="../../../controllers/DepartmentsController.php?action=Update&id=<?= $id; ?>">Update</a>
+													<a href="../../../controllers/DepartmentsController.php?action=Delete&id=<?= $id; ?>">Delete</a>
 												</td>
 											</tr>
 									<?php

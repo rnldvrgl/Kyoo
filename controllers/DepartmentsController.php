@@ -20,13 +20,14 @@ $config = require '../config/connection.php';
 // instantiate the database
 $db = new Database($config['database']);
 
-// For Adding 
+
 if (isset($_POST['add-dept'])) {
+    // For Adding Department
     $dept_name = Validator::validate($_POST['dept-name']);
     $dept_desc = Validator::validate($_POST['dept-desc']);
     $status = Validator::validate($_POST['status']);
 
-    if (empty($dept_name) || empty($dept_desc) || empty($status)) {
+    if (empty($dept_name) || empty($dept_desc)) {
         $_SESSION['msg'] = "Fill in all required fields";
         redirect('../pages/departments/main-admin/departments.php');
     } else {
@@ -38,4 +39,21 @@ if (isset($_POST['add-dept'])) {
         $_SESSION['msg'] = "Successfully Added!";
         redirect('../pages/departments/main-admin/departments.php');
     }
+} else if ($_GET['action'] == "Update") {
+    // For Updating Department
+    $id = $_GET['id'];
+
+    // TODO: Update
+} else if ($_GET['action'] == "Delete") {
+    // For Deleting Department
+    $id = $_GET['id'];
+
+    $db->query('DELETE FROM departments WHERE dept_id = :dept_id', [
+        'dept_id' => $id,
+    ]);
+
+    $_SESSION['msg'] = "Department has been deleted successfully!";
+    redirect('../pages/departments/main-admin/departments.php');
+} else {
+    redirect('../pages/departments/main-admin/departments.php');
 }
