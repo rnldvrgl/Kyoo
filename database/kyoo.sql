@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 09, 2023 at 04:03 PM
+-- Generation Time: Feb 11, 2023 at 10:19 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -54,6 +54,8 @@ CREATE TABLE `account_details` (
   `user_id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
   `address` varchar(100) NOT NULL,
+  `phone` varchar(20) NOT NULL,
+  `about` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -62,8 +64,8 @@ CREATE TABLE `account_details` (
 -- Dumping data for table `account_details`
 --
 
-INSERT INTO `account_details` (`user_id`, `name`, `address`, `created_at`, `updated_at`) VALUES
-(1, 'Lewence Endrano', 'Here is my Address', '2023-02-07 12:21:26', '2023-02-07 12:21:29');
+INSERT INTO `account_details` (`user_id`, `name`, `address`, `phone`, `about`, `created_at`, `updated_at`) VALUES
+(1, 'Lewence Endrano', 'Sa may bako bakong daan', '09123456789', 'A full-stack web developer with a passion and drive to engage in the IT industry. Knowledgeable in developing websites, and eager to learn new abilities and improve my skills to contribute to a team and an organization.', '2023-02-07 12:21:26', '2023-02-11 07:13:31');
 
 -- --------------------------------------------------------
 
@@ -84,7 +86,7 @@ CREATE TABLE `account_login` (
 --
 
 INSERT INTO `account_login` (`login_id`, `email`, `password`, `created_at`, `updated_at`) VALUES
-(1, 'mainadmin@gmail.com', '$2y$10$kA43yjwQbOvumqzc7NbPlOSyltCbX6.bDWbrUzAf2k3AZd/7m7y3.', '2023-02-07 12:22:17', '2023-02-08 04:45:32');
+(1, 'mainadmin@gmail.com', '$2y$10$VJ0xjFC0Y7CQrrEycCCIoOgNFeKh72GoKHAU7vkT8vent8kBBDjoq', '2023-02-07 12:22:17', '2023-02-11 08:13:00');
 
 -- --------------------------------------------------------
 
@@ -105,7 +107,7 @@ CREATE TABLE `account_role` (
 
 INSERT INTO `account_role` (`role_id`, `role_name`, `created_at`, `updated_at`) VALUES
 (1, 'Main Admin', '2023-02-07 12:29:01', '2023-02-07 12:29:03'),
-(2, 'Department Admin', '2023-02-08 07:15:50', '2023-02-08 07:15:51'),
+(2, 'Admin', '2023-02-08 07:15:50', '2023-02-11 05:14:17'),
 (3, 'Staff', '2023-02-08 07:16:17', '2023-02-08 07:16:17'),
 (4, 'Librarian', '2023-02-08 07:16:29', '2023-02-08 07:16:29');
 
@@ -133,9 +135,8 @@ INSERT INTO `departments` (`dept_id`, `dept_name`, `dept_desc`, `status`, `creat
 (2, 'Registrar', 'This is the Registrar', 'Active', '2023-02-07 12:34:11', '2023-02-09 13:21:20'),
 (3, 'Cashier', 'This is the Cashier', 'Active', '2023-02-07 12:37:06', '2023-02-09 13:21:27'),
 (4, 'Library', 'This is the Library', 'Active', '2023-02-07 12:37:18', '2023-02-09 13:21:32'),
-(5, 'Sample', 'Description ni Ronald', 'Active', '2023-02-09 14:58:25', '2023-02-09 14:58:25'),
-(6, 'Sample Again', 'Description ulit ni Ronald', 'Inactive', '2023-02-09 15:00:18', '2023-02-09 15:00:18'),
-(7, 'Office of the President', 'Gusto ni Ronald Active ang status', 'Active', '2023-02-09 15:01:00', '2023-02-09 15:01:00');
+(9, 'OSA', 'Osa osa osageeee', 'Active', '2023-02-11 03:23:01', '2023-02-11 03:23:01'),
+(10, 'Computer Lab', 'Hello World', 'Inactive', '2023-02-11 03:24:48', '2023-02-11 03:24:48');
 
 --
 -- Indexes for dumped tables
@@ -146,10 +147,10 @@ INSERT INTO `departments` (`dept_id`, `dept_name`, `dept_desc`, `status`, `creat
 --
 ALTER TABLE `accounts`
   ADD PRIMARY KEY (`account_id`),
-  ADD KEY `account_role` (`role_id`),
+  ADD KEY `account_details` (`user_id`),
   ADD KEY `account_login` (`login_id`),
-  ADD KEY `departments` (`dept_id`),
-  ADD KEY `account_details` (`user_id`);
+  ADD KEY `account_role` (`role_id`),
+  ADD KEY `departments` (`dept_id`);
 
 --
 -- Indexes for table `account_details`
@@ -190,7 +191,7 @@ ALTER TABLE `accounts`
 -- AUTO_INCREMENT for table `account_details`
 --
 ALTER TABLE `account_details`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `account_login`
@@ -208,7 +209,7 @@ ALTER TABLE `account_role`
 -- AUTO_INCREMENT for table `departments`
 --
 ALTER TABLE `departments`
-  MODIFY `dept_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `dept_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Constraints for dumped tables
@@ -218,10 +219,10 @@ ALTER TABLE `departments`
 -- Constraints for table `accounts`
 --
 ALTER TABLE `accounts`
-  ADD CONSTRAINT `account_details` FOREIGN KEY (`user_id`) REFERENCES `account_details` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `account_login` FOREIGN KEY (`login_id`) REFERENCES `account_login` (`login_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `account_role` FOREIGN KEY (`role_id`) REFERENCES `account_role` (`role_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `departments` FOREIGN KEY (`dept_id`) REFERENCES `departments` (`dept_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `account_details` FOREIGN KEY (`user_id`) REFERENCES `account_details` (`user_id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `account_login` FOREIGN KEY (`login_id`) REFERENCES `account_login` (`login_id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `account_role` FOREIGN KEY (`role_id`) REFERENCES `account_role` (`role_id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `departments` FOREIGN KEY (`dept_id`) REFERENCES `departments` (`dept_id`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
