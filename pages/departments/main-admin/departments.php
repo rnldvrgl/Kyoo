@@ -166,7 +166,6 @@ $db = new Database($config['database']);
 									"</div>";
 								unset($_SESSION["msg"]);
 							}
-
 							?>
 							<div class="table-responsive">
 								<table id="departments-table" class="display w-100">

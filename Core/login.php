@@ -23,12 +23,9 @@ $db = new Database($config['database']);
 if (isset($_POST['submit'])) {
 
 	$email = Validator::email($_POST['email']);
-	$password = Validator::validate($_POST['password']);
-	$escapedPassword = Validator::loginPassword($password);
+	$password = Validator::loginPassword($_POST['password']);
 
-	// dd($escapedPassword);
-
-	if (!empty($email) && !empty($escapedPassword)) {
+	if (!empty($email) && !empty($password)) {
 
 		// Get the login_id 
 		$account_login = $db->query('SELECT * FROM account_login WHERE email = :email', [
@@ -40,7 +37,7 @@ if (isset($_POST['submit'])) {
 		if ($count !== 0) {
 			foreach ($account_login as $data) {
 				$login_id = $data['login_id'];
-				$passwordCheck = password_verify($escapedPassword, $data['password']);
+				$passwordCheck = password_verify($password, $data['password']);
 			}
 
 			// Get the user's account_id from accounts table

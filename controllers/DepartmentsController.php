@@ -20,7 +20,6 @@ $config = require '../config/connection.php';
 // instantiate the database
 $db = new Database($config['database']);
 
-
 if (isset($_POST['add-dept'])) {
 	// For Adding Department
 	$dept_name = Validator::validate($_POST['dept-name']);

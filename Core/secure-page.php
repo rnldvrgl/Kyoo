@@ -47,13 +47,13 @@ if ($_SESSION['sid'] === session_id()) {
 		if ($role_id == 2) {
 			redirect('../pages/departments/department-admin/dashboard.php');
 		} else if ($role_id == 3) {
-			redirect('../pages/departments/department-staff/dashboard.php');
+			redirect('../pages/departments/staff/dashboard.php');
 		}
 	} else if ($dept_id == 3) {
 		if ($role_id == 2) {
 			redirect('../pages/departments/department-admin/dashboard.php');
 		} else if ($role_id == 3) {
-			redirect('../pages/departments/department-staff/dashboard.php');
+			redirect('../pages/departments/staff/dashboard.php');
 		}
 	} else if ($dept_id == 4) {
 		if ($role_id == 4) {

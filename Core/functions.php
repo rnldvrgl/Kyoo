@@ -1,5 +1,7 @@
 <?php
 
+const BASE_PATH = __DIR__ . '/../Kyoo/';
+
 function dd($value)
 {
     echo "<pre>";
@@ -11,7 +13,7 @@ function dd($value)
 
 function base_path($path)
 {
-    return dirname(__DIR__) . $path;
+    return BASE_PATH . $path;
 }
 
 function redirect($path)

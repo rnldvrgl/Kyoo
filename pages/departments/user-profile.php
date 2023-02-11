@@ -61,7 +61,7 @@ $db = new Database($config['database']);
 			<nav>
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item">
-						<a href="#">Home</a>
+						<a href="/../Kyoo/pages/departments/main-admin/dashboard.php">Home</a>
 					</li>
 					<li class="breadcrumb-item active">User Profile</li>
 				</ol>
@@ -73,8 +73,8 @@ $db = new Database($config['database']);
 					<div class="card">
 						<div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 							<img src="../../assets/img/profile-img.jpg" alt="Profile" class="rounded-circle" />
-							<h2>Mark Liwins</h2>
-							<h3>Web Designer</h3>
+							<h2><?= $name ?></h2>
+							<h3><?= $role ?></h3>
 						</div>
 					</div>
 				</div>
@@ -99,13 +99,25 @@ $db = new Database($config['database']);
 								</li>
 							</ul>
 							<div class="tab-content pt-2">
+
+								<?php
+								// TODO: Paki-ayos nalang pwesto neto Boss Salamat! hahahahahha tapos di rin sya nawawala kung di rerefresh
+
+								if (isset($_SESSION['profile_msg']) && isset($_SESSION['alert_type'])) {
+									$msg = $_SESSION['profile_msg'];
+									$alert = $_SESSION['alert_type'];
+									echo '<div id="msg" class="alert ' . $alert . ' alert-dismissible fade show" role="alert">'
+										. $msg .
+										"</div>";
+									unset($_SESSION["profile_msg"]);
+								}
+								?>
+
+								<!-- Overview -->
 								<div class="tab-pane fade show active profile-overview" id="profile-overview">
 									<h5 class="card-title">About</h5>
 									<p class="small fst-italic">
-										Ako'y isang sirena
-										Kahit ano'ng sabihin nila, ako ay ubod ng ganda
-										Ako'y isang sirena
-										Kahit ano'ng gawin nila, bandera ko'y 'di tutumba
+										<?= $about; ?>
 									</p>
 									<h5 class="card-title">
 										Profile Details
@@ -115,7 +127,7 @@ $db = new Database($config['database']);
 											Full Name
 										</div>
 										<div class="col-lg-9 col-md-8">
-											Mark Liwins
+											<?= $name; ?>
 										</div>
 									</div>
 									<div class="row">
@@ -123,7 +135,7 @@ $db = new Database($config['database']);
 											Department
 										</div>
 										<div class="col-lg-9 col-md-8">
-											Adonis
+											<?= $dept_name; ?>
 										</div>
 									</div>
 									<div class="row">
@@ -131,7 +143,7 @@ $db = new Database($config['database']);
 											Position
 										</div>
 										<div class="col-lg-9 col-md-8">
-											Web Designer
+											<?= $role; ?>
 										</div>
 									</div>
 									<div class="row">
@@ -139,7 +151,7 @@ $db = new Database($config['database']);
 											Address
 										</div>
 										<div class="col-lg-9 col-md-8">
-											Sa may bako bakong daanan
+											<?= $address; ?>
 										</div>
 									</div>
 									<div class="row">
@@ -147,7 +159,7 @@ $db = new Database($config['database']);
 											Phone
 										</div>
 										<div class="col-lg-9 col-md-8">
-											0969-6969-696
+											<?= $phone; ?>
 										</div>
 									</div>
 									<div class="row">
@@ -155,14 +167,15 @@ $db = new Database($config['database']);
 											Email
 										</div>
 										<div class="col-lg-9 col-md-8">
-											endranomarklewence@gmail.com
+											<?= $email; ?>
 										</div>
 									</div>
 								</div>
 
 								<!-- Edit Profile -->
 								<div class="tab-pane fade profile-edit pt-3" id="profile-edit">
-									<form>
+									<!-- Form -->
+									<form action="/../Kyoo/controllers/UserProfileController.php" method="POST">
 										<div class="row mb-3">
 											<label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
 											<div class="col-md-8 col-lg-9">
@@ -173,50 +186,57 @@ $db = new Database($config['database']);
 												</div>
 											</div>
 										</div>
-										<div class="row mb-3">
-											<label for="fullName" class="col-md-4 col-lg-3 col-form-label">Full Name</label>
+
+										<div class="row">
 											<div class="col-md-8 col-lg-9">
-												<input name="fullName" type="text" class="form-control" id="fullName" value="Mark Liwins" />
+												<input name="user_id" type="hidden" class="form-control" id="user_id" value="<?= $user_id; ?>" />
+											</div>
+										</div>
+
+										<div class="row mb-3">
+											<label for="name" class="col-md-4 col-lg-3 col-form-label">Full Name</label>
+											<div class="col-md-8 col-lg-9">
+												<input name="name" type="text" class="form-control" id="name" value="<?= $name; ?>" />
 											</div>
 										</div>
 										<div class="row mb-3">
 											<label for="about" class="col-md-4 col-lg-3 col-form-label">About</label>
 											<div class="col-md-8 col-lg-9">
-												<textarea name="about" class="form-control" id="about" style="height: 75px">Ako'y isang sirena Kahit ano'ng sabihin nila, ako ay ubod ng ganda Ako'y isang sirena Kahit ano'ng gawin nila, bandera ko'y 'di tutumba</textarea>
+												<textarea name="about" class="form-control" id="about" style="height: 75px"><?= $about; ?></textarea>
 											</div>
 										</div>
 										<div class="row mb-3">
-											<label for="company" class="col-md-4 col-lg-3 col-form-label">Department</label>
+											<label for="department" class="col-md-4 col-lg-3 col-form-label">Department</label>
 											<div class="col-md-8 col-lg-9">
-												<input name="company" type="text" class="form-control" id="company" value="Adonis" disabled />
+												<input name="department" type="text" class="form-control" id="department" value="<?= $dept_name; ?>" disabled />
 											</div>
 										</div>
 										<div class="row mb-3">
 											<label for="position" class="col-md-4 col-lg-3 col-form-label">Position</label>
 											<div class="col-md-8 col-lg-9">
-												<input name="position" type="text" class="form-control" id="position" value="Web Designer" disabled />
+												<input name="position" type="text" class="form-control" id="position" value="<?= $role; ?>" disabled />
 											</div>
 										</div>
 										<div class="row mb-3">
 											<label for="Address" class="col-md-4 col-lg-3 col-form-label">Address</label>
 											<div class="col-md-8 col-lg-9">
-												<input name="address" type="text" class="form-control" id="Address" value="Sa may bako bakong daanan" />
+												<input name="address" type="text" class="form-control" id="Address" value="<?= $address; ?>" />
 											</div>
 										</div>
 										<div class="row mb-3">
 											<label for="Phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
 											<div class="col-md-8 col-lg-9">
-												<input name="phone" type="text" class="form-control" id="Phone" value="0969-6969-696" />
+												<input name="phone" type="text" class="form-control" id="Phone" value="<?= $phone; ?>" />
 											</div>
 										</div>
 										<div class="row mb-3">
 											<label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
 											<div class="col-md-8 col-lg-9">
-												<input name="email" type="email" class="form-control" id="Email" value="endranomarklewence@gmail.com" disabled />
+												<input name="email" type="email" class="form-control" id="Email" value="<?= $email; ?>" disabled />
 											</div>
 										</div>
 										<div class="text-center">
-											<button type="submit" class="btn btn-success">
+											<button type="submit" name="save-changes" class="btn btn-success">
 												Save Changes
 											</button>
 										</div>
@@ -225,7 +245,14 @@ $db = new Database($config['database']);
 
 								<!-- Change Password -->
 								<div class="tab-pane fade pt-3" id="profile-change-password">
-									<form>
+									<form action="/../Kyoo/controllers/UserProfileController.php" method="POST">
+
+										<div class="row">
+											<div class="col-md-8 col-lg-9">
+												<input name="user_id" type="hidden" class="form-control" id="user_id" value="<?= $user_id; ?>" />
+											</div>
+										</div>
+
 										<div class="row mb-3">
 											<label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
 											<div class="col-md-8 col-lg-9">
@@ -246,7 +273,7 @@ $db = new Database($config['database']);
 											</div>
 										</div>
 										<div class="text-center">
-											<button type="submit" class="btn btn-success">
+											<button type="submit" name="change-password" class="btn btn-success">
 												Change Password
 											</button>
 										</div>
