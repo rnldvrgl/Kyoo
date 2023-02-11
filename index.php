@@ -17,12 +17,12 @@
 
 <body>
 	<!-- Navbar -->
-	<nav class="navbar navbar-expand-lg bg-kyoodark navbar-dark">
+	<nav class="navbar sticky-top navbar-expand-sm bg-kyoodark navbar-dark">
 		<!-- Container wrapper -->
 		<div class="container-fluid">
 
 			<!-- Navbar brand -->
-			<a class="navbar-brand d-none d-lg-block" href="#">
+			<a class="navbar-brand" href="#">
 				<img src="assets/img/kyoo-logo.png" alt="" width="40" height="34">
 			</a>
 
@@ -33,20 +33,19 @@
 
 			<!-- Collapsible wrapper -->
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<!-- Left links -->
-				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+				<ul class="navbar-nav me-auto">
 					<li class="nav-item">
 						<a class="nav-link active" href="#">
 							<i class="fa-solid fa-house-chimney"></i>
 							HOME
 						</a>
 					</li>
-					<l i class="nav-item">
+					<li class="nav-item">
 						<a class="nav-link" href="#">
 							<i class="fa-solid fa-file-circle-question"></i>
 							FAQs
 						</a>
-					</l>
+					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="#">
 							<i class="fa-solid fa-message"></i>
@@ -54,9 +53,11 @@
 						</a>
 					</li>
 				</ul>
-				<!-- Left links -->
-				<!-- Login -->
-				<a class="btn btn-kyoored me-3" href="pages/auth/login.php">LOGIN</a>
+
+				<div class="d-grid">
+					<!-- Login -->
+					<a class=" btn btn-block btn-kyoored" href="pages/auth/login.php">LOGIN</a>
+				</div>
 			</div>
 			<!-- Collapsible wrapper -->
 		</div>
@@ -75,7 +76,5 @@
 	<script src="assets/js/validate.js"></script>
 	<script src="assets/js/main.js"></script>
 </body>
-
-<!-- Form Validate -->
 
 </html>
