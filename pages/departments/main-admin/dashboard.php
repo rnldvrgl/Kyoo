@@ -4,6 +4,9 @@ session_start();
 
 require '../../../Core/functions.php';
 
+// Arrays of the user's information
+$info = $_SESSION['user_info'];
+
 if (isset($_SESSION['sid']) !== session_id() && isset($_SESSION['authorized']) !== TRUE) {
 	redirect('../../auth/login.php');
 }

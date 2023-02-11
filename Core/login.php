@@ -78,19 +78,17 @@ if (isset($_POST['submit'])) {
 				'department' => $department,
 			);
 
-			// dd($info);
-
 			if ($passwordCheck !== FALSE) {
 				$_SESSION['sid'] = session_id();
 				$_SESSION['user_info'] = $info;
 				redirect('secure-page.php');
 			} else {
-				$_SESSION['err'] = 'Op op op op yung Mali nanaman!';
+				$_SESSION['err'] = 'Invalid Email or Password!';
 				redirect('../pages/auth/login.php');
 			}
 		} else {
 			// If no email address found, redirect to login page
-			$_SESSION['err'] = 'Mali yan!';
+			$_SESSION['err'] = 'Invalid Email or Password!';
 			redirect('../pages/auth/login.php');
 		}
 	} else {

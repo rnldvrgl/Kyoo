@@ -4,6 +4,9 @@ session_start();
 
 require '../../../Core/functions.php';
 
+// Arrays of the user's information
+$info = $_SESSION['user_info'];
+
 if (isset($_SESSION['sid']) !== session_id() && isset($_SESSION['authorized']) !== TRUE) {
 	redirect('../../auth/login.php');
 }
@@ -100,13 +103,13 @@ $db = new Database($config['database']);
 								<!-- Department Name Input -->
 								<div class="col-md-12">
 									<div class="form-floating">
-										<input type="text" class="form-control" id="floatingDeptName" name="dept-name" placeholder="Department Name" pattern="[A-Za-z\s]+{3,}" title="Letters Only" required>
+										<input type="text" class="form-control" id="floatingDeptName" name="dept-name" placeholder="Department Name" pattern="[A-Za-z\s]{3,}" title="Letters Only (atleast 3 characters)" required>
 										<label for="floatingDeptName">Department Name</label>
 										<div class="valid-feedback">
 											Looks good!
 										</div>
 										<div class="invalid-feedback">
-											Required
+											Required (Atleast 3 characters)
 										</div>
 									</div>
 								</div>
@@ -160,8 +163,7 @@ $db = new Database($config['database']);
 								$alert = $_SESSION['alert_type'];
 								echo '<div id="msg" class="alert ' . $alert . ' alert-dismissible fade show" role="alert">'
 									. $msg .
-									"<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
-									</div>";
+									"</div>";
 								unset($_SESSION["msg"]);
 							}
 
@@ -174,9 +176,9 @@ $db = new Database($config['database']);
 										<tr>
 											<th>Department Name</th>
 											<th>Description</th>
-											<th>Status</th>
 											<th>Date Added</th>
 											<th>Date Modified</th>
+											<th>Status</th>
 											<th>Action</th>
 										</tr>
 									</thead>
@@ -197,21 +199,18 @@ $db = new Database($config['database']);
 												<tr>
 													<td><?= $dept_name; ?></td>
 													<td><?= $dept_desc; ?></td>
+													<td><?= $created_at; ?></td>
+													<td><?= $updated_at; ?></td>
 													<td>
 														<?php
 														if ($status == 'Active') {
 															echo
-															'<span class="badge rounded-pill text-bg-success">Active</span>
-';
+															'<span class="badge rounded-pill text-bg-success">Active</span>';
 														} else {
-															echo '<span class="badge rounded-pill text-bg-danger">Inactive</span>
-
-';
+															echo '<span class="badge rounded-pill text-bg-danger">Inactive</span>';
 														}
 														?>
 													</td>
-													<td><?= $created_at; ?></td>
-													<td><?= $updated_at; ?></td>
 													<td class="text-center d-grid gap-2">
 														<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#updateModal">
 															<i class="fa-solid fa-pen-to-square"></i>
