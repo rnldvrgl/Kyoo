@@ -128,7 +128,7 @@ $db = new Database($config['database']);
 									</div>
 									<div class="row">
 										<div class="col-lg-3 col-md-4 label">
-											Job
+											Position
 										</div>
 										<div class="col-lg-9 col-md-8">
 											Web Designer
@@ -192,9 +192,9 @@ $db = new Database($config['database']);
 											</div>
 										</div>
 										<div class="row mb-3">
-											<label for="Job" class="col-md-4 col-lg-3 col-form-label">Position</label>
+											<label for="position" class="col-md-4 col-lg-3 col-form-label">Position</label>
 											<div class="col-md-8 col-lg-9">
-												<input name="job" type="text" class="form-control" id="Job" value="Web Designer" disabled />
+												<input name="position" type="text" class="form-control" id="position" value="Web Designer" disabled />
 											</div>
 										</div>
 										<div class="row mb-3">
