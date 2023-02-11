@@ -1,5 +1,5 @@
 (function () {
-    "use strict";
+    ("use strict");
 
     /**
      * Easy selector helper function

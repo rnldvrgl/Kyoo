@@ -1,3 +1,27 @@
+<?php
+
+session_start();
+
+require '../../../Core/functions.php';
+
+if (isset($_SESSION['sid']) !== session_id() && isset($_SESSION['authorized']) !== TRUE) {
+	redirect('../../auth/login.php');
+}
+
+// Uncomment to check if user's information are saved into the session
+// dd($_SESSION['user_info']);
+
+use Core\Database;
+
+// require connection to the database
+$config = require '../../../config/connection.php';
+
+require '../../../Core/Database.php';
+
+// instantiate the Database
+$db = new Database($config['database']);
+
+?>
 <!doctype html>
 <html lang="en">
 
@@ -15,6 +39,9 @@
 
 	<!-- jQuery DataTables.net CSS-->
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.css">
+
+	<!-- JQuery Confirm CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
 
 	<!-- Font Awesome Icons -->
 	<script src="https://kit.fontawesome.com/98a2b5e7f0.js" crossorigin="anonymous"></script>
@@ -39,7 +66,7 @@
 				<h1>Departments</h1>
 				<nav>
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="index.html">Home</a></li>
+						<li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
 						<li class="breadcrumb-item active">Departments</li>
 					</ol>
 				</nav>
@@ -69,34 +96,50 @@
 						<!-- Modal Body -->
 						<div class="modal-body">
 							<!-- Form -->
-							<form action="#" method="#" class="row g-3">
+							<form action="../../../controllers/DepartmentsController.php" method="POST" class="row g-3 needs-validation" novalidate>
 								<!-- Department Name Input -->
 								<div class="col-md-12">
-									<div class="form-floating"> <input type="text" class="form-control" id="floatingDeptName" placeholder="Department Name"> <label for="floatingDeptName">Department Name</label></div>
+									<div class="form-floating">
+										<input type="text" class="form-control" id="floatingDeptName" name="dept-name" placeholder="Department Name" pattern="[A-Za-z\s]+{3,}" title="Letters Only" required>
+										<label for="floatingDeptName">Department Name</label>
+										<div class="valid-feedback">
+											Looks good!
+										</div>
+										<div class="invalid-feedback">
+											Required
+										</div>
+									</div>
 								</div>
 								<!-- Department Description Input -->
 								<div class="col-12">
-									<div class="form-floating"><textarea class="form-control" placeholder="Description" id="floatingDesc" style="height: 100px;"></textarea><label for="floatingDesc">Description</label></div>
+									<div class="form-floating">
+										<textarea class="form-control" placeholder="Description" pattern="[A-Za-z0-9]+" title="Letters and Numbers Only" id="floatingDesc" name="dept-desc" style="height: 100px;" required></textarea>
+										<label for="floatingDesc">Description</label>
+										<div class="valid-feedback">
+											Looks good!
+										</div>
+										<div class="invalid-feedback">
+											Required
+										</div>
+									</div>
 								</div>
 								<!-- Department Status Select -->
 								<div class="col-12">
 									<div class="form-floating mb-3">
-										<select class="form-select" id="floatingStatus" aria-label="State">
-											<option value="active">Active</option>
-											<option value="inactive" selected>Inactive</option>
+										<select class="form-select" id="floatingStatus" name="status" aria-label="State" required>
+											<option value="Active">Active</option>
+											<option value="Inactive" selected>Inactive</option>
 										</select>
 										<label for="floatingStatus">Status</label>
 									</div>
 								</div>
+								<!-- Modal Footer -->
+								<div class="modal-footer d-flex justify-content-right">
+									<button type="submit" name="add-dept" class="btn btn-success">
+										Save
+									</button>
+								</div>
 							</form>
-						</div>
-						<div class="modal-footer d-flex justify-content-between">
-							<button class="btn text-danger" data-bs-dismiss="modal">
-								Cancel
-							</button>
-							<button type="submit" class="btn btn-success">
-								Save
-							</button>
 						</div>
 					</div>
 				</div>
@@ -107,37 +150,89 @@
 		<!-- Content Section -->
 		<section class="section">
 			<div class="row">
-				<div class="col-lg-8">
+				<div class="col-lg-12">
 					<div class="card">
 						<div class="card-body">
-							<!-- Dito ko lalagay yung DataTable -->
 							<h5 class="card-title">Departments</h5>
-							<table id="departments-table" class="display">
-								<thead>
-									<tr>
-										<th>Column 1</th>
-										<th>Column 2</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>Row 1 Data 1</td>
-										<td>Row 1 Data 2</td>
-									</tr>
-									<tr>
-										<td>Row 2 Data 1</td>
-										<td>Row 2 Data 2</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4">
-					<div class="card">
-						<div class="card-body">
-							<h5 class="card-title">Example Card</h5>
-							<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad, quos expedita dolore nesciunt commodi repellendus reprehenderit libero ipsum quia consequuntur vitae enim, voluptatem alias omnis rem iusto veritatis, ullam possimus.</p>
+							<?php
+							if (isset($_SESSION['msg']) && isset($_SESSION['alert_type'])) {
+								$msg = $_SESSION['msg'];
+								$alert = $_SESSION['alert_type'];
+								echo '<div id="msg" class="alert ' . $alert . ' alert-dismissible fade show" role="alert">'
+									. $msg .
+									"<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+									</div>";
+								unset($_SESSION["msg"]);
+							}
+
+							?>
+							<div class="table-responsive">
+								<table id="departments-table" class="display w-100">
+									<caption>List of Departments</caption>
+
+									<thead>
+										<tr>
+											<th>Department Name</th>
+											<th>Description</th>
+											<th>Status</th>
+											<th>Date Added</th>
+											<th>Date Modified</th>
+											<th>Action</th>
+										</tr>
+									</thead>
+									<tbody>
+										<?php
+										// Get the Departments 
+										$departments = $db->query('SELECT * FROM departments')->get();
+
+										if (count($departments) > 0) {
+											foreach ($departments as $department) {
+												$id = $department['dept_id'];
+												$dept_name = $department['dept_name'];
+												$dept_desc = $department['dept_desc'];
+												$status = $department['status'];
+												$created_at = $department['created_at'];
+												$updated_at = $department['updated_at'];
+										?>
+												<tr>
+													<td><?= $dept_name; ?></td>
+													<td><?= $dept_desc; ?></td>
+													<td>
+														<?php
+														if ($status == 'Active') {
+															echo
+															'<span class="badge rounded-pill text-bg-success">Active</span>
+';
+														} else {
+															echo '<span class="badge rounded-pill text-bg-danger">Inactive</span>
+
+';
+														}
+														?>
+													</td>
+													<td><?= $created_at; ?></td>
+													<td><?= $updated_at; ?></td>
+													<td class="text-center d-grid gap-2">
+														<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#updateModal">
+															<i class="fa-solid fa-pen-to-square"></i>
+														</button>
+
+														<button class="btn btn-danger" id="deleteData" href="../../../controllers/DepartmentsController.php?action=Delete&id=<?= $id; ?>">
+															<i class="fa-solid fa-trash-can"></i>
+														</button>
+														<!-- <a class="text-secondary" href="../../../controllers/DepartmentsController.php?action=Update&id=<?= $id; ?>"></i></a>
+												<a class="text-danger" href="../../../controllers/DepartmentsController.php?action=Delete&id=<?= $id; ?>"></a> -->
+													</td>
+												</tr>
+										<?php
+											}
+										} else {
+											echo '<p class="text-danger text-center fw-bold"><em>No Records were found.</em></p>';
+										}
+										?>
+									</tbody>
+								</table>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -158,11 +253,20 @@
 	<!-- DataTable JS -->
 	<script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
 
+	<!-- JQuery Confirm CDN JS  -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+
 	<!-- Main JS -->
 	<script src="../../../assets/js/main.js"></script>
 
 	<!-- DataTable JS -->
 	<script src="../../../assets/js/datatables.js"></script>
+
+	<!-- JQuery Confirm Main JS  -->
+	<script src="../../../assets/js/jquery-confirm.js"></script>
+
+	<!-- JQuery Confirm Main JS  -->
+	<script src="../../../assets/js/validateForm.js"></script>
 </body>
 
 </html>

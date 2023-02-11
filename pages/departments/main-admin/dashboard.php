@@ -61,7 +61,7 @@ $db = new Database($config['database']);
 			<nav>
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item">
-						<a href="#">Home</a>
+						<a href="dashboard.php">Home</a>
 					</li>
 					<li class="breadcrumb-item active">Dashboard</li>
 				</ol>
