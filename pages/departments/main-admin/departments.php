@@ -153,7 +153,6 @@ $db = new Database($config['database']);
 				<div class="col-lg-12">
 					<div class="card">
 						<div class="card-body">
-							<!-- // ! Because of session, session message is still there even if we refresh the page -->
 							<h5 class="card-title">Departments</h5>
 							<?php
 							if (isset($_SESSION['msg']) && isset($_SESSION['alert_type'])) {
@@ -163,7 +162,9 @@ $db = new Database($config['database']);
 									. $msg .
 									"<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
 									</div>";
+								unset($_SESSION["msg"]);
 							}
+
 							?>
 							<div class="table-responsive">
 								<table id="departments-table" class="display w-100">
