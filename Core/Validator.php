@@ -14,6 +14,12 @@ class Validator
         return $data;
     }
 
+    // Regex for General Use
+    public static function validateRegex($data)
+    {
+        // Code here ...
+    }
+
     // For Email Validation
     public static function email($data)
     {

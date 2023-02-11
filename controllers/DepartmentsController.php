@@ -27,9 +27,14 @@ if (isset($_POST['add-dept'])) {
 	$dept_desc = Validator::validate($_POST['dept-desc']);
 	$status = Validator::validate($_POST['status']);
 
-	// TODO: Replace the If condition with Validation if the adding Department name is already exist in the database
-	if (empty($dept_name) || empty($dept_desc)) {
-		$_SESSION['msg'] = "Fill in all required fields";
+	// See if there is an existing department
+	$dept_name_from_db = $db->query('SELECT dept_name FROM departments WHERE dept_name = :dept_name', [
+		'dept_name' => $dept_name,
+	])->get();
+
+	if (count($dept_name_from_db) > 0) {
+		$_SESSION['msg'] = "Department already exists!";
+		$_SESSION['alert_type'] = "alert-warning";
 		redirect('../pages/departments/main-admin/departments.php');
 	} else {
 		$db->query('INSERT INTO departments(dept_name, dept_desc, status) VALUES (:dept_name, :dept_desc, :status)', [
