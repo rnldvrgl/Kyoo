@@ -2,28 +2,28 @@
 	<aside id="sidebar" class="sidebar">
 		<ul class="sidebar-nav" id="sidebar-nav">
 			<li class="nav-item">
-				<a class="nav-link" href="../main-admin/dashboard.php">
+				<a class="nav-link" href="<?php path('pages/departments/main-admin/dashboard.php') ?>">
 					<i class="fa-solid fa-table-cells-large"></i><span>Dashboard</span>
 				</a>
 			</li>
 			<li class="nav-heading">OTHERS</li>
 			<li class="nav-item">
-				<a class="nav-link collapsed" href="../main-admin/departments.php">
+				<a class="nav-link collapsed" href="<?php path('pages/departments/main-admin/departments.php') ?>">
 					<i class="fa-solid fa-building"></i><span>Departments</span>
 				</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link collapsed" href="../main-admin/services.php">
+				<a class="nav-link collapsed" href="<?php path('pages/departments/main-admin/services.php') ?>">
 					<i class="fa-solid fa-hand-holding"></i><span>Services</span>
 				</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link collapsed" href="../main-admin/faquestions.php">
+				<a class="nav-link collapsed" href="<?php path('pages/departments/main-admin/faquestions.php') ?>">
 					<i class="fa-solid fa-file-circle-question"></i> <span>F.A.Q</span>
 				</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link collapsed" href="../main-admin/accounts.php">
+				<a class="nav-link collapsed" href="<?php path('pages/departments/main-admin/accounts.php') ?>">
 					<i class="fa-solid fa-user"></i><span>Accounts</span>
 				</a>
 			</li>

@@ -48,7 +48,7 @@ foreach ($departments as $d) {
 <header id="header" class="header fixed-top d-flex align-items-center bg-kyoodark">
 	<div class="d-flex align-items-center justify-content-between">
 		<a href="#" class="logo d-flex align-items-center">
-			<img src="/../Kyoo/assets/img/kyoo-logo.png" alt="" />
+			<img src="<?php path('assets/img/kyoo-logo.png') ?>" alt="" />
 			<span class="d-none d-lg-block">Queueing Management System</span>
 		</a>
 		<i class="fa-solid fa-bars toggle-sidebar-btn"></i>
@@ -61,7 +61,7 @@ foreach ($departments as $d) {
 			</li>
 			<li class=" nav-item dropdown pe-3">
 				<a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-					<img src="/../Kyoo/assets/img/profile-img.jpg" alt="Profile" class="rounded-circle" />
+					<img src="<?php path('assets/img/profile-img.jpg') ?>" alt="Profile" class="rounded-circle" />
 					<span class="d-none d-md-block dropdown-toggle ps-2"><?= $name ?></span>
 				</a>
 				<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
@@ -73,7 +73,7 @@ foreach ($departments as $d) {
 						<hr class="dropdown-divider" />
 					</li>
 					<li>
-						<a class="dropdown-item d-flex align-items-center" href="/../Kyoo/pages/departments/user-profile.php">
+						<a class="dropdown-item d-flex align-items-center" href="<?php path('pages/departments/user-profile.php') ?>">
 							<i class="fa-solid fa-user"></i>
 							<span>My Profile</span>
 						</a>
@@ -82,7 +82,7 @@ foreach ($departments as $d) {
 						<hr class="dropdown-divider" />
 					</li>
 					<li>
-						<a class="dropdown-item d-flex align-items-center" href="../../../Core/logout.php">
+						<a class="dropdown-item d-flex align-items-center" href="<?php path('Core/logout.php') ?>">
 							<i class="fa-solid fa-arrow-right-from-bracket"></i>
 							<span>Sign Out</span>
 						</a>

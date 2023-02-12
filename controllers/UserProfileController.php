@@ -9,13 +9,13 @@ use Core\Database;
 require '../Core/functions.php';
 
 // Validator Class
-require '../Core/Validator.php';
+require base_path('Core/Validator.php');
 
 // Database Class
-require '../Core/Database.php';
+require base_path('Core/Database.php');
 
 // require connection to the database
-$config = require '../config/connection.php';
+$config = require base_path('config/connection.php');
 
 // instantiate the database
 $db = new Database($config['database']);

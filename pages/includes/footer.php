@@ -4,10 +4,20 @@
 	<!-- DataTable JS -->
 	<script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
 
-	<!-- Main JS -->
-	<script src="../../assets/js/main.js"></script>
-	</body>
+	<!-- JQuery Confirm CDN JS  -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 
-	<!-- Form Validate -->
+	<!-- Main JS -->
+	<script src="<?php path('assets/js/main.js') ?>"></script>
+
+	<!-- DataTable JS -->
+	<script src="<?php path('assets/js/datatables.js') ?>"></script>
+
+	<!-- JQuery Confirm Local JS  -->
+	<script src="<?php path('assets/js/jquery-confirm.js') ?>"></script>
+
+	<!-- JQuery Validate Form JS  -->
+	<script src="<?php path('assets/js/validateForm.js') ?>"></script>
+	</body>
 
 	</html>
