@@ -32,63 +32,41 @@ if (isset($_POST['submit'])) {
 			'email' => $email,
 		])->get();
 
+		// Count the number of rows returned by the database query
 		$count = count($account_login);
 
+		// Check if there is an email in the database that matches the email address that the user entered in the form
 		if ($count !== 0) {
 			foreach ($account_login as $data) {
 				$login_id = $data['login_id'];
 				$passwordCheck = password_verify($password, $data['password']);
 			}
 
-			// Get the user's account_id from accounts table
+			// Get the user's account_id from accounts table using the login_id
 			$accounts = $db->query('SELECT * FROM accounts WHERE login_id = :login_id', [
 				'login_id' => $login_id,
 			])->get();
 
 			foreach ($accounts as $account) {
-				$user_id = $account['user_id'];
-				$role_id = $account['role_id'];
-				$dept_id = $account['dept_id'];
+				$account_id = $account['account_id'];
 			}
 
-			// Get the user's details
-			$account_details = $db->query('SELECT * FROM account_details WHERE user_id = :user_id', [
-				'user_id' => $user_id,
-			])->get();
-
-			// Get the user's role
-			$account_role = $db->query('SELECT * FROM account_role WHERE role_id = :role_id', [
-				'role_id' => $role_id,
-			])->get();
-
-			// Get the user's department
-			$department = $db->query('SELECT * FROM departments WHERE dept_id = :dept_id', [
-				'dept_id' => $dept_id,
-			])->get();
-
-			// Store all of the user related information into an array
-			$info = array(
-				'account_login' => $account_login,
-				'accounts' => $accounts,
-				'account_details' => $account_details,
-				'account_role' => $account_role,
-				'department' => $department,
-			);
-
+			// Verify if the password from the database matches the password from what the user entered
 			if ($passwordCheck !== FALSE) {
 				$_SESSION['sid'] = session_id();
-				$_SESSION['user_info'] = $info;
+				$_SESSION['account_id'] = $account_id;
 				redirect('secure-page.php');
 			} else {
+				// If passwords doesn't match, redirect to login page
 				$_SESSION['err'] = 'Invalid Email or Password!';
-				redirect('../pages/auth/login.php');
+				redirect(path('pages/auth/login.php'));
 			}
 		} else {
 			// If no email address found, redirect to login page
 			$_SESSION['err'] = 'Invalid Email or Password!';
-			redirect('../pages/auth/login.php');
+			redirect(path('pages/auth/login.php'));
 		}
 	} else {
-		redirect('../pages/auth/login.php');
+		redirect(path('pages/auth/login.php'));
 	}
 }

@@ -8,13 +8,9 @@ if (isset($_SESSION['sid']) !== session_id() && isset($_SESSION['authorized']) !
 	redirect('../../auth/login.php');
 }
 
-// Uncomment to check if user's information are saved into the session
-// dd($_SESSION['user_info']);
-
 use Core\Database;
 
 // require connection to the database
-// $config = require '../../config/connection.php';
 $config = require base_path('config/connection.php');
 
 require base_path('Core/Database.php');
@@ -43,7 +39,7 @@ $db = new Database($config['database']);
 			<h1>Accounts</h1>
 			<nav>
 				<ol class="breadcrumb">
-					<li class="breadcrumb-item"><a href="#">Home</a></li>
+					<li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
 					<li class="breadcrumb-item active">Accounts</li>
 				</ol>
 			</nav>

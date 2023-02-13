@@ -13,12 +13,12 @@
 				</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link collapsed" href="<?php path('pages/departments/main-admin/services.php') ?>">
+				<a class="nav-link collapsed" href="<?php path('pages/error/404.php') ?>">
 					<i class="fa-solid fa-hand-holding"></i><span>Services</span>
 				</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link collapsed" href="<?php path('pages/departments/main-admin/faquestions.php') ?>">
+				<a class="nav-link collapsed" href="<?php path('pages/error/404.php') ?>">
 					<i class="fa-solid fa-file-circle-question"></i> <span>F.A.Q</span>
 				</a>
 			</li>

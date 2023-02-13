@@ -27,8 +27,6 @@ if (isset($_POST['save-changes'])) {
     $phone = Validator::validate($_POST['phone']);
     $about = Validator::validate($_POST['about']);
 
-    // !! CONCERN: If nagpalit sya ng info, di agad magrereflect sa My Profile since nakaSet sa Session Variable yung data na kinuha natin para mag-Display dito sa page na to, magrereflect lang kapag nagLogin sya ulit ng bagong session para maFetch nanaman ng bagong data ang maSet sa new Session Variable
-    // ?? POSSIBLE FIX: MAG-QUERY NALANG ULIT
     if (empty($name) || empty($address) || empty($about) || empty($phone)) {
         $_SESSION['profile_msg'] = "Fields are empty!";
         $_SESSION['alert_type'] = "alert-warning";

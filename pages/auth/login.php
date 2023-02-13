@@ -3,14 +3,30 @@ session_start();
 
 require '../../Core/functions.php';
 
+// Database Namespace
+use Core\Database;
+
+// Database Class
+require base_path('Core/Database.php');
+
+// require connection to the database
+$config = require base_path('config/connection.php');
+
+// instantiate the database
+$db = new Database($config['database']);
+
 // Conditional statement
 if (isset($_SESSION['sid'])) {
 
 	// Arrays of user information
-	$info = $_SESSION['user_info'];
+	$account_id = $_SESSION['account_id'];
+
+	$info = $db->query("SELECT * FROM accounts WHERE account_id = :account_id", [
+		'account_id' => $account_id,
+	])->get();
 
 	// Loop through accounts table and get IDs
-	foreach ($info['accounts'] as $ids) {
+	foreach ($info as $ids) {
 		$account_id = $ids['account_id'];
 		$role_id = $ids['role_id'];
 		$dept_id = $ids['dept_id'];

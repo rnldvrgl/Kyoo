@@ -4,22 +4,16 @@ session_start();
 
 require '../../../Core/functions.php';
 
-// Arrays of the user's information
-$info = $_SESSION['user_info'];
-
 if (isset($_SESSION['sid']) !== session_id() && isset($_SESSION['authorized']) !== TRUE) {
 	redirect('../../auth/login.php');
 }
 
-// Uncomment to check if user's information are saved into the session
-// dd($_SESSION['user_info']);
-
 use Core\Database;
 
 // require connection to the database
-$config = require '../../../config/connection.php';
+$config = require base_path('config/connection.php');
 
-require '../../../Core/Database.php';
+require base_path('Core/Database.php');
 
 // instantiate the Database
 $db = new Database($config['database']);

@@ -9,6 +9,7 @@ session_start();
 use Core\Database;
 
 require 'functions.php';
+
 require 'Database.php';
 
 // require connection to the database
@@ -20,9 +21,13 @@ $db = new Database($config['database']);
 if ($_SESSION['sid'] === session_id()) {
 	$_SESSION['authorized'] = TRUE;
 
-	$info = $_SESSION['user_info'];
+	$account_id = $_SESSION['account_id'];
 
-	foreach ($info['accounts'] as $ids) {
+	$info = $db->query("SELECT * FROM accounts WHERE account_id = :account_id", [
+		'account_id' => $account_id,
+	])->get();
+
+	foreach ($info as $ids) {
 		$role_id = $ids['role_id'];
 		$dept_id = $ids['dept_id'];
 	}
