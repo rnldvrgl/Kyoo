@@ -21,7 +21,7 @@ $theme-colors: map-merge($theme-colors , $custom-colors );
 
 :root {
 	--bs-body-font-family: 'Poppins',
-		sans-serif;
+		sans-serif !important;
 }
 
 // Globals SCSS

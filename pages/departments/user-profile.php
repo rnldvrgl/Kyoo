@@ -8,13 +8,9 @@ if (isset($_SESSION['sid']) !== session_id() && isset($_SESSION['authorized']) !
 	redirect('../../auth/login.php');
 }
 
-// Uncomment to check if user's information are saved into the session
-// dd($_SESSION['user_info']);
-
 use Core\Database;
 
 // require connection to the database
-// $config = require '../../config/connection.php';
 $config = require base_path('config/connection.php');
 
 require base_path('Core/Database.php');
@@ -42,7 +38,7 @@ $db = new Database($config['database']);
 		<nav>
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item">
-					<a href="<?php path('pages/departments/main-admin/dashboard.php') ?>">Home</a>
+					<a href="<?php echo path('pages/departments/main-admin/dashboard.php') ?>">Home</a>
 				</li>
 				<li class="breadcrumb-item active">User Profile</li>
 			</ol>
@@ -271,7 +267,7 @@ $db = new Database($config['database']);
 
 <!-- Footer Partial -->
 <?php require(base_path('pages/partials/__footer.php')); ?>
-<!-- /Footer -->
+<!-- /Footer Partial -->
 
 <!-- Footer -->
 <?php require(base_path('pages/includes/footer.php')); ?>

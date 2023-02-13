@@ -133,6 +133,7 @@ $db = new Database($config['database']);
 				<div class="card">
 					<div class="card-body">
 						<h5 class="card-title">Departments</h5>
+						<!-- Alert Message -->
 						<?php
 						if (isset($_SESSION['msg']) && isset($_SESSION['alert_type'])) {
 							$msg = $_SESSION['msg'];
@@ -143,6 +144,7 @@ $db = new Database($config['database']);
 							unset($_SESSION["msg"]);
 						}
 						?>
+						<!-- /Alert Message -->
 						<div class="table-responsive">
 							<table id="departments-table" class="display w-100">
 								<caption>List of Departments</caption>
@@ -177,14 +179,11 @@ $db = new Database($config['database']);
 												<td><?= $created_at; ?></td>
 												<td><?= $updated_at; ?></td>
 												<td>
-													<?php
-													if ($status == 'Active') {
-														echo
-														'<span class="badge rounded-pill text-bg-success">Active</span>';
-													} else {
-														echo '<span class="badge rounded-pill text-bg-danger">Inactive</span>';
-													}
-													?>
+													<?php if ($status == 'Active') : ?>
+														<span class="badge rounded-pill text-bg-success">Active</span>
+													<?php else : ?>
+														<span class="badge rounded-pill text-bg-danger">Inactive</span>
+													<?php endif; ?>
 												</td>
 												<td class="text-center d-grid gap-2">
 													<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#updateModal">

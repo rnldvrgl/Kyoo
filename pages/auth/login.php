@@ -76,7 +76,7 @@ if (isset($_SESSION['sid'])) {
 				<!-- Left Item -->
 				<div class="d-none d-lg-flex flex-column justify-content-center align-items-center col-md-5 col-lg-6 text-center">
 					<!-- Kyoo Logo -->
-					<a href="../../index.php">
+					<a href="<?php path('index.php') ?>">
 						<img class="img-fluid mb-3" src="../../assets/img/kyoo-logo.svg" alt="Kyoo Logo">
 					</a>
 					<h4 class="fw-semibold text-uppercase">Queueing Management System</h4>
@@ -89,13 +89,15 @@ if (isset($_SESSION['sid'])) {
 							<img class="mb-3" src="../../assets/img/avatar.svg" alt="avatar icon">
 							<h4 class="fw-semibold">WELCOME</h4>
 						</div>
+						<!-- Error Message -->
+						<?php if (isset($_SESSION['err'])) : ?>
+							<div class="alert alert-danger alert-dismissible fade show" role="alert">
+								<?= $_SESSION['err']; ?>
+							</div>
+						<?php endif; ?>
+						<!-- /Error Message -->
+
 						<!-- Input Email -->
-						<?php
-						if (isset($_SESSION['err'])) {
-							$err = $_SESSION['err'];
-							echo "<p>$err</p>";
-						}
-						?>
 						<div class="input-group mb-3">
 							<span class="input-group-text">
 								<i class="fa-solid fa-user fa-red" id="email-addon"></i>
@@ -105,6 +107,7 @@ if (isset($_SESSION['sid'])) {
 								<label for="email">Email</label>
 							</div>
 						</div>
+
 						<!-- Input Password -->
 						<div class="input-group mb-3">
 							<span class="input-group-text">
@@ -126,11 +129,8 @@ if (isset($_SESSION['sid'])) {
 		</div>
 	</section>
 
-	<!-- Bootstrap JS -->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-</body>
-
-<!-- Form Validate -->
-<!-- <script src="../../assets/js/validateForm.js"></script> -->
+	<!-- Footer -->
+	<?php require(base_path('pages/includes/footer.php')); ?>
+	<!-- /Footer -->
 
 </html>
