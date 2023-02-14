@@ -150,7 +150,7 @@ $db = new Database($config['database']);
 										<th>Date Added</th>
 										<th>Date Modified</th>
 										<th>Status</th>
-										<th>Action</th>
+										<th>Actions</th>
 									</tr>
 								</thead>
 								<tbody>
