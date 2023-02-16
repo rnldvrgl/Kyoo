@@ -241,6 +241,11 @@ $db = new Database($config['database']);
 													<?php endif; ?>
 												</td>
 												<td class="text-center d-grid gap-2">
+
+													<button class="btn btn-primary view-dept" data-id="<?= $id ?>">
+														<i class="fa-solid fa-eye"></i>
+													</button>
+
 													<button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#update-dept-modal" data-id="<?= $id ?>">
 														<i class="fa-solid fa-pen-to-square"></i>
 													</button>

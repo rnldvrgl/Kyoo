@@ -31,28 +31,6 @@ $(document).ready(function () {
     },
   });
 
-  // JQuery View Data
-  $("button#viewData").click(function () {
-    // Fetched Data to Display
-    let displayData = `
-    <h6>Sample</h6>
-`;
-
-    // Jquery-Confirm Design
-    $.confirm({
-      type: "dark",
-      columnClass: "large",
-      title: "View Account Details",
-      content: displayData,
-      draggable: false,
-      typeAnimated: true,
-      theme: "Modern",
-      buttons: {
-        close: function () {},
-      },
-    });
-  });
-
   // Update Modal
   $("#update-dept-modal").on("show.bs.modal", function (event) {
     var button = $(event.relatedTarget); // Button that triggered the modal
@@ -71,6 +49,14 @@ $(document).ready(function () {
     var action = "Update";
 
     updateDeptData(formData, action);
+  });
+
+  $(".view-dept").on("click", function () {
+    // Get the id from the data-id attribute
+    var id = $(this).data("id");
+    var action = "Fetch";
+
+    viewDeptData(id, action);
   });
 });
 
@@ -118,6 +104,51 @@ function updateDeptData(formData, action) {
 
       // Close the modal
       $("#update-dept-modal").modal("hide");
+    },
+  });
+}
+
+// Fetch Data from departments table
+function viewDeptData(id, action) {
+  $.ajax({
+    url: "../../../controllers/DepartmentsController.php",
+    type: "POST",
+    data: { id: id, action: action },
+    success: function (response) {
+      // Convert response from JSON string to Object
+      var data = JSON.parse(response);
+
+      // console.log(data); // nafefetch nya
+
+      // Loop to get all department information
+      for (var i = 0; i < data.length; i++) {
+        var id = data[i].dept_id;
+        var dept_name = data[i].dept_name;
+        var dept_desc = data[i].dept_desc;
+        var status = data[i].status;
+      }
+
+      // Fetched Data to Display
+      let displayData = `
+          <p class="text-danger">${id}</p>
+          <p>${dept_name}</p>
+          <p>${dept_desc}</p>
+          <p>${status}</p>
+      `;
+
+      // Jquery-Confirm Design
+      $.confirm({
+        type: "dark",
+        columnClass: "large",
+        title: "Department Details",
+        content: displayData,
+        draggable: false,
+        typeAnimated: true,
+        theme: "Modern",
+        buttons: {
+          close: function () {},
+        },
+      });
     },
   });
 }
