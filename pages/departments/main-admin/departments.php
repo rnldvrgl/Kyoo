@@ -47,7 +47,7 @@ $db = new Database($config['database']);
 		<!-- /Content Title -->
 
 		<!-- Add Button (Modal Toggle)-->
-		<button type="button" class="btn btn-sm btn-success mb-3" data-bs-toggle="modal" data-bs-target="#addAccount">
+		<button type="button" class="btn btn-sm btn-success mb-3" data-bs-toggle="modal" data-bs-target="#addDept">
 			<!-- Button Icon -->
 			<i class="fa-solid fa-plus"></i>
 			Add Department
@@ -55,7 +55,7 @@ $db = new Database($config['database']);
 		<!-- /Add Button -->
 
 		<!-- Add Modal -->
-		<div class="modal fade" id="addAccount" tabindex="-1">
+		<div class="modal fade" id="addDept" tabindex="-1">
 			<div class="modal-dialog modal-dialog-centered">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -69,7 +69,7 @@ $db = new Database($config['database']);
 					<!-- Modal Body -->
 					<div class="modal-body">
 						<!-- Form -->
-						<form action="../../../controllers/DepartmentsController.php" method="POST" class="row g-3 needs-validation" novalidate>
+						<form action="<?php path('controllers/DepartmentsController.php') ?>" method="POST" class="row g-3 needs-validation" novalidate>
 							<!-- Department Name Input -->
 							<div class="col-md-12">
 								<div class="form-floating">
@@ -118,6 +118,67 @@ $db = new Database($config['database']);
 			</div>
 		</div>
 		<!-- /Add Modal -->
+
+		<!-- Update modal -->
+		<div class="modal fade" id="update-dept-modal" tabindex="-1">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="update-dept-modal">Update Department</h5>
+						<!-- Modal Close Button -->
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<form id="update-dept-form" class="row g-3 needs-validation" novalidate>
+
+							<!-- Hidden ID -->
+							<input type="hidden" name="id" id="id">
+
+							<!-- Department Name Input -->
+							<div class="col-md-12">
+								<div class="form-floating">
+									<input type="text" class="form-control" id="dept-name" name="dept-name" placeholder="Department Name" pattern="[A-Za-z\s]{3,}" title="Letters Only (atleast 3 characters)" required>
+									<label for="dept-name">Department Name</label>
+									<div class="valid-feedback">
+										Looks good!
+									</div>
+									<div class="invalid-feedback">
+										Required (Atleast 3 characters)
+									</div>
+								</div>
+							</div>
+							<!-- Department Description Input -->
+							<div class="col-12">
+								<div class="form-floating">
+									<textarea class="form-control" placeholder="Description" pattern="[A-Za-z0-9]+" title="Letters and Numbers Only" id="dept-desc" name="dept-desc" style="height: 100px;" required></textarea>
+									<label for="dept-desc">Description</label>
+									<div class="valid-feedback">
+										Looks good!
+									</div>
+									<div class="invalid-feedback">
+										Required
+									</div>
+								</div>
+							</div>
+							<!-- Department Status Select -->
+							<div class="col-12">
+								<div class="form-floating mb-3">
+									<select class="form-select" id="status" name="status" aria-label="State" required>
+										<option value="Active">Active</option>
+										<option value="Inactive" selected>Inactive</option>
+									</select>
+									<label for="status">Status</label>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" id="update-dept">Update</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /Update Modal -->
 	</div>
 
 	<!-- Content Section -->
@@ -180,15 +241,17 @@ $db = new Database($config['database']);
 													<?php endif; ?>
 												</td>
 												<td class="text-center d-grid gap-2">
-													<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#updateModal">
+													<button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#update-dept-modal" data-id="<?= $id ?>">
 														<i class="fa-solid fa-pen-to-square"></i>
 													</button>
 
-													<button class="btn btn-danger" id="deleteData" href="../../../controllers/DepartmentsController.php?action=Delete&id=<?= $id; ?>">
+													<!-- <button tye="button" class="btn btn-secondary" data-bs-toggle="modal" data-id="<?= $id ?>" data-bs-target="#updateModal">
+														<i class="fa-solid pfa-pen-to-square"></i>
+													</button> -->
+
+													<button class="btn btn-danger" id="deleteData" href="<?php path('controllers/DepartmentsController.php') ?>?action=Delete&id=<?= $id; ?>">
 														<i class="fa-solid fa-trash-can"></i>
 													</button>
-													<!-- <a class="text-secondary" href="../../../controllers/DepartmentsController.php?action=Update&id=<?= $id; ?>"></i></a>
-												<a class="text-danger" href="../../../controllers/DepartmentsController.php?action=Delete&id=<?= $id; ?>"></a> -->
 												</td>
 											</tr>
 									<?php

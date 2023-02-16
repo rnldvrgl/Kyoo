@@ -20,6 +20,8 @@ $config = require base_path('config/connection.php');
 // instantiate the database
 $db = new Database($config['database']);
 
+// TODO: SEE UPDATE FEATURE ON DepartmentsController.php
+
 if (isset($_POST['save-changes'])) {
     $id = Validator::validate($_POST['user_id']);
     $name = Validator::validate($_POST['name']);
@@ -46,7 +48,7 @@ if (isset($_POST['save-changes'])) {
         redirect('../pages/departments/user-profile.php');
     }
 } else if (isset($_POST['change-password'])) {
-    $id = Validator::validate($_POST['user_id']);
+    $id = Validator::validate($_POST['login_id']);
     $password = Validator::validate($_POST['password']);
     $newpassword = Validator::validate($_POST['newpassword']);
     $renewpassword = Validator::validate($_POST['renewpassword']);
@@ -93,6 +95,93 @@ if (isset($_POST['save-changes'])) {
         $_SESSION['alert_type'] = "alert-danger";
         redirect('/../Kyoo/pages/departments/user-profile.php');
     }
+} else if (isset($_POST['add-account'])) {
+    // Sanitize and Validate Inputs
+    $full_name = Validator::validate($_POST['full_name']);
+    $email = Validator::email($_POST['email']);
+    $dept_id = Validator::validate($_POST['department']);
+    $role_id = Validator::validate($_POST['role']);
+
+    // Fetch Department Name based on dept_id
+    $department = $db->query('SELECT * FROM departments WHERE dept_id = :dept_id', [
+        'dept_id' => $dept_id,
+    ])->get();
+
+    foreach ($department as $dept) {
+        $dept_name = $dept['dept_name']; // This is used for the user's initial password
+    }
+
+    // Set Initial values for other fields
+    $password = Validator::initialpassword($full_name); // See Validator.php initialpassword() method for the details on how this is handled
+    $address = Validator::validate('Enter your own address here.');
+    $phone = Validator::validate('09123456789');
+    $about = Validator::validate('Welcome to Kyoo! Feel free to change your information. Always remember your email address and password. Do not forget to change your password. Your initial password will be the first word of your first name in lowercase, an underscore, and your department in lowercase (e.g. ronald_registrar) so better change your password.');
+
+    // Check if fullname and email fields are not empty
+    if (!empty($full_name) || !empty($email)) {
+        // Fetch email address to check if email address is already in database
+        $account_login = $db->query('SELECT * FROM account_login WHERE email = :email', [
+            'email' => $email,
+        ])->get();
+
+        // Count the number of rows returned by the database query
+        $count = count($account_login);
+
+        if ($count > 0) {
+            $_SESSION['msg'] = "Email Address already taken!";
+            $_SESSION['alert_type'] = "alert-danger";
+            redirect('../pages/departments/main-admin/accounts.php');
+        } else {
+            // Insert Query to account_details table
+            $db->query('INSERT INTO account_details(name, address, phone, about) VALUES (:name, :address, :phone, :about)', [
+                'name' => $full_name,
+                'address' => $address,
+                'phone' => $phone,
+                'about' => $about,
+            ]);
+
+            // Fetch the last id inserted into account_details table
+            $account_details_last_inserted_id = $db->lastInsertedID();
+
+            // Encrypt password
+            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+            // Insert Query to account_login table
+            $db->query('INSERT INTO account_login(email, password) VALUES (:email, :password)', [
+                'email' => $email,
+                'password' => $hashed_password
+            ]);
+
+            $account_login_last_inserted_id = $db->lastInsertedID();
+
+            // Insert to accounts table (role_id, user_id, login_id, dept_id)
+            $db->query('INSERT INTO accounts(role_id, user_id, login_id, dept_id) VALUES (:role_id, :user_id, :login_id, :dept_id)', [
+                'role_id' => $role_id,
+                'user_id' => $account_details_last_inserted_id,
+                'login_id' => $account_login_last_inserted_id,
+                'dept_id' => $dept_id,
+            ]);
+
+            $_SESSION['msg'] = "Account added successfully!";
+            $_SESSION['alert_type'] = "alert-success";
+            redirect('../pages/departments/main-admin/accounts.php');
+        }
+    } else {
+        // If fields are empty, redirect to accounts page
+        $_SESSION['msg'] = "There are missing required fields!";
+        $_SESSION['alert_type'] = "alert-danger";
+        redirect('../pages/departments/main-admin/accounts.php');
+    }
+} else if ($_GET['action'] == 'Delete') {
+    $id = Validator::validate($_GET['id']);
+
+    $db->query('DELETE FROM accounts WHERE account_id = :account_id', [
+        'account_id' => $id,
+    ]);
+
+    $_SESSION['msg'] = "User has been deleted successfully!";
+    $_SESSION['alert_type'] = "alert-danger";
+    redirect('../pages/departments/main-admin/accounts.php');
 } else {
     redirect('../pages/departments/user-profile.php');
 }

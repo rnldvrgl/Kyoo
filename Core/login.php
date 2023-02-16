@@ -6,6 +6,7 @@ session_start();
 use Core\Validator;
 use Core\Database;
 
+// Function file (Never Forget!)
 require 'functions.php';
 
 // Validator Class
@@ -20,7 +21,7 @@ $config = require '../config/connection.php';
 // instantiate the database
 $db = new Database($config['database']);
 
-if (isset($_POST['submit'])) {
+if (isset($_POST['submit']) && !empty($_POST['email'] && !empty($_POST['password']))) {
 
 	$email = Validator::email($_POST['email']);
 	$password = Validator::loginPassword($_POST['password']);
@@ -36,7 +37,7 @@ if (isset($_POST['submit'])) {
 		$count = count($account_login);
 
 		// Check if there is an email in the database that matches the email address that the user entered in the form
-		if ($count !== 0) {
+		if ($count > 0) {
 			foreach ($account_login as $data) {
 				$login_id = $data['login_id'];
 				$passwordCheck = password_verify($password, $data['password']);
@@ -55,18 +56,24 @@ if (isset($_POST['submit'])) {
 			if ($passwordCheck !== FALSE) {
 				$_SESSION['sid'] = session_id();
 				$_SESSION['account_id'] = $account_id;
+
 				redirect('secure-page.php');
 			} else {
 				// If passwords doesn't match, redirect to login page
 				$_SESSION['err'] = 'Invalid Email or Password!';
-				redirect(path('pages/auth/login.php'));
+				redirect('../pages/auth/login.php');
 			}
 		} else {
 			// If no email address found, redirect to login page
 			$_SESSION['err'] = 'Invalid Email or Password!';
-			redirect(path('pages/auth/login.php'));
+			redirect('../pages/auth/login.php');
 		}
 	} else {
-		redirect(path('pages/auth/login.php'));
+		// If empty email address and password, redirect to login page
+		redirect('../pages/auth/login.php');
 	}
+} else {
+	// redirect(path('pages/auth/login.php'));
+	$_SESSION['err'] = "What are you doing step bro?";
+	redirect('../pages/error/404.php');
 }

@@ -67,6 +67,7 @@ if ($_SESSION['sid'] === session_id()) {
 	}
 } else {
 	$_SESSION['authorized'] = FALSE;
+	$_SESSION['err'] = "Yamete Kudasai";
 
-	redirect('../pages/auth/login.php');
+	redirect('../pages/error/404.php');
 }
