@@ -58,7 +58,7 @@ if (isset($_POST['add-dept'])) {
 		}
 	}
 } else if ($_POST['action'] == "Fetch") {
-	// For Updating Department
+	// For Fetching Department data
 	$id = Validator::validate($_POST['id']);
 
 	$dept_details = $db->query("SELECT * FROM departments WHERE dept_id = :dept_id", [

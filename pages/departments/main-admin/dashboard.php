@@ -4,7 +4,8 @@ session_start();
 
 require '../../../Core/functions.php';
 
-if (isset($_SESSION['sid']) !== session_id() && isset($_SESSION['authorized']) !== TRUE) {
+// If session variable sid is not set OR sid is not equal to the current session id OR authorized session variable is false
+if (!isset($_SESSION['sid']) || $_SESSION['sid'] !== session_id() || isset($_SESSION['authorized']) !== TRUE) {
 	redirect('../../auth/login.php');
 }
 

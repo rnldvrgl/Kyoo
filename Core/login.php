@@ -9,19 +9,19 @@ use Core\Database;
 // Function file (Never Forget!)
 require 'functions.php';
 
-// Validator Class
-require 'Validator.php';
-
-// Database Class
-require 'Database.php';
-
-// require connection to the database
-$config = require '../config/connection.php';
-
-// instantiate the database
-$db = new Database($config['database']);
-
 if (isset($_POST['submit']) && !empty($_POST['email'] && !empty($_POST['password']))) {
+
+	// Validator Class
+	require 'Validator.php';
+
+	// Database Class
+	require 'Database.php';
+
+	// require connection to the database
+	$config = require '../config/connection.php';
+
+	// instantiate the database
+	$db = new Database($config['database']);
 
 	$email = Validator::email($_POST['email']);
 	$password = Validator::loginPassword($_POST['password']);
@@ -73,7 +73,6 @@ if (isset($_POST['submit']) && !empty($_POST['email'] && !empty($_POST['password
 		redirect('../pages/auth/login.php');
 	}
 } else {
-	// redirect(path('pages/auth/login.php'));
-	$_SESSION['err'] = "What are you doing step bro?";
+	// Access 404.php
 	redirect('../pages/error/404.php');
 }

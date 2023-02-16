@@ -172,6 +172,73 @@ if (isset($_POST['save-changes'])) {
         $_SESSION['alert_type'] = "alert-danger";
         redirect('../pages/departments/main-admin/accounts.php');
     }
+} else if ($_POST['action'] == "Fetch") {
+    // For Fetching Account data
+    $account_id = Validator::validate($_POST['id']);
+
+    // Query to fetch all user-related information from the database
+    $account_details = $db->query("SELECT * FROM accounts as acc JOIN account_details as ad ON acc.user_id = ad.user_id JOIN account_login as al ON acc.login_id = al.login_id JOIN account_role as ar ON acc.role_id = ar.role_id JOIN departments as d ON acc.dept_id = d.dept_id WHERE account_id = :account_id", [
+        'account_id' => $account_id,
+    ])->get();
+
+    // Loop through all user-related information and store them in an arr
+    foreach ($account_details as $data) {
+        $accountArr[] = $data;
+    }
+
+    // Make it into a JSON string
+    echo json_encode($accountArr);
+} else if ($_POST['action'] == "Update") {
+    // * Get the formData string from $_POST
+    $formData = $_POST['formData'];
+
+    // * Parse the formData string into an associative array
+    $data = array();
+    parse_str($formData, $data);
+
+    // * Data from the formData array
+    $account_id = Validator::validate($data['id']);
+    $full_name = Validator::validate($data['full_name']);
+    $email = Validator::email($data['email']);
+    $dept = Validator::validate($data['department']);
+    $role = Validator::validate($data['role']);
+
+    // * Fetch all IDs on accounts table
+    $ids = $db->query("SELECT * FROM accounts WHERE account_id = :account_id", [
+        'account_id' => $account_id,
+    ])->get();
+
+    foreach ($ids as $id) {
+        $user_id = $id['user_id'];
+        $login_id = $id['login_id'];
+        $role_id = $id['role_id'];
+        $dept_id = $id['dept_id'];
+    }
+
+    // * Update Query for account_details table
+    $db->query('UPDATE account_details SET name = :name WHERE user_id = :user_id', [
+        'name' => $full_name,
+        'user_id' => $user_id
+    ]);
+
+    // * Update Query for account_login table
+    $db->query('UPDATE account_login SET email = :email WHERE login_id = :login_id', [
+        'email' => $email,
+        'login_id' => $login_id
+    ]);
+
+    // * Update Query for accounts table
+    $db->query('UPDATE accounts SET role_id = :role_id, dept_id = :dept_id WHERE account_id = :account_id', [
+        'role_id' => $role,
+        'dept_id' => $dept,
+        'account_id' => $account_id
+    ]);
+
+    // Message
+    $_SESSION['msg'] = "Account updated successfully!";
+    $_SESSION['alert_type'] = 'alert-success';
+
+    // No redirect since AJAX request i2 hehe
 } else if ($_GET['action'] == 'Delete') {
     // account_id on accounts table
     $id = Validator::validate($_GET['id']);

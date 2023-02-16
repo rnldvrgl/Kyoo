@@ -4,7 +4,8 @@ session_start();
 
 require '../../../Core/functions.php';
 
-if (isset($_SESSION['sid']) !== session_id() && isset($_SESSION['authorized']) !== TRUE) {
+// If session variable sid is not set OR sid is not equal to the current session id OR authorized session variable is false
+if (!isset($_SESSION['sid']) || $_SESSION['sid'] !== session_id() || isset($_SESSION['authorized']) !== TRUE) {
 	redirect('../../auth/login.php');
 }
 
@@ -242,18 +243,17 @@ $db = new Database($config['database']);
 												</td>
 												<td class="text-center d-grid gap-2">
 
+													<!-- View -->
 													<button class="btn btn-primary view-dept" data-id="<?= $id ?>">
 														<i class="fa-solid fa-eye"></i>
 													</button>
 
+													<!-- Update -->
 													<button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#update-dept-modal" data-id="<?= $id ?>">
 														<i class="fa-solid fa-pen-to-square"></i>
 													</button>
 
-													<!-- <button tye="button" class="btn btn-secondary" data-bs-toggle="modal" data-id="<?= $id ?>" data-bs-target="#updateModal">
-														<i class="fa-solid pfa-pen-to-square"></i>
-													</button> -->
-
+													<!-- Delete -->
 													<button class="btn btn-danger" id="deleteData" href="<?php path('controllers/DepartmentsController.php') ?>?action=Delete&id=<?= $id; ?>">
 														<i class="fa-solid fa-trash-can"></i>
 													</button>

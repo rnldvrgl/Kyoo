@@ -4,7 +4,8 @@ session_start();
 
 require '../../../Core/functions.php';
 
-if (isset($_SESSION['sid']) !== session_id() && isset($_SESSION['authorized']) !== TRUE) {
+// If session variable sid is not set OR sid is not equal to the current session id OR authorized session variable is false
+if (!isset($_SESSION['sid']) || $_SESSION['sid'] !== session_id() || isset($_SESSION['authorized']) !== TRUE) {
 	redirect('../../auth/login.php');
 }
 
@@ -163,6 +164,116 @@ $db = new Database($config['database']);
 			</div>
 		</div>
 		<!-- /Add Modal -->
+
+		<!-- Update Modal -->
+		<div class="modal fade" id="update-account-modal" tabindex="-1">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<!-- Modal Title -->
+						<h5 class="modal-title">
+							Update Account
+						</h5>
+						<!-- Modal Close Button -->
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+
+					<!-- Modal Body -->
+					<div class="modal-body">
+						<!-- Form -->
+						<form id="update-account-form" class="row g-3 needs-validation" novalidate>
+
+							<!-- Hidden ID -->
+							<input type="hidden" name="id" id="id">
+
+							<!-- Full Name Input -->
+							<div class="col-md-12">
+								<div class="form-floating">
+									<input type="text" class="form-control" id="full_name" name="full_name" placeholder="Full Name" pattern="[A-Za-z\s]{5,}" title="Full Name (First Name Last Name)" required>
+									<label for="full_name">Full Name (First Name Last Name)</label>
+									<div class="valid-feedback">
+										Looks good!
+									</div>
+									<div class="invalid-feedback">
+										Please provide a valid name.
+									</div>
+								</div>
+							</div>
+
+							<!-- Email Input -->
+							<div class="col-12">
+								<div class="form-floating">
+									<input type="email" class="form-control" id="email" name="email" placeholder="Email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" required>
+									<label for="email" required>Email</label>
+									<div class="valid-feedback">
+										Looks good!
+									</div>
+									<div class="invalid-feedback">
+										Please provide a valid email.
+									</div>
+								</div>
+							</div>
+
+							<!-- Department Select -->
+							<div class="col-12">
+								<div class="form-floating mb-3">
+									<!-- Loop through departments table -->
+									<?php
+									$departments = $db->query('SELECT * FROM departments')->get();
+
+									?>
+									<select class="form-select" id="department" name="department" aria-label="State" required>
+										<?php
+										if (count($departments) > 0) {
+											foreach ($departments as $department) {
+												$dept_id = $department['dept_id'];
+												$dept_name = $department['dept_name'];
+										?>
+												<option value="<?= $dept_id ?>" selected><?= $dept_name ?></option>
+										<?php
+											}
+										}
+										?>
+									</select>
+									<label for="department">Department</label>
+								</div>
+							</div>
+
+							<!-- Role Select -->
+							<div class="col-12">
+								<div class="form-floating mb-3">
+									<!-- Loop through account_role table -->
+									<?php
+									$roles = $db->query('SELECT * FROM account_role')->get();
+									?>
+									<select class="form-select" id="role" name="role" aria-label="State" required>
+										<?php
+										if (count($roles) > 0) {
+											foreach ($roles as $role) {
+												$role_id = $role['role_id'];
+												$role_name = $role['role_name'];
+
+										?>
+												<option value="<?= $role_id ?>" selected><?= $role_name ?></option>
+										<?php
+											}
+										}
+										?>
+									</select>
+									<label for="role">Role</label>
+								</div>
+							</div>
+
+							<!-- Modal Footer -->
+							<div class="modal-footer d-flex justify-content-right">
+								<button type="button" class="btn btn-primary" id="update-account">Update</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /Update Modal -->
 	</div>
 
 	<!-- Content Section -->
@@ -223,14 +334,17 @@ $db = new Database($config['database']);
 												<td><?= $created_at ?></td>
 												<td><?= $updated_at ?></td>
 												<td class="text-center d-grid gap-1">
-													<button type="button" class="btn btn-secondary" id="viewData">
+													<!-- View -->
+													<button class="btn btn-primary view-account" data-id="<?= $account_id ?>">
 														<i class="fa-solid fa-eye"></i>
 													</button>
 
-													<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#updateModal">
+													<!-- Update -->
+													<button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#update-account-modal" data-id="<?= $account_id ?>">
 														<i class="fa-solid fa-pen-to-square"></i>
 													</button>
 
+													<!-- Delete -->
 													<button class="btn btn-danger" id="deleteData" href="<?php path('controllers/UserProfileController.php') ?>?action=Delete&id=<?= $account_id; ?>">
 														<i class="fa-solid fa-trash-can"></i>
 													</button>
