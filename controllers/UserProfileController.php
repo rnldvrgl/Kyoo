@@ -173,14 +173,40 @@ if (isset($_POST['save-changes'])) {
         redirect('../pages/departments/main-admin/accounts.php');
     }
 } else if ($_GET['action'] == 'Delete') {
+    // account_id on accounts table
     $id = Validator::validate($_GET['id']);
 
+    // Fetch all ids in accounts table
+    $ids = $db->query('SELECT * FROM accounts WHERE account_id = :account_id', [
+        'account_id' => $id
+    ])->get();
+
+    // Loop though ids take user_id and login_id
+    foreach ($ids as $id) {
+        $user_id = $id['user_id'];
+        $login_id = $id['login_id'];
+    }
+
+    // Delete from account_details table
+    $db->query('DELETE FROM account_details WHERE user_id = :user_id', [
+        'user_id' => $user_id,
+    ]);
+
+    // Delete from account_login table
+    $db->query('DELETE FROM account_login WHERE login_id = :login_id', [
+        'login_id' => $login_id,
+    ]);
+
+    // Delete from accounts table
     $db->query('DELETE FROM accounts WHERE account_id = :account_id', [
         'account_id' => $id,
     ]);
 
+    // Message
     $_SESSION['msg'] = "User has been deleted successfully!";
     $_SESSION['alert_type'] = "alert-danger";
+
+    // Redirect
     redirect('../pages/departments/main-admin/accounts.php');
 } else {
     redirect('../pages/departments/user-profile.php');
