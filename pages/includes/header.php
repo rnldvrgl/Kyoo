@@ -30,6 +30,9 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
+	<!-- Chart.js CDN -->
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
 
 <body data-bs-spy="scroll" data-bs-target="#scrollspy" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" tabindex="0">
