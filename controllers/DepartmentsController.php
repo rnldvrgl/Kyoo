@@ -21,8 +21,6 @@ $config = require base_path('config/connection.php');
 // instantiate the database
 $db = new Database($config['database']);
 
-// TODO: VIEW DATA, PWEDE GAMITIN YUNG FETCH NA ACTION SINCE PAREHAS LANG KINUKUHA
-
 if (isset($_POST['add-dept'])) {
 
 	// For Adding Department
