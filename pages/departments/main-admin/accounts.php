@@ -4,7 +4,8 @@ session_start();
 
 require '../../../Core/functions.php';
 
-if (isset($_SESSION['sid']) !== session_id() && isset($_SESSION['authorized']) !== TRUE) {
+// If session variable sid is not set OR sid is not equal to the current session id OR authorized session variable is false
+if (!isset($_SESSION['sid']) || $_SESSION['sid'] !== session_id() || isset($_SESSION['authorized']) !== TRUE) {
 	redirect('../../auth/login.php');
 }
 
@@ -50,7 +51,7 @@ $db = new Database($config['database']);
 		<button type="button" class="btn btn-sm btn-success mb-3" data-bs-toggle="modal" data-bs-target="#addAccount">
 			<!-- Button Icon -->
 			<i class="fa-solid fa-plus"></i>
-			Add Employee
+			Add Account
 		</button>
 		<!-- /Add Button -->
 
@@ -61,53 +62,224 @@ $db = new Database($config['database']);
 					<div class="modal-header">
 						<!-- Modal Title -->
 						<h5 class="modal-title">
-							Add Employee
+							Add Account
 						</h5>
 						<!-- Modal Close Button -->
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
+
 					<!-- Modal Body -->
 					<div class="modal-body">
 						<!-- Form -->
-						<form action="#" method="#" class="row g-3">
-							<!-- Department Name Input -->
+						<form action="<?php path('controllers/UserProfileController.php') ?>" method="POST" class="row g-3 needs-validation" novalidate>
+
+							<!-- Full Name Input -->
 							<div class="col-md-12">
-								<div class="form-floating"> <input type="text" class="form-control" id="floatingDeptName" placeholder="Department Name"> <label for="floatingDeptName">Department Name</label></div>
-							</div>
-							<!-- Department Description Input -->
-							<div class="col-12">
-								<div class="form-floating"><textarea class="form-control" placeholder="Description" id="floatingDesc" style="height: 100px;"></textarea><label for="floatingDesc">Description</label></div>
-							</div>
-							<!-- Department Status Select -->
-							<div class="col-12">
-								<div class="form-floating mb-3">
-									<select class="form-select" id="floatingStatus" aria-label="State">
-										<option value="active">Active</option>
-										<option value="inactive" selected>Inactive</option>
-									</select>
-									<label for="floatingStatus">Status</label>
+								<div class="form-floating">
+									<input type="text" class="form-control" id="floatingName" name="full_name" placeholder="Full Name" pattern="[A-Za-z\s]{5,}" title="Full Name (First Name Last Name)" required>
+									<label for="floatingName">Full Name (First Name Last Name)</label>
+									<div class="valid-feedback">
+										Looks good!
+									</div>
+									<div class="invalid-feedback">
+										Please provide a valid name.
+									</div>
 								</div>
 							</div>
+
+							<!-- Email Input -->
+							<div class="col-12">
+								<div class="form-floating">
+									<input type="email" class="form-control" id="floatingEmail" name="email" placeholder="Email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" required>
+									<label for="floatingEmail" required>Email</label>
+									<div class="valid-feedback">
+										Looks good!
+									</div>
+									<div class="invalid-feedback">
+										Please provide a valid email.
+									</div>
+								</div>
+							</div>
+
+							<!-- Department Select -->
+							<div class="col-12">
+								<div class="form-floating mb-3">
+									<!-- Loop through departments table -->
+									<?php
+									$departments = $db->query('SELECT * FROM departments')->get();
+
+									?>
+									<select class="form-select" id="floatingDept" name="department" aria-label="State" required>
+										<?php
+										if (count($departments) > 0) {
+											foreach ($departments as $department) {
+												$dept_id = $department['dept_id'];
+												$dept_name = $department['dept_name'];
+
+										?>
+												<option value="<?= $dept_id ?>" selected><?= $dept_name ?></option>
+										<?php
+											}
+										}
+										?>
+									</select>
+									<label for="floatingDept">Department</label>
+								</div>
+							</div>
+
+							<!-- Role Select -->
+							<div class="col-12">
+								<div class="form-floating mb-3">
+									<!-- Loop through account_role table -->
+									<?php
+									$roles = $db->query('SELECT * FROM account_role')->get();
+									?>
+									<select class="form-select" id="floatingRole" name="role" aria-label="State" required>
+										<?php
+										if (count($roles) > 0) {
+											foreach ($roles as $role) {
+												$role_id = $role['role_id'];
+												$role_name = $role['role_name'];
+
+										?>
+												<option value="<?= $role_id ?>" selected><?= $role_name ?></option>
+										<?php
+											}
+										}
+										?>
+									</select>
+									<label for="floatingRole">Role</label>
+								</div>
+							</div>
+
+							<!-- Modal Footer -->
+							<div class="modal-footer d-flex justify-content-right">
+								<button type="submit" name="add-account" class="btn btn-success">
+									Save
+								</button>
+							</div>
 						</form>
-					</div>
-					<div class="modal-footer d-flex justify-content-between">
-						<button class="btn text-danger" data-bs-dismiss="modal">
-							Cancel
-						</button>
-						<button type="submit" class="btn btn-success">
-							Save
-						</button>
 					</div>
 				</div>
 			</div>
 		</div>
 		<!-- /Add Modal -->
+
+		<!-- Update Modal -->
+		<div class="modal fade" id="update-account-modal" tabindex="-1">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<!-- Modal Title -->
+						<h5 class="modal-title">
+							Update Account
+						</h5>
+						<!-- Modal Close Button -->
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+
+					<!-- Modal Body -->
+					<div class="modal-body">
+						<!-- Form -->
+						<form id="update-account-form" class="row g-3 needs-validation" novalidate>
+
+							<!-- Hidden ID -->
+							<input type="hidden" name="id" id="id">
+
+							<!-- Full Name Input -->
+							<div class="col-md-12">
+								<div class="form-floating">
+									<input type="text" class="form-control" id="full_name" name="full_name" placeholder="Full Name" pattern="[A-Za-z\s]{5,}" title="Full Name (First Name Last Name)" required>
+									<label for="full_name">Full Name (First Name Last Name)</label>
+									<div class="valid-feedback">
+										Looks good!
+									</div>
+									<div class="invalid-feedback">
+										Please provide a valid name.
+									</div>
+								</div>
+							</div>
+
+							<!-- Email Input -->
+							<div class="col-12">
+								<div class="form-floating">
+									<input type="email" class="form-control" id="email" name="email" placeholder="Email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" required>
+									<label for="email" required>Email</label>
+									<div class="valid-feedback">
+										Looks good!
+									</div>
+									<div class="invalid-feedback">
+										Please provide a valid email.
+									</div>
+								</div>
+							</div>
+
+							<!-- Department Select -->
+							<div class="col-12">
+								<div class="form-floating mb-3">
+									<!-- Loop through departments table -->
+									<?php
+									$departments = $db->query('SELECT * FROM departments')->get();
+
+									?>
+									<select class="form-select" id="department" name="department" aria-label="State" required>
+										<?php
+										if (count($departments) > 0) {
+											foreach ($departments as $department) {
+												$dept_id = $department['dept_id'];
+												$dept_name = $department['dept_name'];
+										?>
+												<option value="<?= $dept_id ?>" selected><?= $dept_name ?></option>
+										<?php
+											}
+										}
+										?>
+									</select>
+									<label for="department">Department</label>
+								</div>
+							</div>
+
+							<!-- Role Select -->
+							<div class="col-12">
+								<div class="form-floating mb-3">
+									<!-- Loop through account_role table -->
+									<?php
+									$roles = $db->query('SELECT * FROM account_role')->get();
+									?>
+									<select class="form-select" id="role" name="role" aria-label="State" required>
+										<?php
+										if (count($roles) > 0) {
+											foreach ($roles as $role) {
+												$role_id = $role['role_id'];
+												$role_name = $role['role_name'];
+
+										?>
+												<option value="<?= $role_id ?>" selected><?= $role_name ?></option>
+										<?php
+											}
+										}
+										?>
+									</select>
+									<label for="role">Role</label>
+								</div>
+							</div>
+
+							<!-- Modal Footer -->
+							<div class="modal-footer d-flex justify-content-right">
+								<button type="button" class="btn btn-primary" id="update-account">Update</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /Update Modal -->
 	</div>
 
 	<!-- Content Section -->
 	<section class="section">
 		<div class="row">
-			<div class="col-lg-8">
+			<div class="col-lg-12">
 				<div class="card">
 					<div class="card-body">
 						<h5 class="card-title">Accounts</h5>
@@ -127,53 +299,55 @@ $db = new Database($config['database']);
 
 								<thead>
 									<tr>
-										<th>Department Name</th>
-										<th>Description</th>
+										<th>Name</th>
+										<th>Department</th>
+										<th>Position</th>
+										<th>Email</th>
+										<th>Phone</th>
 										<th>Date Added</th>
-										<th>Date Modified</th>
-										<th>Status</th>
-										<th>Action</th>
+										<th>Date Updated</th>
+										<th>Actions</th>
 									</tr>
 								</thead>
 								<tbody>
 									<?php
-									// Get all users 
-									$departments = $db->query('SELECT * FROM departments')->get();
+									// Get all of the data 
+									$query = $db->query('SELECT ac.*, ad.name, d.dept_name, ar.role_name, al.email, ad.phone, ac.created_at, ac.updated_at FROM accounts as ac JOIN account_details as ad ON ac.user_id = ad.user_id JOIN account_login as al ON ac.login_id = al.login_id JOIN account_role as ar ON ac.role_id = ar.role_id JOIN departments as d ON ac.dept_id = d.dept_id')->get();
 
-									if (count($departments) > 0) {
-										foreach ($departments as $department) {
-											$id = $department['dept_id'];
-											$dept_name = $department['dept_name'];
-											$dept_desc = $department['dept_desc'];
-											$status = $department['status'];
-											$created_at = $department['created_at'];
-											$updated_at = $department['updated_at'];
+									if (count($query) > 0) {
+										foreach ($query as $account) {
+											$account_id = $account['account_id'];
+											$name = $account['name'];
+											$dept_name = $account['dept_name'];
+											$role_name = $account['role_name'];
+											$email = $account['email'];
+											$phone = $account['phone'];
+											$created_at = $account['created_at'];
+											$updated_at = $account['updated_at'];
 									?>
 											<tr>
-												<td><?= $dept_name; ?></td>
-												<td><?= $dept_desc; ?></td>
-												<td><?= $created_at; ?></td>
-												<td><?= $updated_at; ?></td>
-												<td>
-													<?php
-													if ($status == 'Active') {
-														echo
-														'<span class="badge rounded-pill text-bg-success">Active</span>';
-													} else {
-														echo '<span class="badge rounded-pill text-bg-danger">Inactive</span>';
-													}
-													?>
-												</td>
-												<td class="text-center d-grid gap-2">
-													<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#updateModal">
+												<td><?= $name ?></td>
+												<td><?= $dept_name ?></td>
+												<td><?= $role_name ?></td>
+												<td><?= $email ?></td>
+												<td><?= $phone ?> </td>
+												<td><?= $created_at ?></td>
+												<td><?= $updated_at ?></td>
+												<td class="text-center d-grid gap-1">
+													<!-- View -->
+													<button class="btn btn-primary view-account" data-id="<?= $account_id ?>">
+														<i class="fa-solid fa-eye"></i>
+													</button>
+
+													<!-- Update -->
+													<button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#update-account-modal" data-id="<?= $account_id ?>">
 														<i class="fa-solid fa-pen-to-square"></i>
 													</button>
 
-													<button class="btn btn-danger" id="deleteData" href="../../../controllers/DepartmentsController.php?action=Delete&id=<?= $id; ?>">
+													<!-- Delete -->
+													<button class="btn btn-danger" id="deleteData" href="<?php path('controllers/UserProfileController.php') ?>?action=Delete&id=<?= $account_id; ?>">
 														<i class="fa-solid fa-trash-can"></i>
 													</button>
-													<!-- <a class="text-secondary" href="../../../controllers/DepartmentsController.php?action=Update&id=<?= $id; ?>"></i></a>
-												<a class="text-danger" href="../../../controllers/DepartmentsController.php?action=Delete&id=<?= $id; ?>"></a> -->
 												</td>
 											</tr>
 									<?php
@@ -185,14 +359,6 @@ $db = new Database($config['database']);
 								</tbody>
 							</table>
 						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-4">
-				<div class="card">
-					<div class="card-body">
-						<h5 class="card-title">Example Card</h5>
-						<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad, quos expedita dolore nesciunt commodi repellendus reprehenderit libero ipsum quia consequuntur vitae enim, voluptatem alias omnis rem iusto veritatis, ullam possimus.</p>
 					</div>
 				</div>
 			</div>

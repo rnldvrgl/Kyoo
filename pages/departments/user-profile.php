@@ -226,7 +226,7 @@ $db = new Database($config['database']);
 
 									<div class="row">
 										<div class="col-md-8 col-lg-9">
-											<input name="user_id" type="hidden" class="form-control" id="user_id" value="<?= $user_id; ?>" />
+											<input name="login_id" type="hidden" class="form-control" id="user_id" value="<?= $login_id; ?>" />
 										</div>
 									</div>
 

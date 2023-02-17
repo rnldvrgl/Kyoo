@@ -25,22 +25,21 @@ class Validator
     // For Login 
     public static function loginPassword($data)
     {
-        if (!empty($data)) {
-            // Use self to call a static method
-            return self::validate($data);
-        } else {
-            // Password is empty
-            $err = 'Password is required!';
-            $_SESSION['err'] = $err;
-
-            redirect('../pages/auth/login.php');
-        }
+        return self::validate($data);
     }
 
-    // For CRUD Users
-    public static function password($data)
+    // Format the user's initial password 
+    // ? SYNTAX: initialpassword('Ronald Vergel Dela Cruz');
+    // ?  Output: ronald_vergel_dela_cruz (This will be the user's initial password and can be changed by the user themselves on My Profile page once they logged in)
+    public static function initialpassword($fullname)
     {
-        // Use self to call a static method
-        $data = self::validate($data);
+        // Use self to call a static method within the same class
+        $fullname = self::validate($fullname);
+
+        $name = strtolower($fullname); // lowercase the string
+        $name = str_replace('.', '', $name); // remove period for middle initials (if exists)
+        $name = str_replace(' ', '_', $name); // replaced whitespace with underscores
+
+        return $name;
     }
 }

@@ -6,19 +6,20 @@
 */
 session_start();
 
-use Core\Database;
-
 require 'functions.php';
 
-require 'Database.php';
-
-// require connection to the database
-$config = require '../config/connection.php';
-
-// instantiate the database
-$db = new Database($config['database']);
+use Core\Database;
 
 if ($_SESSION['sid'] === session_id()) {
+
+	require 'Database.php';
+
+	// require connection to the database
+	$config = require '../config/connection.php';
+
+	// instantiate the database
+	$db = new Database($config['database']);
+
 	$_SESSION['authorized'] = TRUE;
 
 	$account_id = $_SESSION['account_id'];
@@ -68,5 +69,5 @@ if ($_SESSION['sid'] === session_id()) {
 } else {
 	$_SESSION['authorized'] = FALSE;
 
-	redirect('../pages/auth/login.php');
+	redirect('../pages/error/404.php');
 }
