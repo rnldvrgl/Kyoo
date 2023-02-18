@@ -1,6 +1,23 @@
 {
+  "name": "kyoo",
+  "version": "1.0.0",
+  "description": "KYOO is a web-based queue management system with real-time queue tracking, aimed at improving the traditional queue management process of the Republic Central Colleges (RCC).",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rnldvrgl/Kyoo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rnldvrgl/Kyoo/issues"
+  },
+  "homepage": "https://github.com/rnldvrgl/Kyoo#readme",
   "dependencies": {
-    "bootstrap": "^5.3.0-alpha1",
-    "chart.js": "^4.2.1"
+    "bootstrap": "^5.2.3"
   }
 }

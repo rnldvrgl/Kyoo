@@ -7,7 +7,7 @@
 
 		<!-- Navbar brand -->
 		<a class="navbar-brand" href="#">
-			<img src="<?= path('public/images/kyoo-logo.svg'); ?>" alt="" width=" 40" height="34">
+			<img src="<?= ROOT ?>/images/kyoo-logo.svg" alt="" width=" 40" height="34">
 		</a>
 
 		<!-- Toggle Button -->
@@ -62,7 +62,7 @@
 			<!-- Left Item -->
 			<div class="col-lg-5">
 				<div class="d-flex align-items-center justify-content-center">
-					<img class="img-fluid" src="<?= base_path('public/images/waiting-line.svg') ?>" alt="Waiting Line">
+					<img class="img-fluid" src="<?= ROOT ?>/images/waiting-line.svg" alt="Waiting Line">
 				</div>
 			</div>
 			<!-- Right Item -->
@@ -75,7 +75,7 @@
 		</div>
 	</div>
 </section>
-<img class="img-fluid" src="<?= base_path('public/images/wave.png') ?>" alt="">
+<img class="img-fluid" src="<?= ROOT ?>/images/wave.png" alt="">
 <!-- /Hero Section -->
 
 <!-- Frequently Asked Questions -->
@@ -139,7 +139,7 @@
 			<div class="row">
 				<div class="d-flex justify-content-center align-items-center gap-5">
 					<div class="d-none d-lg-flex col-lg-5">
-						<img class="img-fluid" src="<?= base_path('public/images/kyoo-logo.svg'); ?>" alt="Kyoo Logo">
+						<img class="img-fluid" src="<?= ROOT ?>/images/kyoo-logo.svg" alt="Kyoo Logo">
 					</div>
 					<div class="col-lg-7">
 						<!-- Form -->

@@ -2,6 +2,12 @@
 
 use Core\Response;
 
+// Local Server Root
+define('ROOT', 'http://localhost/Kyoo/public');
+
+// Deployed Server Root
+// define('ROOT', 'https://www.websitename.com');
+
 // For file linking (require and include)
 function base_path($path)
 {

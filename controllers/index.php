@@ -1,5 +1,5 @@
 <?php
 
 view("index.view.php", [
-	'title' => 'Tttt',
+	'title' => 'Home - Kyoo: Queueing Management System',
 ]);
