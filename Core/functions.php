@@ -1,30 +1,66 @@
 <?php
 
-const BASE_PATH = __DIR__ . '/../';
-
-function dd($value)
-{
-    echo "<pre>";
-    var_dump($value);
-    echo "</pre>";
-
-    die();
-}
+use Core\Response;
 
 // For file linking (require and include)
 function base_path($path)
 {
-    return BASE_PATH . $path;
+	return BASE_PATH . $path;
 }
 
+// Redirecting
 function redirect($path)
 {
-    header("Location: " . $path);
-    exit();
+	header("Location: " . $path);
+	exit();
 }
 
 // For href/src
 function path($path)
 {
-    echo "/../Kyoo/" . $path;
+	return "/../KyooMVC/" . $path;
+}
+
+// Die and Dump
+function dd($value)
+{
+	echo "<pre>";
+	var_dump($value);
+	echo "</pre>";
+
+	die();
+}
+
+// Get URI
+function urlIs($value)
+{
+	return $_SERVER['REQUEST_URI'] === $value;
+}
+
+// Abort 
+function abort($code = 404)
+{
+	http_response_code($code);
+
+	require base_path("resources/views/errors/{$code}.php");
+
+	die();
+}
+
+// Authorize
+function authorize($condition, $status = Response::FORBIDDEN)
+{
+	if (!$condition) {
+		abort($status);
+	}
+
+	return true;
+}
+
+// Views
+function view($path, $attributes = [])
+{
+	extract($attributes);
+
+	require base_path('resources/views/' . $path);
 }
