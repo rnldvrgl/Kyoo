@@ -20,8 +20,6 @@ $config = require base_path('config/connection.php');
 // instantiate the database
 $db = new Database($config['database']);
 
-// TODO: SEE UPDATE FEATURE ON DepartmentsController.php
-
 if (isset($_POST['save-changes'])) {
     $id = Validator::validate($_POST['user_id']);
     $name = Validator::validate($_POST['name']);
