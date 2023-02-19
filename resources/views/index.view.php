@@ -145,21 +145,21 @@
 			</div>
 			<div class="row">
 				<div class="d-flex justify-content-center align-items-center gap-5">
-					<div class="d-none d-lg-flex col-lg-4">
+					<div data-aos="zoom-in" data-aos-anchor-placement="top-bottom" class="d-none d-lg-flex col-lg-4">
 						<img class="img-fluid" src="/images/kyoo-logo.svg" alt="Kyoo Logo">
 					</div>
 					<div class="col-lg-8">
 						<!-- Form -->
 						<form action="#" method="POST" class="needs-validation d-flex flex-column gap-3" novalidate>
 							<!-- Full Name Input -->
-							<div class="col-lg-12">
+							<div data-aos="zoom-in-right" data-aos-delay:"3000" class="col-lg-12">
 								<div class="form-floating">
 									<input type="text" class="form-control" id="floatingName" name="fullname" placeholder="Full Name" title="Enter Full Name">
 									<label for="floatingName">Full Name (Optional)</label>
 								</div>
 							</div>
 							<!-- Department Description Input -->
-							<div class="col-lg-12">
+							<div data-aos="zoom-in-right" data-aos-delay:"1000" class="col-lg-12">
 								<div class="form-floating">
 									<textarea class="form-control" placeholder="Description" id="floatingMessage" name="dept-desc" style="min-height: 100px; max-height: 200px;" required></textarea>
 									<label for="floatingMessage">Feedback</label>
@@ -173,7 +173,7 @@
 							</div>
 
 							<!-- Button Send -->
-							<button type="submit" name="send-feedback" class="btn btn-kyoored">
+							<button data-aos="zoom-in-right" data-aos-delay:"3000" type="submit" name="send-feedback" class="btn btn-kyoored">
 								Send Feedback
 							</button>
 						</form>
