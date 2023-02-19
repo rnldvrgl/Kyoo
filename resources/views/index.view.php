@@ -3,7 +3,7 @@
 <!-- /HTML Header -->
 
 <!-- Back to top button -->
-<?php require('partials/__back-to-top.php') ?>
+<?php require(base_path('resources/views/partials/__back-to-top.php')) ?>
 <!-- /Back to top button -->
 
 <!-- Navbar -->
@@ -81,18 +81,18 @@
 		</div>
 	</div>
 </section>
-<img class="img-fluid" src="/images/wave.png" alt="">
+<img class="img-fluid" src="/images/wave.png" alt="wave-down">
 <!-- /Hero Section -->
 
 <!-- Frequently Asked Questions -->
 <section id="faqs" class="container col-lg-8 p-5 section" style="margin-top: -50px;">
-	<div class="d-flex flex-column justify-content-center align-items-center gap-3 p-5">
+	<div class="d-flex flex-column  gap-3 p-5">
 		<div data-aos="fade-up" data-aos-anchor-placement="top-bottom" class="d-flex flex-column justify-content-center align-items-center gap-3 text-center mb-3">
 			<h2 class="display-6 fw-bold">FAQs</h2>
 			<p>Frequently Asked Questions</p>
 		</div>
 		<div class="accordion" id="accordionPanelsStayOpenExample">
-			<div class="accordion-item">
+			<div data-aos="fade-up" data-aos-delay:"3000" class="accordion-item">
 				<h2 class="accordion-header" id="panelsStayOpen-headingOne">
 					<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
 						Accordion Item #1
@@ -104,7 +104,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="accordion-item">
+			<div data-aos="fade-up" data-aos-delay:"3000" class="accordion-item">
 				<h2 class="accordion-header" id="panelsStayOpen-headingTwo">
 					<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
 						Accordion Item #2
@@ -116,7 +116,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="accordion-item">
+			<div data-aos="fade-up" data-aos-delay:"3000" class="accordion-item">
 				<h2 class="accordion-header" id="panelsStayOpen-headingThree">
 					<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
 						Accordion Item #3
@@ -129,26 +129,26 @@
 				</div>
 			</div>
 		</div>
-		<a href="#" class="btn btn-outline-kyoored">View More >></a>
+		<a href="#" data-aos="fade-up" data-aos-delay:"3000" class="btn btn-outline-kyoored">View More >></a>
 	</div>
 </section>
 <!-- /Frequently Asked Questions -->
 
 <!-- Send Feedback Section -->
-
-<section id="feedback" class="bg-kyoodark border-bottom border-2 border-kyoored">
+<img class="img-fluid" src="/images/wave-up.svg" alt="wave-down">
+<section id=" feedback" class="bg-kyoodark border-bottom pb-5 border-2 border-kyoored ">
 	<div class="container col-lg-12 p-5">
 		<div class="d-flex flex-column justify-content-center align-items-center gap-3">
-			<div data-aos="fade-up" data-aos-anchor-placement="top-bottom" class="gap-3 text-center text-white mb-4">
+			<div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-delay:"3000" class="gap-3 text-center text-white mb-4">
 				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
 				<h2 class="display-6 fw-bold">SEND FEEDBACK</h2>
 			</div>
 			<div class="row">
 				<div class="d-flex justify-content-center align-items-center gap-5">
-					<div class="d-none d-lg-flex col-lg-5">
+					<div class="d-none d-lg-flex col-lg-4">
 						<img class="img-fluid" src="/images/kyoo-logo.svg" alt="Kyoo Logo">
 					</div>
-					<div class="col-lg-7">
+					<div class="col-lg-8">
 						<!-- Form -->
 						<form action="#" method="POST" class="needs-validation d-flex flex-column gap-3" novalidate>
 							<!-- Full Name Input -->
@@ -203,6 +203,3 @@
 <!-- HTML Footer -->
 <?php require('includes/footer.php') ?>
 <!-- /HTMLFooter -->
-<script>
-	AOS.init();
-</script>
