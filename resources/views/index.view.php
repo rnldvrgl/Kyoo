@@ -6,60 +6,9 @@
 <?php require(base_path('resources/views/partials/__back-to-top.php')) ?>
 <!-- /Back to top button -->
 
-<!-- Navbar -->
-<nav id="scrollspy" class="navbar sticky-top navbar-expand-lg shadow bg-kyoodark navbar-dark">
-	<!-- Container wrapper -->
-	<div class="container px-5">
-
-		<!-- Navbar brand -->
-		<a class="navbar-brand" href="#">
-			<img src="/images/kyoo-logo.svg" alt="" width=" 40" height="34">
-		</a>
-
-		<!-- Toggle Button -->
-		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-			<i class="fa-solid fa-bars"></i>
-		</button>
-
-		<!-- Collapsible wrapper -->
-		<div class="collapse navbar-collapse" id="navbarSupportedContent">
-			<ul class="nav navbar-nav ms-auto me-4 my-lg-0">
-				<li class="nav-item">
-					<a class="nav-link" href="#">
-						<i class="fa-solid fa-house-chimney"></i>
-						HOME
-					</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#faqs">
-						<i class="fa-solid fa-file-circle-question"></i>
-						FAQs
-					</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#feedback">
-						<i class="fa-solid fa-message"></i>
-						SEND FEEDBACK
-					</a>
-				</li>
-			</ul>
-
-			<div class="d-lg-inline-flex d-grid gap-3">
-				<a class=" btn btn-outline-kyoored text-white rounded-pill px-3 mb-2 mb-lg-0" href="#">Live Queue</a>
-				<?php if (isset($_SESSION['sid'])) : ?>
-					<!-- Return to Dashboard -->
-					<a class="btn btn-kyoored rounded-pill px-3 mb-2 mb-lg-0" href="pages/departments/main-admin/dashboard.php">Return Dashboard</a>
-				<?php else : ?>
-					<!-- Login -->
-					<a class=" btn btn-kyoored rounded-pill px-3 mb-2 mb-lg-0" href="/login">LOGIN</a>
-				<?php endif; ?>
-			</div>
-		</div>
-		<!-- Collapsible wrapper -->
-	</div>
-	<!-- Container wrapper -->
-</nav>
-<!-- Navbar -->
+<!-- Navigation Bar -->
+<?php require(base_path('resources/views/partials/__navbar.php')) ?>
+<!-- /Navigation Bar -->
 
 <!-- Hero Section -->
 <section class="d-flex justify-content-center align-items-center bg-kyoodark text-white pt-5 px-2 mb-0 overflow-hidden">
@@ -129,7 +78,7 @@
 				</div>
 			</div>
 		</div>
-		<a href="#" data-aos="fade-up" data-aos-delay:"3000" class="btn btn-outline-kyoored">View More >></a>
+		<a href="/frequent-questions" data-aos="fade-up" data-aos-delay:"3000" class="btn btn-outline-kyoored">View More >></a>
 	</div>
 </section>
 <!-- /Frequently Asked Questions -->
@@ -184,21 +133,9 @@
 </section>
 <!-- /Send Feedback Section -->
 
-<!-- Landing Page Footer -->
-<footer class="bg-kyoodark text-center py-5 shadow-lg">
-	<div class="container px-5">
-		<div class="text-white-50 d-flex flex-column justify-content-center align-items-center gap-2">
-			<div class="copyright"> &copy; Kyoo | 2023. <strong>Optimus Byte</strong>. All Rights Reserved</div>
-			<div class="credits d-flex flex-column flex-md-row justify-content-center align-items-center gap-2">
-				<a class="text-white" href="https://github.com/rnldvrgl" target="_blank">Ronald Vergel C. Dela Cruz</a>
-				<span class="d-none d-md-block">|</span>
-				<a class="text-white" href="https://github.com/HilthEXE" target="_blank">Mark Lewence Endrano</a>
-			</div>
-		</div>
-	</div>
-</footer>
-<!-- /Landing Page Footer -->
-
+<!-- Footer Bar -->
+<?php require(base_path('resources/views/partials/__footer.php')) ?>
+<!-- /Footer Bar -->
 
 <!-- HTML Footer -->
 <?php require('includes/footer.php') ?>
