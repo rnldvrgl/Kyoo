@@ -13,7 +13,7 @@
 
 		<!-- Navbar brand -->
 		<a class="navbar-brand" href="#">
-			<img src="<?= base_path('public/images/kyoo-logo.svg') ?>" alt="" width=" 40" height="34">
+			<img src="/images/kyoo-logo.svg" alt="" width=" 40" height="34">
 		</a>
 
 		<!-- Toggle Button -->
@@ -25,7 +25,7 @@
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="nav navbar-nav ms-auto me-4 my-lg-0">
 				<li class="nav-item">
-					<a class="nav-link" href="#hero">
+					<a class="nav-link" href="#">
 						<i class="fa-solid fa-house-chimney"></i>
 						HOME
 					</a>
@@ -51,7 +51,7 @@
 					<a class="btn btn-kyoored rounded-pill px-3 mb-2 mb-lg-0" href="pages/departments/main-admin/dashboard.php">Return Dashboard</a>
 				<?php else : ?>
 					<!-- Login -->
-					<a class=" btn btn-kyoored rounded-pill px-3 mb-2 mb-lg-0" href="pages/auth/login.php">LOGIN</a>
+					<a class=" btn btn-kyoored rounded-pill px-3 mb-2 mb-lg-0" href="/login">LOGIN</a>
 				<?php endif; ?>
 			</div>
 		</div>
@@ -62,13 +62,13 @@
 <!-- Navbar -->
 
 <!-- Hero Section -->
-<section id="hero" class="d-flex justify-content-center align-items-center bg-kyoodark text-white pt-5 px-2 mb-0 overflow-hidden">
+<section class="d-flex justify-content-center align-items-center bg-kyoodark text-white pt-5 px-2 mb-0 overflow-hidden">
 	<div class="container">
 		<div class="row gx-5 align-items-center">
 			<!-- Left Item -->
 			<div class="col-lg-5">
 				<div data-aos="fade-right" data-aos-duration="1000" class="d-flex align-items-center justify-content-center">
-					<img class="img-fluid" src="<?= ROOT ?>/images/waiting-line.svg" alt="Waiting Line">
+					<img class="img-fluid" src="/images/waiting-line.svg" alt="Waiting Line">
 				</div>
 			</div>
 			<!-- Right Item -->
@@ -81,7 +81,7 @@
 		</div>
 	</div>
 </section>
-<img class="img-fluid" src="<?= ROOT ?>/images/wave.png" alt="">
+<img class="img-fluid" src="/images/wave.png" alt="">
 <!-- /Hero Section -->
 
 <!-- Frequently Asked Questions -->
@@ -146,7 +146,7 @@
 			<div class="row">
 				<div class="d-flex justify-content-center align-items-center gap-5">
 					<div class="d-none d-lg-flex col-lg-5">
-						<img class="img-fluid" src="<?= ROOT ?>/images/kyoo-logo.svg" alt="Kyoo Logo">
+						<img class="img-fluid" src="/images/kyoo-logo.svg" alt="Kyoo Logo">
 					</div>
 					<div class="col-lg-7">
 						<!-- Form -->
@@ -199,6 +199,10 @@
 </footer>
 <!-- /Landing Page Footer -->
 
+
 <!-- HTML Footer -->
 <?php require('includes/footer.php') ?>
 <!-- /HTMLFooter -->
+<script>
+	AOS.init();
+</script>
