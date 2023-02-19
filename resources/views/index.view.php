@@ -85,8 +85,8 @@
 <!-- /Hero Section -->
 
 <!-- Frequently Asked Questions -->
-<section id="faqs" class="container col-lg-8 p-5 section" style="margin-top: -50px;">
-	<div class="d-flex flex-column  gap-3 p-5">
+<section id="faqs" class="container col-lg-8 p-md-5 p-0 section" style="margin-top: -50px;">
+	<div class="d-flex flex-column gap-3 p-md-5 px-3 py-5 ">
 		<div data-aos="fade-up" data-aos-anchor-placement="top-bottom" class="d-flex flex-column justify-content-center align-items-center gap-3 text-center mb-3">
 			<h2 class="display-6 fw-bold">FAQs</h2>
 			<p>Frequently Asked Questions</p>
