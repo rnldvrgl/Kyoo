@@ -4,21 +4,14 @@
 
     ? Redirect Pages here
 */
-session_start();
 
-require 'functions.php';
+use Core\App;
 
 use Core\Database;
 
 if ($_SESSION['sid'] === session_id()) {
 
-	require 'Database.php';
-
-	// require connection to the database
-	$config = require '../config/connection.php';
-
-	// instantiate the database
-	$db = new Database($config['database']);
+	$db = App::resolve(Database::class);
 
 	$_SESSION['authorized'] = TRUE;
 
@@ -71,3 +64,7 @@ if ($_SESSION['sid'] === session_id()) {
 
 	redirect('../pages/error/404.php');
 }
+
+// view("auth/login.view.php", [
+//     'title' => 'Kyoo: Login',
+// ]);

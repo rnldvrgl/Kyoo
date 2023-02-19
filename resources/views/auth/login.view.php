@@ -1,7 +1,4 @@
 <?php
-// session_start();
-
-// require '../../Core/functions.php';
 
 // // Database Namespace
 // use Core\Database;
@@ -87,7 +84,7 @@
 
 			<!-- Right Item -->
 			<div class="col-md-7 col-lg-6">
-				<form class="d-flex flex-column justify-content-center align-items-center" method="POST" action="../../Core/login.php">
+				<form class="d-flex flex-column justify-content-center align-items-center" method="POST" action="/login">
 					<div class="text-center mb-3">
 						<img class="mb-3" src="images/avatar.svg" alt="avatar icon">
 						<h4 class="fw-semibold">WELCOME</h4>
@@ -129,7 +126,7 @@
 
 					<!-- Sign in button -->
 					<div class="d-grid gap-2 col-6 mx-auto">
-						<button type="submit" name="submit" class="btn btn-block btn-kyoored">SIGN IN</button>
+						<button type="submit" class="btn btn-block btn-kyoored">SIGN IN</button>
 					</div>
 				</form>
 			</div>

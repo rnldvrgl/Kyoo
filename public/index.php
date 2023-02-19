@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 // Declare a base path constant
 const BASE_PATH = __DIR__ . '/../';
 
@@ -12,6 +14,8 @@ spl_autoload_register(function ($class) {
 
 	require base_path("{$class}.php");
 });
+
+require base_path('bootstrap.php');
 
 $router = new \Core\Router();
 
