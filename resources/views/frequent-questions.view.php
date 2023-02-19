@@ -10,7 +10,7 @@
 <div class="banner bg-kyoodark text-white shadow">
 	<div class="container-fluid py-3 py-lg-4 d-flex justify-content-around align-items-center">
 		<div class="row">
-			<div class="col-lg-8 d-flex flex-column justify-content-center align-items-left">
+			<div data-aos="fade-right" data-aos-duration="2000" class="col-lg-8 d-flex flex-column justify-content-center align-items-left">
 				<h1>Frequently Asked Questions</h1>
 				<div class="pagetitle">
 					<nav>
@@ -26,12 +26,13 @@
 				</div>
 				<h4>What can we help you?</h4>
 			</div>
-			<div class="col-lg-4 d-none d-lg-block d-flex flex-column justify-content-center align-items-left">
+			<div data-aos="fade-left" data-aos-duration="1000" class="col-lg-4 d-none d-lg-block d-flex flex-column justify-content-center align-items-left">
 				<img class="img-fluid" src="images/question.png" alt="">
 			</div>
 		</div>
 	</div>
 </div>
+<img class="img-fluid" src="/images/wave-sm.svg" alt="wave-down">
 <!-- /Banner -->
 
 <!-- Main Content -->
@@ -48,7 +49,7 @@
 					<input class="form-control py-2 border-0" type="search" placeholder="Type something..." id="example-search-input">
 				</div>
 				<div class="row">
-					<div class="col-lg-4">
+					<div data-aos="fade-right" data-aos-delay:"3000" class="col-lg-4">
 						<div class="card border-start border-kyoored border-5">
 							<div class="card-body">
 								<h5 class="card-title fw-bold">Quill Editor Bubble</h5>
@@ -56,7 +57,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-lg-4">
+					<div data-aos="fade-right" data-aos-delay:"3000" class="col-lg-4">
 						<div class="card border-start border-kyoored border-5">
 							<div class="card-body">
 								<h5 class="card-title fw-bold">Quill Editor Bubble</h5>
@@ -64,7 +65,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-lg-4">
+					<div data-aos="fade-right" data-aos-delay:"3000" class="col-lg-4">
 						<div class="card border-start border-kyoored border-5">
 							<div class="card-body">
 								<h5 class="card-title fw-bold">Quill Editor Bubble</h5>
@@ -72,7 +73,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-lg-4">
+					<div data-aos="fade-right" data-aos-delay:"3000" class="col-lg-4">
 						<div class="card border-start border-kyoored border-5">
 							<div class="card-body">
 								<h5 class="card-title fw-bold">Quill Editor Bubble</h5>
@@ -80,7 +81,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-lg-4">
+					<div data-aos="fade-right" data-aos-delay:"3000" class="col-lg-4">
 						<div class="card border-start border-kyoored border-5">
 							<div class="card-body">
 								<h5 class="card-title fw-bold">Quill Editor Bubble</h5>
@@ -88,7 +89,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-lg-4">
+					<div data-aos="fade-right" data-aos-delay:"3000" class="col-lg-4">
 						<div class="card border-start border-kyoored border-5">
 							<div class="card-body">
 								<h5 class="card-title fw-bold">Quill Editor Bubble</h5>
@@ -96,7 +97,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-lg-4">
+					<div data-aos="fade-right" data-aos-delay:"3000" class="col-lg-4">
 						<div class="card border-start border-kyoored border-5">
 							<div class="card-body">
 								<h5 class="card-title fw-bold">Quill Editor Bubble</h5>
@@ -104,7 +105,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-lg-4">
+					<div data-aos="fade-right" data-aos-delay:"3000" class="col-lg-4">
 						<div class="card border-start border-kyoored border-5">
 							<div class="card-body">
 								<h5 class="card-title fw-bold">Quill Editor Bubble</h5>
@@ -120,6 +121,7 @@
 <!-- /Main Content -->
 
 <!-- Footer Bar -->
+<img class="img-fluid" src="/images/wave-up.svg" alt="wave-down">
 <?php require(base_path('resources/views/partials/__footer.php')) ?>
 <!-- /Footer Bar -->
 
