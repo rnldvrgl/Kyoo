@@ -85,7 +85,7 @@
 
 <!-- Send Feedback Section -->
 <img class="img-fluid" src="/images/wave-up.svg" alt="wave-down">
-<section id=" feedback" class="bg-kyoodark border-bottom pb-5 border-2 border-kyoored ">
+<section id="feedback" class="bg-kyoodark border-bottom pb-5 border-2 border-kyoored ">
 	<div class="container col-lg-12 p-5">
 		<div class="d-flex flex-column justify-content-center align-items-center gap-3">
 			<div data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-delay:"3000" class="gap-3 text-center text-white mb-4">
