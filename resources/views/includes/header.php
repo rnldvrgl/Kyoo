@@ -7,7 +7,8 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-	<link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+	<!-- Favicon -->
+	<link rel="shortcut icon" href="<?php ROOT ?>images/kyoo-ico.ico" type="image/x-icon">
 
 	<!-- Bootstrap CSS and Custom SCSS -->
 	<link rel="stylesheet" href="/css/style.css">
@@ -34,6 +35,9 @@
 
 	<!-- Chart.js CDN -->
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+	<!-- AOS CSS -->
+	<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
 </head>
 

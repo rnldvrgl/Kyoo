@@ -1,4 +1,10 @@
+<!-- HTML Header -->
 <?php require('includes/header.php') ?>
+<!-- /HTML Header -->
+
+<!-- Back to top button -->
+<?php require('partials/__back-to-top.php') ?>
+<!-- /Back to top button -->
 
 <!-- Navbar -->
 <nav id="scrollspy" class="navbar sticky-top navbar-expand-lg shadow bg-kyoodark navbar-dark">
@@ -7,7 +13,7 @@
 
 		<!-- Navbar brand -->
 		<a class="navbar-brand" href="#">
-			<img src="<?= ROOT ?>/images/kyoo-logo.svg" alt="" width=" 40" height="34">
+			<img src="<?= base_path('public/images/kyoo-logo.svg') ?>" alt="" width=" 40" height="34">
 		</a>
 
 		<!-- Toggle Button -->
@@ -61,13 +67,13 @@
 		<div class="row gx-5 align-items-center">
 			<!-- Left Item -->
 			<div class="col-lg-5">
-				<div class="d-flex align-items-center justify-content-center">
+				<div data-aos="fade-right" data-aos-duration="1000" class="d-flex align-items-center justify-content-center">
 					<img class="img-fluid" src="<?= ROOT ?>/images/waiting-line.svg" alt="Waiting Line">
 				</div>
 			</div>
 			<!-- Right Item -->
 			<div class="col-lg-7">
-				<div class="text-center text-lg-start">
+				<div data-aos="fade-left" data-aos-duration="2000" class="text-center text-lg-start">
 					<h1 class="display-5 fw-bold">Handle your queues wisely and instantaneously</h1>
 					<p class="text-white-50">The Republic Central Colleges is committed to providing quality services to students, graduates, faculty, and other members of the school.</p>
 				</div>
@@ -79,9 +85,9 @@
 <!-- /Hero Section -->
 
 <!-- Frequently Asked Questions -->
-<section id="faqs" class="container col-lg-8 p-5 section" style="margin-top: -100px;">
+<section id="faqs" class="container col-lg-8 p-5 section" style="margin-top: -50px;">
 	<div class="d-flex flex-column justify-content-center align-items-center gap-3 p-5">
-		<div class="d-flex flex-column justify-content-center align-items-center gap-3 text-center mb-3">
+		<div data-aos="fade-up" data-aos-anchor-placement="top-bottom" class="d-flex flex-column justify-content-center align-items-center gap-3 text-center mb-3">
 			<h2 class="display-6 fw-bold">FAQs</h2>
 			<p>Frequently Asked Questions</p>
 		</div>
@@ -129,10 +135,11 @@
 <!-- /Frequently Asked Questions -->
 
 <!-- Send Feedback Section -->
+
 <section id="feedback" class="bg-kyoodark border-bottom border-2 border-kyoored">
 	<div class="container col-lg-12 p-5">
 		<div class="d-flex flex-column justify-content-center align-items-center gap-3">
-			<div class="gap-3 text-center text-white mb-4">
+			<div data-aos="fade-up" data-aos-anchor-placement="top-bottom" class="gap-3 text-center text-white mb-4">
 				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
 				<h2 class="display-6 fw-bold">SEND FEEDBACK</h2>
 			</div>
@@ -148,17 +155,14 @@
 							<div class="col-lg-12">
 								<div class="form-floating">
 									<input type="text" class="form-control" id="floatingName" name="fullname" placeholder="Full Name" title="Enter Full Name">
-									<label for="floatingName">Full Name</label>
-									<div class="valid-feedback">
-										Looks good!
-									</div>
+									<label for="floatingName">Full Name (Optional)</label>
 								</div>
 							</div>
 							<!-- Department Description Input -->
 							<div class="col-lg-12">
 								<div class="form-floating">
 									<textarea class="form-control" placeholder="Description" id="floatingMessage" name="dept-desc" style="min-height: 100px; max-height: 200px;" required></textarea>
-									<label for="floatingMessage">Description</label>
+									<label for="floatingMessage">Feedback</label>
 									<div class="valid-feedback">
 										Looks good!
 									</div>
@@ -195,4 +199,6 @@
 </footer>
 <!-- /Landing Page Footer -->
 
+<!-- HTML Footer -->
 <?php require('includes/footer.php') ?>
+<!-- /HTMLFooter -->

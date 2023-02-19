@@ -3,7 +3,7 @@
 use Core\Response;
 
 // Local Server Root
-define('ROOT', 'http://localhost/Kyoo/public');
+define('ROOT', $_SERVER['DOCUMENT_ROOT']);
 
 // Deployed Server Root
 // define('ROOT', 'https://www.websitename.com');
@@ -24,7 +24,7 @@ function redirect($path)
 // For href/src
 function path($path)
 {
-	return "/../KyooMVC/" . $path;
+	return "/../Kyoo/" . $path;
 }
 
 // Die and Dump

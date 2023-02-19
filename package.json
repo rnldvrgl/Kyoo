@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/rnldvrgl/Kyoo#readme",
   "dependencies": {
-    "bootstrap": "^5.2.3"
+    "bootstrap": "^5.2.3",
+    "chart.js": "^4.2.1"
   }
 }
