@@ -69,8 +69,7 @@
 ?>
 
 <!-- HTML Header -->
-<?php // require('../includes/header.php') 
-?>
+<?php require base_path('resources/views/includes/header.php') ?>
 <!-- /HTML Header -->
 
 <section class="vh-100">
@@ -80,8 +79,8 @@
 			<!-- Left Item -->
 			<div class="d-none d-lg-flex flex-column justify-content-center align-items-center col-md-5 col-lg-6 text-center">
 				<!-- Kyoo Logo -->
-				<a href="<?php path('index.php') ?>">
-					<img class="img-fluid mb-3" src="../../assets/img/kyoo-logo.svg" alt="Kyoo Logo">
+				<a href="/">
+					<img class="img-fluid mb-3" src="images/kyoo-logo.svg" alt="Kyoo Logo">
 				</a>
 				<h4 class="fw-semibold text-uppercase">Queueing Management System</h4>
 			</div>
@@ -90,7 +89,7 @@
 			<div class="col-md-7 col-lg-6">
 				<form class="d-flex flex-column justify-content-center align-items-center" method="POST" action="../../Core/login.php">
 					<div class="text-center mb-3">
-						<img class="mb-3" src="../../assets/img/avatar.svg" alt="avatar icon">
+						<img class="mb-3" src="images/avatar.svg" alt="avatar icon">
 						<h4 class="fw-semibold">WELCOME</h4>
 					</div>
 					<!-- Error Message -->
@@ -139,6 +138,6 @@
 </section>
 
 <!-- Footer -->
-<?php require('../includes/footer.php');
+<?php require base_path('resources/views/includes/footer.php');
 ?>
 <!-- /Footer -->

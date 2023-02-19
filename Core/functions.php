@@ -21,12 +21,6 @@ function redirect($path)
 	exit();
 }
 
-// For href/src
-function path($path)
-{
-	return "/../Kyoo/" . $path;
-}
-
 // Die and Dump
 function dd($value)
 {
