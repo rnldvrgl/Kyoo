@@ -40,7 +40,7 @@
 				<a class=" btn btn-outline-kyoored text-white rounded-pill px-3 mb-2 mb-lg-0" href="#">Live Queue</a>
 				<?php if (isset($_SESSION['sid'])) : ?>
 					<!-- Return to Dashboard -->
-					<a class="btn btn-kyoored rounded-pill px-3 mb-2 mb-lg-0" href="pages/departments/main-admin/dashboard.php">Return Dashboard</a>
+					<a class="btn btn-kyoored rounded-pill px-3 mb-2 mb-lg-0" href="/dashboard">Return Dashboard</a>
 				<?php else : ?>
 					<!-- Login -->
 					<a class=" btn btn-kyoored rounded-pill px-3 mb-2 mb-lg-0" href="/login">LOGIN</a>

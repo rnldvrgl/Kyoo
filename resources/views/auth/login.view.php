@@ -1,70 +1,3 @@
-<?php
-
-// // Database Namespace
-// use Core\Database;
-
-// // Database Class
-// require base_path('Core/Database.php');
-
-// // require connection to the database
-// $config = require base_path('config/connection.php');
-
-// // instantiate the database
-// $db = new Database($config['database']);
-
-// // Conditional statement
-// if (isset($_SESSION['sid'])) {
-
-// 	// Arrays of user information
-// 	$account_id = $_SESSION['account_id'];
-
-// 	$info = $db->query("SELECT * FROM accounts WHERE account_id = :account_id", [
-// 		'account_id' => $account_id,
-// 	])->get();
-
-// 	// Loop through accounts table and get IDs
-// 	foreach ($info as $ids) {
-// 		$account_id = $ids['account_id'];
-// 		$role_id = $ids['role_id'];
-// 		$dept_id = $ids['dept_id'];
-// 	}
-
-// 	if (isset($account_id)) {
-// 		if ($dept_id == 1) {
-// 			// Department = Office
-// 			if ($role_id == 1) {
-// 				// Role = Main Admin
-// 				redirect('../departments/main-admin/dashboard.php');
-// 			}
-// 		} else if ($dept_id == 2) {
-// 			// Department = Registrar
-// 			if ($role_id == 2) {
-// 				// Role = Department Admin
-// 				redirect('../departments/department-admin/dashboard.php');
-// 			} else if ($role_id == 3) {
-// 				// Role = Department Staff
-// 				redirect('../departments/department-staff/dashboard.php');
-// 			}
-// 		} else if ($dept_id == 3) {
-// 			// Department = Cashier
-// 			if ($role_id == 2) {
-// 				// Role = Department Admin
-// 				redirect('../departments/department-admin/dashboard.php');
-// 			} else if ($role_id == 3) {
-// 				// Role = Department Staff
-// 				redirect('../departments/department-staff/dashboard.php');
-// 			}
-// 		} else if ($dept_id == 4) {
-// 			// Department = Library
-// 			if ($role_id == 4) {
-// 				// Role = Librarian
-// 				redirect('../departments/library/dashboard.php');
-// 			}
-// 		}
-// 	}
-// }
-?>
-
 <!-- HTML Header -->
 <?php require base_path('resources/views/includes/header.php') ?>
 <!-- /HTML Header -->
@@ -89,18 +22,21 @@
 						<img class="mb-3" src="images/avatar.svg" alt="avatar icon">
 						<h4 class="fw-semibold">WELCOME</h4>
 					</div>
-					<!-- Error Message -->
-					<?php if (isset($_SESSION['err'])) : ?>
-						<div class="alert alert-danger alert-dismissible fade show" role="alert">
-							<?= $_SESSION['err']; ?>
-						</div>
+					<!-- Alert Message -->
 					<?php
-					endif;
-
-					// Unset after Display
-					unset($_SESSION['err']);
+					if (isset($_SESSION['msg']) && isset($_SESSION['alert_type'])) {
+						$msg = $_SESSION['msg'];
+						$alert = $_SESSION['alert_type'];
+						echo '<div id="msg" class="alert ' . $alert . ' alert-dismissible fade show" role="alert">'
+							. $msg .
+							"</div>";
+						unset($_SESSION["msg"]);
+					}
 					?>
-					<!-- /Error Message -->
+					<!-- /Alert Message -->
+
+					<!-- CSRT Token -->
+					<input type="hidden" name="csrf_token" value="<?= csrfToken() ?>">
 
 					<!-- Input Email -->
 					<div class="input-group mb-3">
