@@ -9,8 +9,8 @@ $router->get('/login', 'controllers/auth/index.php');
 $router->post('/login', 'controllers/auth/authenticate.php');
 $router->get('/login/authenticate', 'controllers/auth/secure-page.php');
 
-
-
+// Live Queue Page
+$router->get('/live-queue', 'controllers/live-queue.php');
 
 // Dashboard Page
 $router->get('/dashboard', 'controllers/dashboard.php');
