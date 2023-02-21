@@ -15,9 +15,9 @@ function base_path($path)
 }
 
 // Redirecting
-function redirect($path)
+function redirect($location)
 {
-	header("Location: " . $path);
+	header("Location: " . $location);
 	exit();
 }
 
@@ -63,4 +63,13 @@ function view($path, $attributes = [])
 	extract($attributes);
 
 	require base_path('resources/views/' . $path);
+}
+
+// CSRF Token Generator
+function csrfToken()
+{
+	$token = bin2hex(random_bytes(32));
+	$_SESSION['csrf_token'] = $token;
+
+	return $token;
 }

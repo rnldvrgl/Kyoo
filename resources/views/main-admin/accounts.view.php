@@ -1,0 +1,369 @@
+<?php
+
+if (!isset($_SESSION['sid']) || $_SESSION['sid'] !== session_id() || isset($_SESSION['authorized']) !== TRUE || $_SESSION['account_id'] === '') {
+	redirect('/login');
+}
+
+use Core\App;
+
+use Core\Database;
+
+$db = App::resolve(Database::class);
+
+?>
+<!-- Header -->
+<?php require(base_path('resources/views/includes/header.php')); ?>
+<!-- /Header -->
+
+<!-- Header Navbar -->
+<?php require(base_path('resources/views/partials/__header.php')); ?>
+<!-- /Header Navbar -->
+
+<!-- Sidebar -->
+<?php require(base_path('resources/views/partials/__sidebar.php')); ?>
+<!-- /Sidebar -->
+
+<!-- Main Content -->
+<main id="main" class="main">
+	<div class="d-sm-flex align-items-center justify-content-between">
+		<!-- Content Title -->
+		<div class="pagetitle">
+			<h1>Accounts</h1>
+			<nav>
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+					<li class="breadcrumb-item active">Accounts</li>
+				</ol>
+			</nav>
+		</div>
+		<!-- /Content Title -->
+
+		<!-- Add Button (Modal Toggle)-->
+		<button type="button" class="btn btn-sm btn-success mb-3" data-bs-toggle="modal" data-bs-target="#addAccount">
+			<!-- Button Icon -->
+			<i class="fa-solid fa-plus"></i>
+			Add Account
+		</button>
+		<!-- /Add Button -->
+
+		<!-- Add Modal -->
+		<div class="modal fade" id="addAccount" tabindex="-1">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<!-- Modal Title -->
+						<h5 class="modal-title">
+							Add Account
+						</h5>
+						<!-- Modal Close Button -->
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+
+					<!-- Modal Body -->
+					<div class="modal-body">
+						<!-- Form -->
+						<form action="/accounts" method="POST" class="row g-3 needs-validation" novalidate>
+
+							<!-- Full Name Input -->
+							<div class="col-md-12">
+								<div class="form-floating">
+									<input type="text" class="form-control" id="floatingName" name="full_name" placeholder="Full Name" pattern="[A-Za-z\s]{5,}" title="Full Name (First Name Last Name)" required>
+									<label for="floatingName">Full Name (First Name Last Name)</label>
+									<div class="valid-feedback">
+										Looks good!
+									</div>
+									<div class="invalid-feedback">
+										Please provide a valid name.
+									</div>
+								</div>
+							</div>
+
+							<!-- Email Input -->
+							<div class="col-12">
+								<div class="form-floating">
+									<input type="email" class="form-control" id="floatingEmail" name="email" placeholder="Email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" required>
+									<label for="floatingEmail" required>Email</label>
+									<div class="valid-feedback">
+										Looks good!
+									</div>
+									<div class="invalid-feedback">
+										Please provide a valid email.
+									</div>
+								</div>
+							</div>
+
+							<!-- Department Select -->
+							<div class="col-12">
+								<div class="form-floating mb-3">
+									<!-- Loop through departments table -->
+									<?php
+									$departments = $db->query('SELECT * FROM departments')->get();
+
+									?>
+									<select class="form-select" id="floatingDept" name="department" aria-label="State" required>
+										<?php
+										if (count($departments) > 0) {
+											foreach ($departments as $department) {
+												$dept_id = $department['dept_id'];
+												$dept_name = $department['dept_name'];
+
+										?>
+												<option value="<?= $dept_id ?>" selected><?= $dept_name ?></option>
+										<?php
+											}
+										}
+										?>
+									</select>
+									<label for="floatingDept">Department</label>
+								</div>
+							</div>
+
+							<!-- Role Select -->
+							<div class="col-12">
+								<div class="form-floating mb-3">
+									<!-- Loop through account_role table -->
+									<?php
+									$roles = $db->query('SELECT * FROM account_role')->get();
+									?>
+									<select class="form-select" id="floatingRole" name="role" aria-label="State" required>
+										<?php
+										if (count($roles) > 0) {
+											foreach ($roles as $role) {
+												$role_id = $role['role_id'];
+												$role_name = $role['role_name'];
+
+										?>
+												<option value="<?= $role_id ?>" selected><?= $role_name ?></option>
+										<?php
+											}
+										}
+										?>
+									</select>
+									<label for="floatingRole">Role</label>
+								</div>
+							</div>
+
+							<!-- Modal Footer -->
+							<div class="modal-footer d-flex justify-content-right">
+								<button type="submit" name="add-account" class="btn btn-success">
+									Save
+								</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /Add Modal -->
+
+		<!-- Update Modal -->
+		<div class="modal fade" id="update-account-modal" tabindex="-1">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<!-- Modal Title -->
+						<h5 class="modal-title">
+							Update Account
+						</h5>
+						<!-- Modal Close Button -->
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+
+					<!-- Modal Body -->
+					<div class="modal-body">
+						<!-- Form -->
+						<form id="update-account-form" class="row g-3 needs-validation" novalidate>
+
+							<!-- Hidden ID -->
+							<input type="hidden" name="id" id="id">
+
+							<!-- Full Name Input -->
+							<div class="col-md-12">
+								<div class="form-floating">
+									<input type="text" class="form-control" id="full_name" name="full_name" placeholder="Full Name" pattern="[A-Za-z\s]{5,}" title="Full Name (First Name Last Name)" required>
+									<label for="full_name">Full Name (First Name Last Name)</label>
+									<div class="valid-feedback">
+										Looks good!
+									</div>
+									<div class="invalid-feedback">
+										Please provide a valid name.
+									</div>
+								</div>
+							</div>
+
+							<!-- Email Input -->
+							<div class="col-12">
+								<div class="form-floating">
+									<input type="email" class="form-control" id="email" name="email" placeholder="Email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" required>
+									<label for="email" required>Email</label>
+									<div class="valid-feedback">
+										Looks good!
+									</div>
+									<div class="invalid-feedback">
+										Please provide a valid email.
+									</div>
+								</div>
+							</div>
+
+							<!-- Department Select -->
+							<div class="col-12">
+								<div class="form-floating mb-3">
+									<!-- Loop through departments table -->
+									<?php
+									$departments = $db->query('SELECT * FROM departments')->get();
+
+									?>
+									<select class="form-select" id="department" name="department" aria-label="State" required>
+										<?php
+										if (count($departments) > 0) {
+											foreach ($departments as $department) {
+												$dept_id = $department['dept_id'];
+												$dept_name = $department['dept_name'];
+										?>
+												<option value="<?= $dept_id ?>" selected><?= $dept_name ?></option>
+										<?php
+											}
+										}
+										?>
+									</select>
+									<label for="department">Department</label>
+								</div>
+							</div>
+
+							<!-- Role Select -->
+							<div class="col-12">
+								<div class="form-floating mb-3">
+									<!-- Loop through account_role table -->
+									<?php
+									$roles = $db->query('SELECT * FROM account_role')->get();
+									?>
+									<select class="form-select" id="role" name="role" aria-label="State" required>
+										<?php
+										if (count($roles) > 0) {
+											foreach ($roles as $role) {
+												$role_id = $role['role_id'];
+												$role_name = $role['role_name'];
+
+										?>
+												<option value="<?= $role_id ?>" selected><?= $role_name ?></option>
+										<?php
+											}
+										}
+										?>
+									</select>
+									<label for="role">Role</label>
+								</div>
+							</div>
+
+							<!-- Modal Footer -->
+							<div class="modal-footer d-flex justify-content-right">
+								<button type="button" class="btn btn-primary" id="update-account">Update</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /Update Modal -->
+	</div>
+
+	<!-- Content Section -->
+	<section class="section">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="card">
+					<div class="card-body">
+						<h5 class="card-title">Accounts</h5>
+						<?php
+						if (isset($_SESSION['msg']) && isset($_SESSION['alert_type'])) {
+							$msg = $_SESSION['msg'];
+							$alert = $_SESSION['alert_type'];
+							echo '<div id="msg" class="alert ' . $alert . ' alert-dismissible fade show" role="alert">'
+								. $msg .
+								"</div>";
+							unset($_SESSION["msg"]);
+						}
+						?>
+						<div class="table-responsive">
+							<table id="departments-table" class="display w-100">
+								<caption>List of Accounts</caption>
+
+								<thead>
+									<tr>
+										<th>Name</th>
+										<th>Department</th>
+										<th>Position</th>
+										<th>Email</th>
+										<th>Phone</th>
+										<th>Date Added</th>
+										<th>Date Updated</th>
+										<th>Actions</th>
+									</tr>
+								</thead>
+								<tbody>
+									<?php
+									// Get all of the data 
+									$query = $db->query('SELECT ac.*, ad.name, d.dept_name, ar.role_name, al.email, ad.phone, ac.created_at, ac.updated_at FROM accounts as ac JOIN account_details as ad ON ac.user_id = ad.user_id JOIN account_login as al ON ac.login_id = al.login_id JOIN account_role as ar ON ac.role_id = ar.role_id JOIN departments as d ON ac.dept_id = d.dept_id')->get();
+
+									if (count($query) > 0) {
+										foreach ($query as $account) {
+											$account_id = $account['account_id'];
+											$name = $account['name'];
+											$dept_name = $account['dept_name'];
+											$role_name = $account['role_name'];
+											$email = $account['email'];
+											$phone = $account['phone'];
+											$created_at = $account['created_at'];
+											$updated_at = $account['updated_at'];
+									?>
+											<tr>
+												<td><?= $name ?></td>
+												<td><?= $dept_name ?></td>
+												<td><?= $role_name ?></td>
+												<td><?= $email ?></td>
+												<td><?= $phone ?> </td>
+												<td><?= $created_at ?></td>
+												<td><?= $updated_at ?></td>
+												<td class="text-center d-grid gap-1">
+													<!-- View -->
+													<button class="btn btn-primary view-account" data-id="<?= $account_id ?>">
+														<i class="fa-solid fa-eye"></i>
+													</button>
+
+													<!-- Update -->
+													<button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#update-account-modal" data-id="<?= $account_id ?>">
+														<i class="fa-solid fa-pen-to-square"></i>
+													</button>
+
+													<!-- Delete -->
+													<button class="btn btn-danger" id="deleteData" href="/accounts/id=<?= $account_id ?>">
+														<i class="fa-solid fa-trash-can"></i>
+													</button>
+												</td>
+											</tr>
+									<?php
+										}
+									} else {
+										echo '<p class="text-danger text-center fw-bold"><em>No Records were found.</em></p>';
+									}
+									?>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- /Content Section -->
+
+</main>
+<!-- /Main Content -->
+
+<!-- Footer Partial -->
+<?php require(base_path('resources/views/partials/__footer.php')); ?>
+<!-- /Footer -->
+
+<!-- Footer -->
+<?php require(base_path('resources/views/includes/footer.php')); ?>
+<!-- /Footer -->
