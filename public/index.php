@@ -1,28 +1,55 @@
 <?php
 
-session_start();
+use Illuminate\Contracts\Http\Kernel;
+use Illuminate\Http\Request;
 
-// Declare a base path constant
-const BASE_PATH = __DIR__ . '/../';
+define('LARAVEL_START', microtime(true));
 
-// Pull in the helper functions
-require BASE_PATH . 'Core/functions.php';
+/*
+|--------------------------------------------------------------------------
+| Check If The Application Is Under Maintenance
+|--------------------------------------------------------------------------
+|
+| If the application is in maintenance / demo mode via the "down" command
+| we will load this file so that any pre-rendered content can be shown
+| instead of starting the framework, which could cause an exception.
+|
+*/
 
-// Autoload files
-spl_autoload_register(function ($class) {
-	$class = str_replace('\\', DIRECTORY_SEPARATOR, $class);
+if (file_exists($maintenance = __DIR__.'/../storage/framework/maintenance.php')) {
+    require $maintenance;
+}
 
-	require base_path("{$class}.php");
-});
+/*
+|--------------------------------------------------------------------------
+| Register The Auto Loader
+|--------------------------------------------------------------------------
+|
+| Composer provides a convenient, automatically generated class loader for
+| this application. We just need to utilize it! We'll simply require it
+| into the script here so we don't need to manually load our classes.
+|
+*/
 
-require base_path('bootstrap.php');
+require __DIR__.'/../vendor/autoload.php';
 
-$router = new \Core\Router();
+/*
+|--------------------------------------------------------------------------
+| Run The Application
+|--------------------------------------------------------------------------
+|
+| Once we have the application, we can handle the incoming request using
+| the application's HTTP kernel. Then, we will send the response back
+| to this client's browser, allowing them to enjoy our application.
+|
+*/
 
-// Require the router
-$routes = require base_path('routes.php');
+$app = require_once __DIR__.'/../bootstrap/app.php';
 
-$uri = parse_url($_SERVER['REQUEST_URI'])['path'];
-$method = $_POST['_method'] ?? $_SERVER['REQUEST_METHOD'];
+$kernel = $app->make(Kernel::class);
 
-$router->route($uri, $method);
+$response = $kernel->handle(
+    $request = Request::capture()
+)->send();
+
+$kernel->terminate($request, $response);
