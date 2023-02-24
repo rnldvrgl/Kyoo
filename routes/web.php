@@ -22,7 +22,6 @@ Route::get('/', function () {
 	return view('welcome');
 });
 
-
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::get('/live_queue', function () {
@@ -32,3 +31,5 @@ Route::get('/live_queue', function () {
 Route::get('/frequent_questions', function () {
 	return view('frequent-questions');
 })->name('faqs_landing');
+
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
