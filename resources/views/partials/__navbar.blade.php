@@ -42,7 +42,11 @@
                     Queue</a>
 
 
-                @if (Route::has('login'))
+                <!-- Login -->
+                <a class=" btn btn-kyoored rounded-pill px-3 mb-2 mb-lg-0" href="{{ route('login') }}">LOGIN</a>
+
+
+                {{-- @if (Route::has('login'))
                     @auth
                         <!-- Return to Dashboard -->
                         <a class=" btn btn-kyoored rounded-pill px-3 mb-2 mb-lg-0" href="{{ url('home') }}">Return to
@@ -51,7 +55,7 @@
                         <!-- Login -->
                         <a class=" btn btn-kyoored rounded-pill px-3 mb-2 mb-lg-0" href="{{ route('login') }}">LOGIN</a>
                     @endauth
-                @endif
+                @endif --}}
 
             </div>
         </div>

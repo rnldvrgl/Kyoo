@@ -16,15 +16,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//  Helper method of Laravel/UI that generates a set of routes to handle authentication functionality
 Auth::routes();
 
 Route::get('/', function () {
 	return view('welcome');
 });
 
-
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::get('/live_queue', function () {
 	return view('live_queue');
-});
+})->name('live_queue');
+
+Route::get('/frequent_questions', function () {
+	return view('frequent-questions');
+})->name('faqs_landing');
+
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');

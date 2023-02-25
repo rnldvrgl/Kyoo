@@ -34,7 +34,7 @@
                 <p>The account ID is {{ session('account_id') }}</p>
             @endif
 
-            <p>The account ID is {{ session('account_id') }}</p>
+            <p>STAFF</p>
 
         </div>
     </div>

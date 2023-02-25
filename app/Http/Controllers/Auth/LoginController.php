@@ -51,10 +51,39 @@ class LoginController extends Controller
 
             if ($accountLogin && password_verify($credentials['password'], $accountLogin->password)) {
                 $account = Accounts::where('login_id', $accountLogin->id)->first();
-                return redirect()->route('home')->with(session(['account_id' => $account->id]));
+
+                // Check user type and redirect accordingly
+                switch ($account->role_id) {
+                    case 1:
+                        return view('dashboard/main_admin/dashboard')->with(session(['account_id' => $account->id]));
+                        break;
+                    case 2:
+                        return view('dashboard/department_admin/dashboard')->with(session(['account_id' => $account->id]));
+                        break;
+                    case 3:
+                        return view('dashboard/staff/dashboard')->with(session(['account_id' => $account->id]));
+                        break;
+                    case 4:
+                        return view('dashboard/librarian/dashboard')->with(session(['account_id' => $account->id]));
+                        break;
+                    default:
+                        return redirect()->route('welcome');
+                        break;
+                }
             }
         }
 
         return redirect('/login')->withErrors(['email' => 'The provided credentials do not match our records.']);
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::guard('web')->logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('/login');
     }
 }

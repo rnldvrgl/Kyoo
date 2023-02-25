@@ -28,4 +28,19 @@ class Accounts extends Model
     {
         return $this->belongsTo(Department::class, 'dept_id');
     }
+
+    // Get User Type Function
+    // public function getUserType()
+    // {
+    //     $role = $this->account_role->role_id;
+    //     if ($role === 1) {
+    //         return 'main_admin';
+    //     } elseif ($role === 2) {
+    //         return 'department_admin';
+    //     } elseif ($role === 3) {
+    //         return 'staff';
+    //     } elseif ($role === 4) {
+    //         return 'librarian';
+    //     }
+    // }
 }
