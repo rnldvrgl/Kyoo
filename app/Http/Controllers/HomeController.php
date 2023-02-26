@@ -28,4 +28,24 @@ class HomeController extends Controller
 	{
 		return view('welcome');
 	}
+
+	public function mainAdmin()
+	{
+		return view('dashboard.main_admin.dashboard');
+	}
+
+	public function depAdmin()
+	{
+		return view('dashboard.department_admin.dashboard');
+	}
+
+	public function staff()
+	{
+		return view('dashboard.staff.dashboard');
+	}
+
+	public function librarian()
+	{
+		return view('dashboard.librarian.dashboard');
+	}
 }

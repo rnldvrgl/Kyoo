@@ -33,4 +33,24 @@ Route::get('/frequent_questions', function () {
 	return view('frequent-questions');
 })->name('faqs_landing');
 
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+// Main Admin Routes
+Route::middleware(['auth', 'user-access:Main Admin'])->group(function () {
+	Route::get('/main-admin/dashboard', [HomeController::class, 'mainAdmin'])->name('home.mainAdmin');
+})->name('mainAdmin');
+
+// Department Admin Routes
+Route::middleware(['auth', 'user-access:Department Admin'])->group(function () {
+	Route::get('/department-admin/dashboard', [HomeController::class, 'depAdmin'])->name('home.depAdmin');
+})->name('depAdmin');
+
+// Department Staff Routes
+Route::middleware(['auth', 'user-access:Staff'])->group(function () {
+	Route::get('/staff/dashboard', [HomeController::class, 'staff'])->name('home.staff');
+})->name('depStaff');
+
+// Librarian Routes
+Route::middleware(['auth', 'user-access:Librarian'])->group(function () {
+	Route::get('/librarian/dashboard', [HomeController::class, 'librarian'])->name('home.librarian');
+})->name('librarian');
+
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');

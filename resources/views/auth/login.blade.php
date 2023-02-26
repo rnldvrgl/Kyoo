@@ -19,6 +19,13 @@
             <div class="col-12 col-lg-7 bg-light shadow d-flex flex-column justify-content-center align-items-center h-100">
                 <img class="img-fluid mb-3" src="{{ asset('assets/images/avatar.svg') }}" alt="avatar icon">
                 <h4 class="fw-semibold">Login to Your Account</h4>
+
+                @if (session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
+
                 <form method="POST" action="{{ route('login') }}">
                     @csrf
                     <div class="mb-3">

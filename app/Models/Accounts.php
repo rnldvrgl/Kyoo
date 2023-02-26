@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -43,4 +44,14 @@ class Accounts extends Model
     //         return 'librarian';
     //     }
     // }
+    // End
+
+    protected function type(): Attribute
+    {
+        return new Attribute(
+            // ? 0 = MA, 1 = DA, 2 = DS, 3 = L
+            // ? MA = Main Admin, DA = Department Admin, DS = Department Staff, L = Librarian
+            get: fn ($value) =>  ["Main Admin", "Department Admin", "Staff", "Library"][$value],
+        );
+    }
 }
