@@ -1,11 +1,8 @@
-{{-- Extend Layout File --}}
-@extends('layouts.app')
-
 {{-- Page Title --}}
 @section('mytitle', 'Live Queue')
 
 {{-- Main Content --}}
-@section('content')
+<x-layout>
     <!-- Header Navbar -->
     <header id="header" class="header d-flex align-items-center bg-kyoodark">
         <div class="d-flex align-items-center justify-content-between">
@@ -87,8 +84,8 @@
                             $video = isset($vid[0]) ? $vid[0] : '';
                             
                             ?>
-                            <video class="h-100 w-100 shadow" id="loop_video" src="{{ asset('assets/video/' . $video) }}"
-                                loop autoplay muted></video>
+                            <video class="h-100 w-100 shadow" id="loop_video"
+                                src="{{ asset('assets/video/' . $video) }}" loop autoplay muted></video>
                         </div>
                     </div>
                 </div>
@@ -100,9 +97,10 @@
     <!-- Marquee Text  -->
     <marquee class="d-none d-lg-block bg-kyoodark text-white fixed-bottom py-2 fw-normal">
         Republic Central Colleges (RCC) envisions herself to be among the leading higher education institutions in the
-        region, having achieved excellence in its academic programs, research activities and community extension services
+        region, having achieved excellence in its academic programs, research activities and community extension
+        services
         through highly qualified human resources, modern facilities, effective and efficient organization and management
         policies and procedures, as well as sustainable finances.
     </marquee>
     <!-- /Marquee Text  -->
-@endsection
+</x-layout>

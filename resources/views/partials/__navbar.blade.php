@@ -2,7 +2,6 @@
 <nav id="scrollspy" class="navbar sticky-top navbar-expand-lg shadow bg-kyoodark navbar-dark">
     <!-- Container wrapper -->
     <div class="container px-5">
-
         <!-- Navbar brand -->
         <a class="navbar-brand" href="#">
             <img src="{{ asset('assets/images/kyoo-logo.svg') }}" alt="Kyoo Logo" width=" 40" height="34">
@@ -41,26 +40,11 @@
                 <a class=" btn btn-outline-kyoored text-white rounded-pill px-3 mb-2 mb-lg-0" href="/live_queue">Live
                     Queue</a>
 
-
                 <!-- Login -->
                 <a class=" btn btn-kyoored rounded-pill px-3 mb-2 mb-lg-0" href="{{ route('login') }}">LOGIN</a>
-
-
-                {{-- @if (Route::has('login'))
-                    @auth
-                        <!-- Return to Dashboard -->
-                        <a class=" btn btn-kyoored rounded-pill px-3 mb-2 mb-lg-0" href="{{ url('home') }}">Return to
-                            Dashboard</a>
-                    @else
-                        <!-- Login -->
-                        <a class=" btn btn-kyoored rounded-pill px-3 mb-2 mb-lg-0" href="{{ route('login') }}">LOGIN</a>
-                    @endauth
-                @endif --}}
-
             </div>
         </div>
         <!-- Collapsible wrapper -->
     </div>
     <!-- Container wrapper -->
 </nav>
-<!-- Navbar -->

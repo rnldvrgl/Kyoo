@@ -1,23 +1,25 @@
-{{-- Extend Layout File --}}
-@extends('layouts.app')
-
 {{-- Page Title --}}
 @section('mytitle', 'Sign In')
 
-{{-- Main Content --}}
-@section('content')
+@php
+    $kyooLogo = asset('assets/images/kyoo-logo.svg');
+    $avatarIcon = asset('assets/images/avatar.svg');
+@endphp
+
+<x-layout>
     <div class="opacity-50" id="background-image"></div>
     <section class="container d-flex justify-content-center vh-100 p-5">
         <div class="row row-cols-2 justify-content-center align-items-center h-100 w-100 p-lg-5">
             {{-- Left --}}
             <div
                 class="col-lg-5 bg-kyoodark d-none d-lg-flex flex-column justify-content-center align-items-center h-100 px-5 text-center text-white">
-                <img class="img-fluid mb-3" src="{{ asset('assets/images/kyoo-logo.svg') }}" alt="Kyoo logo">
+                <img class="img-fluid mb-3" src="{{ $kyooLogo }}" alt="Kyoo logo">
                 <h4 class="fw-bold text-uppercase">Queueing Management System</h4>
             </div>
             {{-- Right --}}
-            <div class="col-12 col-lg-7 bg-light shadow d-flex flex-column justify-content-center align-items-center h-100">
-                <img class="img-fluid mb-3" src="{{ asset('assets/images/avatar.svg') }}" alt="avatar icon">
+            <div
+                class="col-12 col-lg-7 bg-light shadow d-flex flex-column justify-content-center align-items-center h-100">
+                <img class="img-fluid mb-3" src="{{ $avatarIcon }}" alt="avatar icon">
                 <h4 class="fw-semibold">Login to Your Account</h4>
 
                 @if (session('error'))
@@ -33,8 +35,9 @@
                             {{ __('Email Address') }}
                         </label>
                         <div class="col">
-                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
-                                name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                            <input id="email" type="email"
+                                class="form-control @error('email') is-invalid @enderror" name="email"
+                                value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                             @error('email')
                                 <span class="invalid-feedback" role="alert">
@@ -63,15 +66,10 @@
                         <button type="submit" class="btn btn-kyoored">
                             {{ __('Login') }}
                         </button>
-
-                        {{-- @if (Route::has('password.request'))
-									<a class="btn btn-link" href="{{ route('password.request') }}">
-										{{ __('Forgot Your Password?') }}
-									</a>
-									@endif --}}
                     </div>
                 </form>
             </div>
         </div>
     </section>
-@endsection
+
+</x-layout>

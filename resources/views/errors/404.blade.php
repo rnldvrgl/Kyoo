@@ -1,10 +1,7 @@
-{{-- Extend Layout File --}}
-@extends('layouts.app')
-
 {{-- Page Title --}}
 @section('mytitle', '404')
 
-@section('content')
+<x-layout>
     <!-- Main Content -->
     <main>
         <div class="container">
@@ -23,4 +20,4 @@
         </div>
     </main>
     <!-- /Main Content -->
-@endsection
+</x-layout>

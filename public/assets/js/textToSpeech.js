@@ -1,25 +1,23 @@
-$(document).ready(function () {
-    // Variables Declaration for TTS, Sound and Viddeo
-    var tts = new SpeechSynthesisUtterance();
+$(function () {
+    // Variables Declaration for TTS, Sound and Video
+    const tts = new SpeechSynthesisUtterance();
     tts.lang = "en-US";
     tts.rate = 1;
-    var notif_audio = new Audio("assets/sounds/ascend.mp3");
-    notif_audio.setAttribute("muted", true);
-
-    // notif_audio.setAttribute("autoplay", true);
+    const notifAudio = new Audio("assets/sounds/ascend.mp3");
+    notifAudio.muted = true;
 
     // Text to Speech
     function speak(text) {
-        if (text === "") return false;
+        if (!text) return;
         tts.text = text;
-        notif_audio.setAttribute("muted", false);
-        $(notif_audio).trigger("play");
-        setTimeout(function () {
+        notifAudio.muted = false;
+        notifAudio.play();
+        setTimeout(() => {
             window.speechSynthesis.speak(tts);
         }, 1500);
     }
 
-    $("button#testButton").on("click", function () {
+    $("#testButton").on("click", () => {
         speak("Queue Number R001, Please proceed to Library.");
     });
 });

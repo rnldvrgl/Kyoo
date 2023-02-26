@@ -1,54 +1,25 @@
-$(document).ready(function () {
-    // Set Interval to Function Time Loop
-    setInterval(function () {
-        time_loop();
-    }, 1000);
+// Date and Time Loop
+function updateTime() {
+    const now = new Date();
 
-    // Date and Time Loop
-    function time_loop() {
-        var weekday, hour, mins, meridiem, month, day, year, secs;
+    const options = {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+    };
+    const date = now.toLocaleDateString(undefined, options);
+    const time = now.toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true,
+    });
 
-        var months = [
-            "January",
-            "Febuary",
-            "March",
-            "April",
-            "May",
-            "June",
-            "July",
-            "August",
-            "September",
-            "October",
-            "November",
-            "December",
-        ];
+    $(".time").text(time);
+    $(".date").text(date);
+}
 
-        var weekdays = [
-            " ",
-            "Monday",
-            "Tuesday",
-            "Wednesday",
-            "Thursday",
-            "Friday",
-            "Saturday",
-            "Sunday",
-        ];
-
-        var datetime = new Date(Date.now());
-        hour = datetime.getHours();
-        mins = datetime.getMinutes();
-        secs = datetime.getSeconds();
-        meridiem = hour >= 12 ? "PM" : "AM";
-        month = months[datetime.getMonth()];
-        weekday = weekdays[datetime.getDay()];
-        day = datetime.getDate();
-        year = datetime.getFullYear();
-        hour = hour >= 12 ? hour - 12 : hour;
-        hour = hour == 0 ? 12 : hour;
-        hour = String(hour).padStart(2, 0);
-        mins = String(mins).padStart(2, 0);
-        secs = String(secs).padStart(2, 0);
-        $(".time").text(hour + ":" + mins + ":" + secs + " " + meridiem);
-        $(".date").text(weekday + ", " + day + " " + month + " " + year);
-    }
+$(function () {
+    updateTime();
+    setInterval(updateTime, 1000);
 });

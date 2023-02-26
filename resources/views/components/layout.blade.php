@@ -45,10 +45,10 @@
     @vite(['resources/js/app.js'])
 </head>
 
-<body data-bs-spy="scroll" data-bs-target="#scrollspy" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true"
-    tabindex="0">
+<body class="hide-content" data-bs-spy="scroll" data-bs-target="#scrollspy" data-bs-root-margin="0px 0px -40%"
+    data-bs-smooth-scroll="true" tabindex="0">
 
-    @yield('content')
+    {{ $slot }}
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"

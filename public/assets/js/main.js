@@ -1,5 +1,12 @@
 (function () {
     ("use strict");
+    // Remove hide content class on the body when the page is
+    $(window).on("load", function () {
+        $("body").removeClass("hide-content");
+    });
+
+    // Initialize AOS
+    AOS.init();
 
     /**
      * Easy selector helper function
