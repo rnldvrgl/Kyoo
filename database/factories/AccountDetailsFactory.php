@@ -2,10 +2,9 @@
 
 namespace Database\Factories;
 
-namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
+use App\Models\AccountDetails;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\AccountDetails>
@@ -17,6 +16,7 @@ class AccountDetailsFactory extends Factory
      *
      * @return array<string, mixed>
      */
+
     public function definition()
     {
         return [

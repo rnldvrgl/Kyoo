@@ -2,13 +2,13 @@
 
 namespace Database\Seeders;
 
-use Database\Factories\AccountLoginFactory;
 use Illuminate\Database\Seeder;
+use App\Models\AccountLogin;
 
 class AccountLoginTableSeeder extends Seeder
 {
     public function run()
     {
-        $accountLogin = AccountLoginFactory::factory()->create();
+        AccountLogin::factory(4)->create();
     }
 }

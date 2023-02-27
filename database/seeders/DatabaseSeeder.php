@@ -1,23 +1,17 @@
 <?php
 
+namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Database\Seeders\AccountDetailsTableSeeder;
-use Database\Seeders\AccountLoginTableSeeder;
-use Database\Seeders\AccountRoleTableSeeder;
-use Database\Seeders\DepartmentTableSeeder;
-use Database\Seeders\AccountsTableSeeder;
 
 class DatabaseSeeder extends Seeder
 {
     public function run()
     {
-        $this->call([
-            AccountDetailsTableSeeder::class,
-            AccountLoginTableSeeder::class,
-            AccountRoleTableSeeder::class,
-            DepartmentTableSeeder::class,
-            AccountsTableSeeder::class,
-        ]);
+        $this->call(AccountDetailsTableSeeder::class);
+        $this->call(AccountLoginTableSeeder::class);
+        $this->call(DepartmentTableSeeder::class);
+        $this->call(AccountRoleTableSeeder::class);
+        $this->call(AccountsTableSeeder::class);
     }
 }

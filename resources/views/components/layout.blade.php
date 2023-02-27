@@ -12,6 +12,9 @@
 
     <title>@yield('mytitle') | Kyoo : Queueing Management System</title>
 
+    <!-- Scripts -->
+    @vite(['resources/sass/app.scss', 'resources/css/app.css', 'resources/js/app.js'])
+
     <!-- DataTable CSS -->
     <link rel="stylesheet" type="text/css"
         href="https://cdn.datatables.net/v/zf/dt-1.13.2/af-2.5.2/b-2.3.4/b-print-2.3.4/date-1.3.0/fc-4.2.1/fh-3.3.1/r-2.4.0/sc-2.1.0/sb-1.4.0/sp-2.1.1/sl-1.6.0/sr-1.2.1/datatables.min.css" />
@@ -40,10 +43,13 @@
 
     <!-- AOS CSS -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
-    <!-- Scripts -->
-    @vite(['resources/js/app.js'])
 </head>
+<style>
+    /* Prevent loading the content before loading the css */
+    .hide-content {
+        visibility: hidden;
+    }
+</style>
 
 <body class="hide-content" data-bs-spy="scroll" data-bs-target="#scrollspy" data-bs-root-margin="0px 0px -40%"
     data-bs-smooth-scroll="true" tabindex="0">
@@ -51,9 +57,7 @@
     {{ $slot }}
 
     <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">
-    </script>
+    <script src="{{ asset('js/app.js') }}"></script>
 
     <!-- DataTable JS -->
     <script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>

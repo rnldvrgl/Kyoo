@@ -11,9 +11,8 @@ class AccountRole extends Model
 
     public function accounts()
     {
-        // return $this->belongsTo(Accounts::class, 'role_id'); 
-        return [
-            'name' => $this->faker
-        ];
+        // return $this->belongsTo(Accounts::class, 'role_id');
+
+        return $this->belongsTo(Accounts::class, 'role_id');
     }
 }

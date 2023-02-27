@@ -8,14 +8,6 @@ $(document).ready(function () {
     //   },
     // });
 
-    // show the loading animation
-    $(".loading").addClass("show-loading");
-
-    // hide the loading animation after 3 seconds
-    setTimeout(function () {
-        $(".loading").removeClass("show-loading");
-    }, 3000);
-
     // JQuery Delete Confirmation
     $("button#deleteData").confirm({
         type: "red",

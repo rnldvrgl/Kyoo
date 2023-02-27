@@ -3,12 +3,12 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Database\Factories\AccountDetailsFactory;
+use App\Models\AccountDetails;
 
 class AccountDetailsTableSeeder extends Seeder
 {
     public function run()
     {
-        $accountDetails = AccountDetailsFactory::factory()->create();
+        AccountDetails::factory(4)->create();
     }
 }

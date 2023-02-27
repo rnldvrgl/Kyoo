@@ -28,8 +28,5 @@ $theme-colors: map-merge($theme-colors , $custom-colors );
 // Globals SCSS
 @import 'globals';
 
-// Utils SCSS
-@import 'util';
-
 // Custom CSS
 @import 'custom';
