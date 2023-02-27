@@ -19,10 +19,6 @@ class AccountsFactory extends Factory
      */
     public function definition()
     {
-        // return [
-        //     'details_id' => AccountDetails::factory()->id(),
-        //     'login_id' => AccountLogin::factory()->id(),
-        //     'dept_id' => Department::factory()->id(),
-        // ];
+        // 
     }
 }

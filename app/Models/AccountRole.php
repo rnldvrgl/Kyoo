@@ -13,6 +13,6 @@ class AccountRole extends Model
     {
         // return $this->belongsTo(Accounts::class, 'role_id');
 
-        return $this->belongsTo(Accounts::class, 'role_id');
+        return $this->hasMany(Accounts::class, 'role_id');
     }
 }

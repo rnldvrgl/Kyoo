@@ -1,12 +1,25 @@
 $(document).ready(function () {
-    // AJAX TEMPLATE
-    // $.ajax({
-    //   type: "POST",
-    //   url: "#",
-    //   data: { id: id },
-    //   success: function (data) {
-    //   },
-    // });
+    // Logout Confirmation
+    $("button#logout_account").confirm({
+        title: "Logout Confirmation",
+        content: "Are you sure you want to log out?",
+        theme: "Modern",
+        draggable: false,
+        typeAnimated: true,
+        buttons: {
+            confirm: {
+                text: "Yes",
+                btnClass: "btn-kyoodark",
+                action: function () {
+                    location.href = this.$target.attr("href");
+                },
+            },
+            cancel: {
+                text: "No",
+                btnClass: "btn-kyoored",
+            },
+        },
+    });
 
     // JQuery Delete Confirmation
     $("button#deleteData").confirm({

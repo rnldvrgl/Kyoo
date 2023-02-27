@@ -7,7 +7,7 @@
 @endphp
 
 <x-layout>
-    <div class="opacity-50" id="background-image"></div>
+    <div class="opacity-25" id="background-image"></div>
     <section class="container d-flex justify-content-center vh-100 p-5">
         <div class="row row-cols-2 justify-content-center align-items-center h-100 w-100 p-lg-5">
             {{-- Left --}}

@@ -12,7 +12,7 @@
 	padding: 20px;
 	overflow-y: auto;
 	scrollbar-width: thin;
-	scrollbar-color: #cfaaaa transparent;
+	scrollbar-color: #323232 transparent;
 	box-shadow: 0px 0px 20px rgba(1, 41, 112, 0.1);
 	background-color: #fff;
 }
@@ -24,7 +24,7 @@
 }
 
 .sidebar::-webkit-scrollbar-thumb {
-	background-color: #cfaaaa;
+	background-color: #808080;
 }
 
 .sidebar-nav {
@@ -46,7 +46,7 @@
 .sidebar-nav .nav-heading {
 	font-size: 11px;
 	text-transform: uppercase;
-	color: #d1d1d1;
+	color: #8C3D3D;
 	font-weight: 600;
 	margin: 10px 0 5px 15px;
 }
@@ -58,7 +58,6 @@
 	font-weight: 600;
 	color: #323232; 
 	transition: 0.3;
-	background: #fff6f6;
 	padding: 10px 15px;
 	border-radius: 4px;
 }
@@ -69,30 +68,35 @@
 	color: #323232; 
 }
 
+.sidebar-nav .nav-link.active, .sidebar-nav .nav-link.active i{
+	background-color: #323232;
+	color: #fff;
+}
+
 .sidebar-nav .nav-link.collapsed {
-	color: #808080;
+	color: #323232;
 	background: #fff;
 }
 
 .sidebar-nav .nav-link.collapsed i {
-	color: #808080;
+	color: #323232;
 }
 
 .sidebar-nav .nav-link:hover {
-	color: #323232; 
-	background: #fff6f6;
+	color: #fff; 
+	background: #323232;
 }
 
 .sidebar-nav .nav-link:hover i {
-	color: #323232; 
+	color: #fff; 
 }
 
-.sidebar-nav .nav-link .bi-chevron-down {
+.sidebar-nav .nav-link .fa-chevron-down {
 	margin-right: 0;
 	transition: transform 0.2s ease-in-out;
 }
 
-.sidebar-nav .nav-link:not(.collapsed) .bi-chevron-down {
+.sidebar-nav .nav-link:not(.collapsed) .fa-chevron-down {
 	transform: rotate(180deg);
 }
 
@@ -107,14 +111,14 @@
 	align-items: center;
 	font-size: 14px;
 	font-weight: 600;
-	color: #808080; 
+	color: #909090; 
 	transition: 0.3;
 	padding: 10px 0 10px 40px;
 	transition: 0.3s;
 }
 
 .sidebar-nav .nav-content a i {
-	font-size: 6px;
+	font-size: 14px;
 	margin-right: 8px;
 	line-height: 0;
 	border-radius: 50%;
@@ -122,11 +126,9 @@
 
 .sidebar-nav .nav-content a:hover,
 .sidebar-nav .nav-content a.active {
+	font-size: 16px;
+	font-weight: 700;
 	color: #323232; 
-}
-
-.sidebar-nav .nav-content a.active i {
-	background-color: #b35e5e;
 }
 
 @media (min-width: 1200px) {
