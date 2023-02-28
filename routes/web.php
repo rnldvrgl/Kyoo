@@ -35,6 +35,7 @@ Route::get('/frequent_questions', function () {
 
 // Main Admin Routes
 Route::middleware(['auth', 'user-access:Main Admin'])->group(function () {
+	// ? Dashboard
 	Route::get('/main-admin/dashboard', [HomeController::class, 'mainAdmin'])->name('home.mainAdmin');
 })->name('mainAdmin');
 

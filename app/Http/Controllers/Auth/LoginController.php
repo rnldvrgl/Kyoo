@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Models\AccountLogin;
 use App\Models\Accounts;
+use App\Models\AccountRole;
+use App\Models\AccountLogin;
+use Illuminate\Http\Request;
+use App\Models\AccountDetails;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -56,21 +58,45 @@ class LoginController extends Controller
 
             if ($accountLogin && password_verify($input['password'], $accountLogin->password)) {
                 $account = Accounts::where('login_id', $accountLogin->id)->first();
+                $account_details = AccountDetails::where('id', $account->details_id)->first(); // Fetch User Details
+                $account_role = AccountRole::where('id', $account->role_id)->first(); // Fetch User Role
 
                 $role_id = $account->role_id;
 
                 switch ($role_id) {
                     case 1:
-                        return redirect()->route('home.mainAdmin')->with(session(['account_id' => $account->id]));
+                        return redirect()
+                            ->route('home.mainAdmin', [
+                                'employee_name' => $account_details->name,
+                                'employee_role' => $account_role->name,
+                            ])
+                            ->with(session([
+                                'account_id' => $account->id
+                            ]));
                         break;
                     case 2:
-                        return redirect()->route('home.depAdmin')->with(session(['account_id' => $account->id]));
+                        return redirect()->route('home.depAdmin')
+                            ->with(session([
+                                'account_id' => $account->id,
+                                'employee_name' => $account_details->name,
+                                'employee_role' => $account_role->name
+                            ]));
                         break;
                     case 3:
-                        return redirect()->route('home.staff')->with(session(['account_id' => $account->id]));
+                        return redirect()->route('home.staff')
+                            ->with(session([
+                                'account_id' => $account->id,
+                                'employee_name' => $account_details->name,
+                                'employee_role' => $account_role->name
+                            ]));
                         break;
                     case 4:
-                        return redirect()->route('home.librarian')->with(session(['account_id' => $account->id]));
+                        return redirect()->route('home.librarian')
+                            ->with(session([
+                                'account_id' => $account->id,
+                                'employee_name' => $account_details->name,
+                                'employee_role' => $account_role->name
+                            ]));
                         break;
                     default:
                         return redirect()->route('logout');

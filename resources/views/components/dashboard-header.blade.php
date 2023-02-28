@@ -18,14 +18,19 @@
             <li class=" nav-item dropdown pe-3">
                 <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
                     <img src="{{ asset('assets/images/profile-img.jpg') }}" alt="Profile" class="rounded-circle" />
-                    <span class="d-none d-md-block dropdown-toggle ps-2">Name</span>
+                    <span class="d-none d-md-block dropdown-toggle ps-2">
+                        {{ request('employee_name') }}
+                    </span>
                 </a>
+
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                     <li class="dropdown-header">
                         <h6>
-                            Test
+                            {{ request('employee_name') }}
                         </h6>
-                        <span>Main Admin</span>
+                        <span>
+                            {{ request('employee_role') }}
+                        </span>
                     </li>
                     <li>
                         <hr class="dropdown-divider" />
