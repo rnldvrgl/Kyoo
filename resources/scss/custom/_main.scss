@@ -1,0 +1,61 @@
+/*--------------------------------------------------------------
+  # Main
+  --------------------------------------------------------------*/
+#main {
+	margin-top: 60px;
+	padding: 20px 30px;
+	transition: all 0.3s;
+}
+
+@media (max-width: 1199px) {
+	#main {
+		padding: 20px;
+	}
+}
+
+/*--------------------------------------------------------------
+  # Page Title
+  --------------------------------------------------------------*/
+.pagetitle {
+	margin-bottom: 10px;
+}
+
+.pagetitle h1 {
+	font-size: 24px;
+	margin-bottom: 0;
+	font-weight: 600;
+	color: #323232;
+}
+
+/*--------------------------------------------------------------
+  # Back to top button
+  --------------------------------------------------------------*/
+.back-to-top {
+	position: fixed;
+	visibility: hidden;
+	opacity: 0;
+	right: 25px;
+	bottom: 25px;
+	z-index: 99999;
+	background: #8C3D3D;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	transition: all 0.4s;
+}
+
+.back-to-top i {
+	font-size: 24px;
+	color: #fff;
+	line-height: 0;
+}
+
+.back-to-top:hover {
+	background: #520101;
+	color: #fff;
+}
+
+.back-to-top.active {
+	visibility: visible;
+	opacity: 1;
+}

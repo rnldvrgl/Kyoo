@@ -50,23 +50,23 @@ class Database
         return $this->statement->fetch();
     }
 
+    // Find single data from database, return abort message if not found
+    public function findOrFail()
+    {
+        $result = $this->find();
+
+        // If there is no matching result with the given id, abort the request
+        if (!$result) {
+            // Leave empty parameter since the default is 404
+            abort();
+        }
+
+        return $result;
+    }
+
     // Fetch the last inserted ID
     public function lastInsertedID()
     {
         return $this->connection->lastInsertId();
     }
-
-    // Find single data from database, return abort message if not found
-    // public function findOrFail()
-    // {
-    //     $result = $this->find();
-
-    //     // If there is no matching result with the given id, abort the request
-    //     if (!$result) {
-    //         // Leave empty parameter since the default is 404
-    //         abort();
-    //     }
-
-    //     return $result;
-    // }
 }
