@@ -3,7 +3,7 @@
 
 <x-layout>
     {{-- Dashboard Header Navbar --}}
-    <x-dashboard-header />
+    <x-dashboard-header :$details :$role />
 
     {{-- Dashboard Sidebar --}}
     <x-dashboard-sidebar />

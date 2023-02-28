@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AccountDetails;
 use App\Models\Accounts;
+use App\Models\AccountRole;
 use Illuminate\Http\Request;
+use App\Models\AccountDetails;
 
 class HomeController extends Controller
 {
@@ -31,21 +32,47 @@ class HomeController extends Controller
 
 	public function mainAdmin()
 	{
-		return view('dashboard.main_admin.dashboard');
+		$accounts = Accounts::find(session('account_id'));
+
+		return view('dashboard.main_admin.dashboard', [
+			'details' => AccountDetails::find($accounts->details_id),
+			'role' => AccountRole::find($accounts->role_id)
+		]);
 	}
 
 	public function depAdmin()
 	{
+		$accounts = Accounts::find(session('account_id'));
+
+		return view('dashboard.main_admin.dashboard', [
+			'details' => AccountDetails::find($accounts->details_id),
+			'role' => AccountRole::find($accounts->role_id)
+		]);
+
 		return view('dashboard.department_admin.dashboard');
 	}
 
 	public function staff()
 	{
+		$accounts = Accounts::find(session('account_id'));
+
+		return view('dashboard.main_admin.dashboard', [
+			'details' => AccountDetails::find($accounts->details_id),
+			'role' => AccountRole::find($accounts->role_id)
+		]);
+
 		return view('dashboard.staff.dashboard');
 	}
 
 	public function librarian()
 	{
+		$accounts = Accounts::find(session('account_id'));
+
+		return view('dashboard.main_admin.dashboard', [
+			'details' => AccountDetails::find($accounts->details_id),
+			'role' => AccountRole::find($accounts->role_id)
+		]);
+
 		return view('dashboard.librarian.dashboard');
 	}
 }
