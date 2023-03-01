@@ -35,10 +35,10 @@
             </a>
             <ul id="account-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="{{ route('main_admin.manage.accounts.add') }}" class="active">
+                    <a href="{{ route('manage.accounts.add') }}" class="active">
                         <i class="fa-solid fa-circle-plus"></i><span>Add Account</span>
                     </a>
-                    <a href="{{ route('main_admin.manage.accounts.edit') }}">
+                    <a href="{{ route('manage.accounts.edit') }}">
                         <i class="fa-solid fa-pen-to-square"></i><span>Edit Account</span>
                     </a>
                 </li>
@@ -54,10 +54,10 @@
             </a>
             <ul id="dept-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="/add-department">
+                    <a href="{{ route('manage.departments.add') }}">
                         <i class="fa-solid fa-circle-plus"></i><span>Add Department</span>
                     </a>
-                    <a href="/manage-department">
+                    <a href="{{ route('manage.departments.edit') }}">
                         <i class="fa-solid fa-pen-to-square"></i><span>Edit Department</span>
                     </a>
                 </li>
@@ -73,10 +73,10 @@
             </a>
             <ul id="serv-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="/add-service">
+                    <a href="{{ route('manage.services.add') }}">
                         <i class="fa-solid fa-circle-plus"></i><span>Add Service</span>
                     </a>
-                    <a href="/manage-service">
+                    <a href="{{ route('manage.services.edit') }}">
                         <i class="fa-solid fa-pen-to-square"></i><span>Edit Service</span>
                     </a>
                 </li>
@@ -91,10 +91,10 @@
             </a>
             <ul id="faq-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="/add-service">
+                    <a href="{{ route('manage.frequent_questions.add') }}">
                         <i class="fa-solid fa-circle-plus"></i><span>Add Question</span>
                     </a>
-                    <a href="/manage-service">
+                    <a href="{{ route('manage.frequent_questions.edit') }}">
                         <i class="fa-solid fa-pen-to-square"></i><span>Edit Question</span>
                     </a>
                 </li>
@@ -104,21 +104,14 @@
         {{-- Queue Screen --}}
         <li class="nav-heading">Live Queue Screen</li>
 
-        {{-- Promotional Video --}}
+        {{-- Promotional Video and Promotional Text --}}
         <li class="nav-item">
-            <a class="nav-link" href="/promotinal-video">
+            <a class="nav-link" href="{{ route('manage.promotionals.edit') }}">
                 <i class="fa-solid fa-video"></i>
-                <span>Promotional Video</span>
+                <span>Promotionals</span>
             </a>
         </li>
 
-        {{-- Promotional Text --}}
-        <li class="nav-item">
-            <a class="nav-link" href="/promotinal-message">
-                <i class="fa-solid fa-quote-left"></i>
-                <span>Promotional Message</span>
-            </a>
-        </li>
     </ul>
 </aside>
 <!-- /Sidebar -->
