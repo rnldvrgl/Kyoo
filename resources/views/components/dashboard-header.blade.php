@@ -7,7 +7,9 @@
                 Queueing Management System
             </span>
         </a>
-        <i class="fa-solid fa-bars toggle-sidebar-btn"></i>
+        @if ($role->name === 'Main Admin')
+            <i class="fa-solid fa-bars toggle-sidebar-btn"></i>
+        @endif
     </div>
     <nav class="header-nav ms-auto">
         <ul id="datetimefield" class="d-flex align-items-center">
@@ -36,7 +38,7 @@
                         <hr class="dropdown-divider" />
                     </li>
                     <li>
-                        <a class="dropdown-item d-flex align-items-center" href="/user-profile">
+                        <a class="dropdown-item d-flex align-items-center" href="{{ route('user_profile') }}">
                             <i class="fa-solid fa-user"></i>
                             <span>My Profile</span>
                         </a>

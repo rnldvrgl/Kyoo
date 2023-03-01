@@ -20,10 +20,10 @@
             </a>
             <ul id="account-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="/add-account" class="active">
+                    <a href="{{ route('main_admin.manage.accounts.add') }}" class="active">
                         <i class="fa-solid fa-circle-plus"></i><span>Add Account</span>
                     </a>
-                    <a href="/manage-account">
+                    <a href="{{ route('main_admin.manage.accounts.edit') }}">
                         <i class="fa-solid fa-pen-to-square"></i><span>Edit Account</span>
                     </a>
                 </li>

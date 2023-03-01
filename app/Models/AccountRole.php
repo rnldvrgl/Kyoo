@@ -11,8 +11,6 @@ class AccountRole extends Model
 
     public function accounts()
     {
-        // return $this->belongsTo(Accounts::class, 'role_id');
-
         return $this->hasMany(Accounts::class, 'role_id');
     }
 }

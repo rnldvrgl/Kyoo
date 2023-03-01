@@ -51,8 +51,8 @@
     }
 </style>
 
-<body class="hide-content" data-bs-spy="scroll" data-bs-target="#scrollspy" data-bs-root-margin="0px 0px -40%"
-    data-bs-smooth-scroll="true" tabindex="0">
+<body class="toggle-sidebar hide-content" data-bs-spy="scroll" data-bs-target="#scrollspy"
+    data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" tabindex="0">
 
     {{ $slot }}
 

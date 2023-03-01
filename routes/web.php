@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -36,22 +37,39 @@ Route::get('/frequent_questions', function () {
 // Main Admin Routes
 Route::middleware(['auth', 'user-access:Main Admin'])->group(function () {
 	// ? Dashboard
-	Route::get('/main-admin/dashboard', [HomeController::class, 'mainAdmin'])->name('home.mainAdmin');
-})->name('mainAdmin');
+	Route::get('/main-admin/dashboard', [HomeController::class, 'main_admin'])->name('dashboard.main_admin');
+
+	// Manage Accounts
+	Route::prefix('main-admin/manage/accounts')->group(function () {
+		// Add Account
+		Route::get('/add-account', function () {
+			return view('dashboard.main_admin.manage.accounts.add');
+		})->name('main_admin.manage.accounts.add');
+
+		// Edit Account
+		Route::get('/edit-account', function () {
+			return view('dashboard.main_admin.manage.accounts.edit');
+		})->name('main_admin.manage.accounts.edit');
+	});
+})->name('main_admin');
 
 // Department Admin Routes
 Route::middleware(['auth', 'user-access:Department Admin'])->group(function () {
-	Route::get('/department-admin/dashboard', [HomeController::class, 'depAdmin'])->name('home.depAdmin');
-})->name('depAdmin');
+	Route::get('/department-admin/dashboard', [HomeController::class, 'department_admin'])->name('dashboard.department_admin');
+})->name('department_admin');
 
 // Department Staff Routes
 Route::middleware(['auth', 'user-access:Staff'])->group(function () {
-	Route::get('/staff/dashboard', [HomeController::class, 'staff'])->name('home.staff');
-})->name('depStaff');
+	Route::get('/staff/dashboard', [HomeController::class, 'staff'])->name('dashboard.staff');
+})->name('staff');
 
 // Librarian Routes
 Route::middleware(['auth', 'user-access:Librarian'])->group(function () {
-	Route::get('/librarian/dashboard', [HomeController::class, 'librarian'])->name('home.librarian');
+	Route::get('/librarian/dashboard', [HomeController::class, 'librarian'])->name('dashboard.librarian');
 })->name('librarian');
 
+// Logout
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+
+// User Profile
+Route::get('/user_profile', [UserProfileController::class, 'index'])->middleware('auth')->name('user_profile');

@@ -64,28 +64,28 @@ class LoginController extends Controller
                 switch ($role_id) {
                     case 1:
                         return redirect()
-                            ->route('home.mainAdmin')
+                            ->route('dashboard.main_admin')
                             ->with(session([
                                 'account_id' => $account->id
                             ]));
                         break;
                     case 2:
                         return redirect()
-                            ->route('home.depAdmin')
+                            ->route('dashboard.department_admin')
                             ->with(session([
                                 'account_id' => $account->id
                             ]));
                         break;
                     case 3:
                         return redirect()
-                            ->route('home.staff')
+                            ->route('dashboard.staff')
                             ->with(session([
                                 'account_id' => $account->id
                             ]));
                         break;
                     case 4:
                         return redirect()
-                            ->route('home.librarian')
+                            ->route('dashboard.librarian')
                             ->with(session([
                                 'account_id' => $account->id
                             ]));
