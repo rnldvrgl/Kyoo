@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AccountDetails;
 use App\Models\Accounts;
+use App\Models\AccountRole;
 use Illuminate\Http\Request;
+use App\Models\AccountDetails;
+use App\Models\AccountLogin;
+use App\Models\Department;
 
 class HomeController extends Controller
 {
@@ -29,23 +32,37 @@ class HomeController extends Controller
 		return view('welcome');
 	}
 
-	public function mainAdmin()
+	// Fetches all User Data from the database
+	protected function getUserData()
 	{
-		return view('dashboard.main_admin.dashboard');
+		$accounts = Accounts::find(session('account_id'));
+
+		return [
+			'details' => AccountDetails::find($accounts->details_id),
+			'role' => AccountRole::find($accounts->role_id),
+			'login' => AccountLogin::find($accounts->login_id),
+			'department' => Department::find($accounts->dept_id),
+		];
 	}
 
-	public function depAdmin()
+	// TODO: Isang function for dashboard, concat the role
+	public function main_admin()
 	{
-		return view('dashboard.department_admin.dashboard');
+		return view('dashboard.main_admin.dashboard', $this->getUserData());
+	}
+
+	public function department_admin()
+	{
+		return view('dashboard.department_admin.dashboard', $this->getUserData());
 	}
 
 	public function staff()
 	{
-		return view('dashboard.staff.dashboard');
+		return view('dashboard.staff.dashboard', $this->getUserData());
 	}
 
 	public function librarian()
 	{
-		return view('dashboard.librarian.dashboard');
+		return view('dashboard.librarian.dashboard', $this->getUserData());
 	}
 }

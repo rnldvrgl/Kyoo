@@ -35,6 +35,7 @@ class UserAccess
         $role_name = $role_details->name;
 
         if ($role_name == $userType) {
+            // Goes to Login Controller
             return $next($request);
         }
 
