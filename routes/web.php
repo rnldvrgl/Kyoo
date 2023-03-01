@@ -74,4 +74,5 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 // User Profile
 Route::middleware('auth')->group(function () {
 	Route::get('/user_profile', [UserProfileController::class, 'index'])->name('user_profile');
+	Route::patch('/user_profile/{id}', [UserProfileController::class, 'updateDetails'])->name('user_profile.update');
 })->name('profile');

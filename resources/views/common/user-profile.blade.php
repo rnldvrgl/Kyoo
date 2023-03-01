@@ -119,7 +119,12 @@
                                 <!-- Edit Profile -->
                                 <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
                                     <!-- Form -->
-                                    <form action="#" method="POST">
+                                    <form action="{{ route('user_profile.update', session('account_id')) }}"
+                                        method="POST">
+
+                                        @csrf
+                                        @method('PATCH')
+
                                         <div class="row mb-3">
                                             <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile
                                                 Image</label>
@@ -133,13 +138,6 @@
                                                         title="Remove my profile image"><i
                                                             class="fa-solid fa-trash-can"></i></a>
                                                 </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-md-8 col-lg-9">
-                                                <input name="user_id" type="hidden" class="form-control" id="user_id"
-                                                    value="1" />
                                             </div>
                                         </div>
 
@@ -198,7 +196,7 @@
                                             </div>
                                         </div>
                                         <div class="text-center">
-                                            <button type="submit" name="save-changes" class="btn btn-success">
+                                            <button type="submit" class="btn btn-success">
                                                 Save Changes
                                             </button>
                                         </div>

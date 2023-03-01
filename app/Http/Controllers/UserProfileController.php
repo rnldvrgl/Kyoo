@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Auth;
 
 class UserProfileController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     // Fetches all User Data from the database
     protected function getUserData()
     {
@@ -26,9 +31,28 @@ class UserProfileController extends Controller
         ];
     }
 
-
     public function index()
     {
         return view('common.user-profile', $this->getUserData());
+    }
+
+    public function updateDetails(Request $request, $id)
+    {
+
+        // Validate
+        $request->validate([
+            'name' => 'required|string|min:5|max:100',
+            'about' => 'required|string|min:5',
+            'address' => 'required|string',
+            'phone' => 'required|numeric'
+        ]);
+
+        // Find the user with the given id
+
+        // Update the user details
+
+        // Save the updated user details
+
+        // Redirect
     }
 }
