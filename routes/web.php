@@ -44,12 +44,59 @@ Route::middleware(['auth', 'user-access:Main Admin'])->group(function () {
 		// Add Account
 		Route::get('/add-account', function () {
 			return view('dashboard.main_admin.manage.accounts.add');
-		})->name('main_admin.manage.accounts.add');
+		})->name('manage.accounts.add');
 
 		// Edit Account
 		Route::get('/edit-account', function () {
 			return view('dashboard.main_admin.manage.accounts.edit');
-		})->name('main_admin.manage.accounts.edit');
+		})->name('manage.accounts.edit');
+	});
+
+	// Manage Departments
+	Route::prefix('main-admin/manage/departments')->group(function () {
+		// Add Department
+		Route::get('/add-department', function () {
+			return view('dashboard.main_admin.manage.departments.add');
+		})->name('manage.departments.add');
+
+		// Edit Department
+		Route::get('/edit-department', function () {
+			return view('dashboard.main_admin.manage.departments.edit');
+		})->name('manage.departments.edit');
+	});
+
+	// Manage Frequent Questions
+	Route::prefix('main-admin/manage/frequent_questions')->group(function () {
+		// Add Frequent Question
+		Route::get('/add-frequent-question', function () {
+			return view('dashboard.main_admin.manage.frequent_questions.add');
+		})->name('manage.frequent_questions.add');
+
+		// Edit Frequent Question
+		Route::get('/edit-frequent-question', function () {
+			return view('dashboard.main_admin.manage.frequent_questions.edit');
+		})->name('manage.frequent_questions.edit');
+	});
+
+	// Manage Services
+	Route::prefix('main-admin/manage/services')->group(function () {
+		// Add Service
+		Route::get('/add-service', function () {
+			return view('dashboard.main_admin.manage.services.add');
+		})->name('manage.services.add');
+
+		// Edit Service
+		Route::get('/edit-frequent-question', function () {
+			return view('dashboard.main_admin.manage.services.edit');
+		})->name('manage.services.edit');
+	});
+
+	// Manage Promotionals
+	Route::prefix('main-admin/manage/promotionals')->group(function () {
+		// Add Service
+		Route::get('/edit-promotionals', function () {
+			return view('dashboard.main_admin.manage.promotionals.edit');
+		})->name('manage.promotionals.edit');
 	});
 })->name('main_admin');
 
