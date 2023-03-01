@@ -6,7 +6,7 @@
     <x-dashboard-header :$details :$role />
 
     {{-- Dashboard Sidebar --}}
-    <x-dashboard-sidebar />
+    <x-dashboard-sidebar name="{{ $role->name }}" />
 
     <!-- Main Content -->
     <main id="main" class="main">

@@ -4,9 +4,24 @@
         {{-- Main --}}
         <li class="nav-heading">MAIN</li>
         <li class="nav-item">
-            <a class="nav-link active" href="/dashboard">
-                <i class="fa-solid fa-table-cells-large"></i><span>Dashboard</span>
-            </a>
+            {{-- Anchor Tag based on User Role --}}
+            @if ($attributes['name'] == 'Main Admin')
+                <a class="nav-link active" href="{{ route('dashboard.main_admin') }}">
+                    <i class="fa-solid fa-table-cells-large"></i><span>Dashboard</span>
+                </a>
+            @elseif($attributes['name'] == 'Department Admin')
+                <a class="nav-link active" href="{{ route('dashboard.department_admin') }}">
+                    <i class="fa-solid fa-table-cells-large"></i><span>Dashboard</span>
+                </a>
+            @elseif($attributes['name'] == 'Staff')
+                <a class="nav-link active" href="{{ route('dashboard.staff') }}">
+                    <i class="fa-solid fa-table-cells-large"></i><span>Dashboard</span>
+                </a>
+            @elseif($attributes['name'] == 'Librarian')
+                <a class="nav-link active" href="{{ route('dashboard.librarian') }}">
+                    <i class="fa-solid fa-table-cells-large"></i><span>Dashboard</span>
+                </a>
+            @endif
         </li>
 
         {{-- Manage --}}

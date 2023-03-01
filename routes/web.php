@@ -72,4 +72,6 @@ Route::middleware(['auth', 'user-access:Librarian'])->group(function () {
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // User Profile
-Route::get('/user_profile', [UserProfileController::class, 'index'])->middleware('auth')->name('user_profile');
+Route::middleware('auth')->group(function () {
+	Route::get('/user_profile', [UserProfileController::class, 'index'])->name('user_profile');
+})->name('profile');

@@ -7,7 +7,7 @@
 
     @if ($role->name === 'Main Admin')
         {{-- Dashboard Sidebar --}}
-        <x-dashboard-sidebar />
+        <x-dashboard-sidebar name="{{ $role->name }}" />
     @endif
 
     {{-- Main Content --}}
@@ -28,7 +28,7 @@
                 <div class="col-xl-4">
                     <div class="card">
                         <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-                            <img src="images/profile-img.jpg" alt="Profile" class="rounded-circle" />
+                            <img src="/assets/images/profile-img.jpg" alt="Profile" class="rounded-circle" />
                             {{ $details->name }}
                             {{ $role->name }}
                         </div>
@@ -79,7 +79,7 @@
                                             Department
                                         </div>
                                         <div class="col-lg-9 col-md-8">
-                                            Department Name
+                                            {{ $department->name }}
                                         </div>
                                     </div>
                                     <div class="row">
@@ -111,7 +111,7 @@
                                             Email
                                         </div>
                                         <div class="col-lg-9 col-md-8">
-                                            Email Address
+                                            {{ $login->email }}
                                         </div>
                                     </div>
                                 </div>
@@ -124,7 +124,7 @@
                                             <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile
                                                 Image</label>
                                             <div class="col-md-8 col-lg-9">
-                                                <img src="../../assets/img/profile-img.jpg" alt="Profile" />
+                                                <img src="/assets/images/profile-img.jpg" alt="Profile" />
                                                 <div class="pt-2">
                                                     <a href="#" class="btn btn-primary btn-sm"
                                                         title="Upload new profile image"><i
@@ -162,7 +162,7 @@
                                                 class="col-md-4 col-lg-3 col-form-label">Department</label>
                                             <div class="col-md-8 col-lg-9">
                                                 <input name="department" type="text" class="form-control"
-                                                    id="department" value="Department Name" disabled />
+                                                    id="department" value="{{ $department->name }}" disabled />
                                             </div>
                                         </div>
                                         <div class="row mb-3">
@@ -194,7 +194,7 @@
                                                 class="col-md-4 col-lg-3 col-form-label">Email</label>
                                             <div class="col-md-8 col-lg-9">
                                                 <input name="email" type="email" class="form-control"
-                                                    id="Email" value="Email Address" disabled />
+                                                    id="Email" value="{{ $login->email }}" disabled />
                                             </div>
                                         </div>
                                         <div class="text-center">
