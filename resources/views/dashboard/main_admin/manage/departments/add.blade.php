@@ -1,5 +1,5 @@
 {{-- Page Title --}}
-@section('mytitle', 'Add Account')
+@section('mytitle', 'Add Department')
 
 <x-layout>
     {{-- Dashboard Header Navbar --}}
@@ -12,12 +12,12 @@
     <main id="main" class="main">
         <!-- Content Title -->
         <div class="pagetitle">
-            <h1>Accounts</h1>
+            <h1>Departments</h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item">Accounts</li>
-                    <li class="breadcrumb-item active">Add Account</li>
+                    <li class="breadcrumb-item">Departments</li>
+                    <li class="breadcrumb-item active">Add Department</li>
                 </ol>
             </nav>
         </div>
@@ -28,51 +28,71 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Accounts</h5>
-                            <div class="table-responsive">
-                                <table id="departments-table" class="display w-100">
-                                    <caption>List of Accounts</caption>
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Department</th>
-                                            <th>Position</th>
-                                            <th>Email</th>
-                                            <th>Phone</th>
-                                            <th>Date Added</th>
-                                            <th>Date Updated</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <td>Name</td>
-                                        <td>Department</td>
-                                        <td>Position</td>
-                                        <td>Email</td>
-                                        <td>Phone</td>
-                                        <td>Date Added</td>
-                                        <td>Date Updated</td>
-                                        <td class="text-center d-grid gap-1">
-                                            <!-- View -->
-                                            <button class="btn btn-primary view-account" data-id="#">
-                                                <i class="fa-solid fa-eye"></i>
-                                            </button>
+                            <h5 class="card-title">Add Department</h5>
+                            <form class="row g-3">
+                                {{-- Department Name --}}
+                                <div class="col-md-12">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="floatingDepartmentName"
+                                            placeholder="Department Name" required> <label
+                                            for="floatingDepartmentName">Department
+                                            Name</label>
+                                    </div>
+                                </div>
 
-                                            <!-- Update -->
-                                            <button class="btn btn-secondary" data-bs-toggle="modal"
-                                                data-bs-target="#update-account-modal" data-id="#">
-                                                <i class="fa-solid fa-pen-to-square"></i>
-                                            </button>
+                                {{-- Department Description --}}
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <textarea class="form-control" placeholder="Description" id="floatingDescription"
+                                            style="height: 100px; min-height: 100px; max-height: 150px;"></textarea><label for="floatingDescription">Description</label>
+                                    </div>
+                                </div>
 
-                                            <!-- Delete -->
-                                            <button class="btn btn-danger" id="deleteData" href="#">
-                                                <i class="fa-solid fa-trash-can"></i>
-                                            </button>
-                                        </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                                {{-- Email Address --}}
+                                <div class="col-md-12">
+                                    <div class="form-floating"> <input type="email" class="form-control"
+                                            id="floatingEmail" placeholder="Email Address"> <label for="floatingEmail">
+                                            Email Address</label></div>
+                                </div>
+
+                                {{-- Department --}}
+                                <div class="col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <select class="form-select" id="floatingDepartment" aria-label="Department">
+                                            <option selected disabled>Select Department</option>
+                                            <option value="Registrar">Registrar</option>
+                                            <option value="Cashier">Cashier</option>
+                                            <option value="Library">Library</option>
+                                        </select>
+                                        <label for="floatingDepartment">Department</label>
+                                    </div>
+                                </div>
+
+                                {{-- Account Role --}}
+                                <div class="col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <select class="form-select" id="floatingRole" aria-label="State">
+                                            <option selected disabled>Select Account Role</option>
+                                            <option value="1">Main Admin</option>
+                                            <option value="2">Department Admin</option>
+                                            <option value="3">Staff</option>
+                                        </select>
+                                        <label for="floatingRole">Role</label>
+                                    </div>
+                                </div>
+
+                                {{-- Buttons --}}
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="fa-solid fa-plus"></i>
+                                        Add Department
+                                    </button>
+                                    <button type="reset" class="btn btn-kyoored">
+                                        <i class="fa-regular fa-trash-can"></i>
+                                        Clear Input Fields
+                                    </button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
