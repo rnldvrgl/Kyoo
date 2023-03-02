@@ -73,6 +73,12 @@
 	color: #fff;
 }
 
+.sidebar-nav .nav-link.collapsed.active,
+.sidebar-nav .nav-link.collapsed.active i{
+	background-color: #323232;
+	color: #fff;
+}
+
 .sidebar-nav .nav-link.collapsed {
 	color: #323232;
 	background: #fff;
@@ -130,6 +136,7 @@
 	font-weight: 700;
 	color: #323232; 
 }
+
 
 @media (min-width: 1200px) {
 

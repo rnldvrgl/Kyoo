@@ -7,8 +7,8 @@
     {{-- Back to top button --}}
     <x-return-top />
 
-    {{-- Include Navbar --}}
-    @include('partials.__navbar')
+    {{-- Include Navigation Bar --}}
+    <x-navigation-bar />
 
     {{-- Hero Section --}}
     <section class="bg-kyoodark text-white pt-5 px-2 mb-0 overflow-hidden">
@@ -173,6 +173,6 @@
     {{-- /Send Feedback Section --}}
 
     {{-- Include Footer Bar --}}
-    @include('partials.__footer')
+    <x-footer />
     {{-- /Include Footer Bar --}}
 </x-layout>
