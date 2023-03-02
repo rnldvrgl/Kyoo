@@ -35,6 +35,35 @@
                     </div>
                 </div>
                 <div class="col-xl-8">
+                    {{-- Input Error Messages --}}
+                    @foreach (['name', 'about', 'address', 'phone', 'password', 'newpassword'] as $field)
+                        @error($field)
+                            <div class="alert alert-danger" role="alert">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    @endforeach
+
+                    {{-- Update Messages --}}
+                    @if (session('updateSuccess'))
+                        <div class="alert alert-success">
+                            {{ session('updateSuccess') }}
+                        </div>
+                    @elseif (session('updateFailed'))
+                        <div class="alert alert-danger">
+                            {{ session('updateFailed') }}
+                        </div>
+                    @endif
+
+                    @if (session('passwordSuccess'))
+                        <div class="alert alert-success">
+                            {{ session('passwordSuccess') }}
+                        </div>
+                    @elseif (session('passwordFailed'))
+                        <div class="alert alert-danger">
+                            {{ session('passwordFailed') }}
+                        </div>
+                    @endif
                     <div class="card">
                         <div class="card-body pt-3">
                             <ul class="nav nav-tabs nav-tabs-bordered">
@@ -57,7 +86,6 @@
                                 </li>
                             </ul>
                             <div class="tab-content pt-2">
-
                                 <!-- Overview -->
                                 <div class="tab-pane fade show active profile-overview" id="profile-overview">
                                     <h5 class="card-title">About</h5>
@@ -119,18 +147,11 @@
 
                                 <!-- Edit Profile -->
                                 <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
-                                    @if (session('updateSuccess'))
-                                        <div class="alert alert-success">
-                                            {{ session('updateSuccess') }}
-                                        </div>
-                                    @elseif (session('updateFailed'))
-                                        <div class="alert alert-danger">
-                                            {{ session('updateFailed') }}
-                                        </div>
-                                    @endif
+
                                     <!-- Form -->
-                                    <form action="{{ route('user_profile.update', ['id' => session('account_id')]) }}"
-                                        method="POST">
+                                    <form class="needs-validation"
+                                        action="{{ route('user_profile.update', ['id' => session('account_id')]) }}"
+                                        method="POST" novalidate>
 
                                         @csrf
                                         @method('PATCH')
@@ -156,19 +177,19 @@
                                                 Name</label>
                                             <div class="col-md-8 col-lg-9">
                                                 <input name="name" type="text" class="form-control" id="name"
-                                                    value="{{ $details->name }}" />
-                                                @error('name')
-                                                    <span class="text-danger">{{ $message }}</span>
-                                                @enderror
+                                                    value="{{ $details->name }}" required />
+                                                <div class="invalid-feedback">
+                                                    Required
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="row mb-3">
                                             <label for="about" class="col-md-4 col-lg-3 col-form-label">About</label>
                                             <div class="col-md-8 col-lg-9">
-                                                <textarea name="about" class="form-control" id="about" style="height: 75px">{{ $details->about }}</textarea>
-                                                @error('about')
-                                                    <span class="text-danger">{{ $message }}</span>
-                                                @enderror
+                                                <textarea name="about" class="form-control" id="about" style="height: 75px" required>{{ $details->about }}</textarea>
+                                                <div class="invalid-feedback">
+                                                    Required
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="row mb-3">
@@ -192,10 +213,10 @@
                                                 class="col-md-4 col-lg-3 col-form-label">Address</label>
                                             <div class="col-md-8 col-lg-9">
                                                 <input name="address" type="text" class="form-control"
-                                                    id="Address" value="{{ $details->address }}" />
-                                                @error('address')
-                                                    <span class="text-danger">{{ $message }}</span>
-                                                @enderror
+                                                    id="Address" value="{{ $details->address }}" required />
+                                                <div class="invalid-feedback">
+                                                    Required
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="row mb-3">
@@ -203,10 +224,11 @@
                                                 class="col-md-4 col-lg-3 col-form-label">Phone</label>
                                             <div class="col-md-8 col-lg-9">
                                                 <input name="phone" type="text" class="form-control"
-                                                    id="Phone" value="{{ $details->phone }}" />
-                                                @error('phone')
-                                                    <span class="text-danger">{{ $message }}</span>
-                                                @enderror
+                                                    id="Phone" value="{{ $details->phone }}"
+                                                    pattern="^(09|\+639)\d{9}$" required />
+                                                <div class="invalid-feedback">
+                                                    Required (Must be valid phone number)
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="row mb-3">
@@ -227,15 +249,6 @@
 
                                 <!-- Change Password -->
                                 <div class="tab-pane fade pt-3" id="profile-change-password">
-                                    @if (session('passwordSuccess'))
-                                        <div class="alert alert-success">
-                                            {{ session('passwordSuccess') }}
-                                        </div>
-                                    @elseif (session('passwordFailed'))
-                                        <div class="alert alert-danger">
-                                            {{ session('passwordFailed') }}
-                                        </div>
-                                    @endif
                                     <form
                                         action="{{ route('user_profile.change_password', ['id' => Auth::user()->id]) }}"
                                         method="POST">
@@ -250,9 +263,6 @@
                                             <div class="col-md-8 col-lg-9">
                                                 <input name="password" type="password" class="form-control"
                                                     id="currentPassword" />
-                                                @error('password')
-                                                    <span class="text-danger">{{ $message }}</span>
-                                                @enderror
                                             </div>
                                         </div>
 
@@ -263,9 +273,6 @@
                                             <div class="col-md-8 col-lg-9">
                                                 <input name="newpassword" type="password" class="form-control"
                                                     id="newPassword" />
-                                                @error('newpassword')
-                                                    <span class="text-danger">{{ $message }}</span>
-                                                @enderror
                                             </div>
                                         </div>
 
