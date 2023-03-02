@@ -29,25 +29,29 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Add Account</h5>
-                            <form class="row g-3">
+                            <form class="row g-3" action="{{ route('manage.accounts.store') }}" method="POST">
+                                @csrf
                                 {{-- Full Name --}}
                                 <div class="col-md-12">
-                                    <div class="form-floating"> <input type="text" class="form-control"
-                                            id="floatingName" placeholder="Full Name"> <label for="floatingName">Full
+                                    <div class="form-floating"> <input type="text" name="fullname"
+                                            class="form-control" id="floatingName" placeholder="Full Name"> <label
+                                            for="floatingName">Full
                                             Name</label></div>
                                 </div>
 
                                 {{-- Email Address --}}
                                 <div class="col-md-12">
-                                    <div class="form-floating"> <input type="email" class="form-control"
-                                            id="floatingEmail" placeholder="Email Address"> <label for="floatingEmail">
+                                    <div class="form-floating"> <input type="email" name="email"
+                                            class="form-control" id="floatingEmail" placeholder="Email Address"> <label
+                                            for="floatingEmail">
                                             Email Address</label></div>
                                 </div>
 
                                 {{-- Department --}}
                                 <div class="col-md-6">
                                     <div class="form-floating mb-3">
-                                        <select class="form-select" id="floatingDepartment" aria-label="Department">
+                                        <select class="form-select" name="department" id="floatingDepartment"
+                                            aria-label="Department">
                                             <option selected disabled>Select Department</option>
                                             <option value="Registrar">Registrar</option>
                                             <option value="Cashier">Cashier</option>
@@ -60,7 +64,7 @@
                                 {{-- Account Role --}}
                                 <div class="col-md-6">
                                     <div class="form-floating mb-3">
-                                        <select class="form-select" id="floatingRole" aria-label="State">
+                                        <select class="form-select" name="role" id="floatingRole" aria-label="State">
                                             <option selected disabled>Select Account Role</option>
                                             <option value="1">Main Admin</option>
                                             <option value="2">Department Admin</option>

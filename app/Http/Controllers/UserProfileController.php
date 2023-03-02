@@ -44,6 +44,7 @@ class UserProfileController extends Controller
         // Define the validation messages in an array variable
         $messages = [
             'name.required' => 'Please provide your full name.',
+            'name.regex' => 'Your name must only contain letters',
             'name.min' => 'Your full name must be at least :min characters long.',
             'name.max' => 'Your full name must be at most :max characters long.',
             'about.required' => 'Provide something about yourself.',
@@ -54,10 +55,10 @@ class UserProfileController extends Controller
 
         // Validate
         $validatedData = $request->validate([
-            'name' => 'required|string|min:5|max:100',
-            'about' => 'required|string|min:10',
-            'address' => 'required|string',
-            'phone' => 'required|numeric'
+            'name' => ['required', 'regex:/^[A-Za-z ]+$/i', 'min:5', 'max:255'],
+            'about' => ['required', 'string', 'min:10'],
+            'address' => ['required', 'string'],
+            'phone' => ['required', 'numeric']
         ], $messages);
 
         // Find the user with the given id
