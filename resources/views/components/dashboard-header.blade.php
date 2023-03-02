@@ -19,7 +19,8 @@
             </li>
             <li class=" nav-item dropdown pe-3">
                 <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                    <img src="{{ asset('assets/images/profile-img.jpg') }}" alt="Profile" class="rounded-circle" />
+                    <img src="{{ asset('assets/images/profiles/' . $details->profile_picture) }}" alt="Profile"
+                        class="rounded-circle" />
                     <span class="d-none d-md-block dropdown-toggle ps-2">
                         {{ $attributes['details']->name }}
                     </span>
