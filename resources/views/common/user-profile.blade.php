@@ -57,6 +57,7 @@
                                 </li>
                             </ul>
                             <div class="tab-content pt-2">
+
                                 <!-- Overview -->
                                 <div class="tab-pane fade show active profile-overview" id="profile-overview">
                                     <h5 class="card-title">About</h5>
@@ -118,8 +119,17 @@
 
                                 <!-- Edit Profile -->
                                 <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
+                                    @if (session('updateSuccess'))
+                                        <div class="alert alert-success">
+                                            {{ session('updateSuccess') }}
+                                        </div>
+                                    @elseif (session('updateFailed'))
+                                        <div class="alert alert-danger">
+                                            {{ session('updateFailed') }}
+                                        </div>
+                                    @endif
                                     <!-- Form -->
-                                    <form action="{{ route('user_profile.update', session('account_id')) }}"
+                                    <form action="{{ route('user_profile.update', ['id' => session('account_id')]) }}"
                                         method="POST">
 
                                         @csrf
@@ -147,12 +157,18 @@
                                             <div class="col-md-8 col-lg-9">
                                                 <input name="name" type="text" class="form-control" id="name"
                                                     value="{{ $details->name }}" />
+                                                @error('name')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="row mb-3">
                                             <label for="about" class="col-md-4 col-lg-3 col-form-label">About</label>
                                             <div class="col-md-8 col-lg-9">
                                                 <textarea name="about" class="form-control" id="about" style="height: 75px">{{ $details->about }}</textarea>
+                                                @error('about')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="row mb-3">
@@ -177,6 +193,9 @@
                                             <div class="col-md-8 col-lg-9">
                                                 <input name="address" type="text" class="form-control"
                                                     id="Address" value="{{ $details->address }}" />
+                                                @error('address')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="row mb-3">
@@ -185,6 +204,9 @@
                                             <div class="col-md-8 col-lg-9">
                                                 <input name="phone" type="text" class="form-control"
                                                     id="Phone" value="{{ $details->phone }}" />
+                                                @error('phone')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="row mb-3">
@@ -205,38 +227,55 @@
 
                                 <!-- Change Password -->
                                 <div class="tab-pane fade pt-3" id="profile-change-password">
-                                    <form action="#" method="POST">
-
-                                        <div class="row">
-                                            <div class="col-md-8 col-lg-9">
-                                                <input name="login_id" type="hidden" class="form-control"
-                                                    id="user_id" value="1" />
-                                            </div>
+                                    @if (session('passwordSuccess'))
+                                        <div class="alert alert-success">
+                                            {{ session('passwordSuccess') }}
                                         </div>
+                                    @elseif (session('passwordFailed'))
+                                        <div class="alert alert-danger">
+                                            {{ session('passwordFailed') }}
+                                        </div>
+                                    @endif
+                                    <form
+                                        action="{{ route('user_profile.change_password', ['id' => Auth::user()->id]) }}"
+                                        method="POST">
 
+                                        @csrf
+                                        @method('PATCH')
+
+                                        {{-- Password --}}
                                         <div class="row mb-3">
                                             <label for="currentPassword"
                                                 class="col-md-4 col-lg-3 col-form-label">Current Password</label>
                                             <div class="col-md-8 col-lg-9">
                                                 <input name="password" type="password" class="form-control"
                                                     id="currentPassword" />
+                                                @error('password')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                @enderror
                                             </div>
                                         </div>
+
+                                        {{-- New Password --}}
                                         <div class="row mb-3">
                                             <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New
                                                 Password</label>
                                             <div class="col-md-8 col-lg-9">
                                                 <input name="newpassword" type="password" class="form-control"
                                                     id="newPassword" />
+                                                @error('newpassword')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                @enderror
                                             </div>
                                         </div>
+
+                                        {{-- Confirm New Password --}}
                                         <div class="row mb-3">
-                                            <label for="renewPassword"
-                                                class="col-md-4 col-lg-3 col-form-label">Re-enter New
-                                                Password</label>
+                                            <label for="password_confirmation"
+                                                class="col-md-4 col-lg-3 col-form-label">Confirm New Password</label>
                                             <div class="col-md-8 col-lg-9">
-                                                <input name="renewpassword" type="password" class="form-control"
-                                                    id="renewPassword" />
+                                                <input name="newpassword_confirmation" type="password"
+                                                    class="form-control" id="password_confirmation" />
                                             </div>
                                         </div>
                                         <div class="text-center">

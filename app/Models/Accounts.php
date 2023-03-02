@@ -33,8 +33,6 @@ class Accounts extends Model
     protected function type(): Attribute
     {
         return new Attribute(
-            // ? 0 = MA, 1 = DA, 2 = DS, 3 = L
-            // ? MA = Main Admin, DA = Department Admin, DS = Department Staff, L = Librarian
             get: fn ($value) =>  ["Main Admin", "Department Admin", "Staff", "Library"][$value],
         );
     }
