@@ -177,9 +177,9 @@
                                                 Name</label>
                                             <div class="col-md-8 col-lg-9">
                                                 <input name="name" type="text" class="form-control" id="name"
-                                                    value="{{ $details->name }}" required />
+                                                    pattern="^[A-Za-z ]+$" value="{{ $details->name }}" required />
                                                 <div class="invalid-feedback">
-                                                    Required
+                                                    Required (Must only contain letters)
                                                 </div>
                                             </div>
                                         </div>
