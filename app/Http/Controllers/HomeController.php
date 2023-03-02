@@ -33,7 +33,7 @@ class HomeController extends Controller
 	}
 
 	// Fetches all User Data from the database
-	protected function getUserData()
+	public function getUserData()
 	{
 		$accounts = Accounts::find(session('account_id'));
 

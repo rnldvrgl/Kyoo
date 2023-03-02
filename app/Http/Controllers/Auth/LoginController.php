@@ -97,6 +97,7 @@ class LoginController extends Controller
         }
 
         return redirect()->route('login')->with('error', 'Invalid Email or Password.');
+        ddd($request);
     }
 
 

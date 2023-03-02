@@ -36,19 +36,22 @@ Route::get('/frequent_questions', function () {
 
 // Main Admin Routes
 Route::middleware(['auth', 'user-access:Main Admin'])->group(function () {
-	// ? Dashboard
+
+	// Dashboard
 	Route::get('/main-admin/dashboard', [HomeController::class, 'main_admin'])->name('dashboard.main_admin');
 
 	// Manage Accounts
 	Route::prefix('main-admin/manage/accounts')->group(function () {
 		// Add Account
 		Route::get('/add-account', function () {
-			return view('dashboard.main_admin.manage.accounts.add');
+			$userData = (new HomeController)->getUserData();
+			return view('dashboard.main_admin.manage.accounts.add', $userData);
 		})->name('manage.accounts.add');
 
 		// Edit Account
 		Route::get('/edit-account', function () {
-			return view('dashboard.main_admin.manage.accounts.edit');
+			$userData = (new HomeController)->getUserData();
+			return view('dashboard.main_admin.manage.accounts.edit', $userData);
 		})->name('manage.accounts.edit');
 	});
 
@@ -56,12 +59,14 @@ Route::middleware(['auth', 'user-access:Main Admin'])->group(function () {
 	Route::prefix('main-admin/manage/departments')->group(function () {
 		// Add Department
 		Route::get('/add-department', function () {
-			return view('dashboard.main_admin.manage.departments.add');
+			$userData = (new HomeController)->getUserData();
+			return view('dashboard.main_admin.manage.departments.add', $userData);
 		})->name('manage.departments.add');
 
 		// Edit Department
 		Route::get('/edit-department', function () {
-			return view('dashboard.main_admin.manage.departments.edit');
+			$userData = (new HomeController)->getUserData();
+			return view('dashboard.main_admin.manage.departments.edit', $userData);
 		})->name('manage.departments.edit');
 	});
 
@@ -69,12 +74,14 @@ Route::middleware(['auth', 'user-access:Main Admin'])->group(function () {
 	Route::prefix('main-admin/manage/frequent_questions')->group(function () {
 		// Add Frequent Question
 		Route::get('/add-frequent-question', function () {
-			return view('dashboard.main_admin.manage.frequent_questions.add');
+			$userData = (new HomeController)->getUserData();
+			return view('dashboard.main_admin.manage.frequent_questions.add', $userData);
 		})->name('manage.frequent_questions.add');
 
 		// Edit Frequent Question
 		Route::get('/edit-frequent-question', function () {
-			return view('dashboard.main_admin.manage.frequent_questions.edit');
+			$userData = (new HomeController)->getUserData();
+			return view('dashboard.main_admin.manage.frequent_questions.edit', $userData);
 		})->name('manage.frequent_questions.edit');
 	});
 
@@ -82,12 +89,14 @@ Route::middleware(['auth', 'user-access:Main Admin'])->group(function () {
 	Route::prefix('main-admin/manage/services')->group(function () {
 		// Add Service
 		Route::get('/add-service', function () {
-			return view('dashboard.main_admin.manage.services.add');
+			$userData = (new HomeController)->getUserData();
+			return view('dashboard.main_admin.manage.services.add', $userData);
 		})->name('manage.services.add');
 
 		// Edit Service
-		Route::get('/edit-frequent-question', function () {
-			return view('dashboard.main_admin.manage.services.edit');
+		Route::get('/edit-service', function () {
+			$userData = (new HomeController)->getUserData();
+			return view('dashboard.main_admin.manage.services.edit', $userData);
 		})->name('manage.services.edit');
 	});
 
@@ -95,7 +104,8 @@ Route::middleware(['auth', 'user-access:Main Admin'])->group(function () {
 	Route::prefix('main-admin/manage/promotionals')->group(function () {
 		// Add Service
 		Route::get('/edit-promotionals', function () {
-			return view('dashboard.main_admin.manage.promotionals.edit');
+			$userData = (new HomeController)->getUserData();
+			return view('dashboard.main_admin.manage.promotionals.edit', $userData);
 		})->name('manage.promotionals.edit');
 	});
 })->name('main_admin');
