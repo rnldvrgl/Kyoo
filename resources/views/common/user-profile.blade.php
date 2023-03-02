@@ -28,9 +28,10 @@
                 <div class="col-xl-4">
                     <div class="card">
                         <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-                            <img src="/assets/images/profile-img.jpg" alt="Profile" class="rounded-circle" />
-                            {{ $details->name }}
-                            {{ $role->name }}
+                            <img src="{{ asset('assets/images/profiles/' . $details->profile_picture) }}" alt="Profile"
+                                class="rounded-circle" />
+                            <h2>{{ $details->name }}</h2>
+                            <h3>{{ $role->name }}</h3>
                         </div>
                     </div>
                 </div>
@@ -160,15 +161,9 @@
                                             <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile
                                                 Image</label>
                                             <div class="col-md-8 col-lg-9">
-                                                <img src="/assets/images/profile-img.jpg" alt="Profile" />
-                                                <div class="pt-2">
-                                                    <a href="#" class="btn btn-primary btn-sm"
-                                                        title="Upload new profile image"><i
-                                                            class="fa-solid fa-upload"></i></a>
-                                                    <a href="#" class="btn btn-danger btn-sm"
-                                                        title="Remove my profile image"><i
-                                                            class="fa-solid fa-trash-can"></i></a>
-                                                </div>
+                                                <img src="{{ asset('assets/images/profiles/' . $details->profile_picture) }}"
+                                                    alt="Profile" />
+                                                <input class="form-control mt-3" type="file" id="profile_picture">
                                             </div>
                                         </div>
 
