@@ -158,11 +158,32 @@
                                         @method('PATCH')
 
                                         <div class="row mb-3">
-                                            <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile
-                                                Image</label>
+                                            <label for="profile_picture"
+                                                class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
                                             <div class="col-md-8 col-lg-9">
-                                                <img src="{{ asset('assets/images/profiles/' . $details->profile_picture) }}"
-                                                    alt="Profile" />
+                                                <button type="button" class="btn" data-bs-toggle="modal"
+                                                    data-bs-target="#verticalycentered">
+                                                    <img src="{{ asset('assets/images/profiles/' . $details->profile_picture) }}"
+                                                        alt="Profile Picture" class="img-thumbnail"
+                                                        id="profile-picture">
+                                                </button>
+                                                <div class="modal fade" id="verticalycentered" tabindex="-1">
+                                                    <div class="modal-dialog modal-dialog-centered">
+                                                        <div class="modal-content">
+                                                            <div class="modal-body text-center">
+                                                                <img src="{{ asset('assets/images/profiles/' . $details->profile_picture) }}"
+                                                                    alt="Profile Picture"
+                                                                    style="height: 100%; width: 100%;">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <div class="col-md-8 offset-md-4 col-lg-9 offset-lg-3">
                                                 <input class="form-control mt-3" type="file" id="profile_picture">
                                             </div>
                                         </div>
@@ -179,7 +200,8 @@
                                             </div>
                                         </div>
                                         <div class="row mb-3">
-                                            <label for="about" class="col-md-4 col-lg-3 col-form-label">About</label>
+                                            <label for="about"
+                                                class="col-md-4 col-lg-3 col-form-label">About</label>
                                             <div class="col-md-8 col-lg-9">
                                                 <textarea name="about" class="form-control" id="about" style="height: 75px" required>{{ $details->about }}</textarea>
                                                 <div class="invalid-feedback">

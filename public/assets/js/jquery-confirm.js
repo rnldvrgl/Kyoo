@@ -1,4 +1,9 @@
 $(document).ready(function () {
+    $("#profile-picture").click(function () {
+        $("#preview-image").attr("src", $(this).attr("src"));
+        $("#preview-modal").modal("show");
+    });
+
     // Logout Confirmation
     $("button#logout_account").confirm({
         title: "Logout Confirmation",
