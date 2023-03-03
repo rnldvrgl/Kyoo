@@ -8,7 +8,7 @@
                 Queueing Management System
             </span>
         </a>
-        @if ($role->name === 'Main Admin')
+        @if ($role->name === 'Main Admin' || $role->name === 'Department Admin')
             <i class="fa-solid fa-bars toggle-sidebar-btn"></i>
         @endif
     </div>

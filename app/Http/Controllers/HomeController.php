@@ -45,24 +45,39 @@ class HomeController extends Controller
 		];
 	}
 
+	public function getAllData()
+	{
+		return [
+			'departments' => Department::all(),
+			'account_roles' => AccountRole::all(),
+			'account_logins' => AccountLogin::all(),
+			'account_details' => AccountDetails::all(),
+		];
+	}
+
 	// TODO: Isang function for dashboard, concat the role
 	public function main_admin()
 	{
-		return view('dashboard.main_admin.dashboard', $this->getUserData());
+		return view('dashboard.main_admin.dashboard', [
+			'user_data' => $this->getUserData(),
+			'all_data' => $this->getAllData(),
+		]);
 	}
 
 	public function department_admin()
 	{
-		return view('dashboard.department_admin.dashboard', $this->getUserData());
+		return view(
+			'dashboard.department_admin.dashboard',
+			[
+				'user_data' => $this->getUserData(),
+			]
+		);
 	}
 
 	public function staff()
 	{
-		return view('dashboard.staff.dashboard', $this->getUserData());
-	}
-
-	public function librarian()
-	{
-		return view('dashboard.librarian.dashboard', $this->getUserData());
+		return view('dashboard.staff.dashboard', [
+			'user_data' => $this->getUserData(),
+		]);
 	}
 }

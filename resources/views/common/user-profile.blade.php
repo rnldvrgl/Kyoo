@@ -1,14 +1,26 @@
 {{-- Page Title --}}
 @section('mytitle', 'User Profile')
-@php($profile_image = $details->profile_image)
+
+@php
+    $details = $user_data['details'];
+    $role = $user_data['role'];
+    $login = $user_data['login'];
+    $department = $user_data['department'];
+    $profile_image = $details->profile_image;
+@endphp
+
 <x-layout>
     {{-- Dashboard Header Navbar --}}
-    <x-dashboard-header :$details :$role />
+    <x-dashboard-header :details="$details" :role="$role" />
 
     @if ($role->name === 'Main Admin')
         {{-- Dashboard Sidebar --}}
         <x-dashboard-sidebar name="{{ $role->name }}" />
     @endif
+
+
+    {{-- Dashboard Sidebar --}}
+
 
     {{-- Main Content --}}
     <main id="main" class="main">
@@ -168,9 +180,12 @@
                                                 Name</label>
                                             <div class="col-md-8 col-lg-9">
                                                 <input name="name" type="text" class="form-control" id="name"
-                                                    pattern="^[A-Za-z ]+$" value="{{ $details->name }}" required />
+                                                    value="{{ $details->name }}"
+                                                    pattern="/^[a-zA-Z ,.'-]+(?: [a-zA-Z ,.'-]+)*$/
+" required />
                                             </div>
                                         </div>
+
                                         <div class="row mb-3">
                                             <label for="about"
                                                 class="col-md-4 col-lg-3 col-form-label">About</label>
@@ -229,7 +244,7 @@
 
                                 <!-- Change Password -->
                                 <div class="tab-pane fade pt-3" id="profile-change-password">
-                                    <form
+                                    <form id="password_setup_frm"
                                         action="{{ route('user_profile.change_password', ['id' => Auth::user()->id]) }}"
                                         method="POST">
 
@@ -266,7 +281,8 @@
                                             </div>
                                         </div>
                                         <div class="text-center">
-                                            <button type="submit" name="change-password" class="btn btn-success">
+                                            <button id="btn-save" type="submit" name="change-password"
+                                                class="btn btn-success">
                                                 Change Password
                                             </button>
                                         </div>

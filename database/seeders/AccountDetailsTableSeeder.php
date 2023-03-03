@@ -9,6 +9,6 @@ class AccountDetailsTableSeeder extends Seeder
 {
     public function run()
     {
-        AccountDetails::factory(4)->create();
+        AccountDetails::factory(7)->create();
     }
 }
