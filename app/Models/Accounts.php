@@ -10,6 +10,8 @@ class Accounts extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['details_id', 'login_id', 'role_id', 'dept_id'];
+
     public function account_details()
     {
         return $this->belongsTo(AccountDetails::class, 'details_id');
