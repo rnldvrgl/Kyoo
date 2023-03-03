@@ -1,7 +1,15 @@
 {{-- Page Title --}}
 @section('mytitle', 'Staff Dashboard')
 
+@php
+    $details = $user_data['details'];
+    $role = $user_data['role'];
+    $login = $user_data['login'];
+    $department = $user_data['department'];
+    $profile_image = $details->profile_image;
+@endphp
+
 <x-layout>
     {{-- Dashboard Header Navbar --}}
-    <x-dashboard-header :$details :$role />
+    <x-dashboard-header :details="$details" :role="$role" />
 </x-layout>

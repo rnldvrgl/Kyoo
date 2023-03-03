@@ -14,15 +14,8 @@
                     href="{{ route('dashboard.main_admin') }}">
                     <i class="fa-solid fa-table-cells-large"></i><span>Dashboard</span>
                 </a>
-            @elseif($attributes['name'] == 'Department Admin')
-                <a class="nav-link {{ $uri == 'department-admin/dashboard' ? 'active' : '' }}"
-                    href="{{ route('dashboard.department_admin') }}">
-                    <i class="fa-solid fa-table-cells-large"></i><span>Dashboard</span>
-                </a>
-            @endif
-        </li>
 
-        {{-- Manage --}}
+                {{-- Manage --}}
         <li class="nav-heading">MANAGE</li>
 
         {{-- Accounts --}}
@@ -122,7 +115,13 @@
                 <span>Promotionals</span>
             </a>
         </li>
-
+    @elseif($attributes['name'] == 'Department Admin')
+        <a class="nav-link {{ $uri == 'department-admin/dashboard' ? 'active' : '' }}"
+            href="{{ route('dashboard.department_admin') }}">
+            <i class="fa-solid fa-table-cells-large"></i><span>Dashboard</span>
+        </a>
+        @endif
+        </li>
     </ul>
 </aside>
 <!-- /Sidebar -->

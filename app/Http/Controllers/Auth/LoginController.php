@@ -83,13 +83,6 @@ class LoginController extends Controller
                                 'account_id' => $account->id
                             ]));
                         break;
-                    case 4:
-                        return redirect()
-                            ->route('dashboard.librarian')
-                            ->with(session([
-                                'account_id' => $account->id
-                            ]));
-                        break;
                     default:
                         return redirect()->route('logout');
                 }

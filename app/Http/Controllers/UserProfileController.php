@@ -38,7 +38,9 @@ class UserProfileController extends Controller
 
     public function index()
     {
-        return view('common.user-profile', $this->getUserData());
+        return view('common.user-profile', [
+            'user_data' => $this->getUserData(),
+        ]);
     }
 
     public function updateDetails(Request $request, $id)
@@ -63,7 +65,7 @@ class UserProfileController extends Controller
 
         // Validate
         $validatedData = Validator::make($request->all(), [
-            'name' => ['required', 'regex:/^[A-Za-z ]+$/i', 'min:5', 'max:255'],
+            'name' => ['required', 'string', 'min:5', 'max:75'],
             'about' => ['required', 'string', 'min:10'],
             'address' => ['required', 'string'],
             'phone' => ['required', 'numeric'],
@@ -102,19 +104,29 @@ class UserProfileController extends Controller
 
     public function updatePassword(Request $request, $id)
     {
-        // Validate
-        $validatedData = $request->validate([
-            'password' => ['required', new MatchCurrentPassword],
-            'newpassword' => ['required', 'confirmed'],
-        ], [
-            'newpassword.confirmed' => 'Your new password does not match your confirmation password.',
-        ]);
-
-        // Hash the new password
-        $newpassword = Hash::make($validatedData['newpassword']);
-
         // Find the user with the given id
         $account_login = AccountLogin::find($id);
+
+        // Define the validation messages in an array variable
+        $messages = [
+            'password.required' => 'Please provide your current password.',
+            'newpassword.required' => 'Please provide a new password.',
+            'newpassword.confirmed' => 'Your new password does not match your confirmation password.',
+        ];
+
+        // Validate
+        $validatedData = Validator::make($request->all(), [
+            'password' => ['required', new MatchCurrentPassword],
+            'newpassword' => ['required', 'confirmed'],
+        ], $messages);
+
+        # check if their is any error
+        if ($validatedData->fails()) {
+            return response()->json(['code' => 400, 'errors' => $validatedData->errors()]);
+        }
+
+        // Hash the new password
+        $newpassword = Hash::make($request->newpassword);
 
         // Update the password on the database
         $account_login->update([
@@ -122,6 +134,6 @@ class UserProfileController extends Controller
         ]);
 
         // Redirect
-        return redirect()->route('user_profile')->with('passwordSuccess', 'Your password has been successfully updated .');
+        return response()->json(['code' => 200, 'msg' => 'Password Updated Successfully.']);
     }
 }

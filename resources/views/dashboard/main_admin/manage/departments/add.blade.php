@@ -1,9 +1,18 @@
 {{-- Page Title --}}
 @section('mytitle', 'Add Department')
 
+@php
+    $details = $user_data['details'];
+    $role = $user_data['role'];
+    $login = $user_data['login'];
+    $department = $user_data['department'];
+    $profile_image = $details->profile_image;
+@endphp
+
 <x-layout>
     {{-- Dashboard Header Navbar --}}
-    <x-dashboard-header :$details :$role />
+    <x-dashboard-header :details="$details" :role="$role" />
+
 
     {{-- Dashboard Sidebar --}}
     <x-dashboard-sidebar name="{{ $role->name }}" />
@@ -60,22 +69,23 @@
                                     <div class="form-floating mb-3">
                                         <select class="form-select" id="floatingDepartment" aria-label="Department">
                                             <option selected disabled>Select Department</option>
-                                            <option value="Registrar">Registrar</option>
-                                            <option value="Cashier">Cashier</option>
-                                            <option value="Library">Library</option>
+                                            @foreach ($all_data['departments'] as $department)
+                                                <option value="{{ $department->id }}">{{ $department->name }}</option>
+                                            @endforeach
                                         </select>
                                         <label for="floatingDepartment">Department</label>
                                     </div>
                                 </div>
+
 
                                 {{-- Account Role --}}
                                 <div class="col-md-6">
                                     <div class="form-floating mb-3">
                                         <select class="form-select" id="floatingRole" aria-label="State">
                                             <option selected disabled>Select Account Role</option>
-                                            <option value="1">Main Admin</option>
-                                            <option value="2">Department Admin</option>
-                                            <option value="3">Staff</option>
+                                            @foreach ($all_data['account_roles'] as $role)
+                                                <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                            @endforeach
                                         </select>
                                         <label for="floatingRole">Role</label>
                                     </div>

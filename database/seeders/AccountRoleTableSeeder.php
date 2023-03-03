@@ -20,9 +20,5 @@ class AccountRoleTableSeeder extends Seeder
         AccountRole::create([
             'name' => 'Staff'
         ]);
-
-        AccountRole::create([
-            'name' => 'Librarian'
-        ]);
     }
 }
