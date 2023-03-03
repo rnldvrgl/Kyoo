@@ -1,3 +1,4 @@
+@php($profile_image = $details->profile_image)
 <!-- Header Navbar -->
 <header id="header" class="header fixed-top d-flex align-items-center bg-kyoodark">
     <div class="d-flex align-items-center justify-content-between">
@@ -19,8 +20,8 @@
             </li>
             <li class=" nav-item dropdown pe-3">
                 <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                    <img src="{{ asset('assets/images/profiles/' . $details->profile_picture) }}" alt="Profile"
-                        class="rounded-circle" />
+                    <img src="@if ($profile_image == null || $profile_image == '') {{ asset('storage/profile_images/avatar.png') }}  @else {{ asset("storage/$profile_image") }} @endif"
+                        alt="Profile" class="rounded-circle" />
                     <span class="d-none d-md-block dropdown-toggle ps-2">
                         {{ $attributes['details']->name }}
                     </span>

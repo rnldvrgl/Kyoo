@@ -90,6 +90,9 @@
 
     <!-- JQuery Validate Form JS  -->
     <script src="{{ asset('assets/js/validateForm.js') }}"></script>
+
+    <!-- JQuery Validate Form JS  -->
+    <script src="{{ asset('assets/js/profileupdate.js') }}"></script>
 </body>
 
 </html>
