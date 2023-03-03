@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('address');
             $table->string('phone');
             $table->text('about');
-            $table->string('profile_picture')->nullable();
+            $table->string('profile_image')->nullable();
             $table->timestamps();
         });
     }

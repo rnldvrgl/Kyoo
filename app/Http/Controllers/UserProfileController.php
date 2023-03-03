@@ -12,6 +12,8 @@ use App\Rules\MatchCurrentPassword;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Validator;
 
 class UserProfileController extends Controller
 {
@@ -41,35 +43,61 @@ class UserProfileController extends Controller
 
     public function updateDetails(Request $request, $id)
     {
-        // Define the validation messages in an array variable
-        $messages = [
-            'name.required' => 'Please provide your full name.',
-            'name.regex' => 'Your name must only contain letters',
-            'name.min' => 'Your full name must be at least :min characters long.',
-            'name.max' => 'Your full name must be at most :max characters long.',
-            'about.required' => 'Provide something about yourself.',
-            'about.min' => 'Your About must be at least :min characters long.',
-            'address.required' => 'Please provide an address.',
-            'phone.required' => 'Please provide a phone number.'
-        ];
-
-        // Validate
-        $validatedData = $request->validate([
-            'name' => ['required', 'regex:/^[A-Za-z ]+$/i', 'min:5', 'max:255'],
-            'about' => ['required', 'string', 'min:10'],
-            'address' => ['required', 'string'],
-            'phone' => ['required', 'numeric']
-        ], $messages);
 
         // Find the user with the given id
         $accounts = Accounts::find($id);
         $account_details = AccountDetails::find($accounts->details_id);
 
+        // Define the validation messages in an array variable
+        $messages = [
+            'name.required' => 'Please provide your full name.',
+            'name.regex' => 'Your name must only contain letters.',
+            'name.min' => 'Your full name must be at least :min characters long.',
+            'name.max' => 'Your full name must be at most :max characters long.',
+            'about.required' => 'Provide something about yourself.',
+            'about.min' => 'Your About must be at least :min characters long.',
+            'address.required' => 'Please provide an address.',
+            'phone.required' => 'Please provide a phone number.',
+            'profile_image.mimes' => 'The profile image must be a JPEG or PNG.',
+        ];
+
+        // Validate
+        $validatedData = Validator::make($request->all(), [
+            'name' => ['required', 'regex:/^[A-Za-z ]+$/i', 'min:5', 'max:255'],
+            'about' => ['required', 'string', 'min:10'],
+            'address' => ['required', 'string'],
+            'phone' => ['required', 'numeric'],
+            'profile_image' => ['nullable', 'image', 'mimes:jpeg,png']
+        ], $messages);
+
+
+        # check if their is any error
+        if ($validatedData->fails()) {
+            return response()->json(['code' => 400, 'errors' => $validatedData->errors()]);
+        }
+
+        # check if the request has profile image
+        if ($request->hasFile('profile_image')) {
+            $imagePath = 'storage/' . $account_details->profile_image;
+            # check whether the image exists in the directory
+            if (File::exists($imagePath)) {
+                # delete image
+                File::delete($imagePath);
+            }
+            $profile_image = $request->profile_image->store('profile_images', 'public');
+        }
+
         // Update the user details
-        $account_details->update($validatedData);
+        $account_details->update([
+            'name' => $request->name,
+            'about' => $request->about,
+            'address' => $request->address,
+            'phone' => $request->phone,
+            'profile_image' => $profile_image ?? $account_details->profile_image
+        ]);
 
         // Redirect
-        return redirect()->route('user_profile')->with('updateSuccess', 'Your profile has been successfully updated.');
+        return response()->json(['code' => 200, 'msg' => 'Profile Updated Successfully.']);
     }
 
     public function updatePassword(Request $request, $id)

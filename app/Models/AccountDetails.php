@@ -13,7 +13,8 @@ class AccountDetails extends Model
         'name',
         'address',
         'phone',
-        'about'
+        'about',
+        'profile_image'
     ];
 
     public function accounts()
