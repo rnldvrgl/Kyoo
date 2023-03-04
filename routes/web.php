@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\KioskController;
 use App\Http\Controllers\UserProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -167,3 +168,26 @@ Route::middleware('auth')->group(function () {
 	Route::patch('/user_profile/{id}', [UserProfileController::class, 'updateDetails'])->name('user_profile.update');
 	Route::patch('/user_profile/change_password/{id}', [UserProfileController::class, 'updatePassword'])->name('user_profile.change_password');
 })->name('profile');
+
+// {{ route('login') }}
+
+// * Kiosk Routes
+Route::middleware('guest')->group(function () {
+	// Index Kiosk
+	Route::get('/kiosk', [KioskController::class, 'index'])->name('kiosk');
+
+	// Select Department
+	Route::get('/select-department', [KioskController::class, 'selectDepartment'])->name('select-department');
+
+	// Select Department
+	Route::get('/other-department', [KioskController::class, 'selectOtherDept'])->name('other-department');
+
+	// Store Department id
+	Route::get('/store-department', [KioskController::class, 'storeDepartment'])->name('store-department');
+
+	// Select Transaction
+	Route::get('/select-transaction/{department_id}', [KioskController::class, 'selectTransaction'])->name('select-transaction');
+
+	// Input Information
+	Route::get('/input-information', [KioskController::class, 'inputInformation'])->name('input-information');
+})->name('kiosk');

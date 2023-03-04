@@ -5,23 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Department extends Model
+class Service extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'name',
-        'description',
         'status'
     ];
 
-    public function accounts()
+    public function department()
     {
-        return $this->hasMany(Accounts::class);
-    }
-
-    public function services()
-    {
-        return $this->hasMany(Service::class);
+        return $this->belongsTo(Department::class, 'dept_id');
     }
 }
