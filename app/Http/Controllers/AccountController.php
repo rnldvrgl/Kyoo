@@ -19,9 +19,15 @@ class AccountController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(HomeController $homeController)
     {
-        // 
+        $user_data = $homeController->getUserData();
+        $accounts = Accounts::with('account_details', 'account_login', 'account_role', 'department')->get();
+
+        return view('dashboard.main_admin.manage.accounts.edit', with([
+            'user_data' => $user_data,
+            'accounts' => $accounts,
+        ]));
     }
 
     /**
@@ -66,11 +72,12 @@ class AccountController extends Controller
             'role' => ['required'],
         ], $messages);
 
-        // check if their is any error
+        // check if there is any error
         if ($validatedData->fails()) {
             return response()->json(['code' => 400, 'errors' => $validatedData->errors()]);
         }
 
+        // Access each validated data
         $fullname = $validatedData->validated()['fullname'];
         $email = $validatedData->validated()['email'];
         $dept_id = $validatedData->validated()['department'];

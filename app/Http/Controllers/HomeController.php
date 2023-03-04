@@ -47,12 +47,19 @@ class HomeController extends Controller
 
 	public function getAllData()
 	{
-		return [
-			'departments' => Department::all(),
-			'account_roles' => AccountRole::all(),
-			'account_logins' => AccountLogin::all(),
-			'account_details' => AccountDetails::all(),
+		$department = Department::all();
+		$role = AccountRole::all();
+		$login = AccountLogin::all();
+		$details = AccountDetails::all();
+
+		$data = [
+			'departments' => $department,
+			'account_roles' => $role,
+			'account_logins' => $login,
+			'account_details' => $details,
 		];
+
+		return $data;
 	}
 
 	// TODO: Isang function for dashboard, concat the role

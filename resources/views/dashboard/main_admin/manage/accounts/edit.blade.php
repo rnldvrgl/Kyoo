@@ -13,7 +13,6 @@
     {{-- Dashboard Header Navbar --}}
     <x-dashboard-header :details="$details" :role="$role" />
 
-
     {{-- Dashboard Sidebar --}}
     <x-dashboard-sidebar name="{{ $role->name }}" />
 
@@ -39,6 +38,9 @@
                         <div class="card-body">
                             <h5 class="card-title">Accounts</h5>
                             <div class="table-responsive">
+
+                                {{-- TODO: Encased inside a DataTables.net --}}
+                                
                                 <table id="departments-table" class="display w-100">
                                     <caption>List of Accounts</caption>
                                     <thead>
@@ -54,31 +56,34 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <td>Name</td>
-                                        <td>Department</td>
-                                        <td>Position</td>
-                                        <td>Email</td>
-                                        <td>Phone</td>
-                                        <td>Date Added</td>
-                                        <td>Date Updated</td>
-                                        <td class="text-center d-grid gap-1">
-                                            <!-- View -->
-                                            <button class="btn btn-primary view-account" data-id="#">
-                                                <i class="fa-solid fa-eye"></i>
-                                            </button>
+                                        @foreach ($accounts as $account)
+                                        <tr>
+                                            <td>{{ $account->account_details->name }}</td>
+                                            <td>{{ $account->department->name }}</td>
+                                            <td>{{ $account->account_role->name }}</td>
+                                            <td>{{ $account->account_login->email }}</td>
+                                            <td>{{ $account->account_details->phone }}</td>
+                                            <td>{{ $account->created_at }}</td>
+                                            <td>{{ $account->updated_at }}</td>
+                                            <td class="text-center d-grid gap-1">
+                                                <!-- View -->
+                                                <button class="btn btn-primary view-account" data-id="#">
+                                                    <i class="fa-solid fa-eye"></i>
+                                                </button>
 
-                                            <!-- Update -->
-                                            <button class="btn btn-secondary" data-bs-toggle="modal"
-                                                data-bs-target="#update-account-modal" data-id="#">
-                                                <i class="fa-solid fa-pen-to-square"></i>
-                                            </button>
+                                                <!-- Update -->
+                                                <button class="btn btn-secondary" data-bs-toggle="modal"
+                                                    data-bs-target="#update-account-modal" data-id="#">
+                                                    <i class="fa-solid fa-pen-to-square"></i>
+                                                </button>
 
-                                            <!-- Delete -->
-                                            <button class="btn btn-danger" id="deleteData" href="#">
-                                                <i class="fa-solid fa-trash-can"></i>
-                                            </button>
-                                        </td>
+                                                <!-- Delete -->
+                                                <button class="btn btn-danger" id="deleteData" href="#">
+                                                    <i class="fa-solid fa-trash-can"></i>
+                                                </button>
+                                            </td>
                                         </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

@@ -50,14 +50,7 @@ Route::middleware(['auth', 'user-access:Main Admin'])->group(function () {
 		Route::post('/add-account', [AccountController::class, 'store'])->name('manage.accounts.store');
 
 		// Edit Account
-		Route::get('/edit-account', function () {
-			$user_data = (new HomeController)->getUserData();
-			$all_data = (new HomeController)->getAllData();
-			return view('dashboard.main_admin.manage.accounts.edit', [
-				'user_data' => $user_data,
-				'all_data' => $all_data,
-			]);
-		})->name('manage.accounts.edit');
+		Route::get('/edit-account', [AccountController::class, 'index'])->name('manage.accounts.edit');
 	});
 
 	// Manage Departments
