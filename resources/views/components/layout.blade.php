@@ -91,8 +91,11 @@
     <!-- JQuery Validate Form JS  -->
     <script src="{{ asset('assets/js/validateForm.js') }}"></script>
 
-    <!-- JQuery Validate Form JS  -->
+    <!-- Profile Update JS  -->
     <script src="{{ asset('assets/js/profileupdate.js') }}"></script>
+
+    <!-- Kiosk JS  -->
+    <script src="{{ asset('assets/js/kiosk.js') }}"></script>
 </body>
 
 </html>
