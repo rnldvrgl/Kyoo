@@ -37,7 +37,8 @@
             </ul>
 
             <div class="d-lg-inline-flex d-grid gap-3">
-                <a class=" btn btn-outline-kyoored text-white rounded-pill px-3 mb-2 mb-lg-0" href="/live_queue">Live
+                <a class=" btn btn-outline-kyoored text-white rounded-pill px-3 mb-2 mb-lg-0"
+                    href="{{ route('live_queue') }}">Live
                     Queue</a>
 
                 <!-- Login -->

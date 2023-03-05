@@ -1,0 +1,13 @@
+.link-card {
+    transition: all 0.3s ease-in-out;
+}
+
+.link-card:hover {
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+    background-color: #ffffff;
+    color: #ff0000;
+}
+
+.progress-bar {
+    transition: width 0.5s ease-in-out;
+}

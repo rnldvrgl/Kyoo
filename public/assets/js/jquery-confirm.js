@@ -111,7 +111,7 @@ function fetchDeptData(id, modal) {
 
             // Loop to get all department information
             for (var i = 0; i < data.length; i++) {
-                var id = data[i].dept_id;
+                var id = data[i].department_id;
                 var dept_name = data[i].dept_name;
                 var dept_desc = data[i].dept_desc;
                 var status = data[i].status;
@@ -160,7 +160,7 @@ function viewDeptData(id) {
 
             // Loop to get all department information
             for (var i = 0; i < data.length; i++) {
-                var id = data[i].dept_id;
+                var id = data[i].department_id;
                 var dept_name = data[i].dept_name;
                 var dept_desc = data[i].dept_desc;
                 var status = data[i].status;
@@ -208,7 +208,7 @@ function fetchAccountData(id, modal) {
                 var id = data[i].account_id;
                 var name = data[i].name;
                 var email = data[i].email;
-                var dept_id = data[i].dept_id;
+                var department_id = data[i].department_id;
                 var role_id = data[i].role_id;
             }
 
@@ -216,7 +216,7 @@ function fetchAccountData(id, modal) {
             modal.find("#id").val(id);
             modal.find("#full_name").val(name);
             modal.find("#email").val(email);
-            modal.find("#department").val(dept_id);
+            modal.find("#department").val(department_id);
             modal.find("#role").val(role_id);
         },
     });

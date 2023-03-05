@@ -19,4 +19,9 @@ class Department extends Model
     {
         return $this->hasMany(Accounts::class);
     }
+
+    public function services()
+    {
+        return $this->hasMany(Service::class);
+    }
 }

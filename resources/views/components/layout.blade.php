@@ -93,9 +93,13 @@
 
     <!-- Profile Update JS  -->
     <script src="{{ asset('assets/js/profileupdate.js') }}"></script>
-
+    
     <!-- Forms JS  -->
     <script src="{{ asset('assets/js/forms.js') }}"></script>
+    
+    <!-- Kiosk JS  -->
+    <script src="{{ asset('assets/js/kiosk.js') }}"></script>
+
 </body>
 
 </html>

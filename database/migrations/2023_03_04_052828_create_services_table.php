@@ -13,12 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('accounts', function (Blueprint $table) {
+        Schema::create('services', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('details_id')->constrained('account_details')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('login_id')->constrained('account_logins')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('role_id')->constrained('account_roles')->onDelete('restrict')->onUpdate('cascade');
             $table->foreignId('department_id')->constrained('departments')->onDelete('restrict')->onUpdate('cascade');
+            $table->string('name')->unique();
+            $table->string('status');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('accounts');
+        Schema::dropIfExists('services');
     }
 };

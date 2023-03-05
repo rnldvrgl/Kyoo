@@ -62,11 +62,18 @@
                         </div>
                     </div>
 
-                    <div class="d-grid col-6 mx-auto">
+                    <div class="d-grid col-6 mx-auto mb-3">
                         <button type="submit" class="btn btn-kyoored">
                             {{ __('Login') }}
                         </button>
                     </div>
+
+                    <div class="d-grid col-6 mx-auto">
+                        <a href="{{ route('kiosk') }}" class="btn btn-link">
+                            Access Kiosk
+                        </a>
+                    </div>
+
                 </form>
             </div>
         </div>

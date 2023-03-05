@@ -24,7 +24,6 @@ class AccountDetailsFactory extends Factory
             'address' => $this->faker->address(),
             'phone' => $this->faker->unique()->phoneNumber(),
             'about' => $this->faker->paragraph(),
-            // 'profile_image' => $this->faker->image('public/assets/images/profiles', 200, 200, null, false),
         ];
     }
 }
