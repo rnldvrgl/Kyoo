@@ -25,7 +25,7 @@
                 $activeCount = 0;
             @endphp
 
-            @foreach ($kiosk_data['departments'] as $department)
+            @foreach ($departments as $department)
                 @if ($department->id != 1 && $department->id != 2 && $department->status == 'active')
                     <x-department-card :department="$department" />
                     @php

@@ -26,13 +26,12 @@
                 $activeCount = 0;
             @endphp
 
-            @foreach ($kiosk_data['services']->where('dept_id', $department_id)->where('status', 'active')->sortBy('name') as $service)
+            @foreach ($services->where('department_id', $department->id)->where('status', 'active')->sortBy('name') as $service)
                 <x-service-card :service="$service" />
                 @php
                     $activeCount++;
                 @endphp
             @endforeach
-
 
             @if ($activeCount === 0)
                 <div class="card h-100 w-100">

@@ -29,7 +29,7 @@ class AccountsTableSeeder extends Seeder
             'details_id' => $accountDetails[0]->id,
             'login_id' => $accountLogin[0]->id,
             'role_id' => $main_admin->id,
-            'dept_id' => $department->random()->id,
+            'department_id' => $department->random()->id,
         ]);
 
         // Registrar
@@ -38,7 +38,7 @@ class AccountsTableSeeder extends Seeder
             'details_id' => $accountDetails[1]->id,
             'login_id' => $accountLogin[1]->id,
             'role_id' => $department_admin->id,
-            'dept_id' => $registrar->id,
+            'department_id' => $registrar->id,
         ]);
 
         // Staff
@@ -46,7 +46,7 @@ class AccountsTableSeeder extends Seeder
             'details_id' => $accountDetails[2]->id,
             'login_id' => $accountLogin[2]->id,
             'role_id' => $staff->id,
-            'dept_id' => $registrar->id,
+            'department_id' => $registrar->id,
         ]);
 
         // Cashier
@@ -55,7 +55,7 @@ class AccountsTableSeeder extends Seeder
             'details_id' => $accountDetails[3]->id,
             'login_id' => $accountLogin[3]->id,
             'role_id' => $department_admin->id,
-            'dept_id' => $cashier->id,
+            'department_id' => $cashier->id,
         ]);
 
         // Staff
@@ -63,7 +63,7 @@ class AccountsTableSeeder extends Seeder
             'details_id' => $accountDetails[4]->id,
             'login_id' => $accountLogin[4]->id,
             'role_id' => $staff->id,
-            'dept_id' => $cashier->id,
+            'department_id' => $cashier->id,
         ]);
 
         // College Library
@@ -71,7 +71,7 @@ class AccountsTableSeeder extends Seeder
             'details_id' => $accountDetails[5]->id,
             'login_id' => $accountLogin[5]->id,
             'role_id' => $staff->id,
-            'dept_id' => $college_lib->id,
+            'department_id' => $college_lib->id,
         ]);
 
         // High School Library
@@ -79,7 +79,7 @@ class AccountsTableSeeder extends Seeder
             'details_id' => $accountDetails[6]->id,
             'login_id' => $accountLogin[6]->id,
             'role_id' => $staff->id,
-            'dept_id' => $hs_lib->id,
+            'department_id' => $hs_lib->id,
         ]);
     }
 }

@@ -20,7 +20,7 @@ class ServiceTableSeeder extends Seeder
         $departmentIds = Department::pluck('id')->toArray();
 
         Service::factory(10)->create([
-            'dept_id' => function () use ($departmentIds) {
+            'department_id' => function () use ($departmentIds) {
                 return Arr::random($departmentIds);
             }
         ]);

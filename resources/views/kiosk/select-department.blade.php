@@ -1,8 +1,8 @@
 {{-- Page Title --}}
 @section('mytitle', 'Select Department')
 @php
-    $registrar = $kiosk_data['departments']->find(1);
-    $cashier = $kiosk_data['departments']->find(2);
+    $registrar = $departments->find(1);
+    $cashier = $departments->find(2);
 @endphp
 
 <x-layout>
@@ -70,9 +70,8 @@
             @else
                 <x-department-card :department="$cashier" />
             @endif
-
-
         </div>
-    </div>
 
+        <x-back-button />
+    </div>
 </x-layout>

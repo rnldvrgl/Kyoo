@@ -186,8 +186,10 @@ Route::middleware('guest')->group(function () {
 	Route::get('/store-department', [KioskController::class, 'storeDepartment'])->name('store-department');
 
 	// Select Transaction
-	Route::get('/select-transaction/{department_id}', [KioskController::class, 'selectTransaction'])->name('select-transaction');
+	// Route::get('/select-transaction/{department_id}', [KioskController::class, 'selectTransaction'])->name('select-transaction');
+	Route::post('/select-transaction', [KioskController::class, 'selectTransaction'])->name('select-transaction');
+
 
 	// Input Information
 	Route::get('/input-information', [KioskController::class, 'inputInformation'])->name('input-information');
-})->name('kiosk');
+});
