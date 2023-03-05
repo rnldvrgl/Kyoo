@@ -11,6 +11,7 @@ use App\Models\AccountDetails;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Yajra\DataTables\Facades\DataTables;
 
 class AccountController extends Controller
 {
@@ -22,12 +23,36 @@ class AccountController extends Controller
     public function index(HomeController $homeController)
     {
         $user_data = $homeController->getUserData();
-        $accounts = Accounts::with('account_details', 'account_login', 'account_role', 'department')->get();
-
-        return view('dashboard.main_admin.manage.accounts.edit', with([
+        
+        return view('dashboard.main_admin.manage.accounts.list', with([
             'user_data' => $user_data,
-            'accounts' => $accounts,
         ]));
+    }
+
+    public function fetchAccounts()
+    {
+        $accounts = Accounts::with('account_details', 'account_login', 'account_role', 'department')->select('accounts.*');
+
+        return DataTables::eloquent($accounts)
+            ->smart()
+            ->addColumn('actions', function ($account) {
+                // Add your action buttons here
+                $viewUrl = route('manage.accounts.show', $account->id);
+                $editUrl = route('manage.accounts.edit', $account->id);
+                $deleteUrl = route('manage.accounts.destroy', $account->id);
+
+                return '<a href="' . $viewUrl . '" class="btn btn-primary view-account"><i class="fa-solid fa-eye"></i></a>
+                        <a href="' . $editUrl . '" class="btn btn-secondary"><i class="fa-solid fa-pen-to-square"></i></a>
+                        <form action="' . $deleteUrl . '" method="POST" class="d-inline-block">
+                            ' . method_field('DELETE') . csrf_field() . '
+                            <button type="submit" class="btn btn-danger"
+                                onclick="return confirm(\'Are you sure you want to delete this account?\')">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+                        </form>';
+            })
+            ->rawColumns(['actions'])
+            ->toJson();
     }
 
     /**
@@ -54,6 +79,8 @@ class AccountController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
+
         // Message
         $messages = [
             'fullname.required' => 'Full name is required.',
@@ -112,9 +139,13 @@ class AccountController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(HomeController $homeController, $id)
     {
-        //
+        // Redirect to the View page along with the user's records
+        return view('dashboard.main_admin.manage.accounts.view', [
+            'user_data' => $homeController->getUserData(),
+            'account' => Accounts::with('account_details', 'account_login', 'account_role', 'department')->findOrFail($id)
+        ]);
     }
 
     /**
@@ -123,9 +154,14 @@ class AccountController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(HomeController $homeController, $id)
     {
-        //
+        // Redirect to the View page along with the user's records
+        return view('dashboard.main_admin.manage.accounts.edit', [
+            'user_data' => $homeController->getUserData(),
+            'all_data' => $homeController->getAllData(),
+            'account' => Accounts::with('account_details', 'account_login', 'account_role', 'department')->findOrFail($id)
+        ]);
     }
 
     /**
@@ -137,7 +173,7 @@ class AccountController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        dd($request);
     }
 
     /**
@@ -148,7 +184,17 @@ class AccountController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // Delete
+        // dd("Delete method working, here is the ID $id");
+
+        // Find the user by id
+        $account = Accounts::findOrFail($id);
+        
+        // Delete the account
+        $account->delete();
+        
+        // Redirect to the index page with a success message
+        return redirect()->route('manage.accounts.index')->with('deleteSuccess', 'Account deleted successfully');
     }
 
     protected function default_password_generator($fullname)

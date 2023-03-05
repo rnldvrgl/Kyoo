@@ -82,9 +82,9 @@
                                     <div class="form-floating mb-3">
                                         <select class="form-select" name="role" id="floatingRole" aria-label="State">
                                             <option value="" selected disabled>Select Account Role</option>
-                                            <option value="1">Main Admin</option>
-                                            <option value="2">Department Admin</option>
-                                            <option value="3">Staff</option>
+                                            @foreach ($all_data['account_roles'] as $role)
+                                                <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                            @endforeach
                                         </select>
                                         <label for="floatingRole">Role</label>
                                     </div>

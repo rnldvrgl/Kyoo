@@ -31,7 +31,7 @@
                         class="{{ $uri == 'main-admin/manage/accounts/add-account' ? 'active' : '' }}">
                         <i class="fa-solid fa-circle-plus"></i><span>Add Account</span>
                     </a>
-                    <a href="{{ route('manage.accounts.edit') }}"
+                    <a href="{{ route('manage.accounts.index') }}"
                         class="{{ $uri == 'main-admin/manage/accounts/edit-account' ? 'active' : '' }}">
                         <i class="fa-solid fa-pen-to-square"></i><span>Edit Account</span>
                     </a>

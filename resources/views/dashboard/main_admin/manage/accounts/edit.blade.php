@@ -13,6 +13,7 @@
     {{-- Dashboard Header Navbar --}}
     <x-dashboard-header :details="$details" :role="$role" />
 
+
     {{-- Dashboard Sidebar --}}
     <x-dashboard-sidebar name="{{ $role->name }}" />
 
@@ -36,57 +37,73 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Accounts</h5>
-                            <div class="table-responsive">
+                            <h5 class="card-title">Edit Account</h5>
 
-                                {{-- TODO: Encased inside a DataTables.net --}}
-                                
-                                <table id="departments-table" class="display w-100">
-                                    <caption>List of Accounts</caption>
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Department</th>
-                                            <th>Position</th>
-                                            <th>Email</th>
-                                            <th>Phone</th>
-                                            <th>Date Added</th>
-                                            <th>Date Updated</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($accounts as $account)
-                                        <tr>
-                                            <td>{{ $account->account_details->name }}</td>
-                                            <td>{{ $account->department->name }}</td>
-                                            <td>{{ $account->account_role->name }}</td>
-                                            <td>{{ $account->account_login->email }}</td>
-                                            <td>{{ $account->account_details->phone }}</td>
-                                            <td>{{ $account->created_at }}</td>
-                                            <td>{{ $account->updated_at }}</td>
-                                            <td class="text-center d-grid gap-1">
-                                                <!-- View -->
-                                                <button class="btn btn-primary view-account" data-id="#">
-                                                    <i class="fa-solid fa-eye"></i>
-                                                </button>
-
-                                                <!-- Update -->
-                                                <button class="btn btn-secondary" data-bs-toggle="modal"
-                                                    data-bs-target="#update-account-modal" data-id="#">
-                                                    <i class="fa-solid fa-pen-to-square"></i>
-                                                </button>
-
-                                                <!-- Delete -->
-                                                <button class="btn btn-danger" id="deleteData" href="#">
-                                                    <i class="fa-solid fa-trash-can"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
+                            <div id="res">
+                                {{-- Append Success/Error Messages here --}}
                             </div>
+
+                            <form id="add-accounts-frm" class="row g-3" action="{{ route('manage.accounts.store') }}" method="POST">
+                                
+                                @csrf
+
+                                {{-- Full Name --}}
+                                <div class="col-md-12">
+                                    <div class="form-floating"> <input type="text" name="fullname"
+                                            class="form-control" id="floatingName" placeholder="Full Name" value="{{ $account->account_details->name }}"> <label
+                                            for="floatingName">Full
+                                            Name</label></div>
+                                </div>
+
+                                {{-- Email Address --}}
+                                <div class="col-md-12">
+                                    <div class="form-floating"> <input type="email" name="email"
+                                            class="form-control" id="floatingEmail" placeholder="Email Address" value="{{ $account->account_login->email }}"> <label
+                                            for="floatingEmail">
+                                            Email Address</label></div>
+                                </div>
+
+                                {{-- Department --}}
+                                <div class="col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <select class="form-select" name="department" id="floatingDepartment"
+                                            aria-label="Department">
+                                            <option value="" disabled>Select Department</option>
+                                            @foreach ($all_data['departments'] as $department)
+                                                <option {{ ($account->department->id == $department->id) ? 'selected' : ''}}  value="{{ $department->id }}">{{ $department->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        <label for="floatingDepartment">Department</label>
+                                    </div>
+                                </div>
+
+                                {{-- Account Role --}}
+                                <div class="col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <select class="form-select" name="role" id="floatingRole" aria-label="State">
+                                            <option value="" disabled>Select Account Role</option>
+                                            @foreach ($all_data['account_roles'] as $role)
+                                                <option {{ ($account->account_role->id == $role->id) ? 'selected' : '' }} value="{{ $role->id }}">{{ $role->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        <label for="floatingRole">Role</label>
+                                    </div>
+                                </div>
+
+                                {{-- Buttons --}}
+                                <div class="text-center">
+                                    <a href="{{ route('manage.accounts.index') }}" class="btn btn-kyoored">
+                                        <i class="fa-solid fa-arrow-left"></i>
+                                        Go back
+                                    </a>
+
+                                    {{-- TODO: Update functionality --}}
+                                    <button type="submit" class="btn btn-success" id="btn-update-account">
+                                        <i class="fa-solid fa-user-plus"></i>
+                                        Update
+                                    </button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>

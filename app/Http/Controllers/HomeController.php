@@ -73,12 +73,9 @@ class HomeController extends Controller
 
 	public function department_admin()
 	{
-		return view(
-			'dashboard.department_admin.dashboard',
-			[
-				'user_data' => $this->getUserData(),
-			]
-		);
+		return view('dashboard.department_admin.dashboard',[
+			'user_data' => $this->getUserData(),
+		]);
 	}
 
 	public function staff()
