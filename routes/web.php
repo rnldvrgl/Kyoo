@@ -169,7 +169,6 @@ Route::middleware('auth')->group(function () {
 	Route::patch('/user_profile/change_password/{id}', [UserProfileController::class, 'updatePassword'])->name('user_profile.change_password');
 })->name('profile');
 
-// {{ route('login') }}
 
 // * Kiosk Routes
 Route::middleware('guest')->group(function () {
@@ -179,17 +178,27 @@ Route::middleware('guest')->group(function () {
 	// Select Department
 	Route::get('/select-department', [KioskController::class, 'selectDepartment'])->name('select-department');
 
-	// Select Department
+	// Select Other Department
 	Route::get('/other-department', [KioskController::class, 'selectOtherDept'])->name('other-department');
 
-	// Store Department id
-	Route::get('/store-department', [KioskController::class, 'storeDepartment'])->name('store-department');
-
 	// Select Transaction
-	// Route::get('/select-transaction/{department_id}', [KioskController::class, 'selectTransaction'])->name('select-transaction');
 	Route::post('/select-transaction', [KioskController::class, 'selectTransaction'])->name('select-transaction');
-
 
 	// Input Information
 	Route::get('/input-information', [KioskController::class, 'inputInformation'])->name('input-information');
+
+	// Add Services
+	Route::get('/add-transaction', [KioskController::class, 'addTransaction'])->name('add-transaction');
+
+	// Add to Queue
+	Route::post('/add-to-queue', [KioskController::class, 'addToQueue'])->name('add-to-queue');
+
+	// Transaction Summary
+	Route::get('/transaction-summary', [KioskController::class, 'summary'])->name('transaction-summary');
+
+	// Print Queue Ticket
+	Route::get('/print-queue-ticket', [KioskController::class, 'printQueueTicket'])->name('print-queue-ticket');
+
+	// Cancel Queue
+	Route::get('/cancel', [KioskController::class, 'cancel'])->name('cancel');
 });

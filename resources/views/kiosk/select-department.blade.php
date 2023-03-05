@@ -20,11 +20,11 @@
         </div>
 
         <div class="row align-items-center">
-            <div class="col">
+            <div class="col-12 col-lg-10">
                 <h1>Select Department</h1>
                 <p>Select Department Transaction</p>
             </div>
-            <div class="col-9 text-end">
+            <div class="col col-lg-2 text-end">
                 <a href="{{ route('other-department') }}" class="btn btn-kyoored btn-lg">
                     Other Department
                     <i class="fa-solid fa-chevron-right"></i>

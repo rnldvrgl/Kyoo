@@ -1,5 +1,5 @@
 <div class="col-6">
-    <a href="{{ route('kiosk') }}" class="btn btn-danger btn-lg">
+    <a href="{{ route('cancel') }}" class="btn btn-danger btn-lg">
         Cancel Queue
     </a>
 </div>
