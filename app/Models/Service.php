@@ -11,7 +11,8 @@ class Service extends Model
 
     protected $fillable = [
         'name',
-        'status'
+        'department id',
+        'status',
     ];
 
     public function department()
