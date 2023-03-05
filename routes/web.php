@@ -19,6 +19,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+/*
+|--------------------------------------------------------------------------
+| Naming Conventions
+|--------------------------------------------------------------------------
+|
+| Folder - snake_case
+| Filename and Routes - kebab-case
+| Functions/Methods - camelCase
+| 
+|
+*/
+
 // * Helper method of Laravel/UI that generates a set of routes to handle authentication functionality
 Auth::routes();
 
@@ -50,15 +62,22 @@ Route::middleware(['auth', 'user-access:Main Admin'])->group(function () {
 		// Store Account
 		Route::post('/add-account', [AccountController::class, 'store'])->name('manage.accounts.store');
 
-		// Edit Account
-		Route::get('/edit-account', function () {
-			$user_data = (new HomeController)->getUserData();
-			$all_data = (new HomeController)->getAllData();
-			return view('dashboard.main_admin.manage.accounts.edit', [
-				'user_data' => $user_data,
-				'all_data' => $all_data,
-			]);
-		})->name('manage.accounts.edit');
+		// View Account
+		Route::get('/view-account/{id}', [AccountController::class, 'show'])->name('manage.accounts.show');
+
+		// Edit Account / List of Accounts
+		Route::get('/edit-account', [AccountController::class, 'index'])->name('manage.accounts.index');
+		Route::get('/edit-account/fetch', [AccountController::class, 'fetchAccounts'])->name('manage.accounts.fetch_accounts');
+
+		// Specific Employee to Edit
+		Route::get('/edit-account/{id}', [AccountController::class, 'edit'])->name('manage.accounts.edit');
+
+		// Update Employee Account
+		Route::get('/update-account/{id}', [AccountController::class, 'update'])->name('manage.accounts.update');
+
+		// Delete Account
+		Route::delete('/delete-account/{id}', [AccountController::class, 'destroy'])->name('manage.accounts.destroy');
+
 	});
 
 	// Manage Departments

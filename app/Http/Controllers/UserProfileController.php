@@ -45,7 +45,6 @@ class UserProfileController extends Controller
 
     public function updateDetails(Request $request, $id)
     {
-
         // Find the user with the given id
         $accounts = Accounts::find($id);
         $account_details = AccountDetails::find($accounts->details_id);
@@ -65,7 +64,7 @@ class UserProfileController extends Controller
 
         // Validate
         $validatedData = Validator::make($request->all(), [
-            'name' => ['required', 'string', 'min:5', 'max:75'],
+            'name' => ['required', "regex:/^[a-zA-Z ,.'-]+(?: [a-zA-Z ,.'-]+)*$/", 'min:5', 'max:75'],
             'about' => ['required', 'string', 'min:10'],
             'address' => ['required', 'string'],
             'phone' => ['required', 'numeric'],

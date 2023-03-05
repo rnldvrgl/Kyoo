@@ -51,7 +51,11 @@
                 <div class="col-xl-8">
                     <div class="card">
                         <div class="card-body pt-3">
-                            <div id="res"></div>
+
+                            <div id="res">
+                                {{-- Append Success/Error Messages here --}}
+                            </div>
+
                             <ul class="nav nav-tabs nav-tabs-bordered">
                                 <li class="nav-item">
                                     <button class="nav-link active" data-bs-toggle="tab"

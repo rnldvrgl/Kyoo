@@ -38,8 +38,15 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Add Account</h5>
-                            <form class="row g-3" action="{{ route('manage.accounts.store') }}" method="POST">
+
+                            <div id="res">
+                                {{-- Append Success/Error Messages here --}}
+                            </div>
+
+                            <form id="add-accounts-frm" class="row g-3" action="{{ route('manage.accounts.store') }}" method="POST">
+                                
                                 @csrf
+
                                 {{-- Full Name --}}
                                 <div class="col-md-12">
                                     <div class="form-floating"> <input type="text" name="fullname"
@@ -61,10 +68,10 @@
                                     <div class="form-floating mb-3">
                                         <select class="form-select" name="department" id="floatingDepartment"
                                             aria-label="Department">
-                                            <option selected disabled>Select Department</option>
-                                            <option value="Registrar">Registrar</option>
-                                            <option value="Cashier">Cashier</option>
-                                            <option value="Library">Library</option>
+                                            <option value="" selected disabled>Select Department</option>
+                                            @foreach ($all_data['departments'] as $department)
+                                                <option value="{{ $department->id }}">{{ $department->name }}</option>
+                                            @endforeach
                                         </select>
                                         <label for="floatingDepartment">Department</label>
                                     </div>
@@ -74,10 +81,10 @@
                                 <div class="col-md-6">
                                     <div class="form-floating mb-3">
                                         <select class="form-select" name="role" id="floatingRole" aria-label="State">
-                                            <option selected disabled>Select Account Role</option>
-                                            <option value="1">Main Admin</option>
-                                            <option value="2">Department Admin</option>
-                                            <option value="3">Staff</option>
+                                            <option value="" selected disabled>Select Account Role</option>
+                                            @foreach ($all_data['account_roles'] as $role)
+                                                <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                            @endforeach
                                         </select>
                                         <label for="floatingRole">Role</label>
                                     </div>
@@ -85,7 +92,7 @@
 
                                 {{-- Buttons --}}
                                 <div class="text-center">
-                                    <button type="submit" class="btn btn-success">
+                                    <button type="submit" class="btn btn-success" id="btn-save-account">
                                         <i class="fa-solid fa-user-plus"></i>
                                         Add Account
                                     </button>

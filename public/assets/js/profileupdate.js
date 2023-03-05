@@ -30,27 +30,38 @@ $(document).ready(function () {
             contentType: false,
             processData: false,
             success: (response) => {
+                // If may error
                 if (response.code == 400) {
+                    // List of errors
                     let errorsHtml = "<ul class='list-unstyled'>";
                     $.each(response.errors, function (key, value) {
                         errorsHtml += "<li>" + value + "</li>";
                     });
                     errorsHtml += "</ul>";
+
+                    // Encase error messages here
                     $("#res").html(
                         '<div class="row alert alert-danger pb-0">' +
                             errorsHtml +
                             "</div>"
                     );
+
                     $("#btn-save").attr("disabled", false);
                     $("#btn-save").html("Save Profile");
-                } else if (response.code == 200) {
+                } 
+                // If walang error
+                else if (response.code == 200) {
+
                     let success =
                         '<div class="alert alert-success">' +
                         response.msg +
                         "</div>";
+
                     $("#res").html(success);
                     $("#btn-save").attr("disabled", false);
                     $("#btn-save").html("Save Profile");
+
+                    // Auto refresh the current page
                     location.reload();
                 }
             },
