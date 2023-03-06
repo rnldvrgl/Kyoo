@@ -1,21 +1,21 @@
 {{-- Page Title --}}
 @section('mytitle', 'Transaction Summary')
-
 <x-layout>
+    {{-- Background Image --}}
     <div id="background-image" style="opacity: 5%;"></div>
-
-    {{-- Cancel Queue Button --}}
+    {{-- Main Content --}}
     <div class="container-fluid d-flex flex-column p-3 ">
+        {{-- Cancel Queue Button --}}
         <div class="row mb-3">
             <div class="col-6">
-                <x-cancel-queue-button />
+                <x-cancel-queue-button /> {{-- Include the Cancel Queue button component --}}
             </div>
         </div>
 
         {{-- Progress Bar --}}
         <div class="row mb-3">
             <div class="col-12">
-                <x-progress-bar :progress="75" />
+                <x-progress-bar :progress="75" /> {{-- Include the Progress Bar component and pass the progress value as 75 --}}
             </div>
         </div>
 
@@ -44,9 +44,11 @@
                     <div class="card-body p-5 ">
                         {{-- Department --}}
                         <div class="row">
+                            {{-- Department header --}}
                             <div class="col-12 col-lg-3 fw-bold">
                                 <h2>Department:</h2>
                             </div>
+                            {{-- Display the department name --}}
                             <div class="col-12 col-lg-9">
                                 <h2 class="fw-normal">{{ $department_name }}</h2>
                             </div>
@@ -60,9 +62,11 @@
                     <div class="card-body p-5 ">
                         {{-- Transaction --}}
                         <div class="row mt-2">
+                            {{-- Transaction header --}}
                             <div class="col-12 col-lg-3 fw-bold">
                                 <h2>Transaction(s):</h2>
                             </div>
+                            {{-- Display each selected service name --}}
                             <div class="col-12 col-lg-9">
                                 @foreach ($selected_services as $service)
                                     <h2 class="fw-normal">
@@ -74,11 +78,5 @@
                     </div>
                 </div>
             </div>
-
-            {{-- Add More Services Button --}}
-            <div class="row mt-4 justify-content-center">
-
-            </div>
-
         </div>
 </x-layout>

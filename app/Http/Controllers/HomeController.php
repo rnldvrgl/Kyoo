@@ -41,7 +41,7 @@ class HomeController extends Controller
 			'details' => AccountDetails::find($accounts->details_id),
 			'role' => AccountRole::find($accounts->role_id),
 			'login' => AccountLogin::find($accounts->login_id),
-			'department' => Department::find($accounts->dept_id),
+			'department' => Department::find($accounts->department_id),
 		];
 	}
 
@@ -73,7 +73,7 @@ class HomeController extends Controller
 
 	public function department_admin()
 	{
-		return view('dashboard.department_admin.dashboard',[
+		return view('dashboard.department_admin.dashboard', [
 			'user_data' => $this->getUserData(),
 		]);
 	}

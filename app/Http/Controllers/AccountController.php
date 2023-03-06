@@ -23,7 +23,7 @@ class AccountController extends Controller
     public function index(HomeController $homeController)
     {
         $user_data = $homeController->getUserData();
-        
+
         return view('dashboard.main_admin.manage.accounts.list', with([
             'user_data' => $user_data,
         ]));
@@ -107,7 +107,7 @@ class AccountController extends Controller
         // Access each validated data
         $fullname = $validatedData->validated()['fullname'];
         $email = $validatedData->validated()['email'];
-        $dept_id = $validatedData->validated()['department'];
+        $department_id = $validatedData->validated()['department'];
         $role_id = $validatedData->validated()['role'];
 
         // Insert on each tables
@@ -126,7 +126,7 @@ class AccountController extends Controller
             'details_id' => $account_details->id,
             'login_id' => $account_login->id,
             'role_id' => $role_id,
-            'dept_id' => $dept_id,
+            'department_id' => $department_id,
         ]);
 
         // Redirect
@@ -189,10 +189,10 @@ class AccountController extends Controller
 
         // Find the user by id
         $account = Accounts::findOrFail($id);
-        
+
         // Delete the account
         $account->delete();
-        
+
         // Redirect to the index page with a success message
         return redirect()->route('manage.accounts.index')->with('deleteSuccess', 'Account deleted successfully');
     }

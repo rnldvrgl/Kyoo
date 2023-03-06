@@ -10,7 +10,7 @@ class Accounts extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['details_id', 'login_id', 'role_id', 'dept_id'];
+    protected $fillable = ['details_id', 'login_id', 'role_id', 'department_id'];
 
     public function account_details()
     {
@@ -29,7 +29,7 @@ class Accounts extends Model
 
     public function department()
     {
-        return $this->belongsTo(Department::class, 'dept_id');
+        return $this->belongsTo(Department::class, 'department_id');
     }
 
     protected function type(): Attribute
