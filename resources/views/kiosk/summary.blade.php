@@ -29,7 +29,7 @@
                 <form method="POST" action="{{ route('select-transaction') }}">
                     @csrf
                     <input type="hidden" name="department_id" value="{{ Session::get('department_id') }}">
-                    <button type="submit" class="btn btn-success btn-lg w-100">
+                    <button type="submit" class="btn btn-kyoodark btn-lg w-100">
                         <i class="fa-regular fa-square-plus"></i>
                         Add Transaction
                     </button>
@@ -77,6 +77,14 @@
                         </div>
                     </div>
                 </div>
+            </div>
+
+            {{-- Proceed Button --}}
+            <div class="col-12 fixed-bottom mb-3 text-end">
+                <a href="{{ route('input-information') }}" class="btn btn-success btn-success btn-lg btn-block">
+                    Proceed
+                    <i class="fa-solid fa-chevron-right"></i>
+                </a>
             </div>
         </div>
 </x-layout>

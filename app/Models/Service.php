@@ -11,12 +11,17 @@ class Service extends Model
 
     protected $fillable = [
         'name',
-        'department id',
+        'department_id',
         'status',
     ];
 
     public function department()
     {
-        return $this->belongsTo(Department::class, 'department_id');
+        return $this->belongsTo(Department::class);
+    }
+
+    public function tickets()
+    {
+        return $this->belongsToMany(QueueTicket::class, 'queue_ticket_service', 'service_id', 'ticket_id');
     }
 }

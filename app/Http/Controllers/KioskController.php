@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Department;
+use App\Models\QueueTicket;
+use App\Models\QueueTicketService;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -145,14 +147,52 @@ class KioskController extends Controller
         return view('kiosk.input-information');
     }
 
-    // public function printQueueTicket()
-    // {
-    //     $department = Department::findOrFail(Session::get('department_id'));
-    //     $services = Service::whereIn('id', Session::get('services'))->get();
-    //     $queue_number = 2;
+    public function printQueueTicket(Request $request)
+    {
+        $name = $request->get('fullname');
+        $student_department = $request->get('department');
+        $course = $request->get('course');
+        $department_id = Session::get('department_id');
+        $selected_services = Session::get('selected_services', []);
 
-    //     // create queue ticket
-    //     // ...
+        // retrieve department code
+        $department_code = '';
+        $department = Department::where('id', $department_id)->first();
+        if ($department) {
+            $department_code = $department->code;
+        } else {
+            // handle unknown department
+        }
 
-    //     // clear session data
+        // determine the next ticket number for the department
+        $next_ticket_number = QueueTicket::where('department_id', $department_id)->count() + 1;
+        $ticket_number = sprintf('%03d', $next_ticket_number); // format ticket number as 3-digit string
+
+        // create queue ticket
+        $ticket = new QueueTicket();
+        $ticket->student_name = $name;
+        $ticket->student_department = $student_department;
+        $ticket->student_course = $course;
+        $ticket->department_id = $department_id;
+        $ticket->ticket_number = $department_code . $ticket_number;
+        $ticket->status = 'Pending';
+        $ticket->save();
+
+
+        // save selected services to queue_ticket_service table
+        foreach ($selected_services as $service) {
+            $serviceModel = Service::where('id', $service)->firstOrFail();
+            $ticket->services()->attach($serviceModel->id);
+        }
+
+
+        // clear session data
+        Session::forget('department_name');
+        Session::forget('department_id');
+        Session::forget('selected_services');
+
+        // return the created ticket to the client
+        // return view('ticket', ['ticket' => $ticket]);
+        dd($ticket);
+    }
 }
