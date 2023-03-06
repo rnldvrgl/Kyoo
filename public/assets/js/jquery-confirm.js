@@ -1,4 +1,29 @@
 $(document).ready(function () {
+    //* Kiosk *//
+    // Cancel Queue
+    $("button#cancel_queue").confirm({
+        title: "Cancel Queue Confirmation",
+        content: "Are you sure you want to cancel your queue ?",
+        theme: "Modern",
+        draggable: false,
+        typeAnimated: true,
+        buttons: {
+            confirm: {
+                text: "Yes",
+                btnClass: "btn-kyoodark",
+                action: function () {
+                    location.href = this.$target.attr("href");
+                },
+            },
+            cancel: {
+                text: "No",
+                btnClass: "btn-kyoored",
+            },
+        },
+    });
+
+    //* User Profile *//
+    // Preview Profile Image
     $("#profile-picture").click(function () {
         $("#preview-image").attr("src", $(this).attr("src"));
         $("#preview-modal").modal("show");
