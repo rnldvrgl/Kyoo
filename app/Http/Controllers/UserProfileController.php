@@ -32,7 +32,7 @@ class UserProfileController extends Controller
             'details' => AccountDetails::find($accounts->details_id),
             'role' => AccountRole::find($accounts->role_id),
             'login' => AccountLogin::find($accounts->login_id),
-            'department' => Department::find($accounts->dept_id),
+            'department' => Department::find($accounts->department_id),
         ];
     }
 

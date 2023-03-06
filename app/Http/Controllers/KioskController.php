@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Http\Controllers;
 
 use App\Models\Department;
@@ -12,9 +11,10 @@ class KioskController extends Controller
 {
     public function __construct()
     {
-        // 
+        // Constructor
     }
 
+    // Get data required for kiosk operation
     public function getKioskData()
     {
         return [
@@ -23,32 +23,43 @@ class KioskController extends Controller
         ];
     }
 
+    // Cancel queue
     public function cancel()
     {
+        // Remove session data related to the queue
         Session::forget('department_id');
         Session::forget('selected_services');
         Session::forget('queue_number');
 
+        // Redirect to kiosk with a message
         return redirect()->route('kiosk')->with('message', 'Queue has been canceled.');
     }
 
+    // Index page
     public function index()
     {
         return view('kiosk.index');
     }
 
+    // Select department page
     public function selectDepartment()
     {
+        // Get all departments
         $departments = Department::all();
+        // Return view with departments data
         return view('kiosk.select-department', compact('departments'));
     }
 
+    // Other department selection page
     public function selectOtherDept()
     {
+        // Get all departments
         $departments = Department::all();
+        // Return view with departments data
         return view('kiosk.other-department', compact('departments'));
     }
 
+    // Select transaction page
     public function selectTransaction(Request $request)
     {
         // Check if department ID is already in the session
@@ -65,35 +76,54 @@ class KioskController extends Controller
             $selected_services = [];
         }
 
+        // Get services of the selected department
         $services = $department->services;
 
+        // Check if the selected services are already in the session
+        foreach ($services as $service) {
+            $service['is_selected'] = false;
+            foreach ($selected_services as $selected_service) {
+                if ($service->id === $selected_service['service_id']) {
+                    $service['is_selected'] = true;
+                    break;
+                }
+            }
+        }
+
+        // Return view with department, services and selected services data
         return view('kiosk.select-transaction', compact('department', 'services', 'selected_services'));
     }
 
+    // Add selected service to queue
     public function addToQueue(Request $request)
     {
-        $service_id = $request->input('service_id');
-        $service = Service::findOrFail($request->input('service_id'));
+        try {
+            // Get the selected service ID from request
+            $service_id = $request->input('service_id');
+            $service = Service::findOrFail($request->input('service_id'));
 
-        // Retrieve the existing selected services from the session or create an empty array if not exists
-        $selected_services = Session::get('selected_services', []);
+            // Retrieve the existing selected services from the session or create an empty array if not exists
+            $selected_services = Session::get('selected_services', []);
 
-        // Check if the selected service is already in the array
-        $existing_service = collect($selected_services)->firstWhere('service_id', $service_id);
-        if ($existing_service) {
-            // If the selected service already exists in the array, don't add it again
-            return redirect()->route('transaction-summary');
-        } else {
-            // Add the new selected service to the array
-            $selected_services[] = ['service_id' => $service_id, 'service_name' => $service->name];
+            // Check if the selected service is already in the array
+            $existing_service = collect($selected_services)->firstWhere('service_id', $service_id);
+            if ($existing_service) {
+                // If the selected service already exists in the array, don't add it again
+                return redirect()->route('transaction-summary');
+            } else {
+                // Add the new selected service to the array
+                $selected_services[] = ['service_id' => $service_id, 'service_name' => $service->name];
 
-            // Save the updated selected services array to the session
-            Session::put(['selected_services' => $selected_services]);
+                // Save the updated selected services array to the session
+                Session::put(['selected_services' => $selected_services]);
 
-            return redirect()->route('transaction-summary');
+                return redirect()->route('transaction-summary');
+            }
+        } catch (\Exception $e) {
+            // Handle the error
+            return redirect()->route('error')->with('message', 'An error occurred: ' . $e->getMessage());
         }
     }
-
 
     public function summary(Request $request)
     {
