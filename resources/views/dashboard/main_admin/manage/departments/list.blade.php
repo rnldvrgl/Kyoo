@@ -1,5 +1,5 @@
 {{-- Page Title --}}
-@section('mytitle', 'Edit Department')
+@section('mytitle', 'Department List')
 
 @php
     $details = $user_data['details'];
@@ -25,8 +25,8 @@
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item">Accounts</li>
-                    <li class="breadcrumb-item active">Add Account</li>
+                    <li class="breadcrumb-item">Departments</li>
+                    <li class="breadcrumb-item active">Department List</li>
                 </ol>
             </nav>
         </div>

@@ -183,8 +183,7 @@
                                             <div class="col-md-8 col-lg-9">
                                                 <input name="name" type="text" class="form-control" id="name"
                                                     value="{{ $details->name }}"
-                                                    pattern="/^[a-zA-Z ,.'-]+(?: [a-zA-Z ,.'-]+)*$/
-" required />
+                                                    pattern="/^[a-zA-Z ,.'-]+(?: [a-zA-Z ,.'-]+)*$/" required />
                                             </div>
                                         </div>
 

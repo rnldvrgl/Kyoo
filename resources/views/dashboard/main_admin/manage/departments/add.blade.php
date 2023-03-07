@@ -38,7 +38,12 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Add Department</h5>
-                            <form id="add-department-frm" class="row g-3" action="{{ route('manage.departments.store') }}" method="POST">
+
+                            <div id="res">
+                                {{-- Append Success/Error Messages here --}}
+                            </div>
+
+                            <form id="add-departments-frm" class="row g-3" action="{{ route('manage.departments.store') }}" method="POST">
 
                                 @csrf
                                 
@@ -74,7 +79,7 @@
 
                                 {{-- Buttons --}}
                                 <div class="text-center">
-                                    <button type="submit" class="btn btn-success">
+                                    <button type="submit" class="btn btn-success" id="btn-save-department">
                                         <i class="fa-solid fa-plus"></i>
                                         Add Department
                                     </button>
