@@ -22,6 +22,35 @@ $(document).ready(function () {
         },
     });
 
+    // Confirmation to Queue Now
+    $("#queue_now").click(function (e) {
+        e.preventDefault(); // prevent default form submission behavior
+
+        $.confirm({
+            title: "Confirmation",
+            content: "Are you sure you want to queue now?",
+            type: "orange",
+            icon: "fa fa-question",
+            theme: "modern",
+            buttons: {
+                confirm: {
+                    text: "Yes",
+                    btnClass: "btn-success",
+                    action: function () {
+                        $("#input-information-frm").submit(); // submit the form
+                    },
+                },
+                cancel: {
+                    text: "No",
+                    btnClass: "btn-danger",
+                    action: function () {
+                        // do nothing
+                    },
+                },
+            },
+        });
+    });
+
     //* User Profile *//
     // Preview Profile Image
     $("#profile-picture").click(function () {
@@ -52,9 +81,8 @@ $(document).ready(function () {
     });
 
     // Delete Account
-    $('#accounts-table').on('click', '.delete-account', function (){
-
-        var id = $(this).data('account-id');
+    $("#accounts-table").on("click", ".delete-account", function () {
+        var id = $(this).data("account-id");
 
         $.confirm({
             type: "red",
@@ -69,25 +97,27 @@ $(document).ready(function () {
                     text: "Delete",
                     btnClass: "btn-danger",
                     action: function () {
-
                         $.ajaxSetup({
                             headers: {
-                                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+                                "X-CSRF-TOKEN": $(
+                                    'meta[name="csrf-token"]'
+                                ).attr("content"),
                             },
                         });
-    
+
                         // AJAX
                         $.ajax({
-                            url: 'delete-account/' + id,
-                            type: 'DELETE',
+                            url: "delete-account/" + id,
+                            type: "DELETE",
                             success: function (response) {
-
                                 // If may error
                                 if (response.code == 400) {
                                     // List of errors
-                                    let errorsHtml = "<ul class='list-unstyled'>";
-                                        errorsHtml += "<li>" + response.message + "</li>";
-                                        errorsHtml += "</ul>";
+                                    let errorsHtml =
+                                        "<ul class='list-unstyled'>";
+                                    errorsHtml +=
+                                        "<li>" + response.message + "</li>";
+                                    errorsHtml += "</ul>";
 
                                     // Encase error messages here
                                     $("#res").html(
@@ -95,10 +125,9 @@ $(document).ready(function () {
                                             errorsHtml +
                                             "</div>"
                                     );
-                                } 
+                                }
                                 // If walang error
                                 else if (response.code == 200) {
-
                                     console.log(response.message);
 
                                     let success =
@@ -115,13 +144,13 @@ $(document).ready(function () {
                                 }
                             },
                             error: function (xhr) {
-                                console.log('Failed to delete record.');
-                            }
+                                console.log("Failed to delete record.");
+                            },
                         });
                     },
                 },
                 close: function () {},
             },
         });
-    })
+    });
 });
