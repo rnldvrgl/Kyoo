@@ -6,7 +6,7 @@
     $role = $user_data['role'];
     $login = $user_data['login'];
     $department = $user_data['department'];
-    $profile_image = $details->profile_image;
+    $profile_image = optional($details)->profile_image;
 @endphp
 
 <x-layout>
@@ -41,7 +41,7 @@
                     <div class="card">
                         <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
                             <img id="image_avatar"
-                                src="@if ($profile_image == null || $profile_image == '') {{ asset('storage/profile_images/avatar.png') }}  @else {{ asset("storage/$profile_image") }} @endif"
+                                src="{{ asset('storage/' . ($profile_image ?? 'profile_images/avatar.png')) }}"
                                 alt="Profile" class="rounded-circle" />
                             <h2>{{ $details->name }}</h2>
                             <h3>{{ $role->name }}</h3>
@@ -152,7 +152,7 @@
                                             <div class="col-md-8 col-lg-9">
                                                 <button type="button" class="btn" data-bs-toggle="modal"
                                                     data-bs-target="#verticalycentered">
-                                                    <img src="@if ($profile_image == null || $profile_image == '') {{ asset('storage/profile_images/avatar.png') }}  @else {{ asset("storage/$profile_image") }} @endif"
+                                                    <img src="{{ asset('storage/' . ($profile_image ?? 'profile_images/avatar.png')) }}"
                                                         alt="Profile Picture" class="img-thumbnail"
                                                         id="image_preview_container" style="max-height: 120px;">
                                                 </button>
@@ -161,7 +161,7 @@
                                                         <div class="modal-content">
                                                             <div class="modal-body text-center">
                                                                 <img id="preview_image"
-                                                                    src="@if ($profile_image == null || $profile_image == '') {{ asset('storage/profile_images/avatar.png') }}  @else {{ asset("storage/$profile_image") }} @endif"
+                                                                    src="{{ asset('storage/' . ($profile_image ?? 'profile_images/avatar.png')) }}"
                                                                     alt="Profile Picture"
                                                                     style="height: 100%; width: 100%;">
                                                             </div>
@@ -184,7 +184,8 @@
                                                 Name</label>
                                             <div class="col-md-8 col-lg-9">
                                                 <input name="name" type="text" class="form-control" id="name"
-                                                    value="{{ $details->name }}" pattern="^[a-zA-Z ,.'-]+(?: [a-zA-Z ,.'-]+)*$" required />
+                                                    value="{{ $details->name }}"
+                                                    pattern="^[a-zA-Z ,.'-]+(?: [a-zA-Z ,.'-]+)*$" required />
                                             </div>
                                         </div>
 

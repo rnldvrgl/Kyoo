@@ -45,94 +45,66 @@ class UserProfileController extends Controller
 
     public function updateDetails(Request $request, $id)
     {
-        Log::info($request);
+        Log::info('Name: ' . $request->name);
 
         // Find the user with the given id
         $accounts = Accounts::find($id);
-        $account_login = AccountLogin::find($accounts->login_id);
-        $account_role = AccountRole::find($accounts->role_id);
         $account_details = AccountDetails::find($accounts->details_id);
 
-        if ($account_role->name == 'Main Admin') {
-            // Define the validation messages in an array variable
-            $messages = [
-                'name.required' => 'Please provide your full name.',
-                'name.regex' => 'Your name must only contain letters.',
-                'name.min' => 'Your full name must be at least :min characters long.',
-                'name.max' => 'Your full name must be at most :max characters long.',
-                'about.required' => 'Provide something about yourself.',
-                'about.min' => 'Your About must be at least :min characters long.',
-                'address.required' => 'Please provide your address.',
-                'phone.regex' => 'Please provide a valid phone number.',
-                'phone.required' => 'Please provide your phone number.',
-                'email.regex' => 'Please provide a valid email address.',
-                'profile_image.mimes' => 'Your profile image must be a JPEG or PNG.',
-            ];
+        // Define the validation messages in an array variable
+        $messages = [
+            'name.required' => 'Please provide your full name.',
+            'name.regex' => 'Your name must only contain letters.',
+            'name.min' => 'Your full name must be at least :min characters long.',
+            'name.max' => 'Your full name must be at most :max characters long.',
+            'about.required' => 'Provide something about yourself.',
+            'about.min' => 'Your About must be at least :min characters long.',
+            'address.required' => 'Please provide your address.',
+            'phone.regex' => 'Please provide a valid phone number.',
+            'phone.required' => 'Please provide your phone number.',
+            'profile_image.mimes' => 'Your profile image must be a JPEG or PNG.',
+        ];
 
-            // Validate
-            $validatedData = Validator::make($request->all(), [
-                'name' => ['required', "regex:/^[a-zA-Z ,.'-]+(?: [a-zA-Z ,.'-]+)*$/", 'min:5', 'max:75'],
-                'about' => ['required', 'string', 'min:10'],
-                'address' => ['required', 'string'],
-                'phone' => ['required', 'regex:/^(09|\+639)\d{9}$/'],
-                'email' => ['required', "regex:/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-]+)(\.[a-zA-Z]{2,5}){1,2}$/"],
-                'profile_image' => ['nullable', 'image', 'mimes:jpeg,png']
-            ], $messages);
-        } else {
-            // Define the validation messages in an array variable
-            $messages = [
-                'name.required' => 'Please provide your full name.',
-                'name.regex' => 'Your name must only contain letters.',
-                'name.min' => 'Your full name must be at least :min characters long.',
-                'name.max' => 'Your full name must be at most :max characters long.',
-                'about.required' => 'Provide something about yourself.',
-                'about.min' => 'Your About must be at least :min characters long.',
-                'address.required' => 'Please provide your address.',
-                'phone.regex' => 'Please provide a valid phone number.',
-                'phone.required' => 'Please provide your phone number.',
-                'profile_image.mimes' => 'Your profile image must be a JPEG or PNG.',
-            ];
-
-            // Validate
-            $validatedData = Validator::make($request->all(), [
-                'name' => ['required', "regex:/^[a-zA-Z ,.'-]+(?: [a-zA-Z ,.'-]+)*$/", 'min:5', 'max:75'],
-                'about' => ['required', 'string', 'min:10'],
-                'address' => ['required', 'string'],
-                'phone' => ['required', 'regex:/^(09|\+639)\d{9}$/'],
-                'profile_image' => ['nullable', 'image', 'mimes:jpeg,png']
-            ], $messages);
-        }
-
+        // Validate
+        $validatedData = Validator::make($request->all(), [
+            'name' => ['required', "regex:/^[a-zA-Z ,.'-]+(?: [a-zA-Z ,.'-]+)*$/", 'min:5', 'max:75'],
+            'about' => ['required', 'string', 'min:10'],
+            'address' => ['required', 'string'],
+            'phone' => ['required', 'regex:/^(09|\+639)\d{9}$/'],
+            'profile_image' => ['nullable', 'image', 'mimes:jpeg,png']
+        ], $messages);
 
         # check if there is any error
         if ($validatedData->fails()) {
             return response()->json(['code' => 400, 'errors' => $validatedData->errors()]);
         }
 
+        $profile_image = null;
         # check if the request has profile image
         if ($request->hasFile('profile_image')) {
+            $filename = $request->file('profile_image')->getClientOriginalName();
+            $profile_image = $request->file('profile_image')->storeAs('profile_images', $filename);
             $imagePath = 'storage/' . $account_details->profile_image;
-            # check whether the image exists in the directory
+            # check whether the old image exists in the directory
             if (File::exists($imagePath)) {
-                # delete image
+                # delete old image
                 File::delete($imagePath);
             }
-            $profile_image = $request->profile_image->store('profile_images', 'public');
         }
 
-        if ($account_role->name == 'Main Admin') {
-            $account_login->update(
-                [
-                    'email' => $request->email,
-                ]
-            );
-        }
-
-
+        // Update the user details
+        $account_details->update([
+            'name' => $request->name,
+            'about' => $request->about,
+            'address' => $request->address,
+            'phone' => $request->phone,
+            'profile_image' => $profile_image ?? $account_details->profile_image
+        ]);
 
         // Redirect
         return response()->json(['code' => 200, 'msg' => 'Profile Updated Successfully.']);
     }
+
 
     public function updatePassword(Request $request, $id)
     {
