@@ -33,7 +33,11 @@ class AccountController extends Controller
     {
         $accounts = Accounts::with('account_details', 'account_login', 'account_role', 'department')
             ->select('accounts.*')
+            ->whereHas('account_role', function($query){
+                $query->where('name', '<>', 'Main Admin');
+            })
             ->orderByDesc('accounts.created_at');
+
 
         return DataTables::eloquent($accounts)
             ->smart()
@@ -167,7 +171,7 @@ class AccountController extends Controller
         // Redirect to the View page along with the user's records
         return view('dashboard.main_admin.manage.accounts.edit', [
             'user_data' => $homeController->getUserData(),
-            'all_data' => $homeController->getAllData(),
+            // 'all_data' => $homeController->getAllData(),
             'account' => Accounts::with('account_details', 'account_login', 'account_role', 'department')->findOrFail($id)
         ]);
     }

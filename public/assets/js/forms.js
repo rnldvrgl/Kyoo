@@ -63,7 +63,7 @@ $(document).ready(function () {
         });
     });
 
-// Update Account Form
+    // Update Account Form
     $("#edit-accounts-frm").submit(function (e) {
         e.preventDefault();
 
@@ -121,4 +121,63 @@ $(document).ready(function () {
             },
         });
     });
+
+    // Add Department Form
+    // $("#add-departments-frm").submit(function (e) {
+    //     e.preventDefault();
+
+    //     var formData = new FormData(this);
+
+    //     $.ajaxSetup({
+    //         headers: {
+    //             "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+    //         },
+    //     });
+    //     $("#btn-save-department").attr("disabled", true);
+    //     $("#btn-save-department").html("Saving...");
+    //     $.ajax({
+    //         type: "POST",
+    //         url: this.action,
+    //         data: formData,
+    //         cache: false,
+    //         contentType: false,
+    //         processData: false,
+    //         success: (response) => {
+    //             // If may error
+    //             if (response.code == 400) {
+    //                 // List of errors
+    //                 let errorsHtml = "<ul class='list-unstyled'>";
+    //                 $.each(response.errors, function (key, value) {
+    //                     errorsHtml += "<li>" + value + "</li>";
+    //                 });
+    //                 errorsHtml += "</ul>";
+
+    //                 // Encase error messages here
+    //                 $("#res").html(
+    //                     '<div class="row alert alert-danger pb-0">' +
+    //                         errorsHtml +
+    //                         "</div>"
+    //                 );
+
+    //                 $("#btn-save-department").attr("disabled", false);
+    //                 $("#btn-save-department").html("Add Department");
+    //             } 
+    //             // If walang error
+    //             else if (response.code == 200) {
+
+    //                 let success =
+    //                     '<div class="alert alert-success">' +
+    //                     response.msg +
+    //                     "</div>";
+
+    //                 $("#res").html(success);
+    //                 $("#btn-save-department").attr("disabled", false);
+    //                 $("#btn-save-department").html("Add Department");
+
+    //                 // Auto refresh the current page
+    //                 location.reload();
+    //             }
+    //         },
+    //     });
+    // });
 });
