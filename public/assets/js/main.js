@@ -9,6 +9,18 @@
     // Initialize AOS
     AOS.init();
 
+    //
+    // Get the message element
+    // Get the message element
+    var messageElement = $("#message");
+
+    // If the message element exists
+    if (messageElement.length) {
+        // Hide the message after 3 seconds
+        setTimeout(function () {
+            messageElement.fadeOut();
+        }, 3000);
+    }
     /**
      * Easy selector helper function
      */
