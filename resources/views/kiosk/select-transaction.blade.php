@@ -57,6 +57,7 @@
                     @else
                         <form method="POST" action="{{ route('add-to-queue') }}">
                             @csrf
+                            <input type="hidden" name="department_id" value="{{ $department->id }}">
                             <input type="hidden" name="service_id" value="{{ $service->id }}">
                             <button type="submit" class="card h-100 w-100 text-kyoodark link-card">
                                 <div class="card-body p-5">

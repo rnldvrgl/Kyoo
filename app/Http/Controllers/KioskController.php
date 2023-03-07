@@ -75,10 +75,9 @@ class KioskController extends Controller
             $department_id = Session::get('department_id');
             $department = Department::findOrFail($department_id);
         } else {
-            // Get department ID from request and store in session
+            // Get department ID from request
             $department_id = $request->input('department_id');
             $department = Department::findOrFail($department_id);
-            Session::put(['department_id' => $department_id, 'department_name' => $department->name]);
             $selected_services = [];
         }
 
@@ -107,6 +106,12 @@ class KioskController extends Controller
             // Get the selected service ID from request
             $service_id = $request->input('service_id');
             $service = Service::findOrFail($request->input('service_id'));
+            // Get department ID from request
+            $department_id = $request->input('department_id');
+            $department = Department::findOrFail($department_id);
+
+            // Save department to the session
+            Session::put(['department_id' => $department_id, 'department_name' => $department->name]);
 
             // Retrieve the existing selected services from the session or create an empty array if not exists
             $selected_services = Session::get('selected_services', []);
@@ -130,6 +135,7 @@ class KioskController extends Controller
             return redirect()->route('error')->with('message', 'An error occurred: ' . $e->getMessage());
         }
     }
+
 
     public function summary(Request $request)
     {
