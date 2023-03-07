@@ -83,8 +83,9 @@ class UserProfileController extends Controller
         # check if the request has profile image
         if ($request->hasFile('profile_image')) {
             $filename = $request->file('profile_image')->getClientOriginalName();
-            $profile_image = $request->file('profile_image')->storeAs('profile_images', $filename);
-            $imagePath = 'storage/' . $account_details->profile_image;
+            $profile_image = $filename;
+            $request->file('profile_image')->storeAs('public/profile_images', $filename);
+            $imagePath = 'storage/app/public/profile_images/' . $account_details->profile_image;
             # check whether the old image exists in the directory
             if (File::exists($imagePath)) {
                 # delete old image
@@ -100,6 +101,8 @@ class UserProfileController extends Controller
             'phone' => $request->phone,
             'profile_image' => $profile_image ?? $account_details->profile_image
         ]);
+
+
 
         // Redirect
         return response()->json(['code' => 200, 'msg' => 'Profile Updated Successfully.']);

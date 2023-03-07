@@ -41,13 +41,15 @@
                     <div class="card">
                         <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
                             <img id="image_avatar"
-                                src="{{ asset('storage/' . ($profile_image ?? 'profile_images/avatar.png')) }}"
+                                src="{{ asset('storage/profile_images/' . ($profile_image ?? 'avatar.png')) }}"
                                 alt="Profile" class="rounded-circle" />
+
                             <h2>{{ $details->name }}</h2>
                             <h3>{{ $role->name }}</h3>
                         </div>
                     </div>
                 </div>
+
                 <div class="col-xl-8">
                     <div class="card">
                         <div class="card-body pt-3">
@@ -152,7 +154,7 @@
                                             <div class="col-md-8 col-lg-9">
                                                 <button type="button" class="btn" data-bs-toggle="modal"
                                                     data-bs-target="#verticalycentered">
-                                                    <img src="{{ asset('storage/' . ($profile_image ?? 'profile_images/avatar.png')) }}"
+                                                    <img src="{{ asset('storage/profile_images/' . ($profile_image ?? 'avatar.png')) }}"
                                                         alt="Profile Picture" class="img-thumbnail"
                                                         id="image_preview_container" style="max-height: 120px;">
                                                 </button>
@@ -161,7 +163,7 @@
                                                         <div class="modal-content">
                                                             <div class="modal-body text-center">
                                                                 <img id="preview_image"
-                                                                    src="{{ asset('storage/' . ($profile_image ?? 'profile_images/avatar.png')) }}"
+                                                                    src="{{ asset('storage/profile_images/' . ($profile_image ?? 'avatar.png')) }}"
                                                                     alt="Profile Picture"
                                                                     style="height: 100%; width: 100%;">
                                                             </div>
