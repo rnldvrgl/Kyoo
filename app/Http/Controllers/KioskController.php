@@ -209,46 +209,46 @@ class KioskController extends Controller
 
 
         // print ticket
-        try {
-            // connect to printer
-            $connector = new WindowsPrintConnector("XP-58", "USB002");
-            $printer = new Printer($connector);
-            // print header
-            Log::info('Printing header...');
-            $printer->text("================================\n");
-            $printer->text("        QUEUE TICKET\n");
-            $printer->text("================================\n\n");
-            // print ticket number and department name
-            Log::info('Printing ticket number and department name...');
-            $printer->text("Ticket Number: " . $ticket_number . "\n");
-            $printer->text("Department: " . $department->name . "\n\n");
-            // print student information
-            Log::info('Printing student information...');
-            $printer->text("Student Name: " . $name . "\n");
-            $printer->text("Department: " . $student_department . "\n");
-            $printer->text("Course: " . $course . "\n\n");
-            // print selected services
-            Log::info('Printing selected services...');
-            $printer->text("Services: \n");
-            foreach ($selected_services as $service) {
-                $serviceModel = Service::where('id', $service)->firstOrFail();
-                $printer->text("- " . $serviceModel->name . "\n");
-            }
-            // print footer
-            Log::info('Printing footer...');
-            $printer->text("\n\n");
-            $printer->text("Thank you for using our services!\n");
-            $printer->text("================================\n");
-            $printer->text("\n\n\n\n");
-            // cut the paper
-            $printer->cut();
-            // close the printer
-            $printer->close();
-            Log::info('Printing completed successfully.');
-        } catch (\Exception $e) {
-            // handle printer error
-            Log::error('Printing failed: ' . $e->getMessage());
-        }
+        // try {
+        //     // connect to printer
+        //     $connector = new WindowsPrintConnector("XP-58", "USB002");
+        //     $printer = new Printer($connector);
+        //     // print header
+        //     Log::info('Printing header...');
+        //     $printer->text("================================\n");
+        //     $printer->text("        QUEUE TICKET\n");
+        //     $printer->text("================================\n\n");
+        //     // print ticket number and department name
+        //     Log::info('Printing ticket number and department name...');
+        //     $printer->text("Ticket Number: " . $ticket_number . "\n");
+        //     $printer->text("Department: " . $department->name . "\n\n");
+        //     // print student information
+        //     Log::info('Printing student information...');
+        //     $printer->text("Student Name: " . $name . "\n");
+        //     $printer->text("Department: " . $student_department . "\n");
+        //     $printer->text("Course: " . $course . "\n\n");
+        //     // print selected services
+        //     Log::info('Printing selected services...');
+        //     $printer->text("Services: \n");
+        //     foreach ($selected_services as $service) {
+        //         $serviceModel = Service::where('id', $service)->firstOrFail();
+        //         $printer->text("- " . $serviceModel->name . "\n");
+        //     }
+        //     // print footer
+        //     Log::info('Printing footer...');
+        //     $printer->text("\n\n");
+        //     $printer->text("Thank you for using our services!\n");
+        //     $printer->text("================================\n");
+        //     $printer->text("\n\n\n\n");
+        //     // cut the paper
+        //     $printer->cut();
+        //     // close the printer
+        //     $printer->close();
+        //     Log::info('Printing completed successfully.');
+        // } catch (\Exception $e) {
+        //     // handle printer error
+        //     Log::error('Printing failed: ' . $e->getMessage());
+        // }
 
         // clear session data
         Session::forget('department_name');
