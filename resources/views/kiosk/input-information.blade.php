@@ -79,7 +79,7 @@
 
                             {{-- Queue Button --}}
                             <div class="text-center">
-                                <button type="submit" class="btn btn-success btn-lg" id="btn-queue">
+                                <button type="submit" class="btn btn-success btn-lg" id="queue_now">
                                     Queue Now
                                 </button>
                             </div>
