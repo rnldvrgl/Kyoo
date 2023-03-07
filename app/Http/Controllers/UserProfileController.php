@@ -10,9 +10,9 @@ use Illuminate\Http\Request;
 use App\Models\AccountDetails;
 use App\Rules\MatchCurrentPassword;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class UserProfileController extends Controller
@@ -45,6 +45,8 @@ class UserProfileController extends Controller
 
     public function updateDetails(Request $request, $id)
     {
+        Log::info('Name: ' . $request->name);
+
         // Find the user with the given id
         $accounts = Accounts::find($id);
         $account_details = AccountDetails::find($accounts->details_id);
@@ -57,9 +59,10 @@ class UserProfileController extends Controller
             'name.max' => 'Your full name must be at most :max characters long.',
             'about.required' => 'Provide something about yourself.',
             'about.min' => 'Your About must be at least :min characters long.',
-            'address.required' => 'Please provide an address.',
-            'phone.required' => 'Please provide a phone number.',
-            'profile_image.mimes' => 'The profile image must be a JPEG or PNG.',
+            'address.required' => 'Please provide your address.',
+            'phone.regex' => 'Please provide a valid phone number.',
+            'phone.required' => 'Please provide your phone number.',
+            'profile_image.mimes' => 'Your profile image must be a JPEG or PNG.',
         ];
 
         // Validate
@@ -67,7 +70,7 @@ class UserProfileController extends Controller
             'name' => ['required', "regex:/^[a-zA-Z ,.'-]+(?: [a-zA-Z ,.'-]+)*$/", 'min:5', 'max:75'],
             'about' => ['required', 'string', 'min:10'],
             'address' => ['required', 'string'],
-            'phone' => ['required', 'numeric'],
+            'phone' => ['required', 'regex:/^(09|\+639)\d{9}$/'],
             'profile_image' => ['nullable', 'image', 'mimes:jpeg,png']
         ], $messages);
 
@@ -79,7 +82,7 @@ class UserProfileController extends Controller
 
         # check if the request has profile image
         if ($request->hasFile('profile_image')) {
-            $imagePath = public_path("storage/{$account_details->profile_image}");
+            $imagePath = 'storage/' . $account_details->profile_image;
             # check whether the image exists in the directory
             if (File::exists($imagePath)) {
                 # delete image

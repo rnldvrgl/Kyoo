@@ -17,6 +17,8 @@
         {{-- Dashboard Sidebar --}}
         <x-dashboard-sidebar name="{{ $role->name }}" />
     @endif
+
+
     {{-- Dashboard Sidebar --}}
 
 
@@ -183,8 +185,7 @@
                                             <div class="col-md-8 col-lg-9">
                                                 <input name="name" type="text" class="form-control" id="name"
                                                     value="{{ $details->name }}"
-                                                    pattern="/^[a-zA-Z ,.'-]+(?: [a-zA-Z ,.'-]+)*$/
-" required />
+                                                    pattern="^[a-zA-Z ,.'-]+(?: [a-zA-Z ,.'-]+)*$" required />
                                             </div>
                                         </div>
 
@@ -283,7 +284,7 @@
                                             </div>
                                         </div>
                                         <div class="text-center">
-                                            <button id="btn-save" type="submit" name="change-password"
+                                            <button id="btn-change-pass" type="submit" name="change-password"
                                                 class="btn btn-success">
                                                 Change Password
                                             </button>
