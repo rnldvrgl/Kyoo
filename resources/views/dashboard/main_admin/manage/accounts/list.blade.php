@@ -1,5 +1,5 @@
 {{-- Page Title --}}
-@section('mytitle', 'Edit Account')
+@section('mytitle', 'Account List')
 
 @php
     $details = $user_data['details'];
@@ -25,20 +25,20 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
                     <li class="breadcrumb-item">Accounts</li>
-                    <li class="breadcrumb-item active">Edit Account</li>
+                    <li class="breadcrumb-item active">Account List</li>
                 </ol>
             </nav>
         </div>
         <!-- /Content Title -->
         <!-- Content Section -->
-        
+
         <section class="section">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Accounts</h5>
-                            
+
                             @if (session('deleteSuccess'))
                                 <div class="alert alert-danger">
                                     {{ session('deleteSuccess') }}
@@ -79,15 +79,40 @@
                 processing: true,
                 serverSide: true,
                 ajax: '{{ route('manage.accounts.fetch_accounts') }}',
-                columns: [
-                    { data: 'account_details.name', name: 'account_details.name' },
-                    { data: 'department.name', name: 'department.name' },
-                    { data: 'account_role.name', name: 'account_role.name' },
-                    { data: 'account_login.email', name: 'account_login.email' },
-                    { data: 'account_details.phone', name: 'account_details.phone' },
-                    { data: 'created_at', name: 'created_at' },
-                    { data: 'updated_at', name: 'updated_at' },
-                    { data: 'actions', name: 'actions', orderable: false, searchable: false }
+                columns: [{
+                        data: 'account_details.name',
+                        name: 'account_details.name'
+                    },
+                    {
+                        data: 'department.name',
+                        name: 'department.name'
+                    },
+                    {
+                        data: 'account_role.name',
+                        name: 'account_role.name'
+                    },
+                    {
+                        data: 'account_login.email',
+                        name: 'account_login.email'
+                    },
+                    {
+                        data: 'account_details.phone',
+                        name: 'account_details.phone'
+                    },
+                    {
+                        data: 'created_at',
+                        name: 'created_at'
+                    },
+                    {
+                        data: 'updated_at',
+                        name: 'updated_at'
+                    },
+                    {
+                        data: 'actions',
+                        name: 'actions',
+                        orderable: false,
+                        searchable: false
+                    }
                 ]
             });
         });

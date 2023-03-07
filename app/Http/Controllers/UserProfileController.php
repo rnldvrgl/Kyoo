@@ -79,7 +79,7 @@ class UserProfileController extends Controller
 
         # check if the request has profile image
         if ($request->hasFile('profile_image')) {
-            $imagePath = 'storage/' . $account_details->profile_image;
+            $imagePath = public_path("storage/{$account_details->profile_image}");
             # check whether the image exists in the directory
             if (File::exists($imagePath)) {
                 # delete image
