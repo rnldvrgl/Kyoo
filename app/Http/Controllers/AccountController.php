@@ -78,8 +78,6 @@ class AccountController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
-
         // Message
         $messages = [
             'fullname.required' => 'Full name is required.',

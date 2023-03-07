@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KioskController;
 use App\Http\Controllers\UserProfileController;
@@ -76,22 +77,16 @@ Route::middleware(['auth', 'user-access:Main Admin'])->group(function () {
 		Route::patch('/update-account', [AccountController::class, 'update'])->name('manage.accounts.update');
 
 		// Delete Account
-    Route::delete('/delete-account/{id}', [AccountController::class, 'destroy'])->name('manage.accounts.delete');
+    	Route::delete('/delete-account/{id}', [AccountController::class, 'destroy'])->name('manage.accounts.delete');
 	});
 
 	// Manage Departments
 	Route::prefix('main-admin/manage/departments')->group(function () {
-		// Add Department
+		// Go to Add Department
+		Route::get('/add-department', [DepartmentController::class, 'create'])->name('manage.departments.add');
 
-		// TODO: Department CRUD
-		Route::get('/add-department', function (HomeController $homeController) {
-			$user_data = $homeController->getUserData();
-			$all_data = $homeController->getAllData();
-			return view('dashboard.main_admin.manage.departments.add', [
-				'user_data' => $user_data,
-				'all_data' => $all_data,
-			]);
-		})->name('manage.departments.add');
+		Route::post('/add-department', [DepartmentController::class, 'store'])->name('manage.departments.store');
+
 
 		// Edit Department
 		Route::get('/edit-department', function (HomeController $homeController) {
