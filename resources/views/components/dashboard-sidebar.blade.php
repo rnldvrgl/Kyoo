@@ -7,15 +7,15 @@
     <ul class="sidebar-nav" id="sidebar-nav">
         {{-- Main --}}
         <li class="nav-heading">MAIN</li>
-        <li class="nav-item">
-            {{-- Anchor Tag based on User Role --}}
-            @if ($attributes['name'] == 'Main Admin')
-                <a class="nav-link {{ $uri == 'main-admin/dashboard' ? 'active' : '' }}"
-                    href="{{ route('dashboard.main_admin') }}">
-                    <i class="fa-solid fa-table-cells-large"></i><span>Dashboard</span>
-                </a>
+        {{-- Anchor Tag based on User Role --}}
 
-                {{-- Manage --}}
+        <li class="nav-item">
+            <a class="nav-link {{ $uri == 'main-admin/dashboard' ? 'active' : '' }}"
+                href="{{ route('dashboard.main_admin') }}">
+                <i class="fa-solid fa-table-cells-large"></i><span>Dashboard</span>
+            </a>
+        </li>
+        {{-- Manage --}}
         <li class="nav-heading">MANAGE</li>
 
         {{-- Accounts --}}
@@ -122,13 +122,6 @@
                 <i class="fa-solid fa-video"></i>
                 <span>Promotionals</span>
             </a>
-        </li>
-    @elseif($attributes['name'] == 'Department Admin')
-        <a class="nav-link {{ $uri == 'department-admin/dashboard' ? 'active' : '' }}"
-            href="{{ route('dashboard.department_admin') }}">
-            <i class="fa-solid fa-table-cells-large"></i><span>Dashboard</span>
-        </a>
-        @endif
         </li>
     </ul>
 </aside>

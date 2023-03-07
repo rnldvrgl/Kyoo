@@ -195,14 +195,19 @@
                                                 <textarea name="about" class="form-control" id="about" style="height: 75px" required>{{ $details->about }}</textarea>
                                             </div>
                                         </div>
-                                        <div class="row mb-3">
-                                            <label for="department"
-                                                class="col-md-4 col-lg-3 col-form-label">Department</label>
-                                            <div class="col-md-8 col-lg-9">
-                                                <input name="department" type="text" class="form-control"
-                                                    id="department" value="{{ $department->name }}" disabled />
+
+                                        @if ($role->name != 'Main Admin')
+                                            <div class="row mb-3">
+                                                <label for="department"
+                                                    class="col-md-4 col-lg-3 col-form-label">Department</label>
+                                                <div class="col-md-8 col-lg-9">
+                                                    <input name="department" type="text" class="form-control"
+                                                        id="department" value="{{ $department->name }}"
+                                                        {{ $role->name == 'Main Admin' ? '' : 'disabled' }} />
+                                                </div>
                                             </div>
-                                        </div>
+                                        @endif
+
                                         <div class="row mb-3">
                                             <label for="position"
                                                 class="col-md-4 col-lg-3 col-form-label">Position</label>
@@ -211,6 +216,7 @@
                                                     id="position" value="{{ $role->name }}" disabled />
                                             </div>
                                         </div>
+
                                         <div class="row mb-3">
                                             <label for="Address"
                                                 class="col-md-4 col-lg-3 col-form-label">Address</label>
@@ -228,14 +234,30 @@
                                                     pattern="^(09|\+639)\d{9}$" required />
                                             </div>
                                         </div>
-                                        <div class="row mb-3">
-                                            <label for="Email"
-                                                class="col-md-4 col-lg-3 col-form-label">Email</label>
-                                            <div class="col-md-8 col-lg-9">
-                                                <input name="email" type="email" class="form-control"
-                                                    id="Email" value="{{ $login->email }}" disabled />
+                                        @if ($role->name == 'Main Admin')
+                                            <div class="row mb-3">
+                                                <label for="Email"
+                                                    class="col-md-4 col-lg-3 col-form-label">Email</label>
+                                                <div class="col-md-8 col-lg-9">
+                                                    <input name="email" type="email" class="form-control"
+                                                        id="Email" value="{{ $login->email }}"
+                                                        pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-]+)(\.[a-zA-Z]{2,5}){1,2}$"
+                                                        required />
+                                                </div>
                                             </div>
-                                        </div>
+                                        @else
+                                            <div class="row mb-3">
+                                                <label for="Email"
+                                                    class="col-md-4 col-lg-3 col-form-label">Email</label>
+                                                <div class="col-md-8 col-lg-9">
+                                                    <input name="email" type="email" class="form-control"
+                                                        id="Email" value="{{ $login->email }}" disabled />
+                                                </div>
+                                            </div>
+                                        @endif
+
+
+
                                         <div class="text-center">
                                             <button id="btn-save" type="submit" class="btn btn-success">
                                                 Save Changes

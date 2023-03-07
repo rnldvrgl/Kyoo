@@ -9,7 +9,7 @@
                 </span>
             </a>
 
-            @if ($role->name === 'Main Admin' || $role->name === 'Department Admin')
+            @if ($role->name === 'Main Admin')
                 <i class="fa-solid fa-bars toggle-sidebar-btn"></i>
             @endif
         </div>
