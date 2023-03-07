@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DailyCounter;
 use App\Models\Department;
 use App\Models\QueueTicket;
 use App\Models\QueueTicketService;
 use App\Models\Service;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Session;
 
 class KioskController extends Controller
@@ -164,9 +166,27 @@ class KioskController extends Controller
             // handle unknown department
         }
 
-        // determine the next ticket number for the department
-        $next_ticket_number = QueueTicket::where('department_id', $department_id)->count() + 1;
-        $ticket_number = sprintf('%03d', $next_ticket_number); // format ticket number as 3-digit string
+        // determine next ticket number for the department and date
+        $today = Carbon::now()->format('Y-m-d');
+        $daily_counter = DailyCounter::where('department_id', $department_id)
+            ->where('date', $today)
+            ->first();
+        if (!$daily_counter) {
+            // if daily counter does not exist, create it
+            $daily_counter = new DailyCounter();
+            $daily_counter->department_id = $department_id;
+            $daily_counter->date = $today;
+            $daily_counter->ticket_number = 1;
+            $daily_counter->save();
+        }
+        $next_ticket_number = $daily_counter->ticket_number;
+        $daily_counter_ticket_number = $department_code . sprintf('%03d', $next_ticket_number);
+
+        // update daily counter
+        $daily_counter->ticket_number = $next_ticket_number + 1;
+        $daily_counter->save();
+
+        $ticket_number = $department_code . sprintf('%03d', $next_ticket_number);
 
         // create queue ticket
         $ticket = new QueueTicket();
@@ -174,10 +194,10 @@ class KioskController extends Controller
         $ticket->student_department = $student_department;
         $ticket->student_course = $course;
         $ticket->department_id = $department_id;
-        $ticket->ticket_number = $department_code . $ticket_number;
+        $ticket->ticket_number = $ticket_number;
         $ticket->status = 'Pending';
+        $ticket->date = $today;
         $ticket->save();
-
 
         // save selected services to queue_ticket_service table
         foreach ($selected_services as $service) {
@@ -185,14 +205,12 @@ class KioskController extends Controller
             $ticket->services()->attach($serviceModel->id);
         }
 
-
         // clear session data
         Session::forget('department_name');
         Session::forget('department_id');
         Session::forget('selected_services');
 
-        // return the created ticket to the client
-        // return view('ticket', ['ticket' => $ticket]);
-        dd($ticket);
+        // return the created ticket number to the client
+        return view('kiosk.ticket', ['ticket_number' => $daily_counter_ticket_number]);
     }
 }
