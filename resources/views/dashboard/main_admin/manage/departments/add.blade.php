@@ -38,11 +38,14 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Add Department</h5>
-                            <form class="row g-3">
+                            <form id="add-department-frm" class="row g-3" action="{{ route('manage.departments.store') }}" method="POST">
+
+                                @csrf
+                                
                                 {{-- Department Name --}}
                                 <div class="col-md-12">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="floatingDepartmentName"
+                                        <input type="text" class="form-control" name="name" id="floatingDepartmentName"
                                             placeholder="Department Name" required> <label
                                             for="floatingDepartmentName">Department
                                             Name</label>
@@ -52,42 +55,20 @@
                                 {{-- Department Description --}}
                                 <div class="col-12">
                                     <div class="form-floating">
-                                        <textarea class="form-control" placeholder="Description" id="floatingDescription"
+                                        <textarea class="form-control" placeholder="Description" name="description" id="floatingDescription"
                                             style="height: 100px; min-height: 100px; max-height: 150px;"></textarea><label for="floatingDescription">Description</label>
                                     </div>
                                 </div>
 
-                                {{-- Email Address --}}
+                                {{-- Status Role --}}
                                 <div class="col-md-12">
-                                    <div class="form-floating"> <input type="email" class="form-control"
-                                            id="floatingEmail" placeholder="Email Address"> <label for="floatingEmail">
-                                            Email Address</label></div>
-                                </div>
-
-                                {{-- Department --}}
-                                <div class="col-md-6">
                                     <div class="form-floating mb-3">
-                                        <select class="form-select" id="floatingDepartment" aria-label="Department">
-                                            <option selected disabled>Select Department</option>
-                                            @foreach ($all_data['departments'] as $department)
-                                                <option value="{{ $department->id }}">{{ $department->name }}</option>
-                                            @endforeach
+                                        <select class="form-select" name="status" id="floatingStatus" aria-label="State">
+                                            <option value="" selected disabled>Select Status</option>
+                                            <option value="active">Active</option>
+                                            <option value="inactive">Inactive</option>
                                         </select>
-                                        <label for="floatingDepartment">Department</label>
-                                    </div>
-                                </div>
-
-
-                                {{-- Account Role --}}
-                                <div class="col-md-6">
-                                    <div class="form-floating mb-3">
-                                        <select class="form-select" id="floatingRole" aria-label="State">
-                                            <option selected disabled>Select Account Role</option>
-                                            @foreach ($all_data['account_roles'] as $role)
-                                                <option value="{{ $role->id }}">{{ $role->name }}</option>
-                                            @endforeach
-                                        </select>
-                                        <label for="floatingRole">Role</label>
+                                        <label for="floatingStatus">Status</label>
                                     </div>
                                 </div>
 
