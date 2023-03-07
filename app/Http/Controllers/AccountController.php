@@ -43,17 +43,6 @@ class AccountController extends Controller
                 $editUrl = route('manage.accounts.edit', $account->id);
                 $deleteUrl = route('manage.accounts.delete', $account->id);
 
-                // return '<a href="' . $viewUrl . '" class="btn btn-primary view-account"><i class="fa-solid fa-eye"></i></a>
-                //         <a href="' . $editUrl . '" class="btn btn-secondary"><i class="fa-solid fa-pen-to-square"></i></a>
-                //         <form data-route="'. $deleteUrl .'" method="POST" id="delete-account-frm" class="d-inline-block">
-                //             '. csrf_field() .'
-                //             ' . method_field('DELETE') . '
-
-                //             <button type="submit" class="btn btn-danger">
-                //                 <i class="fa-solid fa-trash"></i>
-                //             </button>
-                //         </form>';
-
                 return '<a href="' . $viewUrl . '" class="btn btn-primary view-account"><i class="fa-solid fa-eye"></i></a>
                         <a href="' . $editUrl . '" class="btn btn-secondary"><i class="fa-solid fa-pen-to-square"></i></a>
                         <button class="btn btn-danger delete-account" data-account-id="'. $account->id .'">
