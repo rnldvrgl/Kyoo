@@ -12,7 +12,4 @@
 <x-layout>
     {{-- Dashboard Header Navbar --}}
     <x-dashboard-header :details="$details" :role="$role" />
-
-    {{-- Dashboard Sidebar --}}
-    <x-dashboard-sidebar name="{{ $role->name }}" />
 </x-layout>
