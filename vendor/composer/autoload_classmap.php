@@ -34,6 +34,8 @@ return array(
     'App\\Models\\AccountRole' => $baseDir . '/app/Models/AccountRole.php',
     'App\\Models\\Accounts' => $baseDir . '/app/Models/Accounts.php',
     'App\\Models\\Department' => $baseDir . '/app/Models/Department.php',
+    'App\\Models\\QueueTicket' => $baseDir . '/app/Models/QueueTicket.php',
+    'App\\Models\\QueueTicketService' => $baseDir . '/app/Models/QueueTicketService.php',
     'App\\Models\\Service' => $baseDir . '/app/Models/Service.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',

@@ -700,6 +700,8 @@ class ComposerStaticInita6cfa5fce8bb348edcfb67f612f71051
         'App\\Models\\AccountRole' => __DIR__ . '/../..' . '/app/Models/AccountRole.php',
         'App\\Models\\Accounts' => __DIR__ . '/../..' . '/app/Models/Accounts.php',
         'App\\Models\\Department' => __DIR__ . '/../..' . '/app/Models/Department.php',
+        'App\\Models\\QueueTicket' => __DIR__ . '/../..' . '/app/Models/QueueTicket.php',
+        'App\\Models\\QueueTicketService' => __DIR__ . '/../..' . '/app/Models/QueueTicketService.php',
         'App\\Models\\Service' => __DIR__ . '/../..' . '/app/Models/Service.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',

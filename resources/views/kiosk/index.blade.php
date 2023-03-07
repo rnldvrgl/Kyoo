@@ -15,11 +15,12 @@
                 </h3>
                 <img class="img-fluid mb-3" src="{{ $kyooLogo }}" alt="Kyoo logo" data-aos="zoom-out">
                 <h4 class="fw-semibold text-uppercase" data-aos="fade-up">
-                    Queueing Management System</h4>
+                    Queueing Management System
+                </h4>
 
                 <div class="d-grid col-6 mx-auto p-3" data-aos="zoom-in" data-aos-easing="ease-in-out">
-                    <a href="{{ route('select-department') }}" class="btn btn-kyoored">
-                        <span class="text-uppercase">Queue Now</span>
+                    <a href="{{ route('select-department') }}" class="btn btn-kyoored text-uppercase">
+                        Get Started
                     </a>
                 </div>
             </div>

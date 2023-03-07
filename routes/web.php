@@ -76,8 +76,7 @@ Route::middleware(['auth', 'user-access:Main Admin'])->group(function () {
 		Route::patch('/update-account', [AccountController::class, 'update'])->name('manage.accounts.update');
 
 		// Delete Account
-		Route::delete('/delete-account/{id}', [AccountController::class, 'destroy'])->name('manage.accounts.delete');
-
+    Route::delete('/delete-account/{id}', [AccountController::class, 'destroy'])->name('manage.accounts.delete');
 	});
 
 	// Manage Departments
@@ -218,7 +217,7 @@ Route::middleware('guest')->group(function () {
 	Route::get('/transaction-summary', [KioskController::class, 'summary'])->name('transaction-summary');
 
 	// Print Queue Ticket
-	Route::get('/print-queue-ticket', [KioskController::class, 'printQueueTicket'])->name('print-queue-ticket');
+	Route::post('/print-queue-ticket', [KioskController::class, 'printQueueTicket'])->name('print-queue-ticket');
 
 	// Cancel Queue
 	Route::get('/cancel', [KioskController::class, 'cancel'])->name('cancel');

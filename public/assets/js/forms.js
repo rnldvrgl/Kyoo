@@ -28,7 +28,6 @@ $(document).ready(function () {
                 
                 // If may error
                 if (response.code == 400) {
-                    
                     // List of errors
                     let errorsHtml = "<ul class='list-unstyled'>";
                     $.each(response.errors, function (key, value) {
@@ -45,10 +44,9 @@ $(document).ready(function () {
 
                     $("#btn-save-account").attr("disabled", false);
                     $("#btn-save-account").html("Add Account");
-                } 
+                }
                 // If walang error
                 else if (response.code == 200) {
-
                     let success =
                         '<div class="alert alert-success">' +
                         response.msg +
@@ -65,7 +63,7 @@ $(document).ready(function () {
         });
     });
 
-    // Update Account Form
+// Update Account Form
     $("#edit-accounts-frm").submit(function (e) {
         e.preventDefault();
 
