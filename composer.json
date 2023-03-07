@@ -13,6 +13,7 @@
         "laravel/sanctum": "^2.14",
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.2",
+        "mike42/escpos-php": "^2.2",
         "yajra/laravel-datatables-oracle": "10.0"
     },
     "require-dev": {
