@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('ticket_id')->constrained('queue_tickets')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('service_id')->constrained('services')->onDelete('restrict')->onUpdate('cascade');
-            $table->timestamps();
         });
     }
 

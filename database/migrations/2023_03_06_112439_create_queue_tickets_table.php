@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('student_department');
             $table->string('student_course');
             $table->string('status');
+            $table->date('date')->nullable();
             $table->timestamps();
         });
     }
