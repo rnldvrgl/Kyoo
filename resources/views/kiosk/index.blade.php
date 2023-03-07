@@ -17,7 +17,8 @@
                 </div>
             @endif
             <div class="col-9 bg-light gap-3 shadow d-flex flex-column justify-content-center align-items-center py-5">
-                <h3 class="fw-semibold text-uppercase" data-aos="fade-down">Welcome to
+                <h3 class="fw-semibold text-uppercase" data-aos="fade-down">
+                    Welcome to
                 </h3>
                 <img class="img-fluid mb-3" src="{{ $kyooLogo }}" alt="Kyoo logo" data-aos="zoom-out">
                 <h4 class="fw-semibold text-uppercase" data-aos="fade-up">

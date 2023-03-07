@@ -25,7 +25,9 @@
                 <i class="fa-solid fa-user"></i><span>Account</span>
                 <i class="fa-solid fa-chevron-down ms-auto"></i>
             </a>
-            <ul id="account-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+            <ul id="account-nav"
+                class="nav-content collapse{{ $uri == 'main-admin/manage/accounts/add-account' || $uri == 'main-admin/manage/accounts/edit-account' ? 'show' : '' }}"
+                data-bs-parent="#sidebar-nav">
                 <li>
                     <a href="{{ route('manage.accounts.add') }}"
                         class="{{ $uri == 'main-admin/manage/accounts/add-account' ? 'active' : '' }}">
@@ -47,7 +49,9 @@
                 <span>Departments</span>
                 <i class="fa-solid fa-chevron-down ms-auto"></i>
             </a>
-            <ul id="dept-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+            <ul id="dept-nav"
+                class="nav-content collapse{{ $uri == 'main-admin/manage/departments/add-department' || $uri == 'main-admin/manage/departments/edit-department' ? ' show' : '' }}"
+                data-bs-parent="#sidebar-nav">
                 <li>
                     <a href="{{ route('manage.departments.add') }}"
                         class="{{ $uri == 'main-admin/manage/departments/add-department' ? 'active' : '' }}">
@@ -69,7 +73,9 @@
                 <span>Services</span>
                 <i class="fa-solid fa-chevron-down ms-auto"></i>
             </a>
-            <ul id="serv-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+            <ul id="serv-nav"
+                class="nav-content collapse{{ $uri == 'main-admin/manage/services/add-service' || $uri == 'main-admin/manage/services/edit-service' ? ' show' : '' }}"
+                data-bs-parent="#sidebar-nav">
                 <li>
                     <a href="{{ route('manage.services.add') }}"
                         class="{{ $uri == 'main-admin/manage/services/add-service' ? 'active' : '' }}">
@@ -90,7 +96,9 @@
                 <i class="fa-solid fa-file-circle-question"></i> <span>Frequent Questions</span>
                 <i class="fa-solid fa-chevron-down ms-auto"></i>
             </a>
-            <ul id="faq-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+            <ul id="faq-nav"
+                class="nav-content collapse{{ $uri == 'main-admin/manage/frequent_questions/add-frequent-question' || $uri == 'main-admin/manage/frequent_questions/edit-frequent-question' ? 'show' : '' }}"
+                data-bs-parent="#sidebar-nav">
                 <li>
                     <a href="{{ route('manage.frequent_questions.add') }}"
                         class="{{ $uri == 'main-admin/manage/frequent_questions/add-frequent-question' ? 'active' : '' }}">

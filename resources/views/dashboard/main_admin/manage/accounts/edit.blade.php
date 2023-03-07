@@ -43,8 +43,9 @@
                                 {{-- Append Success/Error Messages here --}}
                             </div>
 
-                            <form id="edit-accounts-frm" class="row g-3" action="{{ route('manage.accounts.update') }}" method="POST" novalidate> 
-                                
+                            <form id="edit-accounts-frm" class="row g-3" action="{{ route('manage.accounts.update') }}"
+                                method="POST" novalidate>
+
                                 @csrf
                                 @method('PATCH')
 
@@ -53,14 +54,17 @@
                                 {{-- Full Name --}}
                                 <div class="col-md-12">
                                     <div class="form-floating"> <input type="text" name="fullname"
-                                            class="form-control" id="floatingName" placeholder="Full Name" value="{{ $account->account_details->name }}" required pattern="/^[a-zA-Z ,.'-]+(?: [a-zA-Z ,.'-]+)*$/"> <label
+                                            class="form-control" id="floatingName" placeholder="Full Name"
+                                            value="{{ $account->account_details->name }}" required
+                                            pattern="/^[a-zA-Z ,.'-]+(?: [a-zA-Z ,.'-]+)*$/"> <label
                                             for="floatingName">Full Name</label></div>
                                 </div>
 
                                 {{-- Email Address --}}
                                 <div class="col-md-12">
                                     <div class="form-floating"> <input type="email" name="email"
-                                            class="form-control" id="floatingEmail" placeholder="Email Address" value="{{ $account->account_login->email }}" required> <label
+                                            class="form-control" id="floatingEmail" placeholder="Email Address"
+                                            value="{{ $account->account_login->email }}" required> <label
                                             for="floatingEmail">
                                             Email Address</label></div>
                                 </div>
@@ -72,7 +76,9 @@
                                             aria-label="Department">
                                             <option value="" disabled>Select Department</option>
                                             @foreach ($all_data['departments'] as $department)
-                                                <option {{ ($account->department->id == $department->id) ? 'selected' : ''}}  value="{{ $department->id }}">{{ $department->name }}</option>
+                                                <option
+                                                    {{ $account->department->id == $department->id ? 'selected' : '' }}
+                                                    value="{{ $department->id }}">{{ $department->name }}</option>
                                             @endforeach
                                         </select>
                                         <label for="floatingDepartment">Department</label>
@@ -85,7 +91,9 @@
                                         <select class="form-select" name="role" id="floatingRole" aria-label="State">
                                             <option value="" disabled>Select Account Role</option>
                                             @foreach ($all_data['account_roles'] as $role)
-                                                <option {{ ($account->account_role->id == $role->id) ? 'selected' : '' }} value="{{ $role->id }}">{{ $role->name }}</option>
+                                                <option
+                                                    {{ $account->account_role->id == $role->id ? 'selected' : '' }}
+                                                    value="{{ $role->id }}">{{ $role->name }}</option>
                                             @endforeach
                                         </select>
                                         <label for="floatingRole">Role</label>
