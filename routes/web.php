@@ -73,18 +73,20 @@ Route::middleware(['auth', 'user-access:Main Admin'])->group(function () {
 		Route::get('/edit-account/{id}', [AccountController::class, 'edit'])->name('manage.accounts.edit');
 
 		// Update Employee Account
-		Route::get('/update-account/{id}', [AccountController::class, 'update'])->name('manage.accounts.update');
+		Route::patch('/update-account', [AccountController::class, 'update'])->name('manage.accounts.update');
 
 		// Delete Account
-		Route::delete('/delete-account/{id}', [AccountController::class, 'destroy'])->name('manage.accounts.destroy');
+    Route::delete('/delete-account/{id}', [AccountController::class, 'destroy'])->name('manage.accounts.delete');
 	});
 
 	// Manage Departments
 	Route::prefix('main-admin/manage/departments')->group(function () {
 		// Add Department
-		Route::get('/add-department', function () {
-			$user_data = (new HomeController)->getUserData();
-			$all_data = (new HomeController)->getAllData();
+
+		// TODO: Department CRUD
+		Route::get('/add-department', function (HomeController $homeController) {
+			$user_data = $homeController->getUserData();
+			$all_data = $homeController->getAllData();
 			return view('dashboard.main_admin.manage.departments.add', [
 				'user_data' => $user_data,
 				'all_data' => $all_data,
@@ -92,9 +94,9 @@ Route::middleware(['auth', 'user-access:Main Admin'])->group(function () {
 		})->name('manage.departments.add');
 
 		// Edit Department
-		Route::get('/edit-department', function () {
-			$user_data = (new HomeController)->getUserData();
-			$all_data = (new HomeController)->getAllData();
+		Route::get('/edit-department', function (HomeController $homeController) {
+			$user_data = $homeController->getUserData();
+			$all_data = $homeController->getAllData();
 			return view('dashboard.main_admin.manage.departments.edit', [
 				'user_data' => $user_data,
 				'all_data' => $all_data,
