@@ -13,9 +13,14 @@ class DepartmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(HomeController $homeController)
     {
-        //
+        $user_data = $homeController->getUserData();
+        $all_data = $homeController->getAllData();
+        return view('dashboard.main_admin.manage.departments.list', [
+            'user_data' => $user_data,
+            'all_data' => $all_data,
+        ]);
     }
 
     /**
@@ -45,18 +50,17 @@ class DepartmentController extends Controller
         $messages = [
             'name.required' => 'Department name is required.',
             'name.regex' => 'Please enter a valid Department name.',
-            'name.min' => 'Department name must be within :min to :max characters long.',
-            'name.max' => 'Department name must be within :min to :max characters long.',
+            'name.min' => 'Department name must be at least :min characters long.',
+            'name.max' => 'Department name must not be greater than :max characters long.',
             'description.required' => 'Select a Department.',
-            'description.min' => 'Description must be within :min to :max characters long.',
-            'description.max' => 'Description must be within :min to :max characters long.',
+            'description.min' => 'Description must be atleast :min to :max characters long.',
             'status.required' => 'Select a status.',
         ];
 
         // Validate
         $validatedData = Validator::make($request->except('_token'), [
             'name' => ['required', "regex:/^[a-zA-Z ,.'-]+(?: [a-zA-Z ,.'-]+)*$/", 'min:5', 'max:75'],
-            'description' => ['required', 'string', 'min:5', 'max:75'],
+            'description' => ['required', 'string', 'min:5'],
             'status' => ['required'],
         ], $messages);
 
