@@ -31,6 +31,7 @@
         </div>
         <!-- /Content Title -->
         <!-- Content Section -->
+        
         <section class="section">
             <div class="row">
                 <div class="col-lg-12">
@@ -60,34 +61,6 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {{-- @foreach ($accounts as $account)
-                                        <tr>
-                                            <td>{{ $account->account_details->name }}</td>
-                                            <td>{{ $account->department->name }}</td>
-                                            <td>{{ $account->account_role->name }}</td>
-                                            <td>{{ $account->account_login->email }}</td>
-                                            <td>{{ $account->account_details->phone }}</td>
-                                            <td>{{ $account->created_at }}</td>
-                                            <td>{{ $account->updated_at }}</td>
-                                            <td class="text-center d-grid gap-1">
-                                                <!-- View -->
-                                                <button class="btn btn-primary view-account" data-id="#">
-                                                    <i class="fa-solid fa-eye"></i>
-                                                </button>
-
-                                                <!-- Update -->
-                                                <button class="btn btn-secondary" data-bs-toggle="modal"
-                                                    data-bs-target="#update-account-modal" data-id="#">
-                                                    <i class="fa-solid fa-pen-to-square"></i>
-                                                </button>
-
-                                                <!-- Delete -->
-                                                <button class="btn btn-danger" id="deleteData" href="#">
-                                                    <i class="fa-solid fa-trash-can"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        @endforeach --}}
                                     </tbody>
                                 </table>
                             </div>

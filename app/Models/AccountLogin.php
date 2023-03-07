@@ -23,4 +23,9 @@ class AccountLogin extends Model
     {
         return $this->belongsTo(Accounts::class, 'login_id');
     }
+
+    public static function checkEmail($email, $id = null)
+    {
+        return self::where(['email' => $email, 'id' => $id])->exists();
+    }
 }

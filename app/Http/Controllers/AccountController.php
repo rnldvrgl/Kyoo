@@ -31,7 +31,9 @@ class AccountController extends Controller
 
     public function fetchAccounts()
     {
-        $accounts = Accounts::with('account_details', 'account_login', 'account_role', 'department')->select('accounts.*');
+        $accounts = Accounts::with('account_details', 'account_login', 'account_role', 'department')
+            ->select('accounts.*')
+            ->orderByDesc('accounts.created_at');
 
         return DataTables::eloquent($accounts)
             ->smart()
@@ -39,17 +41,25 @@ class AccountController extends Controller
                 // Add your action buttons here
                 $viewUrl = route('manage.accounts.show', $account->id);
                 $editUrl = route('manage.accounts.edit', $account->id);
-                $deleteUrl = route('manage.accounts.destroy', $account->id);
+                $deleteUrl = route('manage.accounts.delete', $account->id);
+
+                // return '<a href="' . $viewUrl . '" class="btn btn-primary view-account"><i class="fa-solid fa-eye"></i></a>
+                //         <a href="' . $editUrl . '" class="btn btn-secondary"><i class="fa-solid fa-pen-to-square"></i></a>
+                //         <form data-route="'. $deleteUrl .'" method="POST" id="delete-account-frm" class="d-inline-block">
+                //             '. csrf_field() .'
+                //             ' . method_field('DELETE') . '
+
+                //             <button type="submit" class="btn btn-danger">
+                //                 <i class="fa-solid fa-trash"></i>
+                //             </button>
+                //         </form>';
 
                 return '<a href="' . $viewUrl . '" class="btn btn-primary view-account"><i class="fa-solid fa-eye"></i></a>
                         <a href="' . $editUrl . '" class="btn btn-secondary"><i class="fa-solid fa-pen-to-square"></i></a>
-                        <form action="' . $deleteUrl . '" method="POST" class="d-inline-block">
-                            ' . method_field('DELETE') . csrf_field() . '
-                            <button type="submit" class="btn btn-danger"
-                                onclick="return confirm(\'Are you sure you want to delete this account?\')">
-                                <i class="fa-solid fa-trash-can"></i>
-                            </button>
-                        </form>';
+                        <button class="btn btn-danger delete-account" data-account-id="'. $account->id .'">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                        ';
             })
             ->rawColumns(['actions'])
             ->toJson();
@@ -60,10 +70,10 @@ class AccountController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(HomeController $homeController)
     {
-        $user_data = (new HomeController)->getUserData();
-        $all_data = (new HomeController)->getAllData();
+        $user_data = $homeController->getUserData();
+        $all_data = $homeController->getAllData();
 
         return view('dashboard.main_admin.manage.accounts.add', [
             'user_data' => $user_data,
@@ -109,6 +119,17 @@ class AccountController extends Controller
         $email = $validatedData->validated()['email'];
         $department_id = $validatedData->validated()['department'];
         $role_id = $validatedData->validated()['role'];
+
+        // Check if the email is already in the database
+        $checkEmail = AccountLogin::checkEmail($email);
+
+        // check if there is any error
+        if ($checkEmail == true) {
+            $error = [
+                'error' => 'Email already exists'
+            ];
+            return response()->json(['code' => 400, 'errors' => $error]);
+        }
 
         // Insert on each tables
         $account_details = AccountDetails::create([
@@ -171,9 +192,61 @@ class AccountController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        dd($request);
+        $accounts = Accounts::with('account_details', 'account_login')->findOrFail($request->id);
+        
+        // Define the validation messages in an array variable
+        $messages = [
+            'fullname.required' => 'Please provide a full name.',
+            'fullname.regex' => 'Name must only contain letters.',
+            'fullname.min' => 'Full name must be at least :min characters long.',
+            'fullname.max' => 'Full name must be at most :max characters long.',
+            'email.required' => 'Please provide a valid email address.',
+            'email.email' => 'Invalid Email Address.'
+        ];
+
+        // Validate
+        $validatedData = Validator::make($request->all(), [
+            'fullname' => ['required', "regex:/^[a-zA-Z ,.'-]+(?: [a-zA-Z ,.'-]+)*$/", 'min:5', 'max:75'],
+            'email' => ['required', 'email'],
+        ], $messages);
+
+        // check if there is any error
+        if ($validatedData->fails()) {
+            return response()->json(['code' => 400, 'errors' => $validatedData->errors()]);
+        }
+
+        // Check if email already exists
+        $checkEmail = AccountLogin::checkEmail($validatedData->validated()['email'], $accounts->login_id);
+        
+        if ($checkEmail == false){
+            // Email exists?
+            $error = [
+                'errors' => 'Email already exists'
+            ];
+            return response()->json(['code' => 400, 'errors' => $error]);
+        }
+
+        // Update the user details
+        $accounts->account_details->update([
+            'fullname' => $request->name,
+        ]);
+
+        $accounts->account_login->update([
+            'email' => $request->email,
+        ]);
+
+        $accounts->update([
+            'department_id' => $request->department,
+        ]);
+
+        $accounts->update([
+            'role_id' => $request->role,
+        ]);
+
+        // Redirect
+        return response()->json(['code' => 200, 'msg' => 'Account Updated Successfully.']);
     }
 
     /**
@@ -184,17 +257,17 @@ class AccountController extends Controller
      */
     public function destroy($id)
     {
-        // Delete
-        // dd("Delete method working, here is the ID $id");
-
         // Find the user by id
-        $account = Accounts::findOrFail($id);
+        $account = Accounts::with(['account_details', 'account_login'])->findOrFail($id);
 
         // Delete the account
+        $account->account_details->delete();
+        $account->account_login->delete();
         $account->delete();
 
         // Redirect to the index page with a success message
-        return redirect()->route('manage.accounts.index')->with('deleteSuccess', 'Account deleted successfully');
+        return response()->json(['code' => 200, 'message' => 'Account deleted successfully']);
+        // return redirect()->route('manage.accounts.index')->with('deleteSuccess', 'Account deleted successfully');
     }
 
     protected function default_password_generator($fullname)

@@ -72,7 +72,7 @@ class UserProfileController extends Controller
         ], $messages);
 
 
-        # check if their is any error
+        # check if there is any error
         if ($validatedData->fails()) {
             return response()->json(['code' => 400, 'errors' => $validatedData->errors()]);
         }

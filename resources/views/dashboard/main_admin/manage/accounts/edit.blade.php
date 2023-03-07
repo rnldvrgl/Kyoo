@@ -43,22 +43,24 @@
                                 {{-- Append Success/Error Messages here --}}
                             </div>
 
-                            <form id="add-accounts-frm" class="row g-3" action="{{ route('manage.accounts.store') }}" method="POST">
+                            <form id="edit-accounts-frm" class="row g-3" action="{{ route('manage.accounts.update') }}" method="POST" novalidate> 
                                 
                                 @csrf
+                                @method('PATCH')
+
+                                <input type="hidden" name="id" value="{{ $account->id }}">
 
                                 {{-- Full Name --}}
                                 <div class="col-md-12">
                                     <div class="form-floating"> <input type="text" name="fullname"
-                                            class="form-control" id="floatingName" placeholder="Full Name" value="{{ $account->account_details->name }}"> <label
-                                            for="floatingName">Full
-                                            Name</label></div>
+                                            class="form-control" id="floatingName" placeholder="Full Name" value="{{ $account->account_details->name }}" required pattern="/^[a-zA-Z ,.'-]+(?: [a-zA-Z ,.'-]+)*$/"> <label
+                                            for="floatingName">Full Name</label></div>
                                 </div>
 
                                 {{-- Email Address --}}
                                 <div class="col-md-12">
                                     <div class="form-floating"> <input type="email" name="email"
-                                            class="form-control" id="floatingEmail" placeholder="Email Address" value="{{ $account->account_login->email }}"> <label
+                                            class="form-control" id="floatingEmail" placeholder="Email Address" value="{{ $account->account_login->email }}" required> <label
                                             for="floatingEmail">
                                             Email Address</label></div>
                                 </div>
