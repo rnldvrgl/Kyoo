@@ -87,16 +87,8 @@ Route::middleware(['auth', 'user-access:Main Admin'])->group(function () {
 
 		Route::post('/add-department', [DepartmentController::class, 'store'])->name('manage.departments.store');
 
-
 		// Edit Department
-		Route::get('/edit-department', function (HomeController $homeController) {
-			$user_data = $homeController->getUserData();
-			$all_data = $homeController->getAllData();
-			return view('dashboard.main_admin.manage.departments.edit', [
-				'user_data' => $user_data,
-				'all_data' => $all_data,
-			]);
-		})->name('manage.departments.edit');
+		Route::get('/edit-department', [DepartmentController::class, 'index'])->name('manage.departments.edit');
 	});
 
 	// Manage Frequent Questions

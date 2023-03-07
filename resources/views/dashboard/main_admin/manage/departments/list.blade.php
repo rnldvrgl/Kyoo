@@ -1,5 +1,5 @@
 {{-- Page Title --}}
-@section('mytitle', 'Add Account')
+@section('mytitle', 'Edit Department')
 
 @php
     $details = $user_data['details'];
@@ -54,31 +54,6 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <td>Name</td>
-                                        <td>Department</td>
-                                        <td>Position</td>
-                                        <td>Email</td>
-                                        <td>Phone</td>
-                                        <td>Date Added</td>
-                                        <td>Date Updated</td>
-                                        <td class="text-center d-grid gap-1">
-                                            <!-- View -->
-                                            <button class="btn btn-primary view-account" data-id="#">
-                                                <i class="fa-solid fa-eye"></i>
-                                            </button>
-
-                                            <!-- Update -->
-                                            <button class="btn btn-secondary" data-bs-toggle="modal"
-                                                data-bs-target="#update-account-modal" data-id="#">
-                                                <i class="fa-solid fa-pen-to-square"></i>
-                                            </button>
-
-                                            <!-- Delete -->
-                                            <button class="btn btn-danger" id="deleteData" href="#">
-                                                <i class="fa-solid fa-trash-can"></i>
-                                            </button>
-                                        </td>
-                                        </tr>
                                     </tbody>
                                 </table>
                             </div>

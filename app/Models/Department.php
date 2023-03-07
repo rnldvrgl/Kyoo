@@ -30,4 +30,10 @@ class Department extends Model
     {
         return $this->hasMany(QueueTicket::class, 'service_department_id');
     }
+
+    protected function departmentCode()
+    {
+        // Format Department name to be saved in code column
+        // Example: High School Library -> HSL
+    }  
 }
