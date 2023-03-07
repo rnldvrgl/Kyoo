@@ -209,46 +209,64 @@ class KioskController extends Controller
 
 
         // print ticket
-        // try {
-        //     // connect to printer
-        //     $connector = new WindowsPrintConnector("XP-58", "USB002");
-        //     $printer = new Printer($connector);
-        //     // print header
-        //     Log::info('Printing header...');
-        //     $printer->text("================================\n");
-        //     $printer->text("        QUEUE TICKET\n");
-        //     $printer->text("================================\n\n");
-        //     // print ticket number and department name
-        //     Log::info('Printing ticket number and department name...');
-        //     $printer->text("Ticket Number: " . $ticket_number . "\n");
-        //     $printer->text("Department: " . $department->name . "\n\n");
-        //     // print student information
-        //     Log::info('Printing student information...');
-        //     $printer->text("Student Name: " . $name . "\n");
-        //     $printer->text("Department: " . $student_department . "\n");
-        //     $printer->text("Course: " . $course . "\n\n");
-        //     // print selected services
-        //     Log::info('Printing selected services...');
-        //     $printer->text("Services: \n");
-        //     foreach ($selected_services as $service) {
-        //         $serviceModel = Service::where('id', $service)->firstOrFail();
-        //         $printer->text("- " . $serviceModel->name . "\n");
-        //     }
-        //     // print footer
-        //     Log::info('Printing footer...');
-        //     $printer->text("\n\n");
-        //     $printer->text("Thank you for using our services!\n");
-        //     $printer->text("================================\n");
-        //     $printer->text("\n\n\n\n");
-        //     // cut the paper
-        //     $printer->cut();
-        //     // close the printer
-        //     $printer->close();
-        //     Log::info('Printing completed successfully.');
-        // } catch (\Exception $e) {
-        //     // handle printer error
-        //     Log::error('Printing failed: ' . $e->getMessage());
-        // }
+        try {
+            // Connect to the printer
+            $connector = new WindowsPrintConnector("XP-58", "USB002");
+            $printer = new Printer($connector);
+            // Set print mode to bold and double height
+            $printer->setJustification(Printer::JUSTIFY_CENTER);
+            $printer->setEmphasis(true);
+            $printer->setTextSize(2, 2);
+            // Print header
+            $printer->text("QUEUE TICKET\n");
+            // Reset print mode to normal
+            $printer->setEmphasis(false);
+            $printer->setTextSize(1, 1);
+            $printer->text("===============================\n");
+
+            // Print ticket number and department name
+            $printer->setEmphasis(true);
+            $printer->text("TICKET NUMBER:\n");
+            $printer->setEmphasis(true);
+            $printer->setTextSize(2, 2);
+            $printer->text("$ticket_number\n");
+            $printer->setEmphasis(false);
+            $printer->setTextSize(1, 1);
+            $printer->text("$department->name\n\n");
+
+            // Print student information
+            $printer->setJustification(Printer::JUSTIFY_LEFT);
+            $printer->setEmphasis(true);
+            $printer->text("STUDENT INFORMATION\n");
+            $printer->setEmphasis(false);
+            $printer->text("NAME: " . $name . "\n");
+            $printer->text("DEPARTMENT: " . $student_department . "\n");
+            $printer->text("COURSE: " . $course . "\n\n");
+            // Print selected services
+            $printer->setEmphasis(true);
+            $printer->text("SELECTED SERVICES\n");
+            $printer->setEmphasis(false);
+            foreach ($selected_services as $service) {
+                $serviceModel = Service::where('id', $service)->firstOrFail();
+                $printer->text("- " . $serviceModel->name . "\n");
+            }
+            // Print footer
+            $printer->setJustification(Printer::JUSTIFY_CENTER);
+            $printer->setEmphasis(false);
+            $printer->text("===============================\n");
+            $printer->text("THANK YOU FOR USING KYOO!\n");
+            $printer->text("CREATED BY: OPTIMUS BYTES\n");
+            $printer->text("\n\n\n");
+            // Cut the paper
+            $printer->cut();
+            // Close the printer
+            $printer->close();
+            Log::info('Printing completed successfully.');
+        } catch (\Exception $e) {
+            // Handle printer error
+            Log::error('Printing failed: ' . $e->getMessage());
+        }
+
 
         // clear session data
         Session::forget('department_name');
