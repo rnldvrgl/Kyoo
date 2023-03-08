@@ -35,7 +35,7 @@
                     </a>
                     <a href="{{ route('manage.accounts.index') }}"
                         class="{{ $uri == 'main-admin/manage/accounts/edit-account' ? 'active' : '' }}">
-                        <i class="fa-solid fa-pen-to-square"></i><span>Edit Account</span>
+                        <i class="fa-solid fa-list-ol"></i></i><span>Account List</span>
                     </a>
                 </li>
             </ul>
@@ -59,7 +59,7 @@
                     </a>
                     <a href="{{ route('manage.departments.edit') }}"
                         class="{{ $uri == 'main-admin/manage/departments/edit-department' ? 'active' : '' }}">
-                        <i class="fa-solid fa-pen-to-square"></i><span>Edit Department</span>
+                        <i class="fa-solid fa-list-ol"></i><span>Department List</span>
                     </a>
                 </li>
             </ul>
@@ -83,7 +83,7 @@
                     </a>
                     <a href="{{ route('manage.services.edit') }}"
                         class="{{ $uri == 'main-admin/manage/services/edit-service' ? 'active' : '' }}">
-                        <i class="fa-solid fa-pen-to-square"></i><span>Edit Service</span>
+                        <i class="fa-solid fa-list-ol"></i><span>Service List</span>
                     </a>
                 </li>
             </ul>
@@ -106,7 +106,7 @@
                     </a>
                     <a href="{{ route('manage.frequent_questions.edit') }}"
                         class="{{ $uri == 'main-admin/manage/frequent_questions/edit-frequent-question' ? 'active' : '' }}">
-                        <i class="fa-solid fa-pen-to-square"></i><span>Edit Question</span>
+                        <i class="fa-solid fa-list-ol"></i><span>Question List</span>
                     </a>
                 </li>
             </ul>
