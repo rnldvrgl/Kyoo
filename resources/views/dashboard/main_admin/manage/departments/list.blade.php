@@ -44,7 +44,6 @@
                                     <thead>
                                         <tr>
                                             <th>Name</th>
-                                            <th>Description</th>
                                             <th>Status</th>
                                             <th>Code</th>
                                             <th>Date Added</th>
@@ -74,10 +73,6 @@
                 columns: [{
                         data: 'name',
                         name: 'name'
-                    },
-                    {
-                        data: 'description',
-                        name: 'description'
                     },
                     {
                         data: 'status',
