@@ -24,8 +24,9 @@
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item">Accounts</li>
-                    <li class="breadcrumb-item active">View Account</li>
+                    <li class="breadcrumb-item"><a href="{{ route('manage.accounts.index') }}">Accounts</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('manage.accounts.index') }}">Account List</a></li>
+                    <li class="breadcrumb-item active">{{ $account->account_details->name }}</li>
                 </ol>
             </nav>
         </div>
@@ -36,9 +37,10 @@
                 <div class="col-xl-4">
                     <div class="card">
                         <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-                            <a href="{{ route('manage.accounts.index') }}" class="btn btn-kyoored align-self-start">
+                            <a href="{{ route('manage.accounts.index') }}"
+                                class="btn btn-kyoored btn-sm align-self-start">
                                 <i class="fa-solid fa-arrow-left"></i>
-                                Go back
+                                Return
                             </a>
 
                             <img id="image_avatar"

@@ -21,7 +21,7 @@
     <main id="main" class="main">
         <!-- Content Title -->
         <div class="pagetitle">
-            <h1>Accounts</h1>
+            <h1>Departments</h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
