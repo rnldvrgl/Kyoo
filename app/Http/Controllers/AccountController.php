@@ -192,7 +192,7 @@ class AccountController extends Controller
         return view('dashboard.main_admin.manage.accounts.edit', [
             'user_data' => $homeController->getUserData(),
             'all_data' => $homeController->getAllData(),
-            'account' => Accounts::with('account_details', 'account_login', 'account_role', 'department')->findOrFail($request->input('account_id'))
+            'account' => Accounts::with('account_details', 'account_login', 'account_role', 'department')->findOrFail($request->account_id)
         ]);
     }
 
