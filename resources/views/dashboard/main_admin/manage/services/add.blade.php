@@ -1,5 +1,5 @@
 {{-- Page Title --}}
-@section('mytitle', 'Add Account')
+@section('mytitle', 'Add Service')
 
 @php
     $details = $user_data['details'];
@@ -21,12 +21,12 @@
     <main id="main" class="main">
         <!-- Content Title -->
         <div class="pagetitle">
-            <h1>Accounts</h1>
+            <h1>Services</h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item">Accounts</li>
-                    <li class="breadcrumb-item active">Add Account</li>
+                    <li class="breadcrumb-item">Services</li>
+                    <li class="breadcrumb-item active">Add Service</li>
                 </ol>
             </nav>
         </div>
@@ -34,54 +34,69 @@
         <!-- Content Section -->
         <section class="section">
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-md-6">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Accounts</h5>
-                            <div class="table-responsive">
-                                <table id="departments-table" class="display w-100">
-                                    <caption>List of Accounts</caption>
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Department</th>
-                                            <th>Position</th>
-                                            <th>Email</th>
-                                            <th>Phone</th>
-                                            <th>Date Added</th>
-                                            <th>Date Updated</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <td>Name</td>
-                                        <td>Department</td>
-                                        <td>Position</td>
-                                        <td>Email</td>
-                                        <td>Phone</td>
-                                        <td>Date Added</td>
-                                        <td>Date Updated</td>
-                                        <td class="text-center d-grid gap-1">
-                                            <!-- View -->
-                                            <button class="btn btn-primary view-account" data-id="#">
-                                                <i class="fa-solid fa-eye"></i>
-                                            </button>
+                            <h5 class="card-title">Add Service</h5>
 
-                                            <!-- Update -->
-                                            <button class="btn btn-secondary" data-bs-toggle="modal"
-                                                data-bs-target="#update-account-modal" data-id="#">
-                                                <i class="fa-solid fa-pen-to-square"></i>
-                                            </button>
-
-                                            <!-- Delete -->
-                                            <button class="btn btn-danger" id="deleteData" href="#">
-                                                <i class="fa-solid fa-trash-can"></i>
-                                            </button>
-                                        </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                            <div id="res">
+                                {{-- Append Success/Error Messages here --}}
                             </div>
+
+                            {{-- {{ route('manage.services.store') }} --}}
+                            <form id="add-services-frm" action="#" method="POST">
+
+                                @csrf
+
+                                {{-- Full Name --}}
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-floating mb-3"> <input type="text" name="service_name"
+                                                class="form-control" id="floatingServiceName"
+                                                placeholder="Service Name">
+                                            <label for="floatingServiceName">Service
+                                                Name</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        {{-- Department Name --}}
+                                        <div class="form-floating mb-3">
+                                            <select class="form-select" name="department" id="floatingDepartment"
+                                                aria-label="Department">
+                                                <option value="" selected disabled>Select Department</option>
+                                                @foreach ($all_data['departments'] as $department)
+                                                    <option value="{{ $department->id }}">{{ $department->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            <label for="floatingDepartment">Department</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Status Switch -->
+                                <div class="form-check form-switch mb-5">
+                                    <input class="form-check-input" type="checkbox" id="status-switch" name="status"
+                                        value="active">
+                                    <label class="form-check-label" for="status-switch">Active</label>
+                                </div>
+
+
+                                {{-- Buttons --}}
+                                <div class="d-grid gap-2 mb-3">
+                                    <button type="submit" class="btn btn-success" id="btn-save-service">
+                                        <i class="fa-solid fa-plus"></i>
+                                        Add Service
+                                    </button>
+                                    <button type="reset" class="btn btn-kyoored">
+                                        <i class="fa-regular fa-trash-can"></i>
+                                        Clear Input Fields
+                                    </button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
