@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Department;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule as ValidationRule;
 use Yajra\DataTables\Facades\DataTables;
 
 class DepartmentController extends Controller
@@ -27,7 +28,7 @@ class DepartmentController extends Controller
 
     public function fetchDepartments()
     {
-        $departments = Department::query();
+        $departments = Department::query()->orderByDesc('created_at');
 
         return DataTables::of($departments)
             ->addColumn('actions', function ($department) {
@@ -174,7 +175,46 @@ class DepartmentController extends Controller
      */
     public function update(Request $request)
     {
-        dd($request);
+        // Fetch Specific Department by its ID
+        $department = Department::findOrFail($request->id);
+
+        // Define the validation messages in an array variable
+        $messages = [
+            'name.required' => 'Department name is required.',
+            'name.regex' => 'Please enter a valid Department name.',
+            'name.min' => 'Department name must be at least :min characters long.',
+            'name.max' => 'Department name must not be greater than :max characters long.',
+            'name.unique' => 'Department name already exists.',
+            'description.required' => 'Select a Department.',
+            'description.min' => 'Description must be atleast :min to :max characters long.',
+            'code.required' => 'Department code is required.',
+            'code.min' => 'The department code field must be at least :min characters long.',
+            'code.max' => 'The department code field must not be greater than :max characters long.',
+        ];
+
+        // Validate
+        $validatedData = Validator::make($request->except('_token'), [
+            'name' => ['required', "regex:/^[a-zA-Z ,.'-]+(?: [a-zA-Z ,.'-]+)*$/", 'min:5', 'max:75', ValidationRule::unique('departments')->ignore($department->id)],
+            'description' => ['required', 'string', 'min:5'],
+            'status' => ['nullable'],
+            'code' => ['required', 'min:1', 'max:5']
+        ], $messages);
+
+        // Check if there is any error
+        if ($validatedData->fails()) {
+            return response()->json(['code' => 400, 'errors' => $validatedData->errors()]);
+        }
+
+        // Update
+        $department::where('id', $request->id)->update([
+            'name' => $validatedData->validated()['name'],
+            'description' => $validatedData->validated()['description'],
+            'code' => $validatedData->validated()['code'],
+            'status' => $request->has('status') ? 'active' : 'inactive',
+        ]);
+
+        // Redirect
+        return response()->json(['code' => 200, 'msg' => 'Department Updated Successfully.']);
     }
 
     /**
@@ -185,6 +225,13 @@ class DepartmentController extends Controller
      */
     public function destroy($id)
     {
-        dd("This is the destroy method, the ID is $id.");
+        // Find the Department by id
+        $department = Department::findOrFail($id);
+
+        // Delete the Department
+        $department->delete();
+
+        // Redirect to the index page with a success message
+        return response()->json(['code' => 200, 'message' => 'Department deleted successfully']);
     }
 }

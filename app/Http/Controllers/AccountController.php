@@ -224,7 +224,7 @@ class AccountController extends Controller
             'email' => ['required', 'email'],
         ], $messages);
 
-        // check if there is any error
+        // Check if there is any error
         if ($validatedData->fails()) {
             return response()->json(['code' => 400, 'errors' => $validatedData->errors()]);
         }
@@ -239,8 +239,6 @@ class AccountController extends Controller
             ];
             return response()->json(['code' => 400, 'errors' => $error]);
         }
-
-        // dd($accounts);
 
         // Update the user details
         $accounts->account_details->where('id', $accounts->details_id)->update([
@@ -278,7 +276,6 @@ class AccountController extends Controller
 
         // Redirect to the index page with a success message
         return response()->json(['code' => 200, 'message' => 'Account deleted successfully']);
-        // return redirect()->route('manage.accounts.index')->with('deleteSuccess', 'Account deleted successfully');
     }
 
     protected function default_password_generator($fullname)

@@ -41,6 +41,11 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Departments</h5>
+
+                            <div id="res">
+                                {{-- Append Success/Error Messages here --}}
+                            </div>
+                            
                             <div class="table-responsive">
                                 <table id="departments-table" class="table table-bordered table-hover"
                                     style="width:100%">
