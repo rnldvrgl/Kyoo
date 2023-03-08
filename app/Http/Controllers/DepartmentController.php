@@ -27,26 +27,23 @@ class DepartmentController extends Controller
 
     public function fetchDepartments()
     {
-        $departments = Department::all()->sortByDesc('created_at');
+        $departments = Department::query();
 
-        return DataTables::eloquent($departments)
-            ->smart()
+        return DataTables::of($departments)
             ->addColumn('actions', function ($department) {
-                // Add your action buttons here
                 $viewUrl = route('manage.departments.show', $department->id);
                 $editUrl = route('manage.departments.edit', $department->id);
-                // $deleteUrl = route('manage.accounts.delete', $department->id);
 
                 return '<a href="' . $viewUrl . '" class="btn btn-primary view-department"><i class="fa-solid fa-eye"></i></a>
-                        <a href="' . $editUrl . '" class="btn btn-secondary"><i class="fa-solid fa-pen-to-square"></i></a>
-                        <button class="btn btn-danger delete-department" data-department-id="' . $department->id . '">
-                            <i class="fa-solid fa-trash"></i>
-                        </button>
-                        ';
+                    <a href="' . $editUrl . '" class="btn btn-secondary"><i class="fa-solid fa-pen-to-square"></i></a>
+                    <button class="btn btn-danger delete-department" data-department-id="' . $department->id . '">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>';
             })
             ->rawColumns(['actions'])
-            ->toJson();
+            ->make(true);
     }
+
 
     /**
      * Show the form for creating a new resource.

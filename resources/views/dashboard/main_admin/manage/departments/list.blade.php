@@ -44,6 +44,7 @@
                                     <thead>
                                         <tr>
                                             <th>Name</th>
+                                            <th>Description</th>
                                             <th>Status</th>
                                             <th>Code</th>
                                             <th>Date Added</th>
@@ -88,11 +89,17 @@
                     },
                     {
                         data: 'created_at',
-                        name: 'created_at'
+                        name: 'created_at',
+                        render: function(data) {
+                            return moment.utc(data).utcOffset(480).format('YYYY-MM-DD HH:mm:ss');
+                        }
                     },
                     {
                         data: 'updated_at',
-                        name: 'updated_at'
+                        name: 'updated_at',
+                        render: function(data) {
+                            return moment.utc(data).utcOffset(480).format('YYYY-MM-DD HH:mm:ss');
+                        }
                     },
                     {
                         data: 'actions',
