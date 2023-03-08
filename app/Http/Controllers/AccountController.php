@@ -47,16 +47,21 @@ class AccountController extends Controller
                 // $deleteUrl = route('manage.accounts.delete', $account->id);
 
                 return
+                    // View 
                     '<form action="' . $viewUrl . '" method="POST" class="d-grid mb-1">' .
                     csrf_field() .
                     '<input name="account_id" type="hidden" value="' . $account->id . '"/>' .
                     '<button type="submit" class="btn btn-primary view-account"><i class="fa-solid fa-eye"></i></button>' .
                     '</form>' .
+
+                    // Update
                     '<form action="' . $editUrl . '" method="POST" class="d-grid mb-1">' .
                     csrf_field() .
                     '<input name="account_id" type="hidden" value="' . $account->id . '"/>' .
                     '<button type="submit" class="btn btn-secondary"><i class="fa-solid fa-pen-to-square"></i></button>' .
                     '</form>' .
+
+                    // Delete
                     '<div class="d-grid">' .
                     '<button class="btn btn-danger delete-account" data-account-id="' . $account->id . '">' .
                     '<i class="fa-solid fa-trash"></i>' .
@@ -167,7 +172,7 @@ class AccountController extends Controller
         // Redirect to the View page along with the user's records
         return view('dashboard.main_admin.manage.accounts.view', [
             'user_data' => $homeController->getUserData(),
-            'account' => Accounts::with('account_details', 'account_login', 'account_role', 'department')->findOrFail($request->input('account_id'))
+            'account' => Accounts::with('account_details', 'account_login', 'account_role', 'department')->findOrFail($request->account_id)
         ]);
     }
 
@@ -231,11 +236,11 @@ class AccountController extends Controller
             return response()->json(['code' => 400, 'errors' => $error]);
         }
 
-        dd($accounts);
+        // dd($accounts);
 
         // Update the user details
         $accounts->account_details->where('id', $accounts->details_id)->update([
-            'fullname' => $validatedData->validated()['fullname'],
+            'name' => $validatedData->validated()['fullname'],
         ]);
 
         $accounts->account_login->where('id', $accounts->login_id)->update([

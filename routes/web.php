@@ -71,7 +71,7 @@ Route::middleware(['auth', 'user-access:Main Admin'])->group(function () {
 		Route::get('/edit-account/fetch', [AccountController::class, 'fetchAccounts'])->name('manage.accounts.fetch_accounts');
 
 		// Specific Employee to Edit
-		Route::POST('/edit-account', [AccountController::class, 'edit'])->name('manage.accounts.edit');
+		Route::post('/edit-account', [AccountController::class, 'edit'])->name('manage.accounts.edit');
 
 		// Update Employee Account
 		Route::patch('/update-account', [AccountController::class, 'update'])->name('manage.accounts.update');

@@ -158,6 +158,8 @@
                                                         alt="Profile Picture" class="img-thumbnail"
                                                         id="image_preview_container" style="max-height: 120px;">
                                                 </button>
+
+                                                {{-- Preview Image --}}
                                                 <div class="modal fade" id="verticalycentered" tabindex="-1">
                                                     <div class="modal-dialog modal-dialog-centered">
                                                         <div class="modal-content">
