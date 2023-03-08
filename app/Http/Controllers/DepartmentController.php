@@ -140,11 +140,12 @@ class DepartmentController extends Controller
      */
     public function show(HomeController $homeController, Request $request)
     {
-        $department_id = $request->input('department_id');
-        $department = Department::findOrFail($department_id);
+        $department = Department::findOrFail($request->department_id);
 
-        // dd($request);
-        return view('dashboard.main_admin.manage.departments.view', ['user_data' => $homeController->getUserData(), 'department' => $department]);
+        return view('dashboard.main_admin.manage.departments.view', [
+            'user_data' => $homeController->getUserData(), 
+            'department' => $department
+        ]);
     }
 
     /**

@@ -169,10 +169,12 @@ class AccountController extends Controller
      */
     public function show(HomeController $homeController, Request $request)
     {
+        $account = Accounts::with('account_details', 'account_login', 'account_role', 'department')->findOrFail($request->account_id);
+
         // Redirect to the View page along with the user's records
         return view('dashboard.main_admin.manage.accounts.view', [
             'user_data' => $homeController->getUserData(),
-            'account' => Accounts::with('account_details', 'account_login', 'account_role', 'department')->findOrFail($request->account_id)
+            'account' => $account
         ]);
     }
 
