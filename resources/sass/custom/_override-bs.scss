@@ -221,17 +221,17 @@
 /* Breadcrumbs */
 .breadcrumb {
 	font-size: 14px;
-	color: #bd8989;
+	color: #323232;
 	font-weight: 600;
 }
 
 .breadcrumb a {
-	color: #bd8989;
+	color: #323232;
 	transition: 0.3s;
 }
 
 .breadcrumb a:hover {
-	color: #8f5151;
+	color: rgb(110, 110, 110);
 }
 
 .breadcrumb .breadcrumb-item::before {
@@ -239,7 +239,7 @@
 }
 
 .breadcrumb .active {
-	color: #8f5151;
+	color: #8C3D3D;
 	font-weight: 600;
 }
 

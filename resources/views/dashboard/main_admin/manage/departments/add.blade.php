@@ -18,7 +18,6 @@
     <x-dashboard-sidebar name="{{ $role->name }}" />
 
     <!-- Main Content -->
-    <x-background />
     <main id="main" class="main">
         <!-- Content Title -->
         <div class="pagetitle">
@@ -58,15 +57,7 @@
                                             <label for="floatingDepartmentName">Department Name</label>
                                         </div>
 
-                                        {{-- Department Description --}}
-                                        <div class="form-floating mb-3">
-                                            <textarea class="form-control" placeholder="Description" name="description" id="floatingDescription"
-                                                style="height: 100px; min-height: 100px; max-height: 150px;"></textarea>
-                                            <label for="floatingDescription">Description</label>
-                                        </div>
-
                                         {{-- Department Code --}}
-
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control" name="code"
                                                 id="floatingDepartmentCode" placeholder="Department Code" required>
@@ -74,29 +65,41 @@
                                                 Code</label>
                                         </div>
 
+                                        {{-- Department Description --}}
+                                        <div class="form-floating mb-3">
+                                            <textarea class="form-control" placeholder="Description" name="description" id="floatingDescription"
+                                                style="height: 100px; min-height: 100px; max-height: 150px;"></textarea>
+                                            <label for="floatingDescription">Description</label>
+                                        </div>
+
 
                                         <!-- Status Switch -->
                                         <div class="form-check form-switch mb-4">
                                             <input class="form-check-input" type="checkbox" id="status-switch"
                                                 name="status" value="active">
-                                            <label class="form-check-label" for="status-switch">Active</label>
+                                            <label class="form-check-label" for="status-switch">
+                                                <span class="fw-bold">Status:</span>
+                                                <span class="ms-2" id="status-label">Inactive</span>
+                                            </label>
                                         </div>
 
                                         {{-- Buttons --}}
-
-                                        <div class="row">
-                                            <div class="col">
-                                                <button type="reset" class="w-100  btn btn-kyoored">
-                                                    <i class="fa-regular fa-trash-can"></i>
-                                                    Clear Input Fields
-                                                </button>
+                                        <div class="row mt-4 gap-2 gap-md-0">
+                                            <div class="col-md-6">
+                                                <div class="d-grid gap-2">
+                                                    <button type="reset" class="btn btn-danger">
+                                                        <i class="fas fa-eraser me-2"></i>
+                                                        Clear Input Fields
+                                                    </button>
+                                                </div>
                                             </div>
-                                            <div class="col">
-                                                <button type="submit" class="w-100 btn btn-success"
-                                                    id="btn-save-department">
-                                                    <i class="fa-solid fa-plus"></i>
-                                                    Add Department
-                                                </button>
+                                            <div class="col-md-6">
+                                                <div class="d-grid gap-2">
+                                                    <button type="submit" class="btn btn-success">
+                                                        <i class="fa-solid fa-plus me-2"></i>
+                                                        Add Department
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

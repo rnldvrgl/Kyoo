@@ -9,8 +9,22 @@
     // Initialize AOS
     AOS.init();
 
-    //
-    // Get the message element
+    // Switch Text
+    const statusSwitch = $("#status-switch");
+    const statusLabel = $("#status-label");
+    if (statusSwitch.is(":checked")) {
+        statusLabel.text("Active");
+    } else {
+        statusLabel.text("Inactive");
+    }
+    statusSwitch.change(function () {
+        if ($(this).is(":checked")) {
+            statusLabel.text("Active");
+        } else {
+            statusLabel.text("Inactive");
+        }
+    });
+
     // Get the message element
     var messageElement = $("#message");
 

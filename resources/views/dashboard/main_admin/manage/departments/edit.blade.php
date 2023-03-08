@@ -16,7 +16,6 @@
     <x-dashboard-sidebar name="{{ $role->name }}" />
 
     <!-- Main Content -->
-    <x-background />
     <main id="main" class="main">
         <!-- Content Title -->
         <div class="pagetitle">
