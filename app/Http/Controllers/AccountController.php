@@ -42,9 +42,9 @@ class AccountController extends Controller
             ->smart()
             ->addColumn('actions', function ($account) {
                 // Add your action buttons here
-                $viewUrl = route('manage.accounts.show');
-                $editUrl = route('manage.accounts.edit');
-                $deleteUrl = route('manage.accounts.delete', $account->id);
+                $viewUrl = route('manage.accounts.show', $account->id);
+                $editUrl = route('manage.accounts.edit', $account->id);
+                // $deleteUrl = route('manage.accounts.delete', $account->id);
 
                 return
                     '<form action="' . $viewUrl . '" method="POST" class="d-grid mb-1">' .
@@ -98,6 +98,7 @@ class AccountController extends Controller
             'fullname.regex' => 'Please enter a valid name.',
             'fullname.min' => 'Fullname name must be at least :min characters long.',
             'fullname.max' => 'Fullname name must be at most :max characters long.',
+            'email.unique' => 'Email address is already taken.',
             'department.required' => 'Select a Department.',
             'role.required' => 'Select a Role.',
         ];
@@ -105,7 +106,7 @@ class AccountController extends Controller
         // Validate
         $validatedData = Validator::make($request->except('_token'), [
             'fullname' => ['required', "regex:/^[a-zA-Z ,.'-]+(?: [a-zA-Z ,.'-]+)*$/", 'min:5', 'max:75'],
-            'email' => ['required', 'email'],
+            'email' => ['required', 'email', 'unique:account_logins'],
             'department' => ['required'],
             'role' => ['required'],
         ], $messages);
@@ -195,6 +196,7 @@ class AccountController extends Controller
      */
     public function update(Request $request)
     {
+
         $accounts = Accounts::with('account_details', 'account_login')->findOrFail($request->id);
 
         // Define the validation messages in an array variable
@@ -229,20 +231,19 @@ class AccountController extends Controller
             return response()->json(['code' => 400, 'errors' => $error]);
         }
 
+        dd($accounts);
+
         // Update the user details
-        $accounts->account_details->update([
-            'fullname' => $request->name,
+        $accounts->account_details->where('id', $accounts->details_id)->update([
+            'fullname' => $validatedData->validated()['fullname'],
         ]);
 
-        $accounts->account_login->update([
-            'email' => $request->email,
+        $accounts->account_login->where('id', $accounts->login_id)->update([
+            'email' => $validatedData->validated()['email'],
         ]);
 
         $accounts->update([
             'department_id' => $request->department,
-        ]);
-
-        $accounts->update([
             'role_id' => $request->role,
         ]);
 

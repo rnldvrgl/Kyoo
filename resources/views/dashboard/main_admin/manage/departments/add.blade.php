@@ -66,7 +66,7 @@
                                 </div>
 
                                 {{-- Status Role --}}
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <div class="form-floating mb-3">
                                         <select class="form-select" name="status" id="floatingStatus" aria-label="State">
                                             <option value="" selected disabled>Select Status</option>
@@ -74,6 +74,16 @@
                                             <option value="inactive">Inactive</option>
                                         </select>
                                         <label for="floatingStatus">Status</label>
+                                    </div>
+                                </div>
+
+                                {{-- Department Code --}}
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" name="code" id="floatingDepartmentCode"
+                                            placeholder="Department Code" required> <label
+                                            for="floatingDepartmentCode">Department
+                                            Code</label>
                                     </div>
                                 </div>
 
