@@ -44,7 +44,7 @@
                             </div>
 
                             <div class="table-responsive">
-                                <table id="accounts-table" class="table table-bordered" style="width:100%">
+                                <table id="accounts-table" class="table table-bordered table-hover" style="width:100%">
                                     <thead>
                                         <tr>
                                             <th>Name</th>
@@ -77,45 +77,57 @@
                 ajax: '{{ route('manage.accounts.fetch_accounts') }}',
                 columns: [{
                         data: 'account_details.name',
-                        name: 'account_details.name'
+                        name: 'account_details.name',
+                        width: '15%'
                     },
                     {
                         data: 'department.name',
-                        name: 'department.name'
+                        name: 'department.name',
+                        width: '10%'
                     },
                     {
                         data: 'account_role.name',
-                        name: 'account_role.name'
+                        name: 'account_role.name',
+                        width: '10%'
                     },
                     {
                         data: 'account_login.email',
-                        name: 'account_login.email'
+                        name: 'account_login.email',
+                        width: '20%'
                     },
                     {
                         data: 'account_details.phone',
-                        name: 'account_details.phone'
+                        name: 'account_details.phone',
+                        width: '15%'
                     },
                     {
                         data: 'created_at',
                         name: 'created_at',
                         render: function(data) {
                             return moment.utc(data).utcOffset(480).format('YYYY-MM-DD HH:mm:ss');
-                        }
+                        },
+                        width: '15%'
                     },
                     {
                         data: 'updated_at',
                         name: 'updated_at',
                         render: function(data) {
                             return moment.utc(data).utcOffset(480).format('YYYY-MM-DD HH:mm:ss');
-                        }
+                        },
+                        width: '15%'
                     },
                     {
                         data: 'actions',
                         name: 'actions',
                         orderable: false,
-                        searchable: false
+                        searchable: false,
+                        width: '10%',
+                        className: 'text-center'
                     }
-                ]
+                ],
+                paging: true,
+                pageLength: 10,
+                lengthMenu: [10, 25, 50, 100]
             });
         });
     </script>
