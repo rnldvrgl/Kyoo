@@ -67,12 +67,10 @@
                                         </div>
 
                                         {{-- Department Code --}}
-
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control" name="code"
                                                 id="floatingDepartmentCode" placeholder="Department Code" value="{{ $department->code }}" required>
-                                            <label for="floatingDepartmentCode">Department
-                                                Code</label>
+                                            <label for="floatingDepartmentCode">Department Code</label>
                                         </div>
 
                                         <!-- Status Switch -->
