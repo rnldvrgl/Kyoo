@@ -44,7 +44,6 @@
                                     <thead>
                                         <tr>
                                             <th>Name</th>
-                                            <th>Description</th>
                                             <th>Status</th>
                                             <th>Code</th>
                                             <th>Date Added</th>
@@ -76,12 +75,20 @@
                         name: 'name'
                     },
                     {
-                        data: 'description',
-                        name: 'description'
-                    },
-                    {
                         data: 'status',
-                        name: 'status'
+                        name: 'status',
+                        render: function(data) {
+                            var badgeClass = '';
+                            var badgeText = '';
+                            if (data == 'active') {
+                                badgeClass = 'badge rounded-pill text-bg-success';
+                                badgeText = 'Active';
+                            } else if (data == 'inactive') {
+                                badgeClass = 'badge rounded-pill text-bg-danger';
+                                badgeText = 'Inactive';
+                            }
+                            return '<span class="' + badgeClass + '">' + badgeText + '</span>';
+                        }
                     },
                     {
                         data: 'code',

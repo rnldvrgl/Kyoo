@@ -34,11 +34,27 @@ class DepartmentController extends Controller
                 $viewUrl = route('manage.departments.show', $department->id);
                 $editUrl = route('manage.departments.edit', $department->id);
 
-                return '<a href="' . $viewUrl . '" class="btn btn-primary view-department"><i class="fa-solid fa-eye"></i></a>
-                    <a href="' . $editUrl . '" class="btn btn-secondary"><i class="fa-solid fa-pen-to-square"></i></a>
-                    <button class="btn btn-danger delete-department" data-department-id="' . $department->id . '">
-                        <i class="fa-solid fa-trash"></i>
-                    </button>';
+                return
+                    // View 
+                    '<form action="' . $viewUrl . '" method="POST" class="d-grid mb-1">' .
+                    csrf_field() .
+                    '<input name="department_id" type="hidden" value="' . $department->id . '"/>' .
+                    '<button type="submit" class="btn btn-primary view-account"><i class="fa-solid fa-eye"></i></button>' .
+                    '</form>' .
+
+                    // Update
+                    '<form action="' . $editUrl . '" method="POST" class="d-grid mb-1">' .
+                    csrf_field() .
+                    '<input name="department_id" type="hidden" value="' . $department->id . '"/>' .
+                    '<button type="submit" class="btn btn-secondary"><i class="fa-solid fa-pen-to-square"></i></button>' .
+                    '</form>' .
+
+                    // Delete
+                    '<div class="d-grid">' .
+                    '<button class="btn btn-danger delete-account" data-account-id="' . $department->id . '">' .
+                    '<i class="fa-solid fa-trash"></i>' .
+                    '</button>' .
+                    '</div>';
             })
             ->rawColumns(['actions'])
             ->make(true);
@@ -122,9 +138,13 @@ class DepartmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(HomeController $homeController, Request $request)
     {
-        dd("This is the show method, the ID is $id.");
+        $department_id = $request->input('department_id');
+        $department = Department::findOrFail($department_id);
+
+        // dd($request);
+        return view('dashboard.main_admin.manage.departments.view', ['user_data' => $homeController->getUserData(), 'department' => $department]);
     }
 
     /**
@@ -133,9 +153,10 @@ class DepartmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request)
     {
-        dd("This is the edit method, the ID is $id.");
+        dd("This is the edit method, the ID is $request->department_id.");
+        // dd($request);
     }
 
     /**
@@ -145,9 +166,10 @@ class DepartmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        dd("This is the update method, the ID is $id.");
+        dd("This is the update method, the ID is $request->department_id.");
+        // dd($request);
     }
 
     /**

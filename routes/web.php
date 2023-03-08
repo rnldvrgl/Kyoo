@@ -89,14 +89,14 @@ Route::middleware(['auth', 'user-access:Main Admin'])->group(function () {
 		Route::post('/add-department', [DepartmentController::class, 'store'])->name('manage.departments.store');
 
 		// View Department
-		Route::get('/view-department/{id}', [DepartmentController::class, 'show'])->name('manage.departments.show');
+		Route::post('/view-department', [DepartmentController::class, 'show'])->name('manage.departments.show');
 
 		// Edit Department / List of Departments
 		Route::get('/edit-department', [DepartmentController::class, 'index'])->name('manage.departments.index');
 		Route::get('/edit-department/fetch', [DepartmentController::class, 'fetchDepartments'])->name('manage.departments.fetch_departments');
 
 		// Specific Department to Edit
-		Route::get('/edit-department/{id}', [DepartmentController::class, 'edit'])->name('manage.departments.edit');
+		Route::post('/edit-department', [DepartmentController::class, 'edit'])->name('manage.departments.edit');
 
 		// Update Department Account
 		Route::patch('/update-department', [DepartmentController::class, 'update'])->name('manage.departments.update');
