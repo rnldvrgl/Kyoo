@@ -39,7 +39,8 @@
                         <div class="card-body">
                             <h5 class="card-title">Departments</h5>
                             <div class="table-responsive">
-                                <table id="departments-table" class="display w-100">
+                                <table id="departments-table" class="table table-bordered table-hover"
+                                    style="width:100%">
                                     <caption>List of Departments</caption>
                                     <thead>
                                         <tr>
@@ -67,12 +68,14 @@
     <script>
         $(function() {
             $('#departments-table').DataTable({
+                responsive: true,
                 processing: true,
                 serverSide: true,
                 ajax: '{{ route('manage.departments.fetch_departments') }}',
                 columns: [{
                         data: 'name',
-                        name: 'name'
+                        name: 'name',
+                        width: '30%'
                     },
                     {
                         data: 'status',
@@ -87,34 +90,44 @@
                                 badgeClass = 'badge rounded-pill text-bg-danger';
                                 badgeText = 'Inactive';
                             }
-                            return '<span class="' + badgeClass + '">' + badgeText + '</span>';
-                        }
+                            return '<span class="' + badgeClass + '" style="font-size: 14px;" >' +
+                                badgeText + '</span>';
+                        },
+                        width: '15%',
                     },
                     {
                         data: 'code',
-                        name: 'code'
+                        name: 'code',
+                        width: '10%'
                     },
                     {
                         data: 'created_at',
                         name: 'created_at',
                         render: function(data) {
                             return moment.utc(data).utcOffset(480).format('YYYY-MM-DD HH:mm:ss');
-                        }
+                        },
+                        width: '20%'
                     },
                     {
                         data: 'updated_at',
                         name: 'updated_at',
                         render: function(data) {
                             return moment.utc(data).utcOffset(480).format('YYYY-MM-DD HH:mm:ss');
-                        }
+                        },
+                        width: '20%'
                     },
                     {
                         data: 'actions',
                         name: 'actions',
                         orderable: false,
-                        searchable: false
+                        searchable: false,
+                        width: '10%',
+                        className: 'text-center'
                     }
-                ]
+                ],
+                paging: true,
+                pageLength: 10,
+                lengthMenu: [10, 25, 50, 100]
             });
         });
     </script>

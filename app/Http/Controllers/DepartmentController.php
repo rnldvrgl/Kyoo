@@ -35,25 +35,27 @@ class DepartmentController extends Controller
                 $editUrl = route('manage.departments.edit', $department->id);
 
                 return
+                    '<div class="hstack mx-auto">' .
                     // View 
-                    '<form action="' . $viewUrl . '" method="POST" class="d-grid mb-1">' .
+                    '<form action="' . $viewUrl . '" method="POST">' .
                     csrf_field() .
                     '<input name="department_id" type="hidden" value="' . $department->id . '"/>' .
-                    '<button type="submit" class="btn btn-primary view-account"><i class="fa-solid fa-eye"></i></button>' .
+                    '<button type="submit" class="btn btn-primary me-md-1"><i class="fa-solid fa-eye"></i></button>' .
                     '</form>' .
 
                     // Update
-                    '<form action="' . $editUrl . '" method="POST" class="d-grid mb-1">' .
+                    '<form action="' . $editUrl . '" method="POST">' .
                     csrf_field() .
                     '<input name="department_id" type="hidden" value="' . $department->id . '"/>' .
-                    '<button type="submit" class="btn btn-secondary"><i class="fa-solid fa-pen-to-square"></i></button>' .
+                    '<button type="submit" class="btn btn-secondary me-md-1"><i class="fa-solid fa-pen-to-square"></i></button>' .
                     '</form>' .
 
                     // Delete
                     '<div class="d-grid">' .
-                    '<button class="btn btn-danger delete-account" data-account-id="' . $department->id . '">' .
+                    '<button class="btn btn-danger delete-department" data-department-id="' . $department->id . '">' .
                     '<i class="fa-solid fa-trash"></i>' .
                     '</button>' .
+                    '</div>' .
                     '</div>';
             })
             ->rawColumns(['actions'])
@@ -143,7 +145,7 @@ class DepartmentController extends Controller
         $department = Department::findOrFail($request->department_id);
 
         return view('dashboard.main_admin.manage.departments.view', [
-            'user_data' => $homeController->getUserData(), 
+            'user_data' => $homeController->getUserData(),
             'department' => $department
         ]);
     }
