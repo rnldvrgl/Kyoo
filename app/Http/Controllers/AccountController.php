@@ -51,7 +51,7 @@ class AccountController extends Controller
                     '<form action="' . $viewUrl . '" method="POST" class="d-grid mb-1">' .
                     csrf_field() .
                     '<input name="account_id" type="hidden" value="' . $account->id . '"/>' .
-                    '<button type="submit" class="btn btn-primary view-account"><i class="fa-solid fa-eye"></i></button>' .
+                    '<button type="submit" class="btn btn-primary"><i class="fa-solid fa-eye"></i></button>' .
                     '</form>' .
 
                     // Update
@@ -190,7 +190,7 @@ class AccountController extends Controller
         return view('dashboard.main_admin.manage.accounts.edit', [
             'user_data' => $homeController->getUserData(),
             'all_data' => $homeController->getAllData(),
-            'account' => Accounts::with('account_details', 'account_login', 'account_role', 'department')->findOrFail($request->input('account_id'))
+            'account' => Accounts::with('account_details', 'account_login', 'account_role', 'department')->findOrFail($request->account_id)
         ]);
     }
 

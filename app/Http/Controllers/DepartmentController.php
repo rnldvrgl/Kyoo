@@ -39,7 +39,7 @@ class DepartmentController extends Controller
                     '<form action="' . $viewUrl . '" method="POST" class="d-grid mb-1">' .
                     csrf_field() .
                     '<input name="department_id" type="hidden" value="' . $department->id . '"/>' .
-                    '<button type="submit" class="btn btn-primary view-account"><i class="fa-solid fa-eye"></i></button>' .
+                    '<button type="submit" class="btn btn-primary"><i class="fa-solid fa-eye"></i></button>' .
                     '</form>' .
 
                     // Update
@@ -51,7 +51,7 @@ class DepartmentController extends Controller
 
                     // Delete
                     '<div class="d-grid">' .
-                    '<button class="btn btn-danger delete-account" data-account-id="' . $department->id . '">' .
+                    '<button class="btn btn-danger delete-department" data-department-id="' . $department->id . '">' .
                     '<i class="fa-solid fa-trash"></i>' .
                     '</button>' .
                     '</div>';
@@ -59,7 +59,6 @@ class DepartmentController extends Controller
             ->rawColumns(['actions'])
             ->make(true);
     }
-
 
     /**
      * Show the form for creating a new resource.
@@ -154,10 +153,14 @@ class DepartmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request)
+    public function edit(HomeController $homeController, Request $request)
     {
-        dd("This is the edit method, the ID is $request->department_id.");
-        // dd($request);
+        // Redirect to the View page along with the user's records
+        return view('dashboard.main_admin.manage.departments.edit', [
+            'user_data' => $homeController->getUserData(),
+            'all_data' => $homeController->getAllData(),
+            'department' => Department::findOrFail($request->department_id)
+        ]);
     }
 
     /**
@@ -169,8 +172,7 @@ class DepartmentController extends Controller
      */
     public function update(Request $request)
     {
-        dd("This is the update method, the ID is $request->department_id.");
-        // dd($request);
+        dd($request);
     }
 
     /**

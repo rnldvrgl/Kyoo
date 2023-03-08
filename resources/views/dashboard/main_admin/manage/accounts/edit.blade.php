@@ -109,8 +109,8 @@
 
                                     {{-- TODO: Update functionality --}}
                                     <button type="submit" class="btn btn-success" id="btn-update-account">
-                                        <i class="fa-solid fa-user-plus"></i>
                                         Update
+                                        <i class="fa-solid fa-chevron-right"></i>
                                     </button>
                                 </div>
                             </form>
