@@ -6,7 +6,7 @@
     $role = $user_data['role'];
     $login = $user_data['login'];
     $department = $user_data['department'];
-    $profile_image = $details->profile_image;
+    $profile_image = optional($details)->profile_image;
 @endphp
 
 <x-layout>
@@ -41,13 +41,15 @@
                     <div class="card">
                         <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
                             <img id="image_avatar"
-                                src="@if ($profile_image == null || $profile_image == '') {{ asset('storage/profile_images/avatar.png') }}  @else {{ asset("storage/$profile_image") }} @endif"
+                                src="{{ asset('storage/profile_images/' . ($profile_image ?? 'avatar.png')) }}"
                                 alt="Profile" class="rounded-circle" />
+
                             <h2>{{ $details->name }}</h2>
                             <h3>{{ $role->name }}</h3>
                         </div>
                     </div>
                 </div>
+
                 <div class="col-xl-8">
                     <div class="card">
                         <div class="card-body pt-3">
@@ -152,7 +154,7 @@
                                             <div class="col-md-8 col-lg-9">
                                                 <button type="button" class="btn" data-bs-toggle="modal"
                                                     data-bs-target="#verticalycentered">
-                                                    <img src="@if ($profile_image == null || $profile_image == '') {{ asset('storage/profile_images/avatar.png') }}  @else {{ asset("storage/$profile_image") }} @endif"
+                                                    <img src="{{ asset('storage/profile_images/' . ($profile_image ?? 'avatar.png')) }}"
                                                         alt="Profile Picture" class="img-thumbnail"
                                                         id="image_preview_container" style="max-height: 120px;">
                                                 </button>
@@ -161,7 +163,7 @@
                                                         <div class="modal-content">
                                                             <div class="modal-body text-center">
                                                                 <img id="preview_image"
-                                                                    src="@if ($profile_image == null || $profile_image == '') {{ asset('storage/profile_images/avatar.png') }}  @else {{ asset("storage/$profile_image") }} @endif"
+                                                                    src="{{ asset('storage/profile_images/' . ($profile_image ?? 'avatar.png')) }}"
                                                                     alt="Profile Picture"
                                                                     style="height: 100%; width: 100%;">
                                                             </div>
@@ -184,7 +186,8 @@
                                                 Name</label>
                                             <div class="col-md-8 col-lg-9">
                                                 <input name="name" type="text" class="form-control" id="name"
-                                                    value="{{ $details->name }}" pattern="^[a-zA-Z ,.'-]+(?: [a-zA-Z ,.'-]+)*$" required />
+                                                    value="{{ $details->name }}"
+                                                    pattern="^[a-zA-Z ,.'-]+(?: [a-zA-Z ,.'-]+)*$" required />
                                             </div>
                                         </div>
 
@@ -195,14 +198,19 @@
                                                 <textarea name="about" class="form-control" id="about" style="height: 75px" required>{{ $details->about }}</textarea>
                                             </div>
                                         </div>
-                                        <div class="row mb-3">
-                                            <label for="department"
-                                                class="col-md-4 col-lg-3 col-form-label">Department</label>
-                                            <div class="col-md-8 col-lg-9">
-                                                <input name="department" type="text" class="form-control"
-                                                    id="department" value="{{ $department->name }}" disabled />
+
+                                        @if ($role->name != 'Main Admin')
+                                            <div class="row mb-3">
+                                                <label for="department"
+                                                    class="col-md-4 col-lg-3 col-form-label">Department</label>
+                                                <div class="col-md-8 col-lg-9">
+                                                    <input name="department" type="text" class="form-control"
+                                                        id="department" value="{{ $department->name }}"
+                                                        {{ $role->name == 'Main Admin' ? '' : 'disabled' }} />
+                                                </div>
                                             </div>
-                                        </div>
+                                        @endif
+
                                         <div class="row mb-3">
                                             <label for="position"
                                                 class="col-md-4 col-lg-3 col-form-label">Position</label>
@@ -211,6 +219,7 @@
                                                     id="position" value="{{ $role->name }}" disabled />
                                             </div>
                                         </div>
+
                                         <div class="row mb-3">
                                             <label for="Address"
                                                 class="col-md-4 col-lg-3 col-form-label">Address</label>
@@ -228,14 +237,30 @@
                                                     pattern="^(09|\+639)\d{9}$" required />
                                             </div>
                                         </div>
-                                        <div class="row mb-3">
-                                            <label for="Email"
-                                                class="col-md-4 col-lg-3 col-form-label">Email</label>
-                                            <div class="col-md-8 col-lg-9">
-                                                <input name="email" type="email" class="form-control"
-                                                    id="Email" value="{{ $login->email }}" disabled />
+                                        @if ($role->name == 'Main Admin')
+                                            <div class="row mb-3">
+                                                <label for="Email"
+                                                    class="col-md-4 col-lg-3 col-form-label">Email</label>
+                                                <div class="col-md-8 col-lg-9">
+                                                    <input name="email" type="email" class="form-control"
+                                                        id="Email" value="{{ $login->email }}"
+                                                        pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-]+)(\.[a-zA-Z]{2,5}){1,2}$"
+                                                        required />
+                                                </div>
                                             </div>
-                                        </div>
+                                        @else
+                                            <div class="row mb-3">
+                                                <label for="Email"
+                                                    class="col-md-4 col-lg-3 col-form-label">Email</label>
+                                                <div class="col-md-8 col-lg-9">
+                                                    <input name="email" type="email" class="form-control"
+                                                        id="Email" value="{{ $login->email }}" disabled />
+                                                </div>
+                                            </div>
+                                        @endif
+
+
+
                                         <div class="text-center">
                                             <button id="btn-save" type="submit" class="btn btn-success">
                                                 Save Changes

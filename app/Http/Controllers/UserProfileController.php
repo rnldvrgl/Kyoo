@@ -74,21 +74,23 @@ class UserProfileController extends Controller
             'profile_image' => ['nullable', 'image', 'mimes:jpeg,png']
         ], $messages);
 
-
         # check if there is any error
         if ($validatedData->fails()) {
             return response()->json(['code' => 400, 'errors' => $validatedData->errors()]);
         }
 
+        $profile_image = null;
         # check if the request has profile image
         if ($request->hasFile('profile_image')) {
-            $imagePath = 'storage/' . $account_details->profile_image;
-            # check whether the image exists in the directory
+            $filename = $request->file('profile_image')->getClientOriginalName();
+            $profile_image = $filename;
+            $request->file('profile_image')->storeAs('public/profile_images', $filename);
+            $imagePath = 'storage/app/public/profile_images/' . $account_details->profile_image;
+            # check whether the old image exists in the directory
             if (File::exists($imagePath)) {
-                # delete image
+                # delete old image
                 File::delete($imagePath);
             }
-            $profile_image = $request->profile_image->store('profile_images', 'public');
         }
 
         // Update the user details
@@ -100,9 +102,12 @@ class UserProfileController extends Controller
             'profile_image' => $profile_image ?? $account_details->profile_image
         ]);
 
+
+
         // Redirect
         return response()->json(['code' => 200, 'msg' => 'Profile Updated Successfully.']);
     }
+
 
     public function updatePassword(Request $request, $id)
     {

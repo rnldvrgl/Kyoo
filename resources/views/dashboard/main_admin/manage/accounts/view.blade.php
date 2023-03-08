@@ -42,7 +42,7 @@
                             </a>
 
                             <img id="image_avatar"
-                                src="@if ($account->account_details->profile_image == null || $account->account_details->profile_image == '') {{ asset('storage/profile_images/avatar.png') }}  @else {{ asset("storage/{$account->account_details->profile_image}") }} @endif"
+                                src="{{ asset('storage/profile_images/' . ($account->account_details->profile_image ?? 'avatar.png')) }}"
                                 alt="Profile" class="rounded-circle" />
                             <h2>{{ $account->account_details->name }}</h2>
                             <h3>{{ $account->account_role->name }}</h3>

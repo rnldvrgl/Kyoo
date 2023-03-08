@@ -33,7 +33,7 @@ class AccountController extends Controller
     {
         $accounts = Accounts::with('account_details', 'account_login', 'account_role', 'department')
             ->select('accounts.*')
-            ->whereHas('account_role', function($query){
+            ->whereHas('account_role', function ($query) {
                 $query->where('name', '<>', 'Main Admin');
             })
             ->orderByDesc('accounts.created_at');
@@ -46,16 +46,27 @@ class AccountController extends Controller
                 $editUrl = route('manage.accounts.edit', $account->id);
                 // $deleteUrl = route('manage.accounts.delete', $account->id);
 
-                return '<a href="' . $viewUrl . '" class="btn btn-primary view-account"><i class="fa-solid fa-eye"></i></a>
-                        <a href="' . $editUrl . '" class="btn btn-secondary"><i class="fa-solid fa-pen-to-square"></i></a>
-                        <button class="btn btn-danger delete-account" data-account-id="'. $account->id .'">
-                            <i class="fa-solid fa-trash"></i>
-                        </button>
-                        ';
+                return
+                    '<form action="' . $viewUrl . '" method="POST" class="d-grid mb-1">' .
+                    csrf_field() .
+                    '<input name="account_id" type="hidden" value="' . $account->id . '"/>' .
+                    '<button type="submit" class="btn btn-primary view-account"><i class="fa-solid fa-eye"></i></button>' .
+                    '</form>' .
+                    '<form action="' . $editUrl . '" method="POST" class="d-grid mb-1">' .
+                    csrf_field() .
+                    '<input name="account_id" type="hidden" value="' . $account->id . '"/>' .
+                    '<button type="submit" class="btn btn-secondary"><i class="fa-solid fa-pen-to-square"></i></button>' .
+                    '</form>' .
+                    '<div class="d-grid">' .
+                    '<button class="btn btn-danger delete-account" data-account-id="' . $account->id . '">' .
+                    '<i class="fa-solid fa-trash"></i>' .
+                    '</button>' .
+                    '</div>';
             })
             ->rawColumns(['actions'])
             ->toJson();
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -151,12 +162,12 @@ class AccountController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(HomeController $homeController, $id)
+    public function show(HomeController $homeController, Request $request)
     {
         // Redirect to the View page along with the user's records
         return view('dashboard.main_admin.manage.accounts.view', [
             'user_data' => $homeController->getUserData(),
-            'account' => Accounts::with('account_details', 'account_login', 'account_role', 'department')->findOrFail($id)
+            'account' => Accounts::with('account_details', 'account_login', 'account_role', 'department')->findOrFail($request->input('account_id'))
         ]);
     }
 
@@ -166,13 +177,13 @@ class AccountController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(HomeController $homeController, $id)
+    public function edit(HomeController $homeController, Request $request)
     {
         // Redirect to the View page along with the user's records
         return view('dashboard.main_admin.manage.accounts.edit', [
             'user_data' => $homeController->getUserData(),
             'all_data' => $homeController->getAllData(),
-            'account' => Accounts::with('account_details', 'account_login', 'account_role', 'department')->findOrFail($id)
+            'account' => Accounts::with('account_details', 'account_login', 'account_role', 'department')->findOrFail($request->input('account_id'))
         ]);
     }
 
@@ -187,7 +198,7 @@ class AccountController extends Controller
     {
 
         $accounts = Accounts::with('account_details', 'account_login')->findOrFail($request->id);
-        
+
         // Define the validation messages in an array variable
         $messages = [
             'fullname.required' => 'Please provide a full name.',
@@ -211,8 +222,8 @@ class AccountController extends Controller
 
         // Check if email already exists
         $checkEmail = AccountLogin::checkEmail($validatedData->validated()['email'], $accounts->login_id);
-        
-        if ($checkEmail == false){
+
+        if ($checkEmail == false) {
             // Email exists?
             $error = [
                 'errors' => 'Email already exists'

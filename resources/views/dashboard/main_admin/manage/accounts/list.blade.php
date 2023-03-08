@@ -46,22 +46,19 @@
                             @endif
 
                             <div class="table-responsive">
-                                <table id="accounts-table" class="display w-100">
-                                    <caption>List of Accounts</caption>
+                                <table id="accounts-table" class="table table-bordered" style="width:100%">
                                     <thead>
                                         <tr>
                                             <th>Name</th>
                                             <th>Department</th>
-                                            <th>Position</th>
+                                            <th>Role</th>
                                             <th>Email</th>
                                             <th>Phone</th>
-                                            <th>Date Added</th>
-                                            <th>Date Updated</th>
+                                            <th>Created At</th>
+                                            <th>Updated At</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                    </tbody>
                                 </table>
                             </div>
                         </div>
@@ -76,6 +73,7 @@
     <script>
         $(function() {
             $('#accounts-table').DataTable({
+                responsive: true,
                 processing: true,
                 serverSide: true,
                 ajax: '{{ route('manage.accounts.fetch_accounts') }}',
@@ -101,11 +99,17 @@
                     },
                     {
                         data: 'created_at',
-                        name: 'created_at'
+                        name: 'created_at',
+                        render: function(data) {
+                            return moment.utc(data).utcOffset(480).format('YYYY-MM-DD HH:mm:ss');
+                        }
                     },
                     {
                         data: 'updated_at',
-                        name: 'updated_at'
+                        name: 'updated_at',
+                        render: function(data) {
+                            return moment.utc(data).utcOffset(480).format('YYYY-MM-DD HH:mm:ss');
+                        }
                     },
                     {
                         data: 'actions',
@@ -117,4 +121,5 @@
             });
         });
     </script>
+
 </x-layout>

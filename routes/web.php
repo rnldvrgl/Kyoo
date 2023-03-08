@@ -64,20 +64,20 @@ Route::middleware(['auth', 'user-access:Main Admin'])->group(function () {
 		Route::post('/add-account', [AccountController::class, 'store'])->name('manage.accounts.store');
 
 		// View Account
-		Route::get('/view-account/{id}', [AccountController::class, 'show'])->name('manage.accounts.show');
+		Route::post('/view-account', [AccountController::class, 'show'])->name('manage.accounts.show');
 
 		// Edit Account / List of Accounts
 		Route::get('/edit-account', [AccountController::class, 'index'])->name('manage.accounts.index');
 		Route::get('/edit-account/fetch', [AccountController::class, 'fetchAccounts'])->name('manage.accounts.fetch_accounts');
 
 		// Specific Employee to Edit
-		Route::get('/edit-account/{id}', [AccountController::class, 'edit'])->name('manage.accounts.edit');
+		Route::POST('/edit-account', [AccountController::class, 'edit'])->name('manage.accounts.edit');
 
 		// Update Employee Account
 		Route::patch('/update-account', [AccountController::class, 'update'])->name('manage.accounts.update');
 
 		// Delete Account
-    	Route::delete('/delete-account/{id}', [AccountController::class, 'destroy'])->name('manage.accounts.delete');
+		Route::delete('/delete-account/{id}', [AccountController::class, 'destroy'])->name('manage.accounts.delete');
 	});
 
 	// Manage Departments
