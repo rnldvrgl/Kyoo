@@ -53,7 +53,7 @@
 }
 
 .dashboard .card-icon {
-	font-size: 32px;
+	font-size: 30px;
 	line-height: 0;
 	width: 64px;
 	height: 64px;
@@ -61,19 +61,34 @@
 	flex-grow: 0;
 }
 
-.dashboard .sales-card .card-icon {
-	color: #4154f1;
-	background: #f6f6fe;
+.dashboard .primary-card .card-icon {
+	color: rgb(12, 46, 65);
+	background: #6096B4;
 }
 
-.dashboard .revenue-card .card-icon {
-	color: #2eca6a;
-	background: #e0f8e9;
+.dashboard .secondary-card .card-icon {
+	color: #646464;
+	background: #9D9D9D;
 }
 
-.dashboard .customers-card .card-icon {
-	color: #ff771d;
-	background: #ffecdf;
+.dashboard .success-card .card-icon {
+	color: #4f9c6e;
+	background: #B5F1CC;
+}
+
+.dashboard .danger-card .card-icon {
+	color: #c25a5a;
+	background: #E97777;
+}
+
+.dashboard .warning-card .card-icon {
+	color: #b08360;
+	background: #FEBE8C;
+}
+
+.dashboard .dark-card .card-icon {
+	color: #ffffff;
+	background: #292929;
 }
 
 /* Activity */

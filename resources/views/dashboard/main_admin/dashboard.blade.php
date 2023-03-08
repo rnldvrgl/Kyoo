@@ -30,58 +30,60 @@
                 </ol>
             </nav>
         </div>
+        <h5 class="date mb-3"></h5>
         <section class="section dashboard">
             <div class="row">
                 <div class="col-lg-8">
                     <div class="row">
                         <div class="col-xxl-4 col-md-6">
-                            <div class="card info-card sales-card">
+                            <div class="card info-card warning-card">
                                 <div class="card-body">
                                     <h5 class="card-title">
-                                        Sample
+                                        Pending <span>| Today</span>
                                     </h5>
                                     <div class="d-flex align-items-center">
                                         <div
                                             class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                            <i class="fa-solid fa-stopwatch"></i>
                                         </div>
                                         <div class="ps-3">
-                                            <h6>0</h6>
+                                            <h6>5 visitors</h6>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-xxl-4 col-md-6">
-                            <div class="card info-card revenue-card">
+                            <div class="card info-card primary-card">
                                 <div class="card-body">
                                     <h5 class="card-title">
-                                        Sample</span>
+                                        Current Serving <span>| Today</span>
                                     </h5>
                                     <div class="d-flex align-items-center">
                                         <div
                                             class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-currency-dollar"></i>
+                                            <i class="fa-solid fa-comment-dots"></i>
                                         </div>
                                         <div class="ps-3">
-                                            <h6>0</h6>
+                                            <h6>4 visitors</h6>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-xxl-4 col-xl-12">
-                            <div class="card info-card customers-card">
+                            <div class="card info-card success-card">
                                 <div class="card-body">
                                     <h5 class="card-title">
-                                        Sample
+                                        Total Served <span>| Today</span>
                                     </h5>
                                     <div class="d-flex align-items-center">
                                         <div
                                             class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-people"></i>
+                                            <i class="fa-solid fa-user-group"></i>
                                         </div>
                                         <div class="ps-3">
-                                            <h6>0</h6>
+                                            <h6>15 visitors</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -91,9 +93,8 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title">
-                                        Number of Users in Queues
+                                        Sample
                                     </h5>
-
                                 </div>
                             </div>
                         </div>
@@ -182,11 +183,20 @@
                     </div>
                 </div>
                 <div class="col-lg-4">
-                    <div class="card">
+                    <div class="card info-card secondary-card">
                         <div class="card-body">
                             <h5 class="card-title">
-                                Sample
+                                Active Staff
                             </h5>
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="fa-solid fa-users"></i>
+                                </div>
+                                <div class="ps-3 vstack justify-content-center">
+                                    <h6>4 out of 4</h6>
+                                    <p>staff are currently serving</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="card">
