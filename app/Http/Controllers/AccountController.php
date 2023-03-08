@@ -47,18 +47,19 @@ class AccountController extends Controller
                 // $deleteUrl = route('manage.accounts.delete', $account->id);
 
                 return
+                    '<div class="hstack mx-auto">' .
                     // View 
-                    '<form action="' . $viewUrl . '" method="POST" class="d-grid mb-1">' .
+                    '<form action="' . $viewUrl . '" method="POST">' .
                     csrf_field() .
                     '<input name="account_id" type="hidden" value="' . $account->id . '"/>' .
-                    '<button type="submit" class="btn btn-primary view-account"><i class="fa-solid fa-eye"></i></button>' .
+                    '<button type="submit" class="btn btn-primary me-md-1"><i class="fa-solid fa-eye"></i></button>' .
                     '</form>' .
 
                     // Update
-                    '<form action="' . $editUrl . '" method="POST" class="d-grid mb-1">' .
+                    '<form action="' . $editUrl . '" method="POST">' .
                     csrf_field() .
                     '<input name="account_id" type="hidden" value="' . $account->id . '"/>' .
-                    '<button type="submit" class="btn btn-secondary"><i class="fa-solid fa-pen-to-square"></i></button>' .
+                    '<button type="submit" class="btn btn-secondary me-md-1"><i class="fa-solid fa-pen-to-square"></i></button>' .
                     '</form>' .
 
                     // Delete
@@ -66,6 +67,7 @@ class AccountController extends Controller
                     '<button class="btn btn-danger delete-account" data-account-id="' . $account->id . '">' .
                     '<i class="fa-solid fa-trash"></i>' .
                     '</button>' .
+                    '</div>' .
                     '</div>';
             })
             ->rawColumns(['actions'])
