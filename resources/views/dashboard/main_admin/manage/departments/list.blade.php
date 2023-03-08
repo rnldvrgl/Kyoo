@@ -17,10 +17,6 @@
     <x-dashboard-sidebar name="{{ $role->name }}" />
 
     <!-- Main Content -->
-    <div id="background-wrap">
-        <div class="opacity-25" id="background-image"></div>
-        <div class="opacity-100" id="background-rcc"></div>
-    </div>
     <main id="main" class="main">
         <!-- Content Title -->
         <div class="pagetitle">
@@ -45,7 +41,7 @@
                             <div id="res">
                                 {{-- Append Success/Error Messages here --}}
                             </div>
-                            
+
                             <div class="table-responsive">
                                 <table id="departments-table" class="table table-bordered table-hover"
                                     style="width:100%">
@@ -112,7 +108,8 @@
                         data: 'created_at',
                         name: 'created_at',
                         render: function(data) {
-                            return moment.utc(data).utcOffset(480).format('YYYY-MM-DD HH:mm:ss');
+                            return moment.utc(data).utcOffset(480).format(
+                                'MMMM D YYYY, hh:mm:ss A');
                         },
                         width: '20%'
                     },
@@ -120,7 +117,8 @@
                         data: 'updated_at',
                         name: 'updated_at',
                         render: function(data) {
-                            return moment.utc(data).utcOffset(480).format('YYYY-MM-DD HH:mm:ss');
+                            return moment.utc(data).utcOffset(480).format(
+                                'MMMM D YYYY, hh:mm:ss A');
                         },
                         width: '20%'
                     },
