@@ -77,11 +77,15 @@
                                         </div>
 
                                         <!-- Status Switch -->
-                                        <div class="form-check form-switch mb-5">
+                                        <div class="form-check form-switch mb-4">
                                             <input class="form-check-input" type="checkbox" id="status-switch"
                                                 name="status" value="active"
                                                 {{ $department->status == 'active' ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="status-switch">Active</label>
+                                            <label class="form-check-label" for="status-switch">
+                                                <span class="fw-bold">Status:</span>
+                                                <span class="ms-2"
+                                                    id="status-label">{{ $department->status == 'active' ? 'Active' : 'Inactive' }}</span>
+                                            </label>
                                         </div>
 
                                         {{-- Buttons --}}
