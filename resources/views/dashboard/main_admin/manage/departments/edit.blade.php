@@ -78,8 +78,8 @@
                                         <!-- Status Switch -->
                                         <div class="form-check form-switch mb-5">
                                             <input class="form-check-input" type="checkbox" id="status-switch"
-                                                name="status" 
-                                                {{ $department->status == 'active' ? 'checked value=active' : 'value=' }}>
+                                                name="status" value="active"
+                                                {{ $department->status == 'active' ? 'checked' : '' }}>
                                             <label class="form-check-label" for="status-switch">Active</label>
                                         </div>
 
