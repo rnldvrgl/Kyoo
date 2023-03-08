@@ -57,7 +57,7 @@
                         class="{{ $uri == 'main-admin/manage/departments/add-department' ? 'active' : '' }}">
                         <i class="fa-solid fa-circle-plus"></i><span>Add Department</span>
                     </a>
-                    <a href="{{ route('manage.departments.edit') }}"
+                    <a href="{{ route('manage.departments.index') }}"
                         class="{{ $uri == 'main-admin/manage/departments/edit-department' ? 'active' : '' }}">
                         <i class="fa-solid fa-pen-to-square"></i><span>Edit Department</span>
                     </a>

@@ -85,10 +85,24 @@ Route::middleware(['auth', 'user-access:Main Admin'])->group(function () {
 		// Go to Add Department
 		Route::get('/add-department', [DepartmentController::class, 'create'])->name('manage.departments.add');
 
+		// Store Department
 		Route::post('/add-department', [DepartmentController::class, 'store'])->name('manage.departments.store');
 
-		// Edit Department
-		Route::get('/edit-department', [DepartmentController::class, 'index'])->name('manage.departments.edit');
+		// View Department
+		Route::get('/view-department/{id}', [DepartmentController::class, 'show'])->name('manage.departments.show');
+
+		// Edit Department / List of Departments
+		Route::get('/edit-department', [DepartmentController::class, 'index'])->name('manage.departments.index');
+		Route::get('/edit-department/fetch', [DepartmentController::class, 'fetchDepartments'])->name('manage.departments.fetch_departments');
+
+		// Specific Department to Edit
+		Route::get('/edit-department/{id}', [DepartmentController::class, 'edit'])->name('manage.departments.edit');
+
+		// Update Department Account
+		Route::patch('/update-department', [DepartmentController::class, 'update'])->name('manage.departments.update');
+
+		// Delete Department
+		Route::delete('/delete-department/{id}', [DepartmentController::class, 'destroy'])->name('manage.departments.delete');
 	});
 
 	// Manage Frequent Questions

@@ -37,17 +37,15 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Accounts</h5>
+                            <h5 class="card-title">Departments</h5>
                             <div class="table-responsive">
                                 <table id="departments-table" class="display w-100">
-                                    <caption>List of Accounts</caption>
+                                    <caption>List of Departments</caption>
                                     <thead>
                                         <tr>
                                             <th>Name</th>
-                                            <th>Department</th>
-                                            <th>Position</th>
-                                            <th>Email</th>
-                                            <th>Phone</th>
+                                            <th>Status</th>
+                                            <th>Code</th>
                                             <th>Date Added</th>
                                             <th>Date Updated</th>
                                             <th>Actions</th>
@@ -65,4 +63,45 @@
         <!-- /Content Section -->
     </main>
     <!-- /Main Content -->
+
+    <script>
+        $(function() {
+            $('#departments-table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: '{{ route('manage.departments.fetch_departments') }}',
+                columns: [{
+                        data: 'name',
+                        name: 'name'
+                    },
+                    {
+                        data: 'description',
+                        name: 'description'
+                    },
+                    {
+                        data: 'status',
+                        name: 'status'
+                    },
+                    {
+                        data: 'code',
+                        name: 'code'
+                    },
+                    {
+                        data: 'created_at',
+                        name: 'created_at'
+                    },
+                    {
+                        data: 'updated_at',
+                        name: 'updated_at'
+                    },
+                    {
+                        data: 'actions',
+                        name: 'actions',
+                        orderable: false,
+                        searchable: false
+                    }
+                ]
+            });
+        });
+    </script>
 </x-layout>
