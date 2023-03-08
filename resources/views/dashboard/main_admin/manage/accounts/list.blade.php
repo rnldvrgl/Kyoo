@@ -39,11 +39,9 @@
                         <div class="card-body">
                             <h5 class="card-title">Accounts</h5>
 
-                            @if (session('deleteSuccess'))
-                                <div class="alert alert-danger">
-                                    {{ session('deleteSuccess') }}
-                                </div>
-                            @endif
+                            <div id="res">
+                                {{-- Append Success/Error Messages here --}}
+                            </div>
 
                             <div class="table-responsive">
                                 <table id="accounts-table" class="table table-bordered" style="width:100%">
