@@ -18,6 +18,7 @@
     <x-dashboard-sidebar name="{{ $role->name }}" />
 
     <!-- Main Content -->
+    <x-background />
     <main id="main" class="main">
         <!-- Content Title -->
         <div class="pagetitle">
@@ -75,22 +76,28 @@
 
 
                                         <!-- Status Switch -->
-                                        <div class="form-check form-switch mb-5">
+                                        <div class="form-check form-switch mb-4">
                                             <input class="form-check-input" type="checkbox" id="status-switch"
                                                 name="status" value="active">
                                             <label class="form-check-label" for="status-switch">Active</label>
                                         </div>
 
                                         {{-- Buttons --}}
-                                        <div class="d-grid gap-2 mb-3">
-                                            <button type="submit" class="btn btn-success" id="btn-save-department">
-                                                <i class="fa-solid fa-plus"></i>
-                                                Add Department
-                                            </button>
-                                            <button type="reset" class="btn btn-kyoored">
-                                                <i class="fa-regular fa-trash-can"></i>
-                                                Clear Input Fields
-                                            </button>
+
+                                        <div class="row">
+                                            <div class="col">
+                                                <button type="reset" class="w-100  btn btn-kyoored">
+                                                    <i class="fa-regular fa-trash-can"></i>
+                                                    Clear Input Fields
+                                                </button>
+                                            </div>
+                                            <div class="col">
+                                                <button type="submit" class="w-100 btn btn-success"
+                                                    id="btn-save-department">
+                                                    <i class="fa-solid fa-plus"></i>
+                                                    Add Department
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

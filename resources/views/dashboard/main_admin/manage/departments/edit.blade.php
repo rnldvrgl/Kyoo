@@ -16,6 +16,7 @@
     <x-dashboard-sidebar name="{{ $role->name }}" />
 
     <!-- Main Content -->
+    <x-background />
     <main id="main" class="main">
         <!-- Content Title -->
         <div class="pagetitle">
@@ -55,7 +56,8 @@
                                         {{-- Department Name --}}
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control" name="name"
-                                                id="floatingDepartmentName" placeholder="Department Name" value="{{ $department->name }}" required>
+                                                id="floatingDepartmentName" placeholder="Department Name"
+                                                value="{{ $department->name }}" required>
                                             <label for="floatingDepartmentName">Department Name</label>
                                         </div>
 
@@ -70,7 +72,8 @@
 
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control" name="code"
-                                                id="floatingDepartmentCode" placeholder="Department Code" value="{{ $department->code }}" required>
+                                                id="floatingDepartmentCode" placeholder="Department Code"
+                                                value="{{ $department->code }}" required>
                                             <label for="floatingDepartmentCode">Department
                                                 Code</label>
                                         </div>

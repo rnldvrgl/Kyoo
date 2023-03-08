@@ -17,6 +17,10 @@
     <x-dashboard-sidebar name="{{ $role->name }}" />
 
     <!-- Main Content -->
+    <div id="background-wrap">
+        <div class="opacity-25" id="background-image"></div>
+        <div class="opacity-100" id="background-rcc"></div>
+    </div>
     <main id="main" class="main">
         <!-- Content Title -->
         <div class="pagetitle">

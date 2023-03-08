@@ -9,6 +9,7 @@
 @endphp
 
 <x-layout>
+    <x-background />
     {{-- Dashboard Header Navbar --}}
     <x-dashboard-header :details="$details" :role="$role" />
 
