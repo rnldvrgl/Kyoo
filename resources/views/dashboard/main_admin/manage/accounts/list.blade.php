@@ -104,7 +104,8 @@
                         data: 'created_at',
                         name: 'created_at',
                         render: function(data) {
-                            return moment.utc(data).utcOffset(480).format('YYYY-MM-DD HH:mm:ss');
+                            return moment.utc(data).utcOffset(480).format(
+                                'MMMM D YYYY, hh:mm:ss A');
                         },
                         width: '15%'
                     },
@@ -112,7 +113,8 @@
                         data: 'updated_at',
                         name: 'updated_at',
                         render: function(data) {
-                            return moment.utc(data).utcOffset(480).format('YYYY-MM-DD HH:mm:ss');
+                            return moment.utc(data).utcOffset(480).format(
+                                'MMMM D YYYY, hh:mm:ss A');
                         },
                         width: '15%'
                     },
