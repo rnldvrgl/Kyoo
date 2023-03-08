@@ -24,7 +24,7 @@ class DepartmentController extends Controller
             'all_data' => $all_data,
         ]);
     }
-    
+
     public function fetchDepartments()
     {
         $departments = Department::all()->sortByDesc('created_at');
@@ -39,7 +39,7 @@ class DepartmentController extends Controller
 
                 return '<a href="' . $viewUrl . '" class="btn btn-primary view-department"><i class="fa-solid fa-eye"></i></a>
                         <a href="' . $editUrl . '" class="btn btn-secondary"><i class="fa-solid fa-pen-to-square"></i></a>
-                        <button class="btn btn-danger delete-department" data-department-id="'. $department->id .'">
+                        <button class="btn btn-danger delete-department" data-department-id="' . $department->id . '">
                             <i class="fa-solid fa-trash"></i>
                         </button>
                         ';
@@ -82,7 +82,6 @@ class DepartmentController extends Controller
             'name.unique' => 'Department name already exists.',
             'description.required' => 'Select a Department.',
             'description.min' => 'Description must be atleast :min to :max characters long.',
-            'status.required' => 'Select a status.',
             'code.required' => 'Department code is required.',
             'code.min' => 'The department code field must be at least :min characters long.',
             'code.max' => 'The department code field must not be greater than :max characters long.',
@@ -92,7 +91,7 @@ class DepartmentController extends Controller
         $validatedData = Validator::make($request->except('_token'), [
             'name' => ['required', "regex:/^[a-zA-Z ,.'-]+(?: [a-zA-Z ,.'-]+)*$/", 'min:5', 'max:75', 'unique:departments'],
             'description' => ['required', 'string', 'min:5'],
-            'status' => ['required'],
+            'status' => ['nullable'],
             'code' => ['required', 'min:1', 'max:5']
         ], $messages);
 
@@ -104,8 +103,8 @@ class DepartmentController extends Controller
         // Access each validated data
         $name = $validatedData->validated()['name'];
         $description = $validatedData->validated()['description'];
-        $status = $validatedData->validated()['status'];
         $code = $validatedData->validated()['code'];
+        $status = $request->has('status') ? 'active' : 'inactive';
 
         // Insert
         Department::create([
@@ -118,6 +117,7 @@ class DepartmentController extends Controller
         // Redirect
         return response()->json(['code' => 200, 'msg' => 'Department added successfully.']);
     }
+
 
     /**
      * Display the specified resource.
