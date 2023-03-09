@@ -9,6 +9,6 @@ class AccountLoginTableSeeder extends Seeder
 {
     public function run()
     {
-        AccountLogin::factory(4)->create();
+        AccountLogin::factory(7)->create();
     }
 }

@@ -10,6 +10,8 @@ class Accounts extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['details_id', 'login_id', 'role_id', 'department_id'];
+
     public function account_details()
     {
         return $this->belongsTo(AccountDetails::class, 'details_id');
@@ -27,14 +29,12 @@ class Accounts extends Model
 
     public function department()
     {
-        return $this->belongsTo(Department::class, 'dept_id');
+        return $this->belongsTo(Department::class, 'department_id');
     }
 
     protected function type(): Attribute
     {
         return new Attribute(
-            // ? 0 = MA, 1 = DA, 2 = DS, 3 = L
-            // ? MA = Main Admin, DA = Department Admin, DS = Department Staff, L = Librarian
             get: fn ($value) =>  ["Main Admin", "Department Admin", "Staff", "Library"][$value],
         );
     }

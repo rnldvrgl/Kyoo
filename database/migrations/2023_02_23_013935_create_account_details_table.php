@@ -16,9 +16,10 @@ return new class extends Migration
         Schema::create('account_details', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('address');
-            $table->string('phone');
-            $table->text('about');
+            $table->string('address')->nullable();
+            $table->string('phone')->nullable();
+            $table->text('about')->nullable();
+            $table->string('profile_image')->nullable();
             $table->timestamps();
         });
     }

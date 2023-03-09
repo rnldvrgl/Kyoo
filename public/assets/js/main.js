@@ -9,6 +9,32 @@
     // Initialize AOS
     AOS.init();
 
+    // Switch Text
+    const statusSwitch = $("#status-switch");
+    const statusLabel = $("#status-label");
+    if (statusSwitch.is(":checked")) {
+        statusLabel.text("Active");
+    } else {
+        statusLabel.text("Inactive");
+    }
+    statusSwitch.change(function () {
+        if ($(this).is(":checked")) {
+            statusLabel.text("Active");
+        } else {
+            statusLabel.text("Inactive");
+        }
+    });
+
+    // Get the message element
+    var messageElement = $("#message");
+
+    // If the message element exists
+    if (messageElement.length) {
+        // Hide the message after 3 seconds
+        setTimeout(function () {
+            messageElement.fadeOut();
+        }, 3000);
+    }
     /**
      * Easy selector helper function
      */
