@@ -56,7 +56,9 @@ $(document).ready(function () {
                     $("#btn-save-account").html("Add Account");
 
                     // Auto refresh the current page
-                    location.reload();
+                    setTimeout(function () {
+                        window.location.href = "edit-account";
+                    }, 2000);
                 }
             },
         });
@@ -179,7 +181,9 @@ $(document).ready(function () {
                     $("#btn-save-department").html("Add Department");
 
                     // Auto refresh the current page
-                    location.reload();
+                    setTimeout(function () {
+                        window.location.href = "edit-department";
+                    }, 2000);
                 }
             },
         });
