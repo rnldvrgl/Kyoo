@@ -47,7 +47,7 @@ Route::get('/live_queue', function () {
 
 Route::get('/frequent_questions', function () {
 	return view('frequent-questions');
-})->name('faqs_landing');
+})->name('frequent_questions');
 
 // * Main Admin Routes
 Route::middleware(['auth', 'user-access:Main Admin'])->group(function () {
@@ -61,7 +61,7 @@ Route::middleware(['auth', 'user-access:Main Admin'])->group(function () {
 		Route::get('/add-account', [AccountController::class, 'create'])->name('manage.accounts.add');
 
 		// Store Account
-		Route::post('/add-account', [AccountController::class, 'store'])->name('manage.accounts.store');
+		Route::post('/store-account', [AccountController::class, 'store'])->name('manage.accounts.store');
 
 		// View Account
 		Route::post('/view-account', [AccountController::class, 'show'])->name('manage.accounts.show');
@@ -86,7 +86,7 @@ Route::middleware(['auth', 'user-access:Main Admin'])->group(function () {
 		Route::get('/add-department', [DepartmentController::class, 'create'])->name('manage.departments.add');
 
 		// Store Department
-		Route::post('/add-department', [DepartmentController::class, 'store'])->name('manage.departments.store');
+		Route::post('/store-department', [DepartmentController::class, 'store'])->name('manage.departments.store');
 
 		// View Department
 		Route::post('/view-department', [DepartmentController::class, 'show'])->name('manage.departments.show');

@@ -3,8 +3,8 @@ $(document).ready(function () {
     var courses = {
         "Graduate School": [
             {
-                value: "Master Baiting",
-                text: "Master Baiting",
+                value: "Master",
+                text: "Master",
             },
         ],
         College: [

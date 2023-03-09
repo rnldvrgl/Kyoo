@@ -91,8 +91,7 @@
                                         <select class="form-select" name="role" id="floatingRole" aria-label="State">
                                             <option value="" disabled>Select Account Role</option>
                                             @foreach ($all_data['account_roles'] as $role)
-                                                <option
-                                                    {{ $account->account_role->id == $role->id ? 'selected' : '' }}
+                                                <option {{ $account->account_role->id == $role->id ? 'selected' : '' }}
                                                     value="{{ $role->id }}">{{ $role->name }}</option>
                                             @endforeach
                                         </select>

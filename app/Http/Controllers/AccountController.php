@@ -232,7 +232,7 @@ class AccountController extends Controller
         // Check if email already exists
         $checkEmail = AccountLogin::checkEmail($validatedData->validated()['email'], $accounts->login_id);
 
-        if ($checkEmail == false) {
+        if ($checkEmail == true) {
             // Email exists?
             $error = [
                 'errors' => 'Email already exists'

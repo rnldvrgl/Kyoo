@@ -23,9 +23,8 @@ $(document).ready(function () {
             contentType: false,
             processData: false,
             success: (response) => {
-
                 console.log(response);
-                
+
                 // If may error
                 if (response.code == 400) {
                     // List of errors
@@ -57,7 +56,9 @@ $(document).ready(function () {
                     $("#btn-save-account").html("Add Account");
 
                     // Auto refresh the current page
-                    location.reload();
+                    setTimeout(function () {
+                        window.location.href = "edit-account";
+                    }, 2000);
                 }
             },
         });
@@ -102,10 +103,9 @@ $(document).ready(function () {
 
                     $("#btn-save").attr("disabled", false);
                     $("#btn-save").html("Update");
-                } 
+                }
                 // If walang error
                 else if (response.code == 200) {
-
                     let success =
                         '<div class="alert alert-success">' +
                         response.msg +
@@ -117,7 +117,7 @@ $(document).ready(function () {
 
                     // Auto refresh the current page
                     setTimeout(function () {
-                        window.location.href = 'edit-account';
+                        window.location.href = "edit-account";
                     }, 2000);
                 }
             },
@@ -148,9 +148,8 @@ $(document).ready(function () {
             contentType: false,
             processData: false,
             success: (response) => {
-
                 console.log(response);
-                
+
                 // If may error
                 if (response.code == 400) {
                     // List of errors
@@ -182,7 +181,9 @@ $(document).ready(function () {
                     $("#btn-save-department").html("Add Department");
 
                     // Auto refresh the current page
-                    location.reload();
+                    setTimeout(function () {
+                        window.location.href = "edit-department";
+                    }, 2000);
                 }
             },
         });
@@ -227,10 +228,9 @@ $(document).ready(function () {
 
                     $("#btn-update-department").attr("disabled", false);
                     $("#btn-update-department").html("Update");
-                } 
+                }
                 // If walang error
                 else if (response.code == 200) {
-
                     let success =
                         '<div class="alert alert-success">' +
                         response.msg +
@@ -242,7 +242,7 @@ $(document).ready(function () {
 
                     // Auto refresh the current page
                     setTimeout(function () {
-                        window.location.href = 'edit-department';
+                        window.location.href = "edit-department";
                     }, 2000);
                 }
             },

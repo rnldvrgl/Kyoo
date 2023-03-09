@@ -8,17 +8,16 @@
 
 <x-layout>
     <div class="opacity-25" id="background-image"></div>
-    <section class="container d-flex justify-content-center vh-100 p-5">
-        <div class="row row-cols-2 justify-content-center align-items-center h-100 w-100 p-lg-5">
+    <section class="container d-flex justify-content-center p-5">
+        <div class="row row-cols-1 row-cols-md-2 justify-content-center align-items-center p-lg-5">
             {{-- Left --}}
             <div
-                class="col-lg-5 bg-kyoodark d-none d-lg-flex flex-column justify-content-center align-items-center h-100 px-5 text-center text-white">
+                class="col-md-5 bg-kyoodark d-flex flex-column justify-content-center align-items-center h-100 px-5 text-center text-white">
                 <img class="img-fluid mb-3" src="{{ $kyooLogo }}" alt="Kyoo logo">
                 <h4 class="fw-bold text-uppercase">Queueing Management System</h4>
             </div>
             {{-- Right --}}
-            <div
-                class="col-12 col-lg-7 bg-light shadow d-flex flex-column justify-content-center align-items-center h-100">
+            <div class="col-md-7 bg-light shadow d-flex flex-column justify-content-center align-items-center p-5">
                 <img class="img-fluid mb-3" src="{{ $avatarIcon }}" alt="avatar icon">
                 <h4 class="fw-semibold">Login to Your Account</h4>
 
@@ -68,7 +67,7 @@
                         </button>
                     </div>
 
-                    <div class="d-grid col-6 mx-auto">
+                    <div class="d-grid col-6 mx-auto mb-3">
                         <a href="{{ route('kiosk') }}" class="btn btn-link">
                             Access Kiosk
                         </a>
@@ -78,5 +77,4 @@
             </div>
         </div>
     </section>
-
 </x-layout>

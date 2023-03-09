@@ -215,6 +215,8 @@ class KioskController extends Controller
 
 
         // print ticket
+        // Get current date and time
+        $date = date("M-d-y H:i:s A");
         try {
             // Connect to the printer
             $connector = new WindowsPrintConnector("XP-58", "USB002");
@@ -240,6 +242,12 @@ class KioskController extends Controller
             $printer->setTextSize(1, 1);
             $printer->text("$department->name\n\n");
 
+            // Print date and time
+            $printer->setEmphasis(true);
+            $printer->text("DATE/TIME:\n");
+            $printer->setEmphasis(false);
+            $printer->text("$date\n\n");
+
             // Print student information
             $printer->setJustification(Printer::JUSTIFY_LEFT);
             $printer->setEmphasis(true);
@@ -260,6 +268,8 @@ class KioskController extends Controller
             $printer->setJustification(Printer::JUSTIFY_CENTER);
             $printer->setEmphasis(false);
             $printer->text("===============================\n");
+            $printer->text("Kindly wait for your ticket\n");
+            $printer->text("number to be called!\n");
             $printer->text("THANK YOU FOR USING KYOO!\n");
             $printer->text("CREATED BY: OPTIMUS BYTES\n");
             $printer->text("\n\n\n");
