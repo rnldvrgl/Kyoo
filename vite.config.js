@@ -1,8 +1,12 @@
 import { defineConfig } from "vite";
 import laravel from "laravel-vite-plugin";
 import path from "path";
+import fastifyStatic from "fastify-static";
 
 export default defineConfig({
+    server: {
+        middleware: [fastifyStatic({ root: path.join(__dirname, "public") })],
+    },
     plugins: [
         laravel({
             input: [
