@@ -217,7 +217,7 @@ class KioskController extends Controller
         // print ticket
         try {
             // Connect to the printer
-            $connector = new WindowsPrintConnector("XP-58", "USB003");
+            $connector = new WindowsPrintConnector("XP-58", "USB002");
             $printer = new Printer($connector);
             // Set print mode to bold and double height
             $printer->setJustification(Printer::JUSTIFY_CENTER);

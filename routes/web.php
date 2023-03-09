@@ -47,7 +47,7 @@ Route::get('/live_queue', function () {
 
 Route::get('/frequent_questions', function () {
 	return view('frequent-questions');
-})->name('faqs_landing');
+})->name('frequent_questions');
 
 // * Main Admin Routes
 Route::middleware(['auth', 'user-access:Main Admin'])->group(function () {

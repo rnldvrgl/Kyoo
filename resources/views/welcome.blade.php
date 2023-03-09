@@ -106,7 +106,7 @@
                     </div>
                 </div>
                 <div class="text-center mt-5">
-                    <a href="/frequent-questions" data-aos="fade-up" data-aos-anchor-placement="top-bottom"
+                    <a href="/frequent_questions" data-aos="fade-up" data-aos-anchor-placement="top-bottom"
                         class="btn btn-outline-kyoored">View More
                         Questions
                         >></a>
