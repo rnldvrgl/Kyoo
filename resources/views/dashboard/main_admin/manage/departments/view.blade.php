@@ -35,7 +35,7 @@
         <!-- Content Section -->
         <section class="section profile">
             <div class="row">
-                <div class="col-xl-3">
+                <div class="col-xl-7">
                     <div class="card">
                         <div
                             class="card-body profile-card pt-4 d-flex flex-column justify-content-center align-items-center">
@@ -47,8 +47,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-xl-9">
                     <div class="card profile-overview">
                         <div class="card-body pt-3">
                             <h4 class="text-kyoored mb-3">Department Details</h4>
@@ -104,7 +102,86 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-xl-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Add Service</h5>
+                            <div id="res">
+                                {{-- Append Success/Error Messages here --}}
+                            </div>
 
+                            {{-- {{ route('manage.services.store') }} --}}
+                            <form id="add-services-frm" action="#" method="POST">
+
+                                @csrf
+
+                                {{-- Full Name --}}
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-floating mb-3"> <input type="text" name="service_name"
+                                                class="form-control" id="floatingServiceName"
+                                                placeholder="Service Name">
+                                            <label for="floatingServiceName">Service
+                                                Name</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Status Switch -->
+                                <div class="form-check form-switch mb-3">
+                                    <input class="form-check-input" type="checkbox" id="status-switch" name="status"
+                                        value="active">
+                                    <label class="form-check-label" for="status-switch">Active</label>
+                                </div>
+                                <div class="row gap-2 gap-md-0">
+                                    <div class="col-md-6 order-md-first order-last">
+                                        <div class="d-grid gap-2">
+                                            <button type="reset" class="btn btn-danger">
+                                                <i class="fas fa-eraser me-2"></i>
+                                                Clear Input Fields
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 order-md-last order-first">
+                                        <div class="d-grid gap-2">
+                                            <button type="submit" class="btn btn-success">
+                                                <i class="fa-solid fa-plus me-2"></i>
+                                                Add Service
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header mb-3">
+                            <h4 class="text-kyoored ">Assigned Services</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12">
+                                    <ul class="list-group">
+                                        @foreach ($services as $service)
+                                            <li
+                                                class="list-group-item d-flex justify-content-between align-items-center">
+                                                {{ $service->name }}
+                                                @if ($service->status == 'active')
+                                                    <span
+                                                        class="badge bg-success rounded-pill">{{ $service->status }}</span>
+                                                @elseif ($service->status == 'inactive')
+                                                    <span
+                                                        class="badge bg-danger rounded-pill">{{ $service->status }}</span>
+                                                @endif
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </section>
         <!-- /Content Section -->

@@ -143,10 +143,14 @@ class DepartmentController extends Controller
     public function show(HomeController $homeController, Request $request)
     {
         $department = Department::findOrFail($request->department_id);
+        // Get services of the selected department
+        $services = $department->services;
 
         return view('dashboard.main_admin.manage.departments.view', [
+            'all_data' => $homeController->getAllData(),
             'user_data' => $homeController->getUserData(),
-            'department' => $department
+            'department' => $department,
+            'services' => $services
         ]);
     }
 

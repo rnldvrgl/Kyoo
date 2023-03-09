@@ -18,7 +18,6 @@
     <x-dashboard-sidebar name="{{ $role->name }}" />
 
     <!-- Main Content -->
-    <x-background />
     <main id="main" class="main">
         <!-- Content Title -->
         <div class="pagetitle">
@@ -85,17 +84,24 @@
                                     <label class="form-check-label" for="status-switch">Active</label>
                                 </div>
 
-
                                 {{-- Buttons --}}
-                                <div class="d-grid gap-2 mb-3">
-                                    <button type="submit" class="btn btn-success" id="btn-save-service">
-                                        <i class="fa-solid fa-plus"></i>
-                                        Add Service
-                                    </button>
-                                    <button type="reset" class="btn btn-kyoored">
-                                        <i class="fa-regular fa-trash-can"></i>
-                                        Clear Input Fields
-                                    </button>
+                                <div class="row mt-4 gap-2 gap-md-0">
+                                    <div class="col-md-6">
+                                        <div class="d-grid gap-2">
+                                            <button type="reset" class="btn btn-danger">
+                                                <i class="fas fa-eraser me-2"></i>
+                                                Clear Input Fields
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="d-grid gap-2">
+                                            <button type="submit" class="btn btn-success">
+                                                <i class="fa-solid fa-plus me-2"></i>
+                                                Add Department
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </form>
                         </div>

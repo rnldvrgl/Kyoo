@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\AccountDetails;
 use App\Models\AccountLogin;
 use App\Models\Department;
+use App\Models\Service;
 
 class HomeController extends Controller
 {
@@ -51,9 +52,11 @@ class HomeController extends Controller
 		$role = AccountRole::all();
 		$login = AccountLogin::all();
 		$details = AccountDetails::all();
+		$services = Service::all();
 
 		$data = [
 			'departments' => $department,
+			// 'services' => $services,
 			'account_roles' => $role,
 			'account_logins' => $login,
 			'account_details' => $details,
