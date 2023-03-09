@@ -217,7 +217,7 @@ class KioskController extends Controller
         // print ticket
         try {
             // Connect to the printer
-            $connector = new WindowsPrintConnector("XP-58", "USB002");
+            $connector = new WindowsPrintConnector("XP-58", "USB003");
             $printer = new Printer($connector);
             // Set print mode to bold and double height
             $printer->setJustification(Printer::JUSTIFY_CENTER);
@@ -260,6 +260,8 @@ class KioskController extends Controller
             $printer->setJustification(Printer::JUSTIFY_CENTER);
             $printer->setEmphasis(false);
             $printer->text("===============================\n");
+            $printer->text("Kindly wait for your ticket\n");
+            $printer->text("number to be called!\n");
             $printer->text("THANK YOU FOR USING KYOO!\n");
             $printer->text("CREATED BY: OPTIMUS BYTES\n");
             $printer->text("\n\n\n");
