@@ -1,0 +1,30 @@
+{
+  "public/assets/images/Hexagon.svg": {
+    "file": "assets/Hexagon-e7018cfb.svg",
+    "src": "public/assets/images/Hexagon.svg"
+  },
+  "resources/css/app.css": {
+    "file": "assets/app-4ed993c7.js",
+    "isEntry": true,
+    "src": "resources/css/app.css"
+  },
+  "resources/js/app.css": {
+    "file": "assets/app-3ed1aff3.css",
+    "src": "resources/js/app.css"
+  },
+  "resources/js/app.js": {
+    "assets": [
+      "assets/Hexagon-e7018cfb.svg"
+    ],
+    "css": [
+      "assets/app-3ed1aff3.css"
+    ],
+    "file": "assets/app-063cf8a2.js",
+    "isEntry": true,
+    "src": "resources/js/app.js"
+  },
+  "resources/sass/app.scss": {
+    "file": "assets/app-3ed1aff3.css",
+    "src": "resources/js/app.css"
+  }
+}
