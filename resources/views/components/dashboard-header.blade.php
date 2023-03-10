@@ -4,9 +4,11 @@
         <div class="d-flex align-items-center justify-content-between">
             <a href="#" class="logo d-flex align-items-center">
                 <img src="{{ asset('assets/images/kyoo-logo.png') }}" alt="" />
-                <span class="d-none d-lg-block">
-                    Queueing Management System
-                </span>
+                @if (request()->is('live_queue'))
+                    <span class="d-none d-lg-block">
+                        Queueing Management System
+                    </span>
+                @endif
             </a>
 
             @if ($role->name === 'Main Admin')

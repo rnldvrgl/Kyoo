@@ -10,6 +10,9 @@
 
 <x-layout>
 
+    {{-- Back to top button --}}
+    <x-return-top />
+
     {{-- Dashboard Header Navbar --}}
     <x-dashboard-header :details="$details" :role="$role" />
 
@@ -156,7 +159,7 @@
                     <div class="card">
                         <div class="card-header d-flex justify-content-between align-items-center mb-3">
                             <h4 class="text-kyoored ">Assigned Services</h4>
-                            <button type="button" class="d-block d-md-none btn btn-primary" data-bs-toggle="modal"
+                            <button type="button" class="d-block d-md-none btn btn-success" data-bs-toggle="modal"
                                 data-bs-target="#add-service-modal">Add Service</button>
                         </div>
                         <div class="card-body">
@@ -185,7 +188,6 @@
                         aria-labelledby="add-service-modal-label" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
-
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="add-service-modal-label">Add Service</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
