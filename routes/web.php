@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KioskController;
+use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\UserProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -130,15 +131,8 @@ Route::middleware(['auth', 'user-access:Main Admin'])->group(function () {
 
 	// Manage Services
 	Route::prefix('main-admin/manage/services')->group(function () {
-		// Add Service
-		Route::get('/add-service', function () {
-			$user_data = (new HomeController)->getUserData();
-			$all_data = (new HomeController)->getAllData();
-			return view('dashboard.main_admin.manage.services.add', [
-				'user_data' => $user_data,
-				'all_data' => $all_data,
-			]);
-		})->name('manage.services.add');
+		// Store Department
+		Route::post('/add-service', [ServiceController::class, 'store'])->name('manage.services.add');
 
 		// Edit Service
 		Route::get('/edit-service', function () {

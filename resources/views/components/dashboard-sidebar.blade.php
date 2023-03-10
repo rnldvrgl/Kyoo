@@ -67,26 +67,11 @@
 
         {{-- Services --}}
         <li class="nav-item">
-            <a class="nav-link collapsed {{ $uri == 'main-admin/manage/services/add-service' || $uri == 'main-admin/manage/services/edit-service' ? 'active' : '' }}"
-                data-bs-target="#serv-nav" data-bs-toggle="collapse" href="#">
+            <a href="{{ route('manage.services.edit') }}"
+                class="nav-link {{ $uri == 'main-admin/manage/services/edit-service' ? 'active' : '' }}">
                 <i class="fa-solid fa-hand-holding"></i>
-                <span>Services</span>
-                <i class="fa-solid fa-chevron-down ms-auto"></i>
+                <span>Service List</span>
             </a>
-            <ul id="serv-nav"
-                class="nav-content collapse{{ $uri == 'main-admin/manage/services/add-service' || $uri == 'main-admin/manage/services/edit-service' ? ' show' : '' }}"
-                data-bs-parent="#sidebar-nav">
-                <li>
-                    <a href="{{ route('manage.services.add') }}"
-                        class="{{ $uri == 'main-admin/manage/services/add-service' ? 'active' : '' }}">
-                        <i class="fa-solid fa-circle-plus"></i><span>Add Service</span>
-                    </a>
-                    <a href="{{ route('manage.services.edit') }}"
-                        class="{{ $uri == 'main-admin/manage/services/edit-service' ? 'active' : '' }}">
-                        <i class="fa-solid fa-list-ol"></i><span>Service List</span>
-                    </a>
-                </li>
-            </ul>
         </li>
 
         {{-- Frequently Asked Questions --}}

@@ -103,24 +103,23 @@
                     </div>
                 </div>
                 <div class="col-xl-5">
-                    <div class="card">
+                    <div class="card d-none d-md-block">
                         <div class="card-body">
                             <h5 class="card-title">Add Service</h5>
                             <div id="res">
                                 {{-- Append Success/Error Messages here --}}
                             </div>
-
-                            {{-- {{ route('manage.services.store') }} --}}
-                            <form id="add-services-frm" action="#" method="POST">
+                            <form id="add-services-frm" action="{{ route('manage.services.add') }}" method="POST"
+                                autocomplete="off">
 
                                 @csrf
-
+                                <input type="hidden" name="department_id" value="{{ $department->id }}">
                                 {{-- Full Name --}}
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="form-floating mb-3"> <input type="text" name="service_name"
-                                                class="form-control" id="floatingServiceName"
-                                                placeholder="Service Name">
+                                                class="form-control" id="floatingServiceName" placeholder="Service Name"
+                                                pattern="^[a-zA-Z0-9 ]*$">
                                             <label for="floatingServiceName">Service
                                                 Name</label>
                                         </div>
@@ -144,7 +143,7 @@
                                     </div>
                                     <div class="col-md-6 order-md-last order-first">
                                         <div class="d-grid gap-2">
-                                            <button type="submit" class="btn btn-success">
+                                            <button id="btn-save-service" type="submit" class="btn btn-success">
                                                 <i class="fa-solid fa-plus me-2"></i>
                                                 Add Service
                                             </button>
@@ -155,8 +154,10 @@
                         </div>
                     </div>
                     <div class="card">
-                        <div class="card-header mb-3">
+                        <div class="card-header d-flex justify-content-between align-items-center mb-3">
                             <h4 class="text-kyoored ">Assigned Services</h4>
+                            <button type="button" class="d-block d-md-none btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#add-service-modal">Add Service</button>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -180,7 +181,54 @@
                             </div>
                         </div>
                     </div>
+                    <div class="modal fade" id="add-service-modal" tabindex="-1"
+                        aria-labelledby="add-service-modal-label" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="add-service-modal-label">Add Service</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div id="res"></div>
+                                    <form id="add-services-frm" action="#" method="POST" autocomplete="off">
+                                        @csrf
+                                        <input type="hidden" name="department_id" value="{{ $department->id }}">
+                                        {{-- Full Name --}}
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-floating mb-3"> <input type="text"
+                                                        name="service_name" class="form-control"
+                                                        id="floatingServiceName" placeholder="Service Name"
+                                                        pattern="^[a-zA-Z0-9 ]*$">
+                                                    <label for="floatingServiceName">Service
+                                                        Name</label>
+                                                </div>
+                                            </div>
+                                        </div>
 
+                                        <!-- Status Switch -->
+                                        <div class="form-check form-switch mb-3">
+                                            <input class="form-check-input" type="checkbox" id="status-switch"
+                                                name="status" value="active">
+                                            <label class="form-check-label" for="status-switch">Active</label>
+                                        </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="reset" class="btn btn-danger">
+                                        <i class="fas fa-eraser me-2"></i>
+                                        Clear Input Fields
+                                    </button>
+                                    <button -d="btn-save-service" type="submit" class="btn btn-success">
+                                        <i class="fa-solid fa-plus me-2"></i>
+                                        Add Service
+                                    </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
