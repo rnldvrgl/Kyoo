@@ -185,14 +185,16 @@
                         aria-labelledby="add-service-modal-label" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
+
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="add-service-modal-label">Add Service</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <div id="res"></div>
-                                    <form id="add-services-frm" action="#" method="POST" autocomplete="off">
+                                    <div id="res-modal"></div>
+                                    <form id="add-services-frm-modal" action="{{ route('manage.services.add') }}"
+                                        method="POST" autocomplete="off">
                                         @csrf
                                         <input type="hidden" name="department_id" value="{{ $department->id }}">
                                         {{-- Full Name --}}
@@ -210,9 +212,9 @@
 
                                         <!-- Status Switch -->
                                         <div class="form-check form-switch mb-3">
-                                            <input class="form-check-input" type="checkbox" id="status-switch"
+                                            <input class="form-check-input" type="checkbox" id="status-switch-modal"
                                                 name="status" value="active">
-                                            <label class="form-check-label" for="status-switch">Active</label>
+                                            <label class="form-check-label" for="status-switch-modal">Active</label>
                                         </div>
                                 </div>
                                 <div class="modal-footer">

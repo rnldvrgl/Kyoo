@@ -18,14 +18,23 @@ class ServiceController extends Controller
             'service_name.regex' => 'Please enter a valid Service name.',
             'service_name.min' => 'Service name must be at least :min characters long.',
             'service_name.max' => 'Service name must not be greater than :max characters long.',
-            'service_name.unique' => 'Service name already exists.',
+            'service_name.unique' => 'Service name already exists in this department.',
         ];
 
-        $validatedData = Validator::make($request->except('_token'), [
-            'department_id' => 'required|exists:departments,id',
-            'service_name' => 'required', "regex:/^[a-zA-Z0-9 ]*$/", 'min:3', 'max:20', 'unique:services',
-            'status' => ['nullable'],
-        ], $messages);
+        $validatedData = Validator::make(
+            $request->except('_token'),
+            [
+                'department_id' => 'required|exists:departments,id',
+                'service_name' => [
+                    'required',
+                    "regex:/^[a-zA-Z0-9 ]*$/",
+                    'min:3',
+                    'max:20',
+                ],
+                'status' => ['nullable'],
+            ],
+            $messages
+        );
 
         // check if there is any error
         if ($validatedData->fails()) {
@@ -43,7 +52,6 @@ class ServiceController extends Controller
             'department_id' => $department_id,
             'status' => $status,
         ]);
-
 
         // Redirect
         return response()->json(['code' => 200, 'msg' => 'Service added successfully.']);

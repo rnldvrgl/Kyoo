@@ -10,8 +10,8 @@
     AOS.init();
 
     // Switch Text
-    const statusSwitch = $("#status-switch");
-    const statusLabel = $("#status-label");
+    let statusSwitch = $("#status-switch");
+    let statusLabel = $("label[for='status-switch']");
     if (statusSwitch.is(":checked")) {
         statusLabel.text("Active");
     } else {
@@ -22,6 +22,21 @@
             statusLabel.text("Active");
         } else {
             statusLabel.text("Inactive");
+        }
+    });
+
+    let statusSwitchModal = $("#status-switch-modal");
+    let statusLabelModal = $("label[for='status-switch-modal']");
+    if (statusSwitchModal.is(":checked")) {
+        statusLabelModal.text("Active");
+    } else {
+        statusLabelModal.text("Inactive");
+    }
+    statusSwitchModal.change(function () {
+        if ($(this).is(":checked")) {
+            statusLabelModal.text("Active");
+        } else {
+            statusLabelModal.text("Inactive");
         }
     });
 
