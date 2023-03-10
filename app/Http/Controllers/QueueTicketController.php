@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\QueueTicket;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class QueueTicketController extends Controller
@@ -85,5 +86,20 @@ class QueueTicketController extends Controller
             }
         }
         return $cancelledCount;
+    }
+
+    public function getYear()
+    {
+        $years = QueueTicket::distinct()
+            ->pluck('date')
+            ->map(function ($date) {
+                return Carbon::parse($date)->year;
+            })
+            ->unique()
+            ->sort()
+            ->values()
+            ->toArray();
+
+        return compact('years');
     }
 }

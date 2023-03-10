@@ -41,6 +41,9 @@
     {{-- Chart.js CDN --}}
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+    {{-- Google Chart CDN --}}
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
     {{-- AOS CSS --}}
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
@@ -104,6 +107,8 @@
     {{-- Kiosk JS --}}
     <script src="{{ asset('assets/js/kiosk.js') }}"></script>
 
+    {{-- Chart JS --}}
+    <script src="{{ asset('assets/js/chart.js') }}"></script>
 </body>
 
 </html>

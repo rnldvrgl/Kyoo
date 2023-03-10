@@ -93,7 +93,9 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title fw-bold">
-                                        Sample
+                                        <div id="queue-chart">
+                                            {{-- Insert Chart here --}}
+                                        </div>
                                     </h5>
                                 </div>
                             </div>
