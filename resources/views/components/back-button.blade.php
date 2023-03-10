@@ -9,7 +9,7 @@
             </button>
         @else
             <a href="{{ route('transaction-summary') }}" class="btn btn-kyoodark btn-lg">
-                <i class="fa-solid fa-right-from-bracket"></i> Back to Transaction Summary
+                <i class="fa-solid fa-chevron-left"></i> Return to Transaction Summary
             </a>
         @endif
     </div>
