@@ -29,7 +29,7 @@ $(document).ready(function () {
         $.confirm({
             title: "Confirmation",
             content: "Are you sure you want to queue now?",
-            type: "orange",
+            type: "green",
             icon: "fa fa-question",
             theme: "modern",
             buttons: {

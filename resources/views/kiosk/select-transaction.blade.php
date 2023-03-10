@@ -3,36 +3,40 @@
 <x-layout>
     {{-- Background Image --}}
     <div id="background-image" style="opacity: 5%;"></div>
-    {{-- Main Content --}}
-    <div class="container-fluid d-flex flex-column p-3 gap-3">
-        {{-- Cancel Queue Button --}}
-        <div class="row mb-3">
-            <div class="col-6">
-                <x-cancel-queue-button />
-            </div>
-        </div>
 
-        {{-- Progress Bar --}}
+    {{-- Cancel Queue Button --}}
+    <x-cancel-queue-button />
+
+    {{-- Progress Bar --}}
+    <div class="container px-3 pt-5">
         <div class="row mb-3">
             <div class="col-12">
                 <x-progress-bar :progress="50" />
             </div>
         </div>
+    </div>
+
+    {{-- Main Content --}}
+    <div class="container-fluid d-flex flex-column px-5 py-4">
 
         {{-- Transaction Selection Heading --}}
         <div class="row align-items-center">
             <div class="col">
                 <h1>Select Transaction</h1>
-                <p>Select the transaction you need</p>
+                <p>Select the transaction you need.</p>
+                <p>If you're unsure which transaction to select, please ask a staff member for assistance.</p>
             </div>
         </div>
 
         {{-- List of Available Transactions --}}
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3 align-items-center justify-content-center">
+        <div class="row align-items-center justify-content-start">
             {{-- Loop over services --}}
+            @php
+                $selected_services = session('selected_services', []);
+                $counter = 0;
+            @endphp
             @foreach ($services->where('department_id', $department->id)->where('status', 'active')->sortBy('name') as $service)
                 @php
-                    $selected_services = session('selected_services', []);
                     $service_already_selected = false;
                     
                     // Check if the service is already selected
@@ -44,47 +48,57 @@
                     }
                 @endphp
 
-                <div class="col" data-aos="fade-right" data-aos-delay="50">
+                <div class="col-md-4 mb-3" data-aos="fade-right" data-aos-delay="50">
                     {{-- If the service is already selected, show it as disabled --}}
                     @if ($service_already_selected)
-                        <div class="card h-100 w-100 text-kyoodark disabled">
-                            <div class="card-body p-5">
-                                <p><span class="badge bg-danger">Already Selected</span></p>
+                        <div class="card disabled shadow">
+                            <div class="card-body px-5 py-4">
                                 <h3 class="fw-bold text-muted">{{ $service->name }}</h3>
+                                <p><span class="badge bg-danger">Already Selected</span></p>
                             </div>
                         </div>
+
                         {{-- If the service is not yet selected, show it as a clickable button --}}
                     @else
-                        <form method="POST" action="{{ route('add-to-queue') }}">
+                        <form method="POST" action="{{ route('add-to-queue') }}" class="shadow">
                             @csrf
                             <input type="hidden" name="department_id" value="{{ $department->id }}">
                             <input type="hidden" name="service_id" value="{{ $service->id }}">
                             <button type="submit" class="card h-100 w-100 text-kyoodark link-card">
                                 <div class="card-body p-5">
-                                    <h3 class="fw-bold mb-3">{{ $service->name }}</h3>
-                                    <p class="card-text my-3">{{ $service->description }}</p>
+                                    <h3 class="fw-bold">{{ $service->name }}</h3>
                                 </div>
                             </button>
                         </form>
                     @endif
                 </div>
-            @endforeach
 
-            {{-- If no service is available, show a message --}}
-            @if ($services->where('department_id', $department->id)->where('status', 'active')->count() === 0)
-                <div class="col">
-                    <div class="card h-100 w-100">
-                        <div class="card-body p-5 text-center">
-                            <h3 class="fw-bold mb-3 text-kyoored">
-                                <i>No service is available.</i>
-                            </h3>
-                        </div>
-                    </div>
-                </div>
-            @endif
+                @php
+                    $counter++;
+                    if ($counter == 3) {
+                        echo '</div><div class="row align-items-center justify-content-start">';
+                        $counter = 0;
+                    }
+                @endphp
+            @endforeach
         </div>
 
+
+
+        {{-- If no service is available, show a message --}}
+        @if ($services->where('department_id', $department->id)->where('status', 'active')->count() === 0)
+            <div class="col-12">
+                <div class="card h-100 w-100">
+                    <div class="card-body p-5 text-center">
+                        <h3 class="fw-bold mb-3 text-kyoored">
+                            <i>No service is available.</i>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        @endif
+
         {{-- Back Button --}}
-        <x-back-button />
+        <x-back-button :selected_services="$selected_services" />
     </div>
 </x-layout>

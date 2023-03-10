@@ -59,8 +59,9 @@ class KioskController extends Controller
     // Other department selection page
     public function selectOtherDept()
     {
-        // Get all departments
-        $departments = Department::all();
+        // Get all departments sorted by name in ascending order
+        $departments = Department::orderBy('name', 'asc')->get();
+
         // Return view with departments data
         return view('kiosk.other-department', compact('departments'));
     }
@@ -81,8 +82,8 @@ class KioskController extends Controller
             $selected_services = [];
         }
 
-        // Get services of the selected department
-        $services = $department->services;
+        // Get services of the selected department sorted by name in ascending order
+        $services = $department->services()->orderBy('name', 'asc')->get();
 
         // Check if the selected services are already in the session
         foreach ($services as $service) {

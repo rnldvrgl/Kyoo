@@ -1,47 +1,34 @@
 {{-- Page Title --}}
 @section('mytitle', 'Transaction Summary')
+
 <x-layout>
     {{-- Background Image --}}
     <div id="background-image" style="opacity: 5%;"></div>
-    {{-- Main Content --}}
-    <div class="container-fluid d-flex flex-column p-3 ">
-        {{-- Cancel Queue Button --}}
-        <div class="row mb-3">
-            <div class="col-6">
-                <x-cancel-queue-button /> {{-- Include the Cancel Queue button component --}}
-            </div>
-        </div>
 
+    {{-- Cancel Queue Button --}}
+    <x-cancel-queue-button />
+
+    <div class="container px-3 pt-5">
         {{-- Progress Bar --}}
         <div class="row mb-3">
             <div class="col-12">
                 <x-progress-bar :progress="75" /> {{-- Include the Progress Bar component and pass the progress value as 75 --}}
             </div>
         </div>
-
+    </div>
+    {{-- Main Content --}}
+    <div class="container-fluid d-flex flex-column px-5 py-4">
         {{-- Transaction Summary --}}
-        <div class="row align-items-center">
-            <div class="col-12 col-lg-10">
-                <h1>Transaction Summary</h1>
-                <p>Please review your selected transaction(s) below:</p>
-            </div>
-            <div class="col col-lg-2 text-end">
-                <form method="POST" action="{{ route('select-transaction') }}">
-                    @csrf
-                    <input type="hidden" name="department_id" value="{{ Session::get('department_id') }}">
-                    <button type="submit" class="btn btn-kyoodark btn-lg w-100">
-                        <i class="fa-regular fa-square-plus"></i>
-                        Add Transaction
-                    </button>
-                </form>
-            </div>
+        <div class="col-12">
+            <h1>Transaction Summary</h1>
+            <p>Please review your selected transaction(s) below:</p>
         </div>
 
         {{-- Service Details --}}
         <div class="row row-cols-1 align-items-center justify-content-center">
             <div class="col">
                 <div class="card h-100 w-100">
-                    <div class="card-body p-5 ">
+                    <div class="card-body p-5">
                         {{-- Department --}}
                         <div class="row">
                             {{-- Department header --}}
@@ -61,7 +48,7 @@
                 <div class="card h-100 w-100">
                     <div class="card-body p-5 ">
                         {{-- Transaction --}}
-                        <div class="row mt-2">
+                        <div class="row">
                             {{-- Transaction header --}}
                             <div class="col-12 col-lg-3 fw-bold">
                                 <h2>Transaction(s):</h2>
@@ -78,6 +65,21 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-4 offset-md-4">
+                    <form method="POST" action="{{ route('select-transaction') }}">
+                        @csrf
+                        <input type="hidden" name="department_id" value="{{ Session::get('department_id') }}">
+                        <button type="submit" class="btn btn-secondary   btn-lg w-100">
+                            <i class="fa-regular fa-square-plus"></i>
+                            Add Transaction
+                        </button>
+                    </form>
+                    <p class="mt-2 text-muted text-center">Select additional transactions and click the 'Add
+                        Transaction' button above.</p>
+                </div>
+            </div>
+
 
             {{-- Proceed Button --}}
             <div class="col-12 fixed-bottom mb-3 text-end">
@@ -87,4 +89,5 @@
                 </a>
             </div>
         </div>
+    </div>
 </x-layout>
