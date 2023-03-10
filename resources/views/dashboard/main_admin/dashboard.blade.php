@@ -47,7 +47,7 @@
                                             <i class="fa-solid fa-stopwatch"></i>
                                         </div>
                                         <div class="ps-3">
-                                            <h6>5 tickets</h6>
+                                            <h6>{{ $pending_tickets }} ticket/s</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -65,7 +65,7 @@
                                             <i class="fa-solid fa-comment-dots"></i>
                                         </div>
                                         <div class="ps-3">
-                                            <h6>4 tickets</h6>
+                                            <h6>{{ $serving_tickets }} ticket/s</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -83,7 +83,7 @@
                                             <i class="fa-solid fa-user-group"></i>
                                         </div>
                                         <div class="ps-3">
-                                            <h6>15 tickets</h6>
+                                            <h6>{{ $served_tickets }} ticket/s</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -104,7 +104,7 @@
                                     <h5 class="card-title fw-bold">
                                         Sample
                                     </h5>
-                                    <table class="table table-borderless datatable">
+                                    <table class="table-borderless datatable table">
                                         <thead>
                                             <tr>
                                                 <th scope="col">#</th>
@@ -147,7 +147,7 @@
                                     <h5 class="card-title">
                                         Sample
                                     </h5>
-                                    <table class="table table-borderless">
+                                    <table class="table-borderless table">
                                         <thead>
                                             <tr>
                                                 <th scope="col">Col</th>
@@ -216,7 +216,7 @@
                                             Registrar
                                         </h5>
                                         <div class="d-flex flex-column align-items-left">
-                                            <p class="text-secondary lh-base mb-0 ">
+                                            <p class="text-secondary lh-base mb-0">
                                                 <b>Ronald Vergel Dela Cruz</b> is idle
                                             </p>
                                             <p class="text-secondary lh-1">
@@ -234,7 +234,7 @@
                                             Cashier
                                         </h5>
                                         <div class="d-flex flex-column align-items-left">
-                                            <p class="text-secondary lh-base mb-0 ">
+                                            <p class="text-secondary lh-base mb-0">
                                                 <b>Mark Lewence Endrano</b> is idle
                                             </p>
                                             <p class="text-secondary lh-1">

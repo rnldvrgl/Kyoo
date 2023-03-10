@@ -66,11 +66,16 @@ class HomeController extends Controller
 	}
 
 	// TODO: Isang function for dashboard, concat the role
-	public function main_admin()
+	public function main_admin(QueueTicketController $queueTicketController)
 	{
 		return view('dashboard.main_admin.dashboard', [
 			'user_data' => $this->getUserData(),
 			'all_data' => $this->getAllData(),
+			'queue_ticket_data' => $queueTicketController->getQueueTickets(),
+			'pending_tickets' => $queueTicketController->countPendingTickets(),
+			'serving_tickets' => $queueTicketController->countServingTickets(),
+			'served_tickets' => $queueTicketController->countServedTickets(),
+			'cancelled_tickets' => $queueTicketController->countCancelledTickets(),
 		]);
 	}
 
