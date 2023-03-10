@@ -216,7 +216,8 @@ class KioskController extends Controller
 
         // print ticket
         // Get current date and time
-        $date = date("M-d-y H:i:s A");
+        date_default_timezone_set("Asia/Manila");
+        $date = date("M-d-y h:i:s A");
         try {
             // Connect to the printer
             $connector = new WindowsPrintConnector("XP-58", "USB002");
