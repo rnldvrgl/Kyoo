@@ -14,5 +14,8 @@ class DatabaseSeeder extends Seeder
         $this->call(AccountRoleTableSeeder::class);
         $this->call(AccountsTableSeeder::class);
         $this->call(ServiceTableSeeder::class);
+
+        // For Queue Ticket Demo
+        $this->call(QueueTicketSeeder::class);
     }
 }
