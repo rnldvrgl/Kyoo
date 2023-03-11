@@ -40,16 +40,7 @@
                 <a class=" btn btn-outline-kyoored text-white rounded-pill px-3 mb-2 mb-lg-0"
                     href="{{ route('live_queue') }}">Live
                     Queue</a>
-
-                <!-- Login -->
-                @if (Auth::user())
-                    <a class=" btn btn-kyoored rounded-pill px-3 mb-2 mb-lg-0" href="javascript:history.go(-1)">Return
-                        to
-                        Dashboard</a>
-                @else
-                    <a class=" btn btn-kyoored rounded-pill px-3 mb-2 mb-lg-0" href="{{ route('login') }}">LOGIN</a>
-                @endif
-
+                <a class=" btn btn-kyoored rounded-pill px-3 mb-2 mb-lg-0" href="{{ route('login') }}">LOGIN</a>
             </div>
         </div>
         <!-- Collapsible wrapper -->

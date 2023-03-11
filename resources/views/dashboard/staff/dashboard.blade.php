@@ -9,7 +9,7 @@
     $profile_image = $details->profile_image;
 @endphp
 
-<x-layout>
+<x-layout :role='$role'>
     {{-- Dashboard Header Navbar --}}
     <x-dashboard-header :details="$details" :role="$role" />
 

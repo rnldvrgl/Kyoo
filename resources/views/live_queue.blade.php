@@ -39,7 +39,7 @@
                     <div class="col mb-4">
                         <div class="row row-cols-1 row-cols-lg-2">
                             <div class="col mb-4">
-                                <div data-aos="fade-right" data-aos-delay:"3000">
+                                <div data-aos="fade-right">
                                     <div class="card shadow border-start  border-kyoodark border-5">
                                         <div class="card-body p-4">
                                             <span class="display-6 fw-bold mb-3 d-block">Cashier</span>
@@ -51,7 +51,7 @@
                                 </div>
                             </div>
                             <div class="col mb-4">
-                                <div data-aos="fade-right" data-aos-delay:"3000">
+                                <div data-aos="fade-right">
                                     <div class="card shadow border-start border-kyoodark border-5">
                                         <div class="card-body p-4">
                                             <span class="display-6 fw-bold mb-3 d-block">Cashier</span>
@@ -63,7 +63,7 @@
                                 </div>
                             </div>
                             <div class="col mb-4">
-                                <div data-aos="fade-right" data-aos-delay:"3000">
+                                <div data-aos="fade-right">
                                     <div class="card shadow border-start border-kyoodark border-5">
                                         <div class="card-body p-4">
                                             <span class="display-6 fw-bold mb-3 d-block">Cashier</span>

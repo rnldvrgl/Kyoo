@@ -1,15 +1,7 @@
 {{-- Page Title --}}
 @section('mytitle', 'User Profile')
 
-@php
-    $details = $user_data['details'];
-    $role = $user_data['role'];
-    $login = $user_data['login'];
-    $department = $user_data['department'];
-    $profile_image = optional($details)->profile_image;
-@endphp
-
-<x-layout>
+<x-layout :role='$role'>
     {{-- Dashboard Header Navbar --}}
     <x-dashboard-header :details="$details" :role="$role" />
 

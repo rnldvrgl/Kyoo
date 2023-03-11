@@ -1,7 +1,7 @@
 {{-- Page Title --}}
 @section('mytitle', '404')
 
-<x-layout>
+<x-layout :role='$role'>
     <!-- Main Content -->
     <main>
         <div class="container">

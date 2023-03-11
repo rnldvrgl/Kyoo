@@ -8,7 +8,7 @@
     $profile_image = $details->profile_image;
 @endphp
 
-<x-layout>
+<x-layout :role='$role'>
 
     {{-- Back to top button --}}
     <x-return-top />
