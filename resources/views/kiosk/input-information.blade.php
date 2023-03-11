@@ -17,7 +17,7 @@
 
 
     {{-- Main Content --}}
-    <div class="container-fluid d-flex flex-column px-5 py-4 gap-5">
+    <div class="container-fluid d-flex flex-column gap-5">
         {{-- Input Information Heading --}}
         <div class="row align-items-center">
             <div class="col-12 text-center">
@@ -28,7 +28,7 @@
         <div class="row justify-content-center align-items-center row-cols-1">
             <div class="col-5">
                 <div class="card h-100 w-100">
-                    <div class="card-body p-5 d-flex">
+                    <div class="card-body p-4 d-flex">
                         <form id="input-information-frm" class="col-12" action="{{ route('print-queue-ticket') }}"
                             method="POST" autocomplete="off">
                             <div class="alert alert-danger" role="alert" id="error-message"></div>
@@ -72,9 +72,11 @@
                                 </div>
 
                                 <div class="text-center">
-                                    <button type="submit" class="btn btn-success btn-lg" id="queue_now">
+                                    <button type="submit" class="btn btn-success btn-lg mb-2" id="queue_now" disabled>
                                         Queue Now
                                     </button>
+                                    <p id="consent-instruction" class="text-muted mb-0">Please agree to the data privacy
+                                        consent before queuing.</p>
                                 </div>
                             </fieldset>
                         </form>
@@ -85,21 +87,25 @@
     </div>
 
     {{-- Sliding Popup --}}
-    <div id="sliding-popup"
-        class="d-flex justify-content-between align-items-center popup-content info position-fixed bottom-0 w-100 show">
-        <div id="popup-text">
-            <h2>test</h2>
-            <p>
-                text
-            </p>
-        </div>
-        <div id="popup-buttons">
-            <button type="button" id="agree-button"
-                class="agree-button eu-cookie-compliance-default-button btn btn-secondary">
-                OK, I agree
-            </button>
+    <div id="sliding-popup" class="position-fixed py-4 px-5" data-aos="fade-up">
+        <div class="row d-flex justify-content-center align-items-center">
+            <div class="col-lg-10">
+                <div class="d-flex flex-column justify-content-center">
+                    <h5 class="fw-bold">Compliance with Data Privacy Laws and Regulations</h5>
+                    <p class="mb-0 fw-light">
+                        We collect and process your personal information (Name, Department, and Course) for our queueing
+                        management system in accordance with relevant data privacy laws and regulations. You may file a
+                        complaint if your data privacy rights have been violated. By providing your personal
+                        information, you consent to its collection, storage, and processing.
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-2 text-end">
+                <button type="button" id="agree-button" class="btn btn-lg btn-kyoored">
+                    OK, I agree
+                    <i class="fa-solid fa-circle-check fa-beat ms-2"></i>
+                </button>
+            </div>
         </div>
     </div>
-
-
 </x-layout>

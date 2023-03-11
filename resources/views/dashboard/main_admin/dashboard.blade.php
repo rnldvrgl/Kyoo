@@ -97,10 +97,10 @@
                                 <div class="card-body">
                                     <div class="col-12">
                                         <div class="row d-flex align-items-center">
-                                            <div class="col-6">
+                                            <div class="col-lg-8">
                                                 <h5 class="card-title fw-bold">Line Chart</h5>
                                             </div>
-                                            <div class="col-6">
+                                            <div class="col-lg-4">
                                                 <select name="year" id="year-dropdown" class="form-select">
                                                     @foreach ($years['years'] as $year)
                                                         <option value="{{ $year }}">{{ $year }}</option>

@@ -184,10 +184,24 @@ $(document).ready(function () {
         }
     });
 
-    var popup = $("#sliding-popup");
-    var agreeButton = $("#agree-button");
+    // Queue now button and parental consent button disabling when not yet accepting the consent
+    const queueNowBtn = $("#queue_now");
+    const agreeBtn = $("#agree-button");
+    const consentInstruction = $("#consent-instruction");
 
-    agreeButton.click(function () {
-        popup.removeClass("show");
+    queueNowBtn.prop("disabled", true);
+    consentInstruction.show();
+
+    agreeBtn.on("click", function () {
+        queueNowBtn.prop("disabled", false);
+        consentInstruction.hide();
+        agreeBtn.html('<i class="fa-solid fa-circle-check"></i>');
+        agreeBtn
+            .removeClass("btn-kyoored")
+            .addClass("btn-success")
+            .html('<i class="fa-solid fa-circle-check"></i>');
+        queueNowBtn.removeAttr("disabled");
     });
+
+    consentInstruction.toggle(queueNowBtn.prop("disabled"));
 });

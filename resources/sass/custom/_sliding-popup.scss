@@ -1,43 +1,11 @@
-.sidebar {
-    position: fixed;
-    top: 60px;
-    left: 0;
+#sliding-popup {
     bottom: 0;
-    width: 300px;
-    z-index: 996;
-    transition: all 0.3s;
-    padding: 20px;
-    overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: #323232 transparent;
-    box-shadow: 0px 0px 20px rgba(1, 41, 112, 0.1);
-    background-color: #fff;
-}
-
-
-.sliding-popup {
-    bottom: -1000px;
-}
-
-#sliding-popup.show {
-    bottom: 0;
-    position: fixed;
-    left: 0;
     width: 100%;
-    max-height: 300px;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    z-index: 9999;
-    transition: bottom 0.5s ease-in-out;
+    z-index: 995;
+    transition: all 0.3s;
+    box-shadow: 0px 0px 20px rgba(1, 41, 112, 0.1);
+    background-color: #323232;
+    color: white;
+    height: auto;
 }
 
-#popup-text {
-    padding: 20px;
-}
-
-#popup-buttons {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    padding: 10px 20px;
-}
