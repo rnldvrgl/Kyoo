@@ -95,7 +95,7 @@ class DepartmentController extends Controller
             'name.min' => 'Department name must be at least :min characters long.',
             'name.max' => 'Department name must not be greater than :max characters long.',
             'name.unique' => 'Department name already exists.',
-            'description.required' => 'Select a Department.',
+            'description.required' => 'Department description is required.',
             'description.min' => 'Description must be atleast :min to :max characters long.',
             'code.required' => 'Department code is required.',
             'code.min' => 'The department code field must be at least :min characters long.',

@@ -93,6 +93,14 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title fw-bold">
+                                        <div>
+                                            <select name="year" id="year-dropdown">
+                                                <option value="" selected disabled>Select Year</option>
+                                                @foreach ($years['years'] as $year)
+                                                    <option value="{{ $year }}">{{ $year }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                         <div id="queue-chart">
                                             {{-- Insert Chart here --}}
                                         </div>

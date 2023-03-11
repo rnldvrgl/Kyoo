@@ -96,9 +96,11 @@ class QueueTicketController extends Controller
                 return Carbon::parse($date)->year;
             })
             ->unique()
-            ->sort()
+            ->sort('date', 'desc')
             ->values()
             ->toArray();
+
+        rsort($years); // sort by year value
 
         return compact('years');
     }

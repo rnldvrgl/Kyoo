@@ -1,4 +1,10 @@
 $(document).ready(function () {
+    $("#year-dropdown").on("change", function () {
+        // var jsonData = $.ajax({});
+
+        console.log($(this).val());
+    });
+
     // Load the Visualization API and the corechart package.
     google.charts.load("current", { packages: ["corechart"] });
 
