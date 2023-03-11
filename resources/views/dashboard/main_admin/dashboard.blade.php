@@ -95,7 +95,6 @@
                                     <h5 class="card-title fw-bold">
                                         <div>
                                             <select name="year" id="year-dropdown">
-                                                <option value="" selected disabled>Select Year</option>
                                                 @foreach ($years['years'] as $year)
                                                     <option value="{{ $year }}">{{ $year }}</option>
                                                 @endforeach
@@ -305,50 +304,92 @@
     <!-- /Main Content -->
 
     <script type="text/javascript">
-        $("#year-dropdown").on("change", function() {
-            var year = $(this).val();
+        var monthNames = [
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+        // Define the drawChart function as a global function
+        function drawChart(chartData) {
+            // Create the data table.
+            var data = new google.visualization.DataTable();
+            data.addColumn("string", "Month");
+            data.addColumn("number", "Queue Count");
+            // data.addRows(chartData.map(function(row) {
+            //     var monthName = monthNames[row.month - 1];
+            //     return [monthName, row.queue_count]; // Display the Month Name
+            //     // return [row.month.toString(), row.queue_count]; // Display only the Month number
+            // }));
 
-            $.ajax({
-                url: "/fetch-queue-data/" + year,
-                type: "GET",
-                dataType: "json",
-                success: function(data) {
+            var rows = [];
+            for (var i = 0; i < 12; i++) {
+                var monthName = monthNames[i];
+                var queueCount = 0;
 
-                    // Load the Visualization API and the piechart package.
-                    google.charts.load('current', {
-                        'packages': ['corechart']
-                    });
-
-                    // Set a callback to run when the Google Visualization API is loaded.
-                    google.charts.setOnLoadCallback(drawChart(data));
-
-                    function drawChart(data) {
-
-                        console.log(data);
-
-                        // Populate the data table with the returned data
-                        var dataTable = new google.visualization.DataTable();
-                        dataTable.addColumn("string", "Month");
-                        dataTable.addColumn("number", "Total Queues");
-                        for (var i = 0; i < data.length; i++) {
-                            dataTable.addRow([data[i].month, data[i].queue_count]);
-                        }
-
-                        // Draw the chart
-                        var options = {
-                            title: "Number of Queues per month",
-                            width: 700,
-                            height: 300,
-                        };
-                        var chart = new google.visualization.LineChart(document.getElementById(
-                            "queue-chart"));
-                        chart.draw(dataTable, options);
+                for (var j = 0; j < chartData.length; j++) {
+                    if (chartData[j].month === i + 1) {
+                        queueCount = chartData[j].queue_count;
+                        break;
                     }
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.log(textStatus, errorThrown);
                 }
+
+                rows.push([monthName, queueCount]);
+            }
+
+            data.addRows(rows);
+
+            // Set chart options
+            var options = {
+                title: "Number of Queues per month",
+                width: 700,
+                height: 300,
+            };
+
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.LineChart(
+                document.getElementById("queue-chart")
+            );
+            chart.draw(data, options);
+        }
+
+        $(document).ready(function() {
+            // Draw the chart for this year
+            var currentYear = new Date().getFullYear();
+            $.ajax({
+                url: "/fetch-queue-data/" + currentYear,
+                success: function(data) {
+                    drawChart(data);
+                },
+                error: function() {
+                    console.log("Error fetching data for year " + year);
+                }
+            });
+
+            $("#year-dropdown").on("change", function() {
+                var year = $(this).val();
+                // Call the getDataForYear() endpoint and draw the chart with the returned data
+                $.ajax({
+                    url: "/fetch-queue-data/" + year,
+                    success: function(data) {
+                        drawChart(data);
+                    },
+                    error: function() {
+                        console.log("Error fetching data for year " + year);
+                    }
+                });
+            });
+
+            // Load the Visualization API and the corechart package.
+            google.charts.load("current", {
+                packages: ["corechart"]
+            });
+
+            // Set a callback to run when the Google Visualization API is loaded.
+            google.charts.setOnLoadCallback(function() {
+                // Callback that creates and populates a data table,
+                // instantiates the line chart, passes in the data and
+                // draws it.
             });
         });
     </script>
+
 </x-layout>

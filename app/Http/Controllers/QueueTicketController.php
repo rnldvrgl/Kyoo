@@ -89,6 +89,7 @@ class QueueTicketController extends Controller
         return $cancelledCount;
     }
 
+    // Fetch year to display on the dropdown
     public function getYear()
     {
         $years = QueueTicket::distinct()
@@ -106,6 +107,7 @@ class QueueTicketController extends Controller
         return compact('years');
     }
 
+    // Fetch data based on the year selected from the dropdown
     public function getDataForYear($year)
     {
         $data = QueueTicket::select(DB::raw('MONTH(date) as month'), DB::raw('COUNT(*) as queue_count'))
