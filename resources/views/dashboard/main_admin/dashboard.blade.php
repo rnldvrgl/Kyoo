@@ -36,7 +36,7 @@
                 <div class="col-lg-8">
                     <div class="row">
                         <div class="col-xxl-4 col-md-6">
-                            <div class="card info-card warning-card">
+                            <div class="card warning-card shadow">
                                 <div class="card-body">
                                     <h5 class="card-title fw-bold">
                                         Pending <span>| Today</span>
@@ -46,15 +46,16 @@
                                             class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                             <i class="fa-solid fa-stopwatch"></i>
                                         </div>
-                                        <div class="ps-3">
-                                            <h6>{{ $pending_tickets }} ticket/s</h6>
+                                        <div class="d-flex flex-column justify-content-center ps-3">
+                                            <h6 class="emphasize">{{ $pending_tickets }}</h6>
+                                            <span>ticket(s)</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-xxl-4 col-md-6">
-                            <div class="card info-card primary-card">
+                            <div class="card primary-card shadow">
                                 <div class="card-body">
                                     <h5 class="card-title fw-bold">
                                         Current Serving <span>| Today</span>
@@ -64,15 +65,16 @@
                                             class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                             <i class="fa-solid fa-comment-dots"></i>
                                         </div>
-                                        <div class="ps-3">
-                                            <h6>{{ $serving_tickets }} ticket/s</h6>
+                                        <div class="d-flex flex-column justify-content-center ps-3">
+                                            <h6 class="emphasize">{{ $serving_tickets }}</h6>
+                                            <span>ticket(s)</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-xxl-4 col-xl-12">
-                            <div class="card info-card success-card">
+                            <div class="card success-card shadow">
                                 <div class="card-body">
                                     <h5 class="card-title fw-bold">
                                         Total Served <span>| Today</span>
@@ -82,15 +84,16 @@
                                             class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                             <i class="fa-solid fa-user-group"></i>
                                         </div>
-                                        <div class="ps-3">
-                                            <h6>{{ $served_tickets }} ticket/s</h6>
+                                        <div class="d-flex flex-column justify-content-center ps-3">
+                                            <h6 class="emphasize">{{ $served_tickets }}</h6>
+                                            <span>ticket(s)</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-12">
-                            <div class="card">
+                            <div class="card shadow">
                                 <div class="card-body">
                                     <h5 class="card-title fw-bold">
                                         Sample
@@ -99,7 +102,7 @@
                             </div>
                         </div>
                         <div class="col-12">
-                            <div class="card overflow-auto">
+                            <div class="card overflow-auto shadow">
                                 <div class="card-body">
                                     <h5 class="card-title fw-bold">
                                         Sample
@@ -142,7 +145,7 @@
                             </div>
                         </div>
                         <div class="col-12">
-                            <div class="card overflow-auto">
+                            <div class="card overflow-auto shadow">
                                 <div class="card-body pb-0">
                                     <h5 class="card-title">
                                         Sample
@@ -183,7 +186,7 @@
                     </div>
                 </div>
                 <div class="col-lg-4">
-                    <div class="card info-card secondary-card">
+                    <div class="card secondary-card shadow">
                         <div class="card-body">
                             <h5 class="card-title fw-bold">
                                 Active Staff
@@ -192,14 +195,14 @@
                                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                     <i class="fa-solid fa-users"></i>
                                 </div>
-                                <div class="ps-3 vstack justify-content-center">
-                                    <h6>4 out of 4</h6>
-                                    <p>staff are currently serving</p>
+                                <div class="d-flex flex-column justify-content-center ps-3">
+                                    <h6 class="emphasize">4 out of 4</h6>
+                                    <span>staff are currently serving</span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="card">
+                    <div class="card shadow">
                         <div class="card-body px-4 py-3">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h6 class="label-1 fw-bold">
@@ -227,7 +230,7 @@
                                 </div>
                             </div>
 
-                            <div class="card mb-3">
+                            <div class="card mb-3 shadow">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="ms-2 px-4 py-3">
                                         <h5 class="text-secondary lh-base mb-2">
@@ -247,7 +250,7 @@
                         </div>
                     </div>
 
-                    <div class="card">
+                    <div class="card shadow">
                         <div class="card-body pb-0">
                             <h5 class="card-title fw-bold">
                                 Departments
@@ -281,7 +284,7 @@
                     </div>
 
 
-                    <div class="card">
+                    <div class="card shadow">
                         <div class="card-body pb-0">
                             <h5 class="card-title">
                                 Sample
