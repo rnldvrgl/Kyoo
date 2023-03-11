@@ -45,10 +45,10 @@
 
     // If the message element exists
     if (messageElement.length) {
-        // Hide the message after 3 seconds
+        // Hide the message after 4 seconds
         setTimeout(function () {
             messageElement.fadeOut();
-        }, 3000);
+        }, 4000);
     }
     /**
      * Easy selector helper function

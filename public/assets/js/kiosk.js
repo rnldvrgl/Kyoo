@@ -183,4 +183,11 @@ $(document).ready(function () {
             $(this).show();
         }
     });
+
+    var popup = $("#sliding-popup");
+    var agreeButton = $("#agree-button");
+
+    agreeButton.click(function () {
+        popup.removeClass("show");
+    });
 });

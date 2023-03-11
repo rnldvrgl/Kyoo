@@ -13,6 +13,10 @@
 
             @if ($role->name === 'Main Admin')
                 <i class="fa-solid fa-bars toggle-sidebar-btn"></i>
+            @else
+                <span class="text-white fw-semibold">
+                    {{ $role->name }}
+                </span>
             @endif
         </div>
         @php($profile_image = $details->profile_image)

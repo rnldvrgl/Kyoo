@@ -13,7 +13,6 @@
     {{-- Dashboard Header Navbar --}}
     <x-dashboard-header :details="$details" :role="$role" />
 
-
     @if ($department->id == 3 || $department->id == 4)
         @include('dashboard.staff.content.librarian')
     @else

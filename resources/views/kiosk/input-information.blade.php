@@ -83,4 +83,23 @@
             </div>
         </div>
     </div>
+
+    {{-- Sliding Popup --}}
+    <div id="sliding-popup"
+        class="d-flex justify-content-between align-items-center popup-content info position-fixed bottom-0 w-100 show">
+        <div id="popup-text">
+            <h2>test</h2>
+            <p>
+                text
+            </p>
+        </div>
+        <div id="popup-buttons">
+            <button type="button" id="agree-button"
+                class="agree-button eu-cookie-compliance-default-button btn btn-secondary">
+                OK, I agree
+            </button>
+        </div>
+    </div>
+
+
 </x-layout>

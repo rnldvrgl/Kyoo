@@ -13,7 +13,9 @@ $(document).ready(function () {
         });
 
         $("#btn-save-account").attr("disabled", true);
-        $("#btn-save-account").html("Saving...");
+        $("#btn-save-account").html(
+            "<i class='fa-solid fa-circle-notch fa-spin'></i> Saving..."
+        );
 
         $.ajax({
             type: "POST",
@@ -76,7 +78,9 @@ $(document).ready(function () {
             },
         });
         $("#btn-save").attr("disabled", true);
-        $("#btn-save").html("Updating...");
+        $("#btn-save").html(
+            "<i class='fa-solid fa-circle-notch fa-spin'></i> Updating..."
+        );
         $.ajax({
             type: "POST",
             url: this.action,
@@ -138,7 +142,9 @@ $(document).ready(function () {
         });
 
         $("#btn-save-department").attr("disabled", true);
-        $("#btn-save-department").html("Saving...");
+        $("#btn-save-department").html(
+            "<i class='fa-solid fa-circle-notch fa-spin'></i> Saving..."
+        );
 
         $.ajax({
             type: "POST",
@@ -201,7 +207,9 @@ $(document).ready(function () {
             },
         });
         $("#btn-update-department").attr("disabled", true);
-        $("#btn-update-department").html("Updating...");
+        $("#btn-update-department").html(
+            "<i class='fa-solid fa-circle-notch fa-spin'></i> Updating..."
+        );
         $.ajax({
             type: "POST",
             url: this.action,
@@ -263,7 +271,9 @@ $(document).ready(function () {
         });
 
         $("#btn-save-service").attr("disabled", true);
-        $("#btn-save-service").html("Saving...");
+        $("#btn-save-service").html(
+            "<i class='fa-solid fa-circle-notch fa-spin'></i> Saving..."
+        );
 
         $.ajax({
             type: "POST",
@@ -332,7 +342,9 @@ $(document).ready(function () {
         });
 
         $("#btn-save-service-modal").attr("disabled", true);
-        $("#btn-save-service-modal").html("Saving...");
+        $("#btn-save-service-modal").html(
+            "<i class='fa-solid fa-circle-notch fa-spin'></i> Saving..."
+        );
 
         $.ajax({
             type: "POST",
