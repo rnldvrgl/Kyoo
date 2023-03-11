@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\QueueTicket;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class QueueTicketController extends Controller
 {
@@ -85,5 +87,35 @@ class QueueTicketController extends Controller
             }
         }
         return $cancelledCount;
+    }
+
+    // Fetch year to display on the dropdown
+    public function getYear()
+    {
+        $years = QueueTicket::distinct()
+            ->pluck('date')
+            ->map(function ($date) {
+                return Carbon::parse($date)->year;
+            })
+            ->unique()
+            ->sort('date', 'desc')
+            ->values()
+            ->toArray();
+
+        rsort($years); // sort by year value
+
+        return compact('years');
+    }
+
+    // Fetch data based on the year selected from the dropdown
+    public function getDataForYear($year)
+    {
+        $data = QueueTicket::select(DB::raw('MONTH(date) as month'), DB::raw('COUNT(*) as queue_count'))
+            ->whereYear('date', $year)
+            ->groupBy(DB::raw('MONTH(date)'))
+            ->orderBy(DB::raw('MONTH(date)'))
+            ->get();
+
+        return response()->json($data);
     }
 }
