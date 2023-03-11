@@ -1,9 +1,9 @@
 (function () {
     ("use strict");
 
-    // Remove hide content class on the body when the page is
     $(window).on("load", function () {
-        $("body").removeClass("hide-content");
+        // Hide the loading screen once the page is fully loaded
+        $("#loading-screen").fadeOut(500);
     });
 
     // Initialize AOS
