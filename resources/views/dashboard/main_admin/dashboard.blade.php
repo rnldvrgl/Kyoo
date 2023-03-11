@@ -303,4 +303,52 @@
         </section>
     </main>
     <!-- /Main Content -->
+
+    <script type="text/javascript">
+        $("#year-dropdown").on("change", function() {
+            var year = $(this).val();
+
+            $.ajax({
+                url: "/fetch-queue-data/" + year,
+                type: "GET",
+                dataType: "json",
+                success: function(data) {
+
+                    // Load the Visualization API and the piechart package.
+                    google.charts.load('current', {
+                        'packages': ['corechart']
+                    });
+
+                    // Set a callback to run when the Google Visualization API is loaded.
+                    google.charts.setOnLoadCallback(drawChart(data));
+
+                    function drawChart(data) {
+
+                        console.log(data);
+
+                        // Populate the data table with the returned data
+                        var dataTable = new google.visualization.DataTable();
+                        dataTable.addColumn("string", "Month");
+                        dataTable.addColumn("number", "Total Queues");
+                        for (var i = 0; i < data.length; i++) {
+                            dataTable.addRow([data[i].month, data[i].queue_count]);
+                        }
+
+                        // Draw the chart
+                        var options = {
+                            title: "Number of Queues per month",
+                            width: 700,
+                            height: 300,
+                        };
+                        var chart = new google.visualization.LineChart(document.getElementById(
+                            "queue-chart"));
+                        chart.draw(dataTable, options);
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus, errorThrown);
+                }
+            });
+        });
+    </script>
 </x-layout>

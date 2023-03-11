@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\QueueTicket;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class QueueTicketController extends Controller
 {
@@ -103,5 +104,16 @@ class QueueTicketController extends Controller
         rsort($years); // sort by year value
 
         return compact('years');
+    }
+
+    public function getDataForYear($year)
+    {
+        $data = QueueTicket::select(DB::raw('MONTH(date) as month'), DB::raw('COUNT(*) as queue_count'))
+            ->whereYear('date', $year)
+            ->groupBy(DB::raw('MONTH(date)'))
+            ->orderBy(DB::raw('MONTH(date)'))
+            ->get();
+
+        return response()->json($data);
     }
 }

@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KioskController;
+use App\Http\Controllers\QueueTicketController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\UserProfileController;
 use Illuminate\Support\Facades\Auth;
@@ -55,6 +56,9 @@ Route::middleware(['auth', 'user-access:Main Admin'])->group(function () {
 
 	// Dashboard
 	Route::get('/main-admin/dashboard', [HomeController::class, 'main_admin'])->name('dashboard.main_admin');
+
+	// Fetch Data based on Year
+	Route::get('/fetch-queue-data/{year}', [QueueTicketController::class, 'getDataForYear'])->name('dashboard.fetch_queues');
 
 	// Manage Accounts
 	Route::prefix('main-admin/manage/accounts')->group(function () {
