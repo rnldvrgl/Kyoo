@@ -35,6 +35,8 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="row">
+
+                        {{-- Pending --}}
                         <div class="col-xxl-4 col-md-6">
                             <div class="card warning-card shadow">
                                 <div class="card-body">
@@ -54,6 +56,8 @@
                                 </div>
                             </div>
                         </div>
+
+                        {{-- Current Serving --}}
                         <div class="col-xxl-4 col-md-6">
                             <div class="card primary-card shadow">
                                 <div class="card-body">
@@ -73,6 +77,8 @@
                                 </div>
                             </div>
                         </div>
+
+                        {{-- Total Served --}}
                         <div class="col-xxl-4 col-xl-12">
                             <div class="card success-card shadow">
                                 <div class="card-body">
@@ -92,14 +98,15 @@
                                 </div>
                             </div>
                         </div>
+
+                        {{-- Queue Counts Report (Line Chart) --}}
                         <div class="col-12">
                             <div class="card shadow">
                                 <div class="card-body">
                                     <div class="col-12 mb-2">
                                         <div class="row d-flex align-items-center">
                                             <div class="col-lg-8">
-                                                <h5 class="card-title fw-bold">Queue Counts Report
-                                                </h5>
+                                                <h5 class="card-title fw-bold">Queue Counts Report</h5>
                                             </div>
                                             <div class="col-lg-4">
                                                 <select name="year" id="year-dropdown" class="form-select">
@@ -204,6 +211,8 @@
                         </div>
                     </div>
                 </div>
+
+                {{-- Active Staff --}}
                 <div class="col-lg-4">
                     <div class="card secondary-card shadow">
                         <div class="card-body">
