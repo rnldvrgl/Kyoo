@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Foundation\Auth\ThrottlesLogins;
 
 class LoginController extends Controller
 {
@@ -25,7 +26,11 @@ class LoginController extends Controller
     |
     */
 
-    use AuthenticatesUsers;
+    use AuthenticatesUsers, ThrottlesLogins;
+
+    // protected $maxAttempts = 3; // Maximum number of login attempts
+
+    // protected $decayMinutes = 1; // Time period for which user should be locked out after maximum attempts
 
     /**
      * Where to redirect users after login.
@@ -42,6 +47,9 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+
+        // For Rate limiting throttle:limit of attempts, minutes the user is locked out
+        $this->middleware('throttle:3,1')->only('login');
     }
 
     public function login(Request $request)
