@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\QueueTicket;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 
 class QueueTicketController extends Controller
@@ -16,7 +17,9 @@ class QueueTicketController extends Controller
     // Fetch all queue tickets data
     public function getQueueTickets()
     {
-        $queueTickets = QueueTicket::all();
+        $dateToday = Carbon::now()->format('Y-m-d');
+
+        $queueTickets = QueueTicket::where('date', $dateToday)->get();
 
         $this->queue_ticket_data = [
             'queueTickets' => $queueTickets,
