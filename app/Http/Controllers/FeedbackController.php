@@ -13,13 +13,11 @@ class FeedbackController extends Controller
         // Message
         $messages = [
             'feedback-message.required' => 'Feedback Message is required.',
-            'fullname.min' => 'Name must be at least :min characters long.',
-            'fullname.max' => 'Name must not be greater than :max characters long.',
         ];
 
         // Validate
         $validatedData = Validator::make($request->except('_token'), [
-            'fullname' => 'nullable|string|min:5|max:75',
+            'fullname' => 'nullable|string',
             'feedback-message' => 'required',
         ], $messages);
 

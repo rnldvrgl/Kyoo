@@ -13,7 +13,8 @@
                     <div class="col-md-5 d-flex flex-column justify-content-center align-items-right gap-3">
                         <h1>Error 429</h1>
                         <h2>Too Many Requests.</h2>
-                        <a class="btn rounded-pill btn-kyoored" href="javascript:history.go(-1)">Back to home</a>
+                        <a class="btn rounded-pill btn-kyoored" href="{{ route('landing_page') }}">Back to
+                            home</a>
                     </div>
                 </div>
             </section>

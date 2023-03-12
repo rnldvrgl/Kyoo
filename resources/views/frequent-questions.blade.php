@@ -57,7 +57,7 @@
 
                 <div class="row mt-2" id="search-results" style="display:none;">
                     <div class="col-lg-6 mx-auto">
-                        <p class="text-center"><span id="results-count"></span> search results found.</p>
+                        <p class="text-center"><span id="results-count"></span> found.</p>
                     </div>
                 </div>
 
@@ -145,7 +145,7 @@
                     }
                 });
 
-                if (count === 1) {
+                if (count === 0 || count === 1) {
                     searchResults.show().find('#results-count').text(count + ' result');
                 } else {
                     searchResults.show().find('#results-count').text(count + ' results');

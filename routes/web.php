@@ -41,7 +41,7 @@ Auth::routes();
 
 Route::get('/', function () {
 	return view('welcome');
-});
+})->name('landing_page');
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 

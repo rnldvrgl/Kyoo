@@ -1,7 +1,7 @@
 {{-- Page Title --}}
 @section('mytitle', '404')
 
-<x-layout :role='$role'>
+<x-layout>
     <!-- Main Content -->
     <main>
         <div class="container">
@@ -13,7 +13,8 @@
                     <div class="col-md-5 d-flex flex-column justify-content-center align-items-right gap-3">
                         <h1>Whooops!</h1>
                         <h2>Sorry, the page you are looking for doesn't exist.</h2>
-                        <a class="btn rounded-pill btn-kyoored" href="javascript:history.go(-1)">Back to home</a>
+                        <a class="btn rounded-pill btn-kyoored" href="{{ route('landing_page') }}">Back to
+                            home</a>
                     </div>
                 </div>
             </section>
