@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\FaqController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KioskController;
@@ -48,9 +49,7 @@ Route::get('/live_queue', function () {
 	return view('live_queue');
 })->name('live_queue');
 
-Route::get('/frequent_questions', function () {
-	return view('frequent-questions');
-})->name('frequent_questions');
+Route::get('/frequent_questions', [FaqController::class, 'index'])->name('frequent_questions');
 
 Route::post('/send-feedback', [FeedbackController::class, 'store'])->name('feedback.store');
 

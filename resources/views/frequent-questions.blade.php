@@ -7,6 +7,8 @@
     {{-- Back to top button --}}
     <x-return-top />
 
+    {{-- Include Header Bar --}}
+    <x-header-link />
 
     <!-- Banner -->
     <div class="banner bg-kyoodark text-white shadow">
@@ -23,102 +25,93 @@
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Main Content -->
-        <main class="p-5">
-            <section class="section">
-                <div class="container-fluid px-lg-5">
-                    <div class="d-flex flex-column gap-3">
-                        <div class="pagetitle">
-                            <nav>
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item">
-                                        <a href="/">
-                                            <i class="fa-solid fa-house-chimney"></i>
-                                        </a>
-                                    </li>
-                                    <li class="breadcrumb-item active">Frequently Asked Questions</li>
-                                </ol>
-                            </nav>
+    <!-- Main Content -->
+    <main class="p-5">
+        <section class="section">
+            <div class="container-fluid px-lg-5">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb bg-transparent">
+                        <li class="breadcrumb-item">
+                            <a href="/">
+                                <i class="fa-solid fa-house-chimney"></i>
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">Frequently Asked Questions</li>
+                    </ol>
+                </nav>
+
+                <div class="row mt-4">
+                    <div class="col-lg-6 mx-auto">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Search for an answer"
+                                aria-label="Search input" aria-describedby="search-addon">
+                            <button class="btn btn-primary" type="button" id="search-addon">
+                                <i class="fas fa-search"></i>
+                            </button>
                         </div>
-                        <div class="input-group border-bottom border-2 my-4 col-6 mx-auto">
-                            <span class="input-group-text bg-transparent border-0">
-                                <button class="btn rounded-circle text-kyoored" type="button">
-                                    <i class="fas fa-search"></i>
-                                </button>
-                            </span>
-                            <input class="form-control py-2 border-0" type="search" placeholder="Type something..."
-                                id="example-search-input">
-                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-5">
+                    <div class="col-lg-10 mx-auto">
                         <div class="row">
-                            <div data-aos="fade-right" class="col-lg-4">
-                                <div class="card border-start border-kyoored border-5">
-                                    <div class="card-body">
-                                        <h5 class="card-title fw-bold">Quill Editor Bubble</h5>
-                                        <p>Select some text to display options in poppovers</p>
-                                    </div>
+                            <div class="col-lg-6">
+                                <div class="accordion" id="frequent-questions">
+                                    @foreach ($faqs->take(ceil(count($faqs) / 2)) as $index => $faq)
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="heading{{ $index }}">
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#collapse{{ $index }}" aria-expanded="false"
+                                                    aria-controls="collapse{{ $index }}">
+                                                    {{ $faq->question }}
+                                                </button>
+                                            </h2>
+                                            <div id="collapse{{ $index }}" class="accordion-collapse collapse"
+                                                aria-labelledby="heading{{ $index }}"
+                                                data-bs-parent="#frequent-questions">
+                                                <div class="accordion-body">
+                                                    {{ $faq->answer }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
-                            <div data-aos="fade-right" class="col-lg-4">
-                                <div class="card border-start border-kyoored border-5">
-                                    <div class="card-body">
-                                        <h5 class="card-title fw-bold">Quill Editor Bubble</h5>
-                                        <p>Select some text to display options in poppovers</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div data-aos="fade-right" class="col-lg-4">
-                                <div class="card border-start border-kyoored border-5">
-                                    <div class="card-body">
-                                        <h5 class="card-title fw-bold">Quill Editor Bubble</h5>
-                                        <p>Select some text to display options in poppovers</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div data-aos="fade-right" class="col-lg-4">
-                                <div class="card border-start border-kyoored border-5">
-                                    <div class="card-body">
-                                        <h5 class="card-title fw-bold">Quill Editor Bubble</h5>
-                                        <p>Select some text to display options in poppovers</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div data-aos="fade-right" class="col-lg-4">
-                                <div class="card border-start border-kyoored border-5">
-                                    <div class="card-body">
-                                        <h5 class="card-title fw-bold">Quill Editor Bubble</h5>
-                                        <p>Select some text to display options in poppovers</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div data-aos="fade-right" class="col-lg-4">
-                                <div class="card border-start border-kyoored border-5">
-                                    <div class="card-body">
-                                        <h5 class="card-title fw-bold">Quill Editor Bubble</h5>
-                                        <p>Select some text to display options in poppovers</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div data-aos="fade-right" class="col-lg-4">
-                                <div class="card border-start border-kyoored border-5">
-                                    <div class="card-body">
-                                        <h5 class="card-title fw-bold">Quill Editor Bubble</h5>
-                                        <p>Select some text to display options in poppovers</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div data-aos="fade-right" class="col-lg-4">
-                                <div class="card border-start border-kyoored border-5">
-                                    <div class="card-body">
-                                        <h5 class="card-title fw-bold">Quill Editor Bubble</h5>
-                                        <p>Select some text to display options in poppovers</p>
-                                    </div>
+
+                            <div class="col-lg-6">
+                                <div class="accordion" id="frequent-questions">
+                                    @foreach ($faqs->slice(ceil(count($faqs) / 2)) as $index => $faq)
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="heading{{ $index }}">
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#collapse{{ $index }}" aria-expanded="false"
+                                                    aria-controls="collapse{{ $index }}">
+                                                    {{ $faq->question }}
+                                                </button>
+                                            </h2>
+                                            <div id="collapse{{ $index }}" class="accordion-collapse collapse"
+                                                aria-labelledby="heading{{ $index }}"
+                                                data-bs-parent="#frequent-questions">
+                                                <div class="accordion-body">
+                                                    {{ $faq->answer }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </section>
-        </main>
-        <!-- /Main Content -->
+
+            </div>
+        </section>
+    </main>
+    <!-- /Main Content -->
+
+
 </x-layout>

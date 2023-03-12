@@ -3,7 +3,7 @@
     <!-- Container wrapper -->
     <div class="container px-5">
         <!-- Navbar brand -->
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="/">
             <img src="{{ asset('assets/images/kyoo-logo.svg') }}" alt="Kyoo Logo" width=" 40" height="34">
         </a>
 
