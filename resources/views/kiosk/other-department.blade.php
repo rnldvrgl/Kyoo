@@ -43,9 +43,6 @@
                                     <span class="display-6 fw-bold mb-3">
                                         {{ $department->name }}
                                     </span>
-                                    <p class="card-text my-3">
-                                        {{ $department->description }}
-                                    </p>
                                 </div>
                             </button>
                         </form>

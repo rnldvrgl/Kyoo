@@ -44,9 +44,6 @@
                             <span class="display-6 fw-bold mb-3">
                                 {{ $registrar->name }}
                             </span>
-                            <p class="card-text my-3 muted">
-                                {{ $registrar->description }}
-                            </p>
                         </div>
                     </div>
                 </div>
@@ -65,9 +62,6 @@
                             <span class="display-6 fw-bold mb-3">
                                 {{ $cashier->name }}
                             </span>
-                            <p class="card-text my-3 muted">
-                                {{ $cashier->description }}
-                            </p>
                         </div>
                     </div>
                 </div>

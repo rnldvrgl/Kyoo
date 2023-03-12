@@ -83,15 +83,13 @@
             @endforeach
         </div>
 
-
-
         {{-- If no service is available, show a message --}}
         @if ($services->where('department_id', $department->id)->where('status', 'active')->count() === 0)
             <div class="col-12">
                 <div class="card h-100 w-100">
                     <div class="card-body p-5 text-center">
                         <h3 class="fw-bold mb-3 text-kyoored">
-                            <i>No service is available.</i>
+                            <i>We're sorry, but there are no services currently being offered.</i>
                         </h3>
                     </div>
                 </div>
