@@ -95,7 +95,7 @@
                         <div class="col-12">
                             <div class="card shadow">
                                 <div class="card-body">
-                                    <div class="col-12">
+                                    <div class="col-12 mb-2">
                                         <div class="row d-flex align-items-center">
                                             <div class="col-lg-8">
                                                 <h5 class="card-title fw-bold">Queue Counts Report
