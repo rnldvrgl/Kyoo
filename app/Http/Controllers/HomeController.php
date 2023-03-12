@@ -49,7 +49,7 @@ class HomeController extends Controller
 	public function getAllData()
 	{
 		$department = Department::all();
-		$role = AccountRole::all();
+		$role = AccountRole::where('name', '!=', 'Main Admin')->get();
 		$login = AccountLogin::all();
 		$details = AccountDetails::all();
 		$services = Service::all();
