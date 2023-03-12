@@ -76,7 +76,7 @@
                                         Queue Now
                                     </button>
                                     <p id="consent-instruction" class="text-muted mb-0">Please agree to the data privacy
-                                        consent before queuing.</p>
+                                        consent below before queuing.</p>
                                 </div>
                             </fieldset>
                         </form>

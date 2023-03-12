@@ -23,7 +23,7 @@ class QueueTicketFactory extends Factory
             'student_department' => $this->faker->randomElement(['Graduate School', 'College', 'Senior High School', 'Junior High School']),
             'student_course' => $this->faker->randomElement(['Master', 'Bachelor of Science in Information Technology', 'General Academic Strand', 'Junior High School']),
             'status' => $this->faker->randomElement(['Pending', 'Serving', 'Served', 'Cancelled', 'Hold']),
-            'date' => $this->faker->date(),
+            'date' => $this->faker->dateTimeBetween('2019-01-01', '2023-12-31')->format('Y-m-d')
         ];
     }
 }

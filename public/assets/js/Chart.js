@@ -1,17 +1,17 @@
 $(document).ready(function () {
     var monthNames = [
-        "January",
-        "February",
-        "March",
-        "April",
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
         "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
     ];
 
     function drawChart(chartData) {
@@ -37,19 +37,31 @@ $(document).ready(function () {
         data.addRows(rows);
 
         var options = {
-            title: "Number of Queues per month",
             width: "100%",
             height: "100%",
+            legend: { position: "none" },
             chartArea: {
-                width: "80%",
+                width: "90%",
                 height: "70%",
             },
             hAxis: {
-                title: "Month",
+                baselineColor: "grey",
             },
             vAxis: {
-                title: "Queue Count",
+                baselineColor: "grey",
+                viewWindow: {
+                    min: 0,
+                },
             },
+            pointSize: 5,
+            series: {
+                0: {
+                    lineWidth: 3,
+                    color: "#A8D1D1",
+                    pointShape: "circle",
+                },
+            },
+            curveType: "function",
         };
 
         var chart = new google.visualization.LineChart($("#line-chart")[0]);

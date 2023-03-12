@@ -19,7 +19,7 @@ class QueueTicketSeeder extends Seeder
     {
         $departmentIds = Department::pluck('id')->toArray();
 
-        QueueTicket::factory(50)->create([
+        QueueTicket::factory(1500)->create([
             'department_id' => function () use ($departmentIds) {
                 return Arr::random($departmentIds);
             }

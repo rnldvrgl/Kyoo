@@ -98,7 +98,8 @@
                                     <div class="col-12">
                                         <div class="row d-flex align-items-center">
                                             <div class="col-lg-8">
-                                                <h5 class="card-title fw-bold">Line Chart</h5>
+                                                <h5 class="card-title fw-bold">Queue Counts Report
+                                                </h5>
                                             </div>
                                             <div class="col-lg-4">
                                                 <select name="year" id="year-dropdown" class="form-select">
@@ -110,12 +111,15 @@
                                         </div>
                                     </div>
 
-                                    <div id="line-chart" class="w-100 h-100">
-                                        {{-- Insert Chart here --}}
+                                    <div class="chart-container overflow-x-auto">
+                                        <div id="line-chart" class="w-100 h-100">
+                                            {{-- Insert Chart here --}}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-12">
                             <div class="card overflow-auto shadow">
                                 <div class="card-body">
