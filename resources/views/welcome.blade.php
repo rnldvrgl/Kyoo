@@ -192,7 +192,7 @@
                             </div>
 
                             <!-- Button Send -->
-                            <button data-aos="zoom-in-right" type="submit" class="btn btn-outline-success"
+                            <button data-aos="zoom-in-right" type="submit" class="btn btn-success"
                                 id="btn-send-feedback">
                                 Send Feedback
                                 <i class="fa-solid fa-paper-plane ms-3"></i>
