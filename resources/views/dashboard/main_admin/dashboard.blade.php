@@ -123,6 +123,9 @@
                                             {{-- Insert Chart here --}}
                                         </div>
                                     </div>
+
+                                    {{-- TODO: Should redirect to another page where all reports should be displayed para isahang Export nalang --}}
+                                    <a href="#">Export as PDF</a>
                                 </div>
                             </div>
                         </div>
