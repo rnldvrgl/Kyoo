@@ -1,4 +1,75 @@
 $(document).ready(function () {
+    // Send Feedback Form
+    $("#send-feedback-frm").submit(function (e) {
+        e.preventDefault();
+
+        var formData = new FormData(this);
+
+        $.ajaxSetup({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+        });
+
+        $("#btn-send-feedback").attr("disabled", true);
+        $("#btn-send-feedback").html(
+            "<i class='fa-solid fa-circle-notch fa-spin'></i> Sending ..."
+        );
+
+        $.ajax({
+            type: "POST",
+            url: this.action,
+            data: formData,
+            cache: false,
+            processData: false,
+            contentType: false,
+            success: (response) => {
+                // If may error
+                if (response.code == 400) {
+                    // List of errors
+                    let errorsHtml = "<ul class='list-unstyled'>";
+                    $.each(response.errors, function (key, value) {
+                        errorsHtml += "<li>" + value + "</li>";
+                    });
+                    errorsHtml += "</ul>";
+
+                    // Encase error messages here
+                    $("#res").html(
+                        '<div class="row alert alert-danger pb-0">' +
+                            errorsHtml +
+                            "</div>"
+                    );
+
+                    $("#btn-send-feedback").attr("disabled", false);
+                    $("#btn-send-feedback").html(
+                        'Send Feedback <i class="fa-solid fa-paper-plane ms-3"></i>'
+                    );
+                }
+                // If walang error
+                else if (response.code == 200) {
+                    $("#fullname").attr("disabled", true);
+                    $("#feedback-message").attr("disabled", true);
+                    $("#btn-send-feedback").html(
+                        'Feedback Sent <i class="fa-regular fa-circle-check fa-xl fa-beat" style="--fa-animation-duration: 2s;"></i>'
+                    );
+
+                    // Clear input fields
+                    $("#send-feedback-frm")[0].reset();
+                }
+            },
+            error: (xhr, status, error) => {
+                // handle error response
+                $("#res").html(
+                    '<div class="row alert alert-danger">' +
+                        "An error occurred while sending feedback. Please try again later." +
+                        "</div>"
+                );
+                $("#btn-send-feedback").attr("disabled", false);
+                $("#btn-send-feedback").html("Send Feedback");
+            },
+        });
+    });
+
     // Add Account Form
     $("#add-accounts-frm").submit(function (e) {
         e.preventDefault();
@@ -25,8 +96,6 @@ $(document).ready(function () {
             contentType: false,
             processData: false,
             success: (response) => {
-                console.log(response);
-
                 // If may error
                 if (response.code == 400) {
                     // List of errors

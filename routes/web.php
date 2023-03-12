@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KioskController;
 use App\Http\Controllers\QueueTicketController;
@@ -50,6 +51,8 @@ Route::get('/live_queue', function () {
 Route::get('/frequent_questions', function () {
 	return view('frequent-questions');
 })->name('frequent_questions');
+
+Route::post('/send-feedback', [FeedbackController::class, 'store'])->name('feedback.store');
 
 // * Main Admin Routes
 Route::middleware(['auth', 'user-access:Main Admin'])->group(function () {

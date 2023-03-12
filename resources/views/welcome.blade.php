@@ -116,6 +116,32 @@
                                 <code>.accordion-body</code>, though the transition does limit overflow.
                             </div>
                         </div>
+                        <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse"
+                            aria-labelledby="panelsStayOpen-headingThree">
+                            <div class="accordion-body">
+                                <strong>This is the third item's accordion body.</strong> It is hidden by default,
+                                until
+                                the collapse plugin adds the appropriate classes that we use to style each element.
+                                These classes control the overall appearance, as well as the showing and hiding via
+                                CSS
+                                transitions. You can modify any of this with custom CSS or overriding our default
+                                variables. It's also worth noting that just about any HTML can go within the
+                                <code>.accordion-body</code>, though the transition does limit overflow.
+                            </div>
+                        </div>
+                        <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse"
+                            aria-labelledby="panelsStayOpen-headingThree">
+                            <div class="accordion-body">
+                                <strong>This is the third item's accordion body.</strong> It is hidden by default,
+                                until
+                                the collapse plugin adds the appropriate classes that we use to style each element.
+                                These classes control the overall appearance, as well as the showing and hiding via
+                                CSS
+                                transitions. You can modify any of this with custom CSS or overriding our default
+                                variables. It's also worth noting that just about any HTML can go within the
+                                <code>.accordion-body</code>, though the transition does limit overflow.
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="text-center mt-5">
@@ -128,62 +154,57 @@
         </div>
     </section>
 
-
     {{-- Send Feedback Section --}}
-    <img class="img-fluid" src="{{ asset('assets/images/wave-up.svg') }}" alt="wave-down">
-    <section id="feedback" class="bg-kyoodark border-bottom pb-5 border-2 border-kyoored ">
-        <div class="container col-lg-12 p-5">
+    <section id="feedback" class="bg-kyoodark border-bottom py-5 border-2 border-kyoored">
+        <div class="container col-lg-12 px-5">
             <div class="d-flex flex-column justify-content-center align-items-center gap-3">
-                <div data-aos="fade-up" data-aos-anchor-placement="top-bottom"
-                    class="gap-3 text-center text-white mb-4">
+                <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" class="gap-3 text-center text-white">
                     <h2 class="display-6 fw-bold">SEND FEEDBACK</h2>
                     <p>We value your feedback and appreciate you taking the time to share your thoughts with us.</p>
                 </div>
                 <div class="row">
-                    <div class="d-flex justify-content-center align-items-center gap-5">
-                        <div data-aos="zoom-in" data-aos-anchor-placement="top-bottom"
-                            class="d-none d-lg-flex col-lg-4">
-                            <img class="img-fluid" src="{{ asset('assets/images/kyoo-logo.svg') }}" alt="Kyoo Logo">
-                        </div>
-                        <div class="col-lg-8">
-                            <!-- Form -->
-                            <form action="#" method="POST" class="needs-validation d-flex flex-column gap-3"
-                                novalidate>
-                                <!-- Full Name Input -->
-                                <div data-aos="zoom-in-right" data-aos-delay:3000 class="col-lg-12">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" id="floatingName" name="fullname"
-                                            placeholder="Full Name" title="Enter Full Name">
-                                        <label for="floatingName">Full Name (Optional)</label>
-                                    </div>
-                                </div>
-                                <!-- Department Description Input -->
-                                <div data-aos="zoom-in-right" data-aos-delay:1000 class="col-lg-12">
-                                    <div class="form-floating">
-                                        <textarea class="form-control" placeholder="Description" id="floatingMessage" name="dept-desc"
-                                            style="min-height: 100px; max-height: 200px;" required></textarea>
-                                        <label for="floatingMessage">Feedback</label>
-                                        <div class="valid-feedback">
-                                            Looks good!
-                                        </div>
-                                        <div class="invalid-feedback">
-                                            Required
-                                        </div>
-                                    </div>
-                                </div>
+                    <div class="col-lg-5 d-none d-lg-flex justify-content-center align-items-center p-3">
+                        <img class="img-fluid" src="{{ asset('assets/images/kyoo-logo.svg') }}" alt="Kyoo Logo"
+                            data-aos="zoom-in" data-aos-anchor-placement="top-bottom">
+                    </div>
 
-                                <!-- Button Send -->
-                                <button data-aos="zoom-in-right" type="submit" name="send-feedback"
-                                    class="btn btn-kyoored">
-                                    Send Feedback
-                                </button>
-                            </form>
-                        </div>
+                    <div class="col-lg-7 p-3">
+                        <form id="send-feedback-frm" action="{{ route('feedback.store') }}" method="POST"
+                            class="needs-validation d-flex flex-column gap-3" novalidate>
+                            @csrf
+                            <!-- Full Name Input -->
+                            <div data-aos="zoom-in-right">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="fullname" name="fullname"
+                                        placeholder="Full Name" title="Enter Full Name">
+                                    <label for="fullname">Full Name (Optional)</label>
+                                </div>
+                            </div>
+                            <!-- Feedback Message Input -->
+                            <div data-aos="zoom-in-right">
+                                <div class="form-floating">
+                                    <textarea class="form-control" placeholder="Feedback Message" id="feedback-message" name="feedback-message"
+                                        style="min-height: 100px; max-height: 200px;" required></textarea>
+                                    <label for="feedback-message">Feedback</label>
+                                    <div class="valid-feedback">Looks good!</div>
+                                    <div class="invalid-feedback">Required</div>
+                                </div>
+                            </div>
+
+                            <!-- Button Send -->
+                            <button data-aos="zoom-in-right" type="submit" class="btn btn-outline-success"
+                                id="btn-send-feedback">
+                                Send Feedback
+                                <i class="fa-solid fa-paper-plane ms-3"></i>
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
+        </div>
     </section>
     {{-- /Send Feedback Section --}}
+
 
     {{-- Include Footer Bar --}}
     <x-footer />
