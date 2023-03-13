@@ -106,129 +106,38 @@
                     </div>
                 </div>
                 <div class="col-xl-5">
-                    <div class="card d-none d-md-block">
-                        <div class="card-body">
-                            <h5 class="card-title">Add Service</h5>
-                            <div id="res">
-                                {{-- Append Success/Error Messages here --}}
-                            </div>
-                            <form id="add-services-frm" action="{{ route('manage.services.add') }}" method="POST"
-                                autocomplete="off">
-
-                                @csrf
-                                <input type="hidden" name="department_id" value="{{ $department->id }}">
-                                {{-- Full Name --}}
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="form-floating mb-3"> <input type="text" name="service_name"
-                                                class="form-control" id="floatingServiceName" placeholder="Service Name"
-                                                pattern="^[a-zA-Z0-9 ]*$">
-                                            <label for="floatingServiceName">Service
-                                                Name</label>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Status Switch -->
-                                <div class="form-check form-switch mb-3">
-                                    <input class="form-check-input" type="checkbox" id="status-switch" name="status"
-                                        value="active">
-                                    <label class="form-check-label" for="status-switch">Active</label>
-                                </div>
-                                <div class="row gap-2 gap-md-0">
-                                    <div class="col-md-6 order-md-first order-last">
-                                        <div class="d-grid gap-2">
-                                            <button type="reset" class="btn btn-danger">
-                                                <i class="fas fa-eraser me-2"></i>
-                                                Clear Input Fields
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 order-md-last order-first">
-                                        <div class="d-grid gap-2">
-                                            <button id="btn-save-service" type="submit" class="btn btn-success">
-                                                <i class="fa-solid fa-plus me-2"></i>
-                                                Add Service
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
                     <div class="card">
-                        <div class="card-header d-flex justify-content-between align-items-center mb-3">
-                            <h4 class="text-kyoored ">Assigned Services</h4>
-                            <button type="button" class="d-block d-md-none btn btn-success" data-bs-toggle="modal"
-                                data-bs-target="#add-service-modal">Add Service</button>
-                        </div>
                         <div class="card-body">
-                            <div class="row">
-                                <div class="col-12">
-                                    <ul class="list-group">
-                                        @foreach ($services as $service)
-                                            <li
-                                                class="list-group-item d-flex justify-content-between align-items-center">
-                                                {{ $service->name }}
-                                                @if ($service->status == 'active')
-                                                    <span
-                                                        class="badge bg-success rounded-pill">{{ $service->status }}</span>
-                                                @elseif ($service->status == 'inactive')
-                                                    <span
-                                                        class="badge bg-danger rounded-pill">{{ $service->status }}</span>
-                                                @endif
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h4 class="card-title text-kyoored">Assigned Services</h4>
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                                    data-bs-target="#addServiceModal">
+                                    <i class="fa-solid fa-plus me-2"></i>
+                                    Add Service
+                                </button>
                             </div>
-                        </div>
-                    </div>
-                    <div class="modal fade" id="add-service-modal" tabindex="-1"
-                        aria-labelledby="add-service-modal-label" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="add-service-modal-label">Add Service</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <div id="res-modal"></div>
-                                    <form id="add-services-frm-modal" action="{{ route('manage.services.add') }}"
-                                        method="POST" autocomplete="off">
-                                        @csrf
-                                        <input type="hidden" name="department_id" value="{{ $department->id }}">
-                                        {{-- Full Name --}}
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="form-floating mb-3"> <input type="text"
-                                                        name="service_name" class="form-control"
-                                                        id="floatingServiceName" placeholder="Service Name"
-                                                        pattern="^[a-zA-Z0-9 ]*$">
-                                                    <label for="floatingServiceName">Service
-                                                        Name</label>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <!-- Status Switch -->
-                                        <div class="form-check form-switch mb-3">
-                                            <input class="form-check-input" type="checkbox" id="status-switch-modal"
-                                                name="status" value="active">
-                                            <label class="form-check-label" for="status-switch-modal">Active</label>
-                                        </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="reset" class="btn btn-danger">
-                                        <i class="fas fa-eraser me-2"></i>
-                                        Clear Input Fields
-                                    </button>
-                                    <button -d="btn-save-service" type="submit" class="btn btn-success">
-                                        <i class="fa-solid fa-plus me-2"></i>
-                                        Add Service
-                                    </button>
-                                    </form>
+                            <div class="row">
+                                <div class="col-12 ">
+                                    <ul class="list-group">
+                                        @if ($services->count() == 0)
+                                            <p class="text-center text-danger fw-bold mt-3">No Service(s) Assigned</p>
+                                        @else
+                                            @foreach ($services as $service)
+                                                <li
+                                                    class="list-group-item d-flex justify-content-between align-items-center">
+                                                    {{ $service->name }}
+                                                    @if ($service->status == 'active')
+                                                        <span
+                                                            class="badge bg-success rounded-pill">{{ $service->status }}</span>
+                                                    @elseif ($service->status == 'inactive')
+                                                        <span
+                                                            class="badge bg-danger rounded-pill">{{ $service->status }}</span>
+                                                    @endif
+                                                </li>
+                                            @endforeach
+                                        @endif
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -237,6 +146,67 @@
             </div>
         </section>
         <!-- /Content Section -->
+
+        <!-- Add Service Modal -->
+        <div class="modal fade" id="addServiceModal" tabindex="-1" aria-labelledby="addServiceModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addServiceModalLabel">Add Service</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="res">
+                            {{-- Append Success/Error Messages here --}}
+                        </div>
+                        <form id="add-services-frm" action="{{ route('manage.services.add') }}" method="POST"
+                            autocomplete="off">
+
+                            @csrf
+                            <input type="hidden" name="department_id" value="{{ $department->id }}">
+                            {{-- Full Name --}}
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-floating mb-3"> <input type="text" name="service_name"
+                                            class="form-control" id="floatingServiceName" placeholder="Service Name"
+                                            pattern="^[a-zA-Z0-9 ]*$">
+                                        <label for="floatingServiceName">Service
+                                            Name</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Status Switch -->
+                            <div class="form-check form-switch mb-3">
+                                <input class="form-check-input" type="checkbox" id="status-switch" name="status"
+                                    value="active">
+                                <label class="form-check-label" for="status-switch">Active</label>
+                            </div>
+                            <div class="row gap-2 gap-md-0">
+                                <div class="col-md-6 order-md-first order-last">
+                                    <div class="d-grid gap-2">
+                                        <button type="reset" class="btn btn-danger">
+                                            <i class="fas fa-eraser me-2"></i>
+                                            Clear Input Fields
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 order-md-last order-first">
+                                    <div class="d-grid gap-2">
+                                        <button id="btn-save-service" type="submit" class="btn btn-success">
+                                            <i class="fa-solid fa-plus me-2"></i>
+                                            Add Service
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </main>
     <!-- /Main Content -->
 

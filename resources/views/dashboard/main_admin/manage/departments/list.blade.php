@@ -36,10 +36,14 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Departments</h5>
-
-                            <div id="res">
-                                {{-- Append Success/Error Messages here --}}
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h5 class="card-title">Departments</h5>
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                                    data-bs-target="#addDepartmentModal">
+                                    <i class="fa-solid fa-plus me-2"></i>
+                                    Add Department
+                                </button>
                             </div>
 
                             <div class="table-responsive">
@@ -66,6 +70,70 @@
             </div>
         </section>
         <!-- /Content Section -->
+
+        <!-- Add Department Modal -->
+        <div class="modal fade" id="addDepartmentModal" tabindex="-1" aria-labelledby="addDepartmentModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addDepartmentModalLabel">Add Department</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="res">
+                            {{-- Append Success/Error Messages here --}}
+                        </div>
+                        <form id="add-departments-frm" action="{{ route('manage.departments.store') }}" method="POST">
+                            @csrf
+                            {{-- Department Name --}}
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" name="name" id="floatingDepartmentName"
+                                    placeholder="Department Name" required>
+                                <label for="floatingDepartmentName">Department Name</label>
+                            </div>
+
+                            {{-- Department Code --}}
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" name="code" id="floatingDepartmentCode"
+                                    placeholder="Department Code" required>
+                                <label for="floatingDepartmentCode">Department Code</label>
+                            </div>
+
+                            {{-- Department Description --}}
+                            <div class="form-floating mb-3">
+                                <textarea class="form-control" placeholder="Description" name="description" id="floatingDescription"
+                                    style="height: 100px; min-height: 100px; max-height: 150px;"></textarea>
+                                <label for="floatingDescription">Description</label>
+                            </div>
+
+                            <!-- Status Switch -->
+                            <div class="form-check form-switch mb-4">
+                                <input class="form-check-input" type="checkbox" id="status-switch" name="status"
+                                    value="active">
+                                <label class="form-check-label" for="status-switch">
+                                    <span class="fw-bold">Status:</span>
+                                    <span class="ms-2" id="status-label">Inactive</span>
+                                </label>
+                            </div>
+
+
+                            {{-- Buttons --}}
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-success" id="btn-save-department">
+                                    <i class="fa-solid fa-plus me-2"></i>
+                                    Add Department
+                                </button>
+                                <button type="reset" class="btn btn-kyoored">
+                                    <i class="fas fa-eraser me-2"></i>
+                                    Clear Input Fields
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
     <!-- /Main Content -->
 

@@ -30,26 +30,11 @@
 
         {{-- Departments --}}
         <li class="nav-item">
-            <a class="nav-link collapsed {{ $uri == 'main-admin/manage/departments/add-department' || $uri == 'main-admin/manage/departments/edit-department' ? 'active' : '' }}"
-                data-bs-target="#dept-nav" data-bs-toggle="collapse" href="#">
+            <a href="{{ route('manage.departments.index') }}"
+                class="nav-link {{ $uri == 'main-admin/manage/departments/edit-department' || $uri == 'main-admin/manage/departments/view-department' ? 'active' : '' }}">
                 <i class="fa-solid fa-building"></i>
                 <span>Departments</span>
-                <i class="fa-solid fa-chevron-down ms-auto"></i>
             </a>
-            <ul id="dept-nav"
-                class="nav-content collapse{{ $uri == 'main-admin/manage/departments/add-department' || $uri == 'main-admin/manage/departments/edit-department' ? ' show' : '' }}"
-                data-bs-parent="#sidebar-nav">
-                <li>
-                    <a href="{{ route('manage.departments.add') }}"
-                        class="{{ $uri == 'main-admin/manage/departments/add-department' ? 'active' : '' }}">
-                        <i class="fa-solid fa-circle-plus"></i><span>Add Department</span>
-                    </a>
-                    <a href="{{ route('manage.departments.index') }}"
-                        class="{{ $uri == 'main-admin/manage/departments/edit-department' ? 'active' : '' }}">
-                        <i class="fa-solid fa-list-ol"></i><span>Department List</span>
-                    </a>
-                </li>
-            </ul>
         </li>
 
         {{-- Services --}}
