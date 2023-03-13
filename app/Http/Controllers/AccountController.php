@@ -23,9 +23,11 @@ class AccountController extends Controller
     public function index(HomeController $homeController)
     {
         $user_data = $homeController->getUserData();
+        $all_data = $homeController->getAllData();
 
         return view('dashboard.main_admin.manage.accounts.list', with([
             'user_data' => $user_data,
+            'all_data' => $all_data,
         ]));
     }
 

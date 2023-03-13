@@ -18,27 +18,14 @@
         {{-- Manage --}}
         <li class="nav-heading">MANAGE</li>
 
+
         {{-- Accounts --}}
         <li class="nav-item">
-            <a class="nav-link collapsed {{ $uri == 'main-admin/manage/accounts/add-account' || $uri == 'main-admin/manage/accounts/edit-account' ? 'active' : '' }}"
-                data-bs-target="#account-nav" data-bs-toggle="collapse" href="#">
-                <i class="fa-solid fa-user"></i><span>Account</span>
-                <i class="fa-solid fa-chevron-down ms-auto"></i>
+            <a href="{{ route('manage.accounts.index') }}"
+                class="nav-link {{ $uri == 'main-admin/manage/accounts/edit-account' || $uri == 'main-admin/manage/accounts/view-account' ? 'active' : '' }}">
+                <i class="fa-solid fa-user"></i>
+                <span>Accounts</span>
             </a>
-            <ul id="account-nav"
-                class="nav-content collapse{{ $uri == 'main-admin/manage/accounts/add-account' || $uri == 'main-admin/manage/accounts/edit-account' ? 'show' : '' }}"
-                data-bs-parent="#sidebar-nav">
-                <li>
-                    <a href="{{ route('manage.accounts.add') }}"
-                        class="{{ $uri == 'main-admin/manage/accounts/add-account' ? 'active' : '' }}">
-                        <i class="fa-solid fa-circle-plus"></i><span>Add Account</span>
-                    </a>
-                    <a href="{{ route('manage.accounts.index') }}"
-                        class="{{ $uri == 'main-admin/manage/accounts/edit-account' ? 'active' : '' }}">
-                        <i class="fa-solid fa-list-ol"></i></i><span>Account List</span>
-                    </a>
-                </li>
-            </ul>
         </li>
 
         {{-- Departments --}}

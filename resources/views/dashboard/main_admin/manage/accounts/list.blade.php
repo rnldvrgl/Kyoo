@@ -37,7 +37,15 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Accounts</h5>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h5 class="card-title">Accounts</h5>
+                                <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                                    data-bs-target="#addAccountModal">
+                                    Add Account
+                                    <i class="fa-solid fa-user-plus ms-2"></i>
+                                </button>
+                            </div>
+
 
                             <div id="res">
                                 {{-- Append Success/Error Messages here --}}
@@ -65,6 +73,87 @@
             </div>
         </section>
         <!-- /Content Section -->
+
+        <!-- Modal -->
+        <div class="modal fade" id="addAccountModal" tabindex="-1" aria-labelledby="addAccountModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addAccountModalLabel">Add Account</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="res">
+                            {{-- Append Success/Error Messages here --}}
+                        </div>
+
+                        <form id="add-accounts-frm" class="row g-3" action="{{ route('manage.accounts.store') }}"
+                            method="POST">
+                            @csrf
+
+                            {{-- Full Name --}}
+                            <div class="col-md-12">
+                                <div class="form-floating"> <input type="text" name="fullname" class="form-control"
+                                        id="floatingName" placeholder="Full Name"> <label for="floatingName">Full
+                                        Name</label></div>
+                            </div>
+
+                            {{-- Email Address --}}
+                            <div class="col-md-12">
+                                <div class="form-floating"> <input type="email" name="email" class="form-control"
+                                        id="floatingEmail" placeholder="Email Address"> <label for="floatingEmail">Email
+                                        Address</label></div>
+                            </div>
+
+                            {{-- Department --}}
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <select class="form-select" name="department" id="floatingDepartment"
+                                        aria-label="Department">
+                                        <option value="" selected disabled>Select
+                                            Department</option>
+                                        @foreach ($all_data['departments'] as $department)
+                                            <option value="{{ $department->id }}">
+                                                {{ $department->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    <label for="floatingDepartment">Department</label>
+                                </div>
+                            </div>
+
+                            {{-- Account Role --}}
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <select class="form-select" name="role" id="floatingRole" aria-label="State">
+                                        <option value="" selected disabled>Select Account
+                                            Role</option>
+                                        @foreach ($all_data['account_roles'] as $role)
+                                            <option value="{{ $role->id }}">
+                                                {{ $role->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    <label for="floatingRole">Role</label>
+                                </div>
+                            </div>
+
+                            {{-- Buttons --}}
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-success" id="btn-save-account">
+                                    <i class="fa-solid fa-user-plus"></i>
+                                    Add Account
+                                </button>
+                                <button type="reset" class="btn btn-kyoored">
+                                    <i class="fa-regular fa-trash-can"></i>
+                                    Clear Input Fields
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </main>
     <!-- /Main Content -->
 
