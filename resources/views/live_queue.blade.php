@@ -32,62 +32,26 @@
     <main class="px-2 py-3 mh-100">
         <section class="section">
             <div class="container-fluid">
-                <h1 class="fw-bold mb-3">
-                    Now Serving
-                </h1>
                 <div class="row row-cols-1 row-cols-xl-2">
                     <div class="col mb-4">
                         <div class="row row-cols-1 row-cols-lg-2">
-                            <div class="col mb-4">
-                                <div data-aos="fade-right">
-                                    <div class="card shadow border-start  border-kyoodark border-5">
-                                        <div class="card-body p-4">
-                                            <span class="display-6 fw-bold mb-3 d-block">Cashier</span>
-                                            <span class="display-5 text-center">
-                                                C0001
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col mb-4">
-                                <div data-aos="fade-right">
-                                    <div class="card shadow border-start border-kyoodark border-5">
-                                        <div class="card-body p-4">
-                                            <span class="display-6 fw-bold mb-3 d-block">Cashier</span>
-                                            <span class="display-5 text-center">
-                                                C0001
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col mb-4">
-                                <div data-aos="fade-right">
-                                    <div class="card shadow border-start border-kyoodark border-5">
-                                        <div class="card-body p-4">
-                                            <span class="display-6 fw-bold mb-3 d-block">Cashier</span>
-                                            <span class="display-5 text-center">
-                                                <button class="btn btn-kyoored" id="testButton">TTS Test Button</button>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            @foreach ($ticket_data['departments'] as $department_data)
+                                <x-current-serving-card :department="$department_data" />
+                            @endforeach
                         </div>
                     </div>
+                    {{-- <button class="btn btn-kyoored" id="testButton">TTS Test Button</button> --}}
                     <div class="col d-none d-xl-block">
-                        <div class="col-auto flex-grow-1">
-                            <?php
-                            $vid = array_slice(scandir(public_path('assets/video/')), 2);
-                            
-                            $video = isset($vid[0]) ? $vid[0] : '';
-                            
-                            ?>
-                            <video class="h-100 w-100 shadow" id="loop_video"
-                                src="{{ asset('assets/video/' . $video) }}" loop autoplay muted></video>
+                        <div class="col-auto flex-grow-1" style="max-width: 100%;">
+                            @php
+                                $videos = \Illuminate\Support\Facades\File::files(public_path('assets/video'));
+                                $video = count($videos) > 0 ? $videos[0]->getBasename() : '';
+                            @endphp
+                            <video class="video" id="loop_video" src="{{ asset('assets/video/' . $video) }}" loop
+                                autoplay muted style="max-width: 100%; height: auto;"></video>
                         </div>
                     </div>
+
                 </div>
             </div>
         </section>

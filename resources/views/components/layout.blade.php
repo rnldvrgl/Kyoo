@@ -62,7 +62,6 @@
     {{-- DataTable JS --}}
     <script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
 
-
     {{-- Moment.js --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 

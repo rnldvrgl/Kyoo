@@ -7,6 +7,7 @@ use App\Http\Controllers\FaqController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KioskController;
+use App\Http\Controllers\LiveQueueController;
 use App\Http\Controllers\QueueTicketController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\UserProfileController;
@@ -45,9 +46,7 @@ Route::get('/', function () {
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::get('/live_queue', function () {
-	return view('live_queue');
-})->name('live_queue');
+Route::get('/live_queue', [LiveQueueController::class, 'index'])->name('live_queue');
 
 Route::get('/frequent_questions', [FaqController::class, 'index'])->name('frequent_questions');
 
