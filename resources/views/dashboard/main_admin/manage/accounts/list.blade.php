@@ -46,11 +46,6 @@
                                 </button>
                             </div>
 
-
-                            <div id="res">
-                                {{-- Append Success/Error Messages here --}}
-                            </div>
-
                             <div class="table-responsive">
                                 <table id="accounts-table" class="table table-bordered table-hover" style="width:100%">
                                     <thead>

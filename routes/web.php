@@ -63,9 +63,6 @@ Route::middleware(['auth', 'user-access:Main Admin'])->group(function () {
 
 	// Manage Accounts
 	Route::prefix('main-admin/manage/accounts')->group(function () {
-		// Go to Add Account page
-		Route::get('/add-account', [AccountController::class, 'create'])->name('manage.accounts.add');
-
 		// Store Account
 		Route::post('/store-account', [AccountController::class, 'store'])->name('manage.accounts.store');
 
