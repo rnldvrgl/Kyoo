@@ -294,21 +294,6 @@
                         {
                             data: 'status',
                             name: 'status',
-                            // render: function(data) {
-                            //     let statusChecked = data == 'active' ? 'checked' : '';
-                            //     let statusText = data == 'active' ? 'Active' : 'Inactive';
-
-                            //     return '<div class="form-check form-switch mb-4"> ' +
-                            //         '<input class = "form-check-input status-switch" type = "checkbox" name = "status" value = "active" ' +
-                            //         statusChecked + ' > ' +
-                            //         '<label class = "form-check-label" for = "status-switch" > ' +
-                            //         '<span class = "fw-bold" > Status: </span> ' +
-                            //         ' <span class = "ms-2" id = "status-label" > ' +
-                            //         statusText +
-                            //         '</span> ' +
-                            //         ' </label> ' +
-                            //         '</div> ';
-                            // },
                             render: function(data) {
                                 let isChecked = data == 'active';
                                 let statusText = isChecked ? 'Active' : 'Inactive';
@@ -350,14 +335,9 @@
                     return $(this).val();
                 }).get();
 
-                var status = $('#services-table tr td:nth-child(2) .status-switch').map(
-                    function() {
-                        if ($(this).prop('checked')) {
-                            return $(this).val();
-                        } else {
-                            return $(this).val();
-                        }
-                    }).get();
+                var status = $('#services-table tr td:nth-child(2) .status-switch').map(function() {
+                    return $(this).prop('checked') ? 'active' : 'inactive';
+                }).get();
 
                 console.log(services);
                 console.log(status);
