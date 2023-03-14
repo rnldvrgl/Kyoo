@@ -330,8 +330,27 @@
             });
 
             $('#services-table').on('click', '.remove-service', function() {
-                $(this).closest('tr').remove();
+                let row = $(this).closest('tr');
+                $.confirm({
+                    type: "red",
+                    title: 'Remove Confirmation',
+                    icon: "fa-solid fa-trash-can",
+                    content: 'Are you sure you want to remove this service?',
+                    theme: "Modern",
+                    draggable: false,
+                    typeAnimated: true,
+                    buttons: {
+                        confirm: function() {
+                            row.remove();
+                            // Add an AJAX request to remove the service from the database here
+                        },
+                        cancel: function() {
+                            // Do nothing
+                        }
+                    }
+                });
             });
+
 
             $('#btn-update-services').on('click', function() {
                 var services = $('#services-table tr td:nth-child(1) input').map(function() {
