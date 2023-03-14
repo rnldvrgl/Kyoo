@@ -72,6 +72,11 @@
                                             </td>
                                             <td>
                                                 <div class="d-flex flex-row justify-content-start">
+                                                    <a href="#" class="btn btn-kyoodark btn-rounded mx-2"
+                                                        data-video-filename="{{ $video->filename }}"
+                                                        onclick="updateVideoPreview(this)">
+                                                        <i class="fa-solid fa-circle-play"></i>
+                                                    </a>
                                                     <a href="#" class="btn btn-info mx-2">
                                                         <i class="fa-solid fa-edit"></i>
                                                     </a>
@@ -89,6 +94,16 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Video Preview</h5>
+                            <div class="d-flex justify-content-center align-items-center">
+                                <video id="previewVideo" style="object-fit: cover; max-width: 100%; max-height: 100%;"
+                                    autoplay muted controls>
+                                    <source src="" type="video/mp4">
+                                </video>
+                                <div id="noVideoSelected" class="text-center" style="display:none">No video selected
+                                </div>
+                                <div id="noVideoFound" class="text-center" style="display:none">No video with supported
+                                    format and MIME type found</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -175,6 +190,25 @@
                         console.log(error);
                     });
             });
+
+            function updateVideoPreview(button) {
+                var videoFilename = button.getAttribute('data-video-filename');
+                if (!videoFilename) {
+                    $("#previewVideo").attr("src", "").hide();
+                    $("#noVideoSelected").show();
+                    return;
+                }
+                var videoUrl = "{{ Storage::url('public/promotional_videos/') }}" + videoFilename;
+                if (videoUrl.indexOf(".mp4") == -1) {
+                    $("#previewVideo").attr("src", "").hide();
+                    $("#noVideoSelected").hide();
+                    $("#noVideoFound").show();
+                    return;
+                }
+                $("#previewVideo").attr("src", videoUrl).show();
+                $("#noVideoSelected").hide();
+                $("#noVideoFound").hide();
+            }
         </script>
 
     </main>
