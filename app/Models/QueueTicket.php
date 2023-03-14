@@ -27,4 +27,12 @@ class QueueTicket extends Model
     {
         return $this->belongsToMany(Service::class, 'queue_ticket_service', 'ticket_id', 'service_id');
     }
+
+    public static function getPendingTicketsForDepartment($departmentId)
+    {
+        return self::where('department_id', $departmentId)
+            ->where('status', 'pending')
+            ->orderBy('created_at', 'ASC')
+            ->get();
+    }
 }

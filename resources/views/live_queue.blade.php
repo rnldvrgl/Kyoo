@@ -37,7 +37,7 @@
                         <div
                             class="row {{ count($ticket_data['departments']) > 4 ? 'row-cols-xl-2 row-cols-lg-1' : 'row-cols-1 row-cols-lg-2 row-cols-xl-1' }}">
                             @foreach ($ticket_data['departments'] as $department_data)
-                                <x-current-serving-card :department="$department_data" />
+                                <x-serving-card :department="$department_data" />
                             @endforeach
                         </div>
                     </div>
