@@ -92,12 +92,14 @@
     <!-- /Main Content -->
 
     <!-- Marquee Text  -->
-    <marquee class="d-none d-lg-block bg-kyoodark text-white fixed-bottom py-2 fw-normal">
-        Republic Central Colleges (RCC) envisions herself to be among the leading higher education institutions in the
-        region, having achieved excellence in its academic programs, research activities and community extension
-        services
-        through highly qualified human resources, modern facilities, effective and efficient organization and management
-        policies and procedures, as well as sustainable finances.
-    </marquee>
+    <div class="d-none d-lg-block fixed-bottom">
+        <div class="bg-kyoodark text-white py-2">
+            <div class="row justify-content-center">
+                <marquee behavior="scroll" direction="left" class="fw-normal" scrollamount="10">
+                    {{ $promotional_message[0]->text ?? '' }}
+                </marquee>
+            </div>
+        </div>
+    </div>
     <!-- /Marquee Text  -->
 </x-layout>

@@ -25,7 +25,6 @@
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item">Promotionals</li>
                     <li class="breadcrumb-item active">Manage Promotional Materials</li>
                 </ol>
             </nav>
@@ -34,7 +33,7 @@
         {{-- Content Section  --}}
         <section class="section">
             <div class="row">
-                <div class="col-lg-7">
+                <div class="col-lg-5">
                     <div class="card">
                         <div class="card-body">
                             <div id="res" class="mt-3">
@@ -51,7 +50,7 @@
                             </div>
                             <div class="my-4">
                                 @if (count($videos) > 0)
-                                    <table class="table table-bordered table-hover">
+                                    <table class="table table-bordered table-hover table-responsive">
                                         <thead>
                                             <tr>
                                                 <th style="width: 70%;">File Name</th>
@@ -106,47 +105,57 @@
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="col-lg-5">
                     <div class="card">
                         <div class="card-body">
+                            <div id="res-message" class="mt-3">
+                                {{-- Append Success/Error Messages here --}}
+                            </div>
+                            <h5 class="card-title p-0 pb-3">Promotional Message</h5>
+                            <form id="update-message-frm" action="{{ route('manage.promotionals.updatemessage') }}"
+                                method="POST" class="needs-validation" novalidate>
+                                @csrf
+                                <div class="mb-3">
+                                    <label for="text" class="form-label">Enter promotional message:</label>
+                                    <textarea class="form-control" id="text" name="text" rows="3" required
+                                        style="min-height: 150px; max-height: 250px; height: 150px;">{{ $texts[0]->text ?? '' }}</textarea>
+                                    <div class="invalid-feedback">
+                                        Please enter a promotional message.
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <button id="btn-save-message" type="submit" class="btn btn-primary">
+                                        Save Promotional Message <i class="fa-solid fa-floppy-disk ms-2"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-lg-7">
+                    <div class="card">
+                        <div class="card-body d-flex flex-column justify-content-between">
                             <h5 class="card-title">Video Preview</h5>
-                            <div class="d-flex justify-content-center align-items-center">
-                                <video id="previewVideo" style="object-fit: cover; max-width: 100%; max-height: 100%;"
+                            <div class="d-flex justify-content-center align-items-center flex-grow-1">
+                                <video id="previewVideo"
+                                    style="object-fit: cover; max-width: 100%; min-height: 600px; max-height: 600px;"
                                     autoplay muted controls>
                                     <source src="" type="video/mp4">
                                 </video>
-                                <div id="noVideoSelected" class="text-center" style="display:none">No video selected
+                                <div id="noVideoSelected" class="text-center" style="display:none">
+                                    <h3 class="fw-semibold text-kyoored mt-3">No video selected.</h3>
+                                    <p class="text-muted mt-3">Click the preview button in the table to play.</p>
                                 </div>
-                                <div id="noVideoFound" class="text-center" style="display:none">No video with supported
-                                    format and MIME type found</div>
+                                <div id="noVideoFound" class="text-center" style="display:none">
+                                    <h3 class="fw-semibold text-kyoored mt-3">No video with supported</h3>
+                                    <p class="text-muted mt-3">format and MIME type found</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            {{-- <div class="row mt-5">
-                <div class="col-lg-8">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">Promotional Text</h4>
-                        </div>
-                        <div class="card-body">
-                            <form action="manage.promotionals.updatetext" method="POST">
-                                @csrf
-                                <div class="mb-3">
-                                    <label for="text" class="form-label">Enter promotional
-                                        text</label>
-                                    <textarea class="form-control" id="text" name="text" rows="3">{{ $selected_text->text ?? '' }}</textarea>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Update Text</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div> --}}
         </section>
         {{-- /Content Section --}}
 
@@ -184,6 +193,49 @@
         </div>
 
         <script>
+            $(document).ready(function() {
+                var previewVideo = $("#previewVideo");
+                var noVideoSelected = $("#noVideoSelected");
+                var noVideoFound = $("#noVideoFound");
+
+                // Hide the video element if there is no source
+                if (!previewVideo.attr("src")) {
+                    previewVideo.hide();
+                    noVideoFound.hide();
+                    noVideoSelected.show();
+                } else {
+                    previewVideo.show();
+                    noVideoFound.hide();
+                    noVideoSelected.hide();
+                }
+
+                // Video Preview
+                function updateVideoPreview(button) {
+                    var videoFilename = button.getAttribute('data-video-filename');
+                    if (!videoFilename) {
+                        $("#previewVideo").attr("src", "").hide();
+                        $("#noVideoSelected").show();
+                        $("#noVideoFound").hide();
+                        return;
+                    }
+                    var videoUrl = "{{ Storage::url('public/promotional_videos/') }}" + videoFilename;
+                    if (videoUrl.indexOf(".mp4") == -1) {
+                        $("#previewVideo").attr("src", "").hide();
+                        $("#noVideoSelected").hide();
+                        $("#noVideoFound").show();
+                        return;
+                    }
+                    $("#previewVideo").attr("src", videoUrl).show();
+                    $("#noVideoSelected").hide();
+                    $("#noVideoFound").hide();
+                }
+
+                $(".preview-video").click(function() {
+                    updateVideoPreview(this);
+                    $("#noVideoSelected").hide();
+                });
+            });
+
             // Video status change using axios
             $(document).on('change', '.is_active_switch', function() {
                 let statusLabel = $(this).siblings('label');

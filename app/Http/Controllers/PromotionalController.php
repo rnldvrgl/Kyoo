@@ -21,29 +21,6 @@ class PromotionalController extends Controller
         return view('dashboard.main_admin.manage.promotionals.edit', compact('videos', 'texts', 'user_data', 'all_data'));
     }
 
-    // public function updatePromotional(Request $request)
-    // {
-    //     $validated = $request->validate([
-    //         'video_id' => 'nullable|exists:promotional_videos,id',
-    //         'text_id' => 'nullable|exists:texts,id'
-    //     ]);
-
-    //     // Deactivate the currently active video and text
-    //     PromotionalVideo::active()->update(['is_active' => false]);
-    //     PromotionalText::active()->update(['is_active' => false]);
-
-    //     // Activate the new video or text
-    //     if ($validated['video_id']) {
-    //         PromotionalVideo::find($validated['video_id'])->update(['is_active' => true]);
-    //     }
-
-    //     if ($validated['text_id']) {
-    //         PromotionalText::find($validated['text_id'])->update(['is_active' => true]);
-    //     }
-
-    //     return redirect()->route('manage.promotionals.index');
-    // }
-
     public function addVideo(Request $request)
     {
         // Messages
@@ -111,5 +88,35 @@ class PromotionalController extends Controller
                 'message' => 'Video not found.'
             ]);
         }
+    }
+
+    public function updateMessage(Request $request)
+    {
+        // Messages
+        $messages = [
+            'text.required' => 'The promotional message field is required.',
+            'text.string' => 'The promotional message must be a string.',
+            'text.max' => 'The promotional message may not be greater than :max characters.',
+        ];
+
+        // Validate
+        $validatedData = Validator::make($request->all(), [
+            'text' => 'required|string|max:1500'
+        ], $messages);
+
+        // Check if there is any error
+        if ($validatedData->fails()) {
+            return response()->json(['code' => 400, 'errors' => $validatedData->errors()]);
+        }
+
+        // Get the selected promotional message or create a new one if it doesn't exist
+        $selected_text = PromotionalText::firstOrCreate([]);
+
+        // Update the promotional message
+        $selected_text->text = $request->input('text');
+        $selected_text->save();
+
+        // Return a success message
+        return response()->json(['code' => 200, 'msg' => 'Promotional text updated successfully!']);
     }
 }

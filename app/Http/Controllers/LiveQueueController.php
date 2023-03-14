@@ -42,6 +42,7 @@ class LiveQueueController extends Controller
     {
         // Get all departments
         $departments = Department::all();
+        $promotional_message = PromotionalText::all();
         $ticket_data = [
             'departments' => []
         ];
@@ -65,6 +66,6 @@ class LiveQueueController extends Controller
 
 
         // Return view with departments data
-        return view('live_queue', compact('ticket_data'));
+        return view('live_queue', compact('ticket_data', 'promotional_message'));
     }
 }

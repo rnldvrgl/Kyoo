@@ -153,9 +153,6 @@ Route::middleware(['auth', 'user-access:Main Admin'])->group(function () {
 		// Edit Promotionals
 		Route::get('/edit-promotionals', [PromotionalController::class, 'index'])->name('manage.promotionals.edit');
 
-		// Update Promotionals
-		Route::put('/update-promotionals', [PromotionalController::class, 'update'])->name('manage.promotionals.update');
-
 		// Add Video
 		Route::post('/add-video', [PromotionalController::class, 'addVideo'])->name('manage.promotionals.addvideo');
 
@@ -164,6 +161,9 @@ Route::middleware(['auth', 'user-access:Main Admin'])->group(function () {
 
 		// Delete Video
 		Route::delete('/delete-video/{id}', [PromotionalController::class, 'deleteVideo'])->name('manage.promotionals.deletevideo');
+
+		// Update Promotional Message
+		Route::post('/update-message', [PromotionalController::class, 'updateMessage'])->name('manage.promotionals.updatemessage');
 	});
 })->name('main_admin');
 

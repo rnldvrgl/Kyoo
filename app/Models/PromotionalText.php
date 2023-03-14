@@ -9,10 +9,5 @@ class PromotionalText extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['content', 'is_active'];
-
-    public function scopeActive($query)
-    {
-        return $query->where('is_active', true);
-    }
+    protected $fillable = ['text'];
 }

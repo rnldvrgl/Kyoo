@@ -62,8 +62,8 @@
         <li class="nav-item">
             <a class="nav-link {{ $uri == 'main-admin/manage/promotionals/edit-promotionals' ? 'active' : '' }}"
                 href="{{ route('manage.promotionals.edit') }}">
-                <i class="fa-solid fa-video"></i>
-                <span>Promotionals</span>
+                <i class="fa-solid fa-rectangle-ad"></i>
+                <span>Promotional Materials</span>
             </a>
         </li>
     </ul>

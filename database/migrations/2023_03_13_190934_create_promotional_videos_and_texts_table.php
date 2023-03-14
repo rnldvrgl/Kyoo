@@ -22,8 +22,7 @@ return new class extends Migration
 
         Schema::create('promotional_texts', function (Blueprint $table) {
             $table->id();
-            $table->text('content');
-            $table->boolean('is_active')->default(false);
+            $table->longText('text');
             $table->timestamps();
         });
     }
@@ -36,6 +35,6 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('promotional_videos');
-        Schema::dropIfExists('texts');
+        Schema::dropIfExists('promotional_texts');
     }
 };

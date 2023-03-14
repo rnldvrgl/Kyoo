@@ -539,4 +539,77 @@ $(document).ready(function () {
             },
         });
     });
+
+    // Update Message Form
+    $("#update-message-frm").submit(function (e) {
+        e.preventDefault(); // Prevent the default form submission
+
+        // Serialize the formData
+        var formData = new FormData(this);
+
+        $.ajaxSetup({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"), // Get the CSRF token from the meta tag
+            },
+        });
+
+        $("#btn-save-message").attr("disabled", true); // Disable the submit button
+        $("#btn-save-message").html(
+            "<i class='fa-solid fa-circle-notch fa-spin'></i> Updating ..."
+        ); // Change the text of the submit button
+
+        // Send an AJAX request to the server
+        $.ajax({
+            type: "POST",
+            url: this.action, // Get the form action attribute as the URL
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                console.log(response);
+
+                // If there are errors
+                if (response.code == 400) {
+                    // List of errors
+                    let errorsHtml = "<ul class='list-unstyled'>";
+                    $.each(response.errors, function (key, value) {
+                        errorsHtml += "<li>" + value + "</li>";
+                    });
+                    errorsHtml += "</ul>";
+
+                    // Encase error messages here
+                    $("#res-message").html(
+                        '<div class="alert alert-danger pb-0">' +
+                            errorsHtml +
+                            "</div>"
+                    );
+
+                    $("#btn-save-message").attr("disabled", false); // Enable the submit button
+                    $("#btn-save-message").html(
+                        'Save Promotional Message <i class="fa-solid fa-floppy-disk ms-2"></i>'
+                    ); // Change the text of the submit button
+                }
+                // If there are no errors
+                else if (response.code == 200) {
+                    let success =
+                        '<div class="alert alert-success">' +
+                        response.msg +
+                        "</div>";
+
+                    $("#res-message").html(success); // Encase success message here
+                    $("#btn-save-message").attr("disabled", false); // Enable the submit button
+                    $("#btn-save-message").html(
+                        'Save Promotional Message <i class="fa-solid fa-floppy-disk ms-2"></i>'
+                    ); // Change the text of the submit button
+
+                    // Auto refresh the current page
+                    // Reload the page after 1 second
+                    setTimeout(() => {
+                        location.reload();
+                    }, 1000);
+                }
+            },
+        });
+    });
 });
