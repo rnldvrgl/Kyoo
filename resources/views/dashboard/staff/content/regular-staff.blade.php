@@ -50,9 +50,11 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Pending Tickets</h5>
+                            {{-- {{ dd($pendingTickets) }} --}}
                             @foreach ($pendingTickets as $ticket)
-                                <x-queue-card queueNumber="{{ $ticket->ticket_number }}"
-                                    queueTime="{{ $ticket->created_at }}" studentName="{{ $ticket->student_name }}"
+                                <x-queue-card id="queue-card-{{ $ticket->id }}" ticketId="{{ $ticket->id }}"
+                                    queueNumber="{{ $ticket->ticket_number }}" queueTime="{{ $ticket->created_at }}"
+                                    studentName="{{ $ticket->student_name }}"
                                     department="{{ $ticket->student_department }}"
                                     course="{{ $ticket->student_course }}" :services="$ticket->services->pluck('name')->toArray()" />
                             @endforeach

@@ -29,9 +29,11 @@
             </div>
             <div class="px-3">
                 <div class="d-grid gap-3">
-                    <button class="btn btn-primary rounded-sm px-2 py-1" type="button">
+                    <button class="btn btn-primary rounded-sm px-2 py-1" type="button"
+                        onclick="callNext('{{ $ticketId }}')">
                         <i class="fas fa-bullhorn me-1"></i> Call Next
                     </button>
+
                     <button class="btn btn-outline-secondary rounded-sm px-2 py-1" type="button">
                         <i class="fas fa-file-signature me-1"></i> Clearance
                     </button>
@@ -40,3 +42,9 @@
         </div>
     </div>
 </div>
+
+<script>
+    function callNext(ticketId) {
+        console.log(ticketId);
+    }
+</script>

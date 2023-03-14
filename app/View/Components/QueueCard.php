@@ -6,6 +6,7 @@ use Illuminate\View\Component;
 
 class QueueCard extends Component
 {
+    public $ticketId;
     public $queueNumber;
     public $queueTime;
     public $studentName;
@@ -13,8 +14,9 @@ class QueueCard extends Component
     public $course;
     public $services;
 
-    public function __construct($queueNumber, $queueTime, $studentName, $department, $course, $services)
+    public function __construct($ticketId, $queueNumber, $queueTime, $studentName, $department, $course, $services)
     {
+        $this->ticketId = $ticketId;
         $this->queueNumber = $queueNumber;
         $this->queueTime = $queueTime;
         $this->studentName = $studentName;
