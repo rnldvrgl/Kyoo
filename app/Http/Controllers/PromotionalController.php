@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\PromotionalText;
 use App\Models\PromotionalVideo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class PromotionalController extends Controller
@@ -20,28 +21,28 @@ class PromotionalController extends Controller
         return view('dashboard.main_admin.manage.promotionals.edit', compact('videos', 'texts', 'user_data', 'all_data'));
     }
 
-    public function updatePromotional(Request $request)
-    {
-        $validated = $request->validate([
-            'video_id' => 'nullable|exists:promotional_videos,id',
-            'text_id' => 'nullable|exists:texts,id'
-        ]);
+    // public function updatePromotional(Request $request)
+    // {
+    //     $validated = $request->validate([
+    //         'video_id' => 'nullable|exists:promotional_videos,id',
+    //         'text_id' => 'nullable|exists:texts,id'
+    //     ]);
 
-        // Deactivate the currently active video and text
-        PromotionalVideo::active()->update(['is_active' => false]);
-        PromotionalText::active()->update(['is_active' => false]);
+    //     // Deactivate the currently active video and text
+    //     PromotionalVideo::active()->update(['is_active' => false]);
+    //     PromotionalText::active()->update(['is_active' => false]);
 
-        // Activate the new video or text
-        if ($validated['video_id']) {
-            PromotionalVideo::find($validated['video_id'])->update(['is_active' => true]);
-        }
+    //     // Activate the new video or text
+    //     if ($validated['video_id']) {
+    //         PromotionalVideo::find($validated['video_id'])->update(['is_active' => true]);
+    //     }
 
-        if ($validated['text_id']) {
-            PromotionalText::find($validated['text_id'])->update(['is_active' => true]);
-        }
+    //     if ($validated['text_id']) {
+    //         PromotionalText::find($validated['text_id'])->update(['is_active' => true]);
+    //     }
 
-        return redirect()->route('manage.promotionals.index');
-    }
+    //     return redirect()->route('manage.promotionals.index');
+    // }
 
     public function addVideo(Request $request)
     {
@@ -88,5 +89,27 @@ class PromotionalController extends Controller
         $video->save();
 
         return response()->json(['success' => true]);
+    }
+
+    public function deleteVideo($id)
+    {
+        $video = PromotionalVideo::find($id);
+        if ($video) {
+            // delete the video file from storage
+            Storage::delete('public/promotional_videos/' . $video->filename);
+
+            // delete the video from the database
+            $video->delete();
+
+            return response()->json([
+                'code' => 200,
+                'message' => 'Video deleted successfully.'
+            ]);
+        } else {
+            return response()->json([
+                'code' => 400,
+                'message' => 'Video not found.'
+            ]);
+        }
     }
 }

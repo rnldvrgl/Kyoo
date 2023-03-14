@@ -161,6 +161,9 @@ Route::middleware(['auth', 'user-access:Main Admin'])->group(function () {
 
 		// Update Video Status
 		Route::put('/update-video-status', [PromotionalController::class, 'setActiveVideo'])->name('manage.promotionals.setactivevideo');
+
+		// Delete Video
+		Route::delete('/delete-video/{id}', [PromotionalController::class, 'deleteVideo'])->name('manage.promotionals.deletevideo');
 	});
 })->name('main_admin');
 

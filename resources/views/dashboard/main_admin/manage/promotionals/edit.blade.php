@@ -17,9 +17,9 @@
     {{-- Dashboard Sidebar --}}
     <x-dashboard-sidebar name="{{ $role->name }}" />
 
-    <!-- Main Content -->
+    {{-- Main Content --}}
     <main id="main" class="main">
-        <!-- Content Title -->
+        {{-- Content Title --}}
         <div class="pagetitle">
             <h1>Promotional Materials</h1>
             <nav>
@@ -30,16 +30,19 @@
                 </ol>
             </nav>
         </div>
-        <!-- /Content Title -->
-        <!-- Content Section -->
+        {{-- /Content Title  --}}
+        {{-- Content Section  --}}
         <section class="section">
             <div class="row">
                 <div class="col-lg-7">
                     <div class="card">
                         <div class="card-body">
+                            <div id="res" class="mt-3">
+                                {{-- Append Success/Error Messages here --}}
+                            </div>
                             <div class="d-flex justify-content-between align-items-center">
                                 <h5 class="card-title">Promotional Videos</h5>
-                                <!-- Button trigger modal -->
+                                {{--  Button trigger modal --}}
                                 <button type="button" class="btn btn-success" data-bs-toggle="modal"
                                     data-bs-target="#addVideoModal">
                                     Upload Video
@@ -72,15 +75,16 @@
                                             </td>
                                             <td>
                                                 <div class="d-flex flex-row justify-content-start">
+                                                    {{-- Preview Video --}}
                                                     <a href="#" class="btn btn-primary btn-rounded mx-auto"
                                                         data-video-filename="{{ $video->filename }}"
                                                         onclick="updateVideoPreview(this)">
                                                         <i class="fa-solid fa-circle-play"></i>
                                                     </a>
-                                                    <a href="#" class="btn btn-secondary mx-auto">
-                                                        <i class="fa-solid fa-edit"></i>
-                                                    </a>
-                                                    <a href="#" class="btn btn-danger mx-auto">
+
+                                                    {{-- Delete/Remove Video --}}
+                                                    <a href="#" class="btn btn-danger mx-auto delete-video"
+                                                        data-video-id="{{ $video->id }}">
                                                         <i class="fa-solid fa-trash-can"></i>
                                                     </a>
                                                 </div>
@@ -112,15 +116,14 @@
                 </div>
             </div>
 
-            <div class="row mt-5">
+            {{-- <div class="row mt-5">
                 <div class="col-lg-8">
                     <div class="card">
                         <div class="card-header">
                             <h4 class="card-title">Promotional Text</h4>
                         </div>
                         <div class="card-body">
-                            {{-- {{ route('manage.promotionals.updatetext') }} --}}
-                            <form action="#" method="POST">
+                            <form action="manage.promotionals.updatetext" method="POST">
                                 @csrf
                                 <div class="mb-3">
                                     <label for="text" class="form-label">Enter promotional
@@ -132,11 +135,11 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </section>
-        <!-- /Content Section -->
+        {{-- /Content Section --}}
 
-        <!-- Add Video Modal -->
+        {{-- Add Video Modal --}}
         <div class="modal fade" id="addVideoModal" tabindex="-1" aria-labelledby="addVideoModalLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
@@ -170,6 +173,7 @@
         </div>
 
         <script>
+            // Video status change using axios
             $(document).on('change', '.is_active_switch', function() {
                 let statusLabel = $(this).siblings('label');
                 if ($(this).is(':checked')) {
@@ -194,6 +198,68 @@
                     });
             });
 
+            // Delete video jquery confirm
+            $(".delete-video").click(function() {
+                var videoId = $(this).data("video-id");
+
+                $.confirm({
+                    title: "Confirm Deletion",
+                    content: "Are you sure you want to delete this video?",
+                    buttons: {
+                        confirm: function() {
+                            // Send AJAX request to delete video
+                            $.ajax({
+                                url: "{{ route('manage.promotionals.deletevideo', ['id' => ':id']) }}"
+                                    .replace(':id', videoId),
+                                type: "DELETE",
+                                headers: {
+                                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+                                },
+                                success: function(response) {
+                                    // Handle success response
+                                    console.log(response);
+
+                                    let success = '<div class="alert alert-success">' +
+                                        response.message +
+                                        '</div>';
+
+                                    // Display success message
+                                    $('#res').html(success);
+
+                                    // Remove success message after 5 seconds
+                                    setTimeout(function() {
+                                        $('.alert-success').remove();
+                                    }, 3000);
+
+                                    // Reload the page after 1 second
+                                    setTimeout(() => {
+                                        location.reload();
+                                    }, 1000);
+                                },
+                                error: function(xhr) {
+                                    // Handle error response
+                                    console.log("Failed to delete video.");
+
+                                    let failed = '<div class="alert alert-danger">' +
+                                        xhr.responseJSON.message +
+                                        '</div>';
+
+                                    // Display failed message
+                                    $('#res').html(failed);
+
+                                    // Remove failed message after 5 seconds
+                                    setTimeout(function() {
+                                        $('.alert-danger').remove();
+                                    }, 3000);
+                                },
+                            });
+                        },
+                        cancel: function() {},
+                    },
+                });
+            });
+
+            // Video Preview
             function updateVideoPreview(button) {
                 var videoFilename = button.getAttribute('data-video-filename');
                 if (!videoFilename) {
@@ -215,5 +281,5 @@
         </script>
 
     </main>
-    <!-- /Main Content -->
+    {{-- /Main Content  --}}
 </x-layout>

@@ -524,14 +524,11 @@ $(document).ready(function () {
                         response.msg +
                         "</div>";
 
-                    $("#res").html(success);
+                    $("#res-modal").html(success);
                     $("#btn-save-video").attr("disabled", false);
                     $("#btn-save-video").html(
                         'Upload <i class="fa-solid fa-upload ms-2"></i>'
                     );
-
-                    // Clear input fields
-                    $("#add-video-frm")[0].reset();
 
                     // Auto refresh the current page
                     // Reload the page after 1 second
