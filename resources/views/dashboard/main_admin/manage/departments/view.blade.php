@@ -110,31 +110,34 @@
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h4 class="card-title text-kyoored">Assigned Services</h4>
-                                <!-- Add Service Button trigger modal -->
-                                <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                                    data-bs-target="#addServiceModal">
-                                    <i class="fa-solid fa-plus me-2"></i>
-                                    Add Service
-                                </button>
+                                <div class="d-flex justify-content-end align-items-center gap-1">
+                                    <!-- Add Service Button trigger modal -->
+                                    <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                                        data-bs-target="#addServiceModal">
+                                        <i class="fas fa-plus me-2"></i>
+                                        Add Service
+                                    </button>
 
-                                <!-- Update Services Button trigger modal -->
-                                <button id="update-services" type="button" class="btn btn-primary"
-                                    data-bs-toggle="modal" data-bs-target="#updateServiceModal"
-                                    data-department-id={{ $department->id }}>
-                                    <i class="fa-solid fa-plus me-2"></i>
-                                    Update Service
-                                </button>
+                                    <!-- Update Services Button trigger modal -->
+                                    <button id="update-services" type="button" class="btn btn-primary"
+                                        data-bs-toggle="modal" data-bs-target="#updateServiceModal"
+                                        data-department-id="{{ $department->id }}">
+                                        <i class="fas fa-edit me-2"></i>
+                                        Update Services
+                                    </button>
+                                </div>
                             </div>
+
                             <div class="row">
                                 <div class="col-12">
-                                    <ul class="list-group">
-                                        @if ($services->count() == 0)
-                                            <p class="text-danger fw-bold mt-3 text-center">No Service(s) Assigned</p>
-                                        @else
-                                            @foreach ($services as $service)
+                                    @if ($services->count() == 0)
+                                        <p class="text-danger fw-bold mt-3 text-center">No Service(s) Assigned</p>
+                                    @else
+                                        <ul class="list-group list-group-flush mt-3">
+                                            @foreach ($services->sortBy('name') as $service)
                                                 <li
                                                     class="list-group-item d-flex justify-content-between align-items-center">
-                                                    {{ $service->name }}
+                                                    <div>{{ $service->name }}</div>
                                                     @if ($service->status == 'active')
                                                         <span
                                                             class="badge bg-success rounded-pill">{{ $service->status }}</span>
@@ -144,11 +147,12 @@
                                                     @endif
                                                 </li>
                                             @endforeach
-                                        @endif
-                                    </ul>
+                                        </ul>
+                                    @endif
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -281,7 +285,8 @@
                         },
                         width: '60%',
                         targets: 0,
-                        padding: '10px'
+                        padding: '10px',
+                        orderable: true,
                     },
                     {
                         data: 'status',
@@ -327,6 +332,9 @@
                     zeroRecords: 'No matching services found'
                 },
                 autoWidth: false,
+                order: [
+                    [0, 'asc']
+                ],
             });
 
             $('#services-table').on('click', '.remove-service', function() {
