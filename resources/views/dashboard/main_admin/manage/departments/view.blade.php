@@ -331,17 +331,46 @@
             });
 
             $('#btn-update-services').on('click', function() {
-                var services = $('#services-table tr td:nth-child(1) input').map(function() {
-                    return $(this).val();
+
+                let services = [];
+                let status = [];
+
+                $('#services-table tr td:nth-child(1) input').map(function() {
+                    return services.push($(this).val());
                 }).get();
 
-                var status = $('#services-table tr td:nth-child(2) .status-switch').map(function() {
-                    return $(this).prop('checked') ? 'active' : 'inactive';
+                $('#services-table tr td:nth-child(2) .status-switch').map(function() {
+                    return status.push($(this).prop('checked') ? 'active' : 'inactive');
                 }).get();
 
-                console.log(services);
-                console.log(status);
-                console.log(department_id);
+                console.log(services)
+                console.log(status)
+
+                $.ajaxSetup({
+                    headers: {
+                        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+                    },
+                });
+
+                $.ajax({
+                    url: '{{ route('manage.services.update') }}',
+                    type: "POST",
+                    data: {
+                        department_id: department_id,
+                        services: services,
+                        status: status
+                    },
+                    success: function(response) {
+                        if (response.code == 400) {
+                            console.log(response.errors)
+                        }
+
+                        console.log(response.data);
+                    },
+                    error: function(response) {
+                        console.log(response);
+                    }
+                });
             });
         });
     </script>

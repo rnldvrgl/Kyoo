@@ -149,6 +149,9 @@ Route::middleware(['auth', 'user-access:Main Admin'])->group(function () {
 
 		// Fetch Services
 		Route::get('/fetch-services/{id}', [ServiceController::class, 'fetchServices'])->name('manage.services.fetch');
+
+		// Update Services
+		Route::post('/update-services', [ServiceController::class, 'update'])->name('manage.services.update');
 	});
 
 	// Manage Promotionals

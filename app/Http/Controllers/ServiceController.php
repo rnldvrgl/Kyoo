@@ -72,4 +72,22 @@ class ServiceController extends Controller
         // Redirect
         return response()->json(['code' => 200, 'msg' => 'Service added successfully.']);
     }
+
+    public function update(Request $request)
+    {
+        $messages = [
+            'services.required' => 'Services must be provided.',
+            'services.regex' => 'Please enter a valid Service name.',
+        ];
+
+        $validatedData = Validator::make($request->except('_token'), [
+            'services*' => ['required', "regex: /^[a-zA-Z0-9 ]*$/"],
+        ], $messages);
+
+        if ($validatedData->fails()) {
+            return response()->json(['code' => 400, 'errors' => $validatedData->errors()]);
+        }
+
+        return response()->json(['data' => 'It works.']);
+    }
 }
