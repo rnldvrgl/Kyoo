@@ -39,8 +39,8 @@
             statusLabelModal.text("Inactive");
         }
     });
-
-    // Switch Text for Edit Services Pop-up Modal
+    
+      // Switch Text for Edit Services Pop-up Modal
     let serviceStatusSwitch = $(".status-switch");
     let serviceStatusLabel = $("label[for='status-switch']");
     if (serviceStatusSwitch.is(":checked")) {
@@ -53,6 +53,19 @@
             serviceStatusLabel.text("Active");
         } else {
             serviceStatusLabel.text("Inactive");
+
+    let isActiveSwitch = $("#is_active_switch_");
+    let isActiveLabel = $("label[for='is_active_switch_']");
+    if (isActiveSwitch.is(":checked")) {
+        isActiveLabel.text("Active");
+    } else {
+        isActiveLabel.text("Inactive");
+    }
+    isActiveSwitch.change(function () {
+        if ($(this).is(":checked")) {
+            isActiveLabel.text("Active");
+        } else {
+            isActiveLabel.text("Inactive");
         }
     });
 

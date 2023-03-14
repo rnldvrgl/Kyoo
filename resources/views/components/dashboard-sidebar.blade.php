@@ -42,31 +42,17 @@
             <a href="{{ route('manage.services.edit') }}"
                 class="nav-link {{ $uri == 'main-admin/manage/services/edit-service' ? 'active' : '' }}">
                 <i class="fa-solid fa-hand-holding"></i>
-                <span>Service List</span>
+                <span>Services</span>
             </a>
         </li>
 
         {{-- Frequently Asked Questions --}}
         <li class="nav-item">
-            <a class="nav-link collapsed {{ $uri == 'main-admin/manage/frequent_questions/add-frequent-question' || $uri == 'main-admin/manage/frequent_questions/edit-frequent-question' ? 'active' : '' }}"
-                data-bs-target="#faq-nav" data-bs-toggle="collapse" href="#">
-                <i class="fa-solid fa-file-circle-question"></i> <span>Frequent Questions</span>
-                <i class="fa-solid fa-chevron-down ms-auto"></i>
+            <a href="{{ route('manage.frequent_questions.edit') }}"
+                class="nav-link {{ $uri == 'main-admin/manage/frequent_questions/edit-frequent-question' ? 'active' : '' }}">
+                <i class="fa-solid fa-file-circle-question"></i>
+                <span>Frequent Questions</span>
             </a>
-            <ul id="faq-nav"
-                class="nav-content collapse{{ $uri == 'main-admin/manage/frequent_questions/add-frequent-question' || $uri == 'main-admin/manage/frequent_questions/edit-frequent-question' ? 'show' : '' }}"
-                data-bs-parent="#sidebar-nav">
-                <li>
-                    <a href="{{ route('manage.frequent_questions.add') }}"
-                        class="{{ $uri == 'main-admin/manage/frequent_questions/add-frequent-question' ? 'active' : '' }}">
-                        <i class="fa-solid fa-circle-plus"></i><span>Add Question</span>
-                    </a>
-                    <a href="{{ route('manage.frequent_questions.edit') }}"
-                        class="{{ $uri == 'main-admin/manage/frequent_questions/edit-frequent-question' ? 'active' : '' }}">
-                        <i class="fa-solid fa-list-ol"></i><span>Question List</span>
-                    </a>
-                </li>
-            </ul>
         </li>
 
         {{-- Queue Screen --}}
@@ -76,8 +62,8 @@
         <li class="nav-item">
             <a class="nav-link {{ $uri == 'main-admin/manage/promotionals/edit-promotionals' ? 'active' : '' }}"
                 href="{{ route('manage.promotionals.edit') }}">
-                <i class="fa-solid fa-video"></i>
-                <span>Promotionals</span>
+                <i class="fa-solid fa-rectangle-ad"></i>
+                <span>Promotional Materials</span>
             </a>
         </li>
     </ul>

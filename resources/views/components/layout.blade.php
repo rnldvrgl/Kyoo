@@ -71,6 +71,9 @@
     {{-- AOS JS --}}
     <script src=" https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
+    {{-- Axios --}}
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
     {{-- Main JS --}}
     <script src="{{ asset('assets/js/main.js') }}"></script>
 
@@ -102,9 +105,6 @@
 
     {{-- Kiosk JS --}}
     <script src="{{ asset('assets/js/kiosk.js') }}"></script>
-
-    {{-- Chart JS --}}
-    <script src="{{ asset('assets/js/chart.js') }}"></script>
 </body>
 
 </html>

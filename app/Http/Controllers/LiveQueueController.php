@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Department;
+use App\Models\PromotionalText;
+use App\Models\PromotionalVideo;
 use App\Models\QueueTicket;
+use App\Models\Video;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class LiveQueueController extends Controller
 {
@@ -38,6 +42,7 @@ class LiveQueueController extends Controller
     {
         // Get all departments
         $departments = Department::all();
+        $promotional_message = PromotionalText::all();
         $ticket_data = [
             'departments' => []
         ];
@@ -59,7 +64,8 @@ class LiveQueueController extends Controller
             $ticket_data['departments'][] = $department;
         }
 
+
         // Return view with departments data
-        return view('live_queue', compact('ticket_data'));
+        return view('live_queue', compact('ticket_data', 'promotional_message'));
     }
 }

@@ -16,9 +16,12 @@ class DatabaseSeeder extends Seeder
         $this->call(ServiceTableSeeder::class);
 
         // For Queue Ticket Demo
-        $this->call(QueueTicketSeeder::class);
+        // $this->call(QueueTicketSeeder::class);
 
         // Frequent Questions
         $this->call(FaqsSeeder::class);
+
+        // Promotional Text
+        $this->call(PromotionalTextSeeder::class);
     }
 }
