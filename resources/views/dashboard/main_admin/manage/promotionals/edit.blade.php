@@ -41,9 +41,9 @@
                                 <h5 class="card-title">Promotional Videos</h5>
                                 <!-- Button trigger modal -->
                                 <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                                    data-bs-target="#addDepartmentModal">
-                                    <i class="fa-solid fa-plus me-2"></i>
-                                    Add Video
+                                    data-bs-target="#addVideoModal">
+                                    Upload Video
+                                    <i class="fa-solid fa-upload ms-2"></i>
                                 </button>
                             </div>
                             <table class="table table-bordered table-hover">
@@ -117,6 +117,39 @@
             </div>
         </section>
         <!-- /Content Section -->
+
+        <!-- Add Video Modal -->
+        <div class="modal fade" id="addVideoModal" tabindex="-1" aria-labelledby="addVideoModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addVideoModalLabel">Upload Video</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="res-modal">
+                            {{-- Append Success/Error Messages here --}}
+                        </div>
+                        <form id="add-video-frm" action="{{ route('manage.promotionals.addvideo') }}" method="POST"
+                            enctype="multipart/form-data" class="needs-validation" novalidate>
+                            @csrf
+                            <div class="mb-3">
+                                <label for="video" class="form-label">Select video file</label>
+                                <input type="file" class="form-control" id="video" name="video"
+                                    accept="video/*" required>
+                            </div>
+                            <div class="text-end">
+                                <button type="submit" class="btn btn-success" id="btn-save-video">
+                                    Upload
+                                    <i class="fa-solid fa-upload ms-2"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <script>
             $(document).on('change', '.is_active_switch', function() {

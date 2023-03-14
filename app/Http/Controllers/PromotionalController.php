@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\PromotionalText;
 use App\Models\PromotionalVideo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class PromotionalController extends Controller
 {
@@ -44,9 +45,22 @@ class PromotionalController extends Controller
 
     public function addVideo(Request $request)
     {
-        $validated = $request->validate([
+        // Messages
+        $messages = [
+            'video.required' => 'The video file is required.',
+            'video.mimetypes' => 'The uploaded file must be an MP4 video format.',
+            'video.max' => 'The uploaded video file may not be greater than :max kilobytes in size.',
+        ];
+
+        // Validate
+        $validatedData = Validator::make($request->except('_token'), [
             'video' => 'required|mimetypes:video/mp4|max:500000'
-        ]);
+        ], $messages);
+
+        // Check if there is any error
+        if ($validatedData->fails()) {
+            return response()->json(['code' => 400, 'errors' => $validatedData->errors()]);
+        }
 
         if ($request->hasFile('video')) {
             $video = $request->file('video');
@@ -57,11 +71,13 @@ class PromotionalController extends Controller
                 'is_active' => false,
             ]);
 
-            return redirect()->back()->with('success', 'Promotional video added successfully!');
+            // Redirect
+            return response()->json(['code' => 200, 'msg' => 'Promotional video added successfully!']);
         }
 
         return redirect()->back()->with('error', 'Failed to add promotional video.');
     }
+
 
     public function setActiveVideo(Request $request)
     {
