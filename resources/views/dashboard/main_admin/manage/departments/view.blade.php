@@ -218,7 +218,7 @@
         <!-- Update Service Modal -->
         <div class="modal fade" id="updateServiceModal" tabindex="-1" aria-labelledby="updateServiceModalLabel"
             aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="addServiceModalLabel">Update Services</h5>
@@ -242,6 +242,19 @@
                                 {{-- Insert Data here... --}}
                             </tbody>
                         </table>
+
+                        {{-- Buttons --}}
+                        <div class="text-center">
+                            <button class="btn btn-kyoored">
+                                <i class="fas fa-trash me-2"></i>
+                                Delete All
+                            </button>
+
+                            <button class="btn btn-success" id="btn-update-services">
+                                Update
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -271,23 +284,48 @@
                     columns: [{
                             data: 'name',
                             name: 'name',
-                            width: '30%'
+                            render: function(data) {
+                                inputClass = 'form-control';
+                                return '<input class="' + inputClass +
+                                    '" type="text" value="' + data + '">';
+                            },
+                            width: '15%'
                         },
                         {
                             data: 'status',
                             name: 'status',
+                            // render: function(data) {
+                            //     let statusChecked = data == 'active' ? 'checked' : '';
+                            //     let statusText = data == 'active' ? 'Active' : 'Inactive';
+
+                            //     return '<div class="form-check form-switch mb-4"> ' +
+                            //         '<input class = "form-check-input status-switch" type = "checkbox" name = "status" value = "active" ' +
+                            //         statusChecked + ' > ' +
+                            //         '<label class = "form-check-label" for = "status-switch" > ' +
+                            //         '<span class = "fw-bold" > Status: </span> ' +
+                            //         ' <span class = "ms-2" id = "status-label" > ' +
+                            //         statusText +
+                            //         '</span> ' +
+                            //         ' </label> ' +
+                            //         '</div> ';
+                            // },
                             render: function(data) {
-                                return '<input class="form-check-input" type="checkbox" id="status-switch" name="status" value="active" ' +
-                                    '{{ ' + data + ' == 'active' ? 'checked' : '' }}>' +
-                                    '<label class="form-check-label" for="status-switch">' +
-                                    '<span class="fw-bold">Status:</span>' +
-                                    '<span class="ms-2" id="status-label">' +
-                                    '{{ ' + data + ' == 'active' ? 'Active' : 'Inactive' }}' +
-                                    '</span>' +
-                                    '</label>';
+                                let isChecked = data == 'active';
+                                let statusText = isChecked ? 'Active' : 'Inactive';
+
+                                return '<div class="form-check form-switch mb-4"> ' +
+                                    '<input class="form-check-input status-switch" type="checkbox" name="status" value="active" ' +
+                                    (isChecked ? 'checked' : '') + '> ' +
+                                    '<label class="form-check-label" for="status-switch"> ' +
+                                    '<span class="fw-bold"> Status: </span> ' +
+                                    '<span class="ms-2" id="status-label">' + statusText +
+                                    '</span> ' +
+                                    '</label> ' +
+                                    '</div>';
                             },
                             width: '15%',
                         },
+
                         {
                             data: 'actions',
                             name: 'actions',
@@ -304,7 +342,26 @@
             })
 
             $('#services-table').on('click', '.remove-service', function() {
+                $(this).closest('tr').remove();
+            });
 
+            $('#btn-update-services').on('click', function() {
+                var services = $('#services-table tr td:nth-child(1) input').map(function() {
+                    return $(this).val();
+                }).get();
+
+                var status = $('#services-table tr td:nth-child(2) .status-switch').map(
+                    function() {
+                        if ($(this).prop('checked')) {
+                            return $(this).val();
+                        } else {
+                            return $(this).val();
+                        }
+                    }).get();
+
+                console.log(services);
+                console.log(status);
+                console.log(department_id);
             });
         });
     </script>

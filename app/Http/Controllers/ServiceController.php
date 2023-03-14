@@ -17,7 +17,6 @@ class ServiceController extends Controller
             ->smart()
             ->addColumn('actions', function ($service) {
                 // Add your action buttons here
-
                 return
                     '<div class="hstack mx-auto">' .
                     '<button class="btn btn-danger remove-service" data-service-id="' . $service->id . '">Remove</button>' .
@@ -29,8 +28,6 @@ class ServiceController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request);
-
         // Message
         $messages = [
             'service_name.required' => 'Service name is required.',
