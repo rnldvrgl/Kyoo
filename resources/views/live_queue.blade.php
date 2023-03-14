@@ -44,14 +44,47 @@
                     <div class="col d-none d-xl-block">
                         <div class="col-auto flex-grow-1" style="max-width: 100%;">
                             @php
-                                $videos = \Illuminate\Support\Facades\File::files(public_path('assets/video'));
-                                $video = count($videos) > 0 ? $videos[0]->getBasename() : '';
+                                $active_videos = \App\Models\PromotionalVideo::where('is_active', true)->get();
                             @endphp
-                            <video class="video" id="loop_video" src="{{ asset('assets/video/' . $video) }}" loop
-                                autoplay muted style="max-width: 100%; height: auto;"></video>
+                            @if ($active_videos->count() > 0)
+                                <video class="video" id="loop_video"
+                                    style="object-fit: cover; width: 100%; height: 100%;" autoplay muted></video>
+                                <script>
+                                    const activeVideos = @json($active_videos);
+                                    const videoElement = document.getElementById('loop_video');
+                                    let videoIndex = 0;
+
+                                    function playNextVideo() {
+                                        if (videoIndex >= activeVideos.length) {
+                                            videoIndex = 0;
+                                        }
+
+                                        const videoSrc = '{{ asset('storage/promotional_videos/') }}/' + activeVideos[videoIndex].filename;
+                                        videoElement.src = videoSrc;
+                                        videoIndex++;
+
+                                        videoElement.play().catch(error => {
+                                            console.log(error);
+                                            playNextVideo();
+                                        });
+                                    }
+
+                                    videoElement.addEventListener('ended', () => {
+                                        playNextVideo();
+                                    });
+
+                                    // Start playing the first video
+                                    playNextVideo();
+                                </script>
+                            @else
+                                <div class="card border shadow-sm py-5">
+                                    <div class="d-flex justify-content-center align-items-center ">
+                                        <h1 class="mb-0 text-danger fw-light">No active promotional video found.</h1>
+                                    </div>
+                                </div>
+                            @endif
                         </div>
                     </div>
-
                 </div>
             </div>
         </section>

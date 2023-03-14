@@ -42,8 +42,7 @@
                         <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
                             <img id="image_avatar"
                                 src="{{ asset('storage/profile_images/' . ($profile_image ?? 'avatar.png')) }}"
-                                alt="Profile" class="rounded-circle" />
-
+                                class="img-responsive rounded-circle" alt="Profile Image">
                             <h2>{{ $details->name }}</h2>
                             <h3>{{ $role->name }}</h3>
                         </div>

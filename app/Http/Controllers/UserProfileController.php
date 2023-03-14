@@ -85,13 +85,14 @@ class UserProfileController extends Controller
             $filename = $request->file('profile_image')->getClientOriginalName();
             $profile_image = $filename;
             $request->file('profile_image')->storeAs('public/profile_images', $filename);
-            $imagePath = 'storage/app/public/profile_images/' . $account_details->profile_image;
-            # check whether the old image exists in the directory
+            $imagePath = storage_path('app/public/profile_images/' . $account_details->profile_image);
+            // check whether the old image exists in the directory
             if (File::exists($imagePath)) {
-                # delete old image
+                // delete old image
                 File::delete($imagePath);
             }
         }
+
 
         // Update the user details
         $account_details->update([

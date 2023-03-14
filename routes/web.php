@@ -8,6 +8,7 @@ use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KioskController;
 use App\Http\Controllers\LiveQueueController;
+use App\Http\Controllers\PromotionalController;
 use App\Http\Controllers\QueueTicketController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\UserProfileController;
@@ -149,15 +150,17 @@ Route::middleware(['auth', 'user-access:Main Admin'])->group(function () {
 
 	// Manage Promotionals
 	Route::prefix('main-admin/manage/promotionals')->group(function () {
-		// Add Service
-		Route::get('/edit-promotionals', function () {
-			$user_data = (new HomeController)->getUserData();
-			$all_data = (new HomeController)->getAllData();
-			return view('dashboard.main_admin.manage.promotionals.edit', [
-				'user_data' => $user_data,
-				'all_data' => $all_data,
-			]);
-		})->name('manage.promotionals.edit');
+		// Edit Promotionals
+		Route::get('/edit-promotionals', [PromotionalController::class, 'index'])->name('manage.promotionals.edit');
+
+		// Update Promotionals
+		Route::put('/update-promotionals', [PromotionalController::class, 'update'])->name('manage.promotionals.update');
+
+		// Add Video
+		Route::post('/add-video', [PromotionalController::class, 'addVideo'])->name('manage.promotionals.addvideo');
+
+		// Update Video Status
+		Route::put('/update-video-status', [PromotionalController::class, 'setActiveVideo'])->name('manage.promotionals.setactivevideo');
 	});
 })->name('main_admin');
 

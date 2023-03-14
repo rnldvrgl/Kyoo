@@ -327,4 +327,7 @@
         </section>
     </main>
     <!-- /Main Content -->
+
+    {{-- Chart JS --}}
+    <script src="{{ asset('assets/js/chart.js') }}"></script>
 </x-layout>

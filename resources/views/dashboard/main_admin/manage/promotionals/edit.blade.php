@@ -1,5 +1,5 @@
 {{-- Page Title --}}
-@section('mytitle', 'Add Account')
+@section('mytitle', 'Promotionals')
 
 @php
     $details = $user_data['details'];
@@ -21,12 +21,12 @@
     <main id="main" class="main">
         <!-- Content Title -->
         <div class="pagetitle">
-            <h1>Accounts</h1>
+            <h1>Promotionals</h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item">Accounts</li>
-                    <li class="breadcrumb-item active">Add Account</li>
+                    <li class="breadcrumb-item">Promotionals</li>
+                    <li class="breadcrumb-item active">Manage Promotional Materials</li>
                 </ol>
             </nav>
         </div>
@@ -37,50 +37,93 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Accounts</h5>
-                            <div class="table-responsive">
-                                <table id="departments-table" class="display w-100">
-                                    <caption>List of Accounts</caption>
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Department</th>
-                                            <th>Position</th>
-                                            <th>Email</th>
-                                            <th>Phone</th>
-                                            <th>Date Added</th>
-                                            <th>Date Updated</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <td>Name</td>
-                                        <td>Department</td>
-                                        <td>Position</td>
-                                        <td>Email</td>
-                                        <td>Phone</td>
-                                        <td>Date Added</td>
-                                        <td>Date Updated</td>
-                                        <td class="text-center d-grid gap-1">
-                                            <!-- View -->
-                                            <button class="btn btn-primary view-account" data-id="#">
-                                                <i class="fa-solid fa-eye"></i>
-                                            </button>
+                            <h5 class="card-title">Promotional Materials</h5>
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h4 class="card-title">Promotional Videos</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <table class="table table-bordered table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>File Name</th>
+                                                        <th>Status</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($videos as $video)
+                                                        <tr>
+                                                            <td>{{ $video->filename }}</td>
+                                                            <td>
+                                                                <div class="form-check form-switch">
+                                                                    <input class="form-check-input is_active_switch"
+                                                                        type="checkbox"
+                                                                        id="is_active_switch_{{ $video->id }}"
+                                                                        data-video-id="{{ $video->id }}"
+                                                                        {{ $video->is_active ? 'checked' : '' }}>
+                                                                    <label class="form-check-label"
+                                                                        for="is_active_switch_{{ $video->id }}">{{ $video->is_active ? 'Active' : 'Inactive' }}</label>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="d-flex flex-row justify-content-start">
+                                                                    <a href="#" class="btn btn-info mx-2">
+                                                                        <i class="fa-solid fa-edit"></i>
+                                                                    </a>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
 
-                                            <!-- Update -->
-                                            <button class="btn btn-secondary" data-bs-toggle="modal"
-                                                data-bs-target="#update-account-modal" data-id="#">
-                                                <i class="fa-solid fa-pen-to-square"></i>
-                                            </button>
+                                <div class="col-lg-4">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h4 class="card-title">Add New Video</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <form action="{{ route('manage.promotionals.addvideo') }}" method="POST"
+                                                enctype="multipart/form-data">
+                                                @csrf
+                                                <div class="mb-3">
+                                                    <label for="video" class="form-label">Select video file</label>
+                                                    <input type="file" class="form-control" id="video"
+                                                        name="video" accept="video/*" required>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary">Upload</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-                                            <!-- Delete -->
-                                            <button class="btn btn-danger" id="deleteData" href="#">
-                                                <i class="fa-solid fa-trash-can"></i>
-                                            </button>
-                                        </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                            <div class="row mt-5">
+                                <div class="col-lg-8">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h4 class="card-title">Promotional Text</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            {{-- {{ route('manage.promotionals.updatetext') }} --}}
+                                            <form action="#" method="POST">
+                                                @csrf
+                                                <div class="mb-3">
+                                                    <label for="text" class="form-label">Enter promotional
+                                                        text</label>
+                                                    <textarea class="form-control" id="text" name="text" rows="3">{{ $selected_text->text ?? '' }}</textarea>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary">Update Text</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -88,6 +131,28 @@
             </div>
         </section>
         <!-- /Content Section -->
+
+        <script>
+            $(function() {
+                $('.is_active_switch').change(function() {
+                    var video_id = $(this).data('video-id');
+                    var is_active = $(this).prop('checked');
+
+                    axios.put('{{ route('manage.promotionals.setactivevideo') }}', {
+                            video_id: video_id,
+                            is_active: is_active,
+                            _token: '{{ csrf_token() }}'
+                        })
+                        .then(function(response) {
+                            console.log(response);
+                        })
+                        .catch(function(error) {
+                            console.log(error);
+                        });
+                });
+            });
+        </script>
+
     </main>
     <!-- /Main Content -->
 </x-layout>
