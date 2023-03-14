@@ -72,13 +72,16 @@
                                             </td>
                                             <td>
                                                 <div class="d-flex flex-row justify-content-start">
-                                                    <a href="#" class="btn btn-kyoodark btn-rounded mx-2"
+                                                    <a href="#" class="btn btn-primary btn-rounded mx-auto"
                                                         data-video-filename="{{ $video->filename }}"
                                                         onclick="updateVideoPreview(this)">
                                                         <i class="fa-solid fa-circle-play"></i>
                                                     </a>
-                                                    <a href="#" class="btn btn-info mx-2">
+                                                    <a href="#" class="btn btn-secondary mx-auto">
                                                         <i class="fa-solid fa-edit"></i>
+                                                    </a>
+                                                    <a href="#" class="btn btn-danger mx-auto">
+                                                        <i class="fa-solid fa-trash-can"></i>
                                                     </a>
                                                 </div>
                                             </td>

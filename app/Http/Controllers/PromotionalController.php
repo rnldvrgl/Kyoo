@@ -78,7 +78,6 @@ class PromotionalController extends Controller
         return redirect()->back()->with('error', 'Failed to add promotional video.');
     }
 
-
     public function setActiveVideo(Request $request)
     {
         $video_id = $request->input('video_id');
