@@ -25,16 +25,12 @@
         }
     });
 
-    // Switch Text for Edit Services Pop-up Modal
-    let serviceStatusSwitch = $(".status-switch");
-    let serviceStatusLabel = $("label[for='status-switch']");
-    if (serviceStatusSwitch.is(":checked")) {
-        serviceStatusLabel.text("Active");
-    } else {
-        serviceStatusLabel.text("Inactive");
-    }
-    serviceStatusSwitch.change(function () {
-        if ($(this).is(":checked")) {
+    $("body").on("change", ".status-switch", function () {
+        let isChecked = $(this).is(":checked");
+        let serviceStatusLabel = $(this)
+            .siblings("label.form-check-label")
+            .find(".ms-2");
+        if (isChecked) {
             serviceStatusLabel.text("Active");
         } else {
             serviceStatusLabel.text("Inactive");
