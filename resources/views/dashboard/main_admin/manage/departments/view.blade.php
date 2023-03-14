@@ -229,7 +229,7 @@
                         <div id="res">
                             {{-- Append Success/Error Messages here --}}
                         </div>
-                        <table id="services-table" class="table-bordered table-hover table" style="width:100%">
+                        <table id="services-table" class="table table-bordered  w-100">
                             <caption>List of Services</caption>
                             <thead>
                                 <tr>
@@ -267,64 +267,67 @@
         $(function() {
             var department_id = {{ $department->id }};
 
-            $('#update-services').on('click', function() {
-
-                var table = $('#services-table').DataTable();
-
-                if ($.fn.DataTable.isDataTable('#services-table')) {
-                    table.destroy();
-                }
-
-                $('#services-table').DataTable({
-                    responsive: true,
-                    processing: true,
-                    serverSide: true,
-                    ajax: '{{ route('manage.services.fetch', ['id' => ':id']) }}'.replace(':id',
-                        department_id),
-                    columns: [{
-                            data: 'name',
-                            name: 'name',
-                            render: function(data) {
-                                inputClass = 'form-control';
-                                return '<input class="' + inputClass +
-                                    '" type="text" value="' + data + '">';
-                            },
-                            width: '15%'
+            $('#services-table').DataTable({
+                responsive: true,
+                processing: true,
+                serverSide: true,
+                ajax: '{{ route('manage.services.fetch', ['id' => $department->id]) }}',
+                columns: [{
+                        data: 'name',
+                        name: 'name',
+                        render: function(data) {
+                            return '<input class="form-control w-100" type="text" value="' + data +
+                                '" style="max-width: 90%;">';
                         },
-                        {
-                            data: 'status',
-                            name: 'status',
-                            render: function(data) {
-                                let isChecked = data == 'active';
-                                let statusText = isChecked ? 'Active' : 'Inactive';
-
-                                return '<div class="form-check form-switch mb-4"> ' +
-                                    '<input class="form-check-input status-switch" type="checkbox" name="status" value="active" ' +
-                                    (isChecked ? 'checked' : '') + '> ' +
-                                    '<label class="form-check-label" for="status-switch"> ' +
-                                    '<span class="fw-bold"> Status: </span> ' +
-                                    '<span class="ms-2" id="status-label">' + statusText +
-                                    '</span> ' +
-                                    '</label> ' +
-                                    '</div>';
-                            },
-                            width: '15%',
+                        width: '60%',
+                        targets: 0,
+                        padding: '10px'
+                    },
+                    {
+                        data: 'status',
+                        name: 'status',
+                        render: function(data) {
+                            let isChecked = data == 'active';
+                            let statusText = isChecked ? 'Active' : 'Inactive';
+                            return '<div class="form-check form-switch mb-4"> ' +
+                                '<input class="form-check-input status-switch" type="checkbox" name="status" value="active" ' +
+                                (isChecked ? 'checked' : '') + '> ' +
+                                '<label class="form-check-label" for="status-switch"> ' +
+                                '<span class="fw-bold"> Status: </span> ' +
+                                '<span class="ms-2" id="status-label">' + statusText +
+                                '</span> ' +
+                                '</label> ' +
+                                '</div>';
                         },
-
-                        {
-                            data: 'actions',
-                            name: 'actions',
-                            orderable: false,
-                            searchable: false,
-                            width: '10%',
-                            className: 'text-center',
+                        width: '30%',
+                        targets: 1,
+                        padding: '10px'
+                    },
+                    {
+                        data: 'actions',
+                        name: 'actions',
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-center',
+                        width: '10%',
+                        targets: 2,
+                        padding: '10px',
+                        render: function(data, type, full, meta) {
+                            return '<button class="btn btn-danger btn-delete remove-service" data-id="' +
+                                full.id +
+                                '"><i class="fa fa-trash"></i></button>';
                         }
-                    ],
-                    paging: true,
-                    pageLength: 10,
-                    lengthMenu: [10, 25, 50, 100]
-                });
-            })
+                    }
+                ],
+                paging: true,
+                pageLength: 10,
+                lengthMenu: [10, 25, 50, 100],
+                language: {
+                    searchPlaceholder: 'Search Services...',
+                    zeroRecords: 'No matching services found'
+                },
+                autoWidth: false,
+            });
 
             $('#services-table').on('click', '.remove-service', function() {
                 $(this).closest('tr').remove();
