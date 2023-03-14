@@ -5,13 +5,29 @@ namespace App\Http\Controllers;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Yajra\DataTables\Facades\DataTables;
 
 class ServiceController extends Controller
 {
+    public function fetchServices($id)
+    {
+        $services = Service::query()->where('department_id', $id)->orderByDesc('created_at');
+
+        return DataTables::eloquent($services)
+            ->smart()
+            ->addColumn('actions', function ($service) {
+                // Add your action buttons here
+                return
+                    '<div class="hstack mx-auto">' .
+                    '<button class="btn btn-danger remove-service" data-service-id="' . $service->id . '">Remove</button>' .
+                    '</div>';
+            })
+            ->rawColumns(['actions'])
+            ->make(true);
+    }
+
     public function store(Request $request)
     {
-        // dd($request);
-
         // Message
         $messages = [
             'service_name.required' => 'Service name is required.',

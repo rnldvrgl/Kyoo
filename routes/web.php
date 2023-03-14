@@ -132,7 +132,7 @@ Route::middleware(['auth', 'user-access:Main Admin'])->group(function () {
 		})->name('manage.frequent_questions.edit');
 	});
 
-	// Manage Services
+	// ! Manage Services
 	Route::prefix('main-admin/manage/services')->group(function () {
 		// Store Department
 		Route::post('/add-service', [ServiceController::class, 'store'])->name('manage.services.add');
@@ -146,6 +146,9 @@ Route::middleware(['auth', 'user-access:Main Admin'])->group(function () {
 				'all_data' => $all_data,
 			]);
 		})->name('manage.services.edit');
+
+		// Fetch Services
+		Route::get('/fetch-services/{id}', [ServiceController::class, 'fetchServices'])->name('manage.services.fetch');
 	});
 
 	// Manage Promotionals

@@ -47,7 +47,7 @@
                             </div>
 
                             <div class="table-responsive">
-                                <table id="departments-table" class="table table-bordered table-hover"
+                                <table id="departments-table" class="table-bordered table-hover table"
                                     style="width:100%">
                                     <caption>List of Departments</caption>
                                     <thead>
@@ -137,6 +137,7 @@
     </main>
     <!-- /Main Content -->
 
+    {{-- For Department Table --}}
     <script>
         $(function() {
             $('#departments-table').DataTable({

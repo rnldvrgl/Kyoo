@@ -41,7 +41,7 @@
                 <div class="col-xl-7">
                     <div class="card">
                         <div
-                            class="card-body profile-card pt-4 d-flex flex-column justify-content-center align-items-center">
+                            class="card-body profile-card d-flex flex-column justify-content-center align-items-center pt-4">
                             <div class="row">
                                 <div class="col-12 text-center">
                                     <h1 class="fw-bold text-kyoored">{{ $department->name }}</h1>
@@ -110,18 +110,26 @@
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h4 class="card-title text-kyoored">Assigned Services</h4>
-                                <!-- Button trigger modal -->
+                                <!-- Add Service Button trigger modal -->
                                 <button type="button" class="btn btn-success" data-bs-toggle="modal"
                                     data-bs-target="#addServiceModal">
                                     <i class="fa-solid fa-plus me-2"></i>
                                     Add Service
                                 </button>
+
+                                <!-- Update Services Button trigger modal -->
+                                <button id="update-services" type="button" class="btn btn-primary"
+                                    data-bs-toggle="modal" data-bs-target="#updateServiceModal"
+                                    data-department-id={{ $department->id }}>
+                                    <i class="fa-solid fa-plus me-2"></i>
+                                    Update Service
+                                </button>
                             </div>
                             <div class="row">
-                                <div class="col-12 ">
+                                <div class="col-12">
                                     <ul class="list-group">
                                         @if ($services->count() == 0)
-                                            <p class="text-center text-danger fw-bold mt-3">No Service(s) Assigned</p>
+                                            <p class="text-danger fw-bold mt-3 text-center">No Service(s) Assigned</p>
                                         @else
                                             @foreach ($services as $service)
                                                 <li
@@ -183,7 +191,7 @@
                                     value="active">
                                 <label class="form-check-label" for="status-switch">Active</label>
                             </div>
-                            <div class="row gap-2 gap-md-0">
+                            <div class="row gap-md-0 gap-2">
                                 <div class="col-md-6 order-md-first order-last">
                                     <div class="d-grid gap-2">
                                         <button type="reset" class="btn btn-danger">
@@ -207,7 +215,154 @@
             </div>
         </div>
 
+        <!-- Update Service Modal -->
+        <div class="modal fade" id="updateServiceModal" tabindex="-1" aria-labelledby="updateServiceModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addServiceModalLabel">Update Services</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="res">
+                            {{-- Append Success/Error Messages here --}}
+                        </div>
+                        <table id="services-table" class="table-bordered table-hover table" style="width:100%">
+                            <caption>List of Services</caption>
+                            <thead>
+                                <tr>
+                                    <th>Service/s</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{-- Insert Data here... --}}
+                            </tbody>
+                        </table>
+
+                        {{-- Buttons --}}
+                        <div class="text-center">
+                            <button class="btn btn-kyoored">
+                                <i class="fas fa-trash me-2"></i>
+                                Delete All
+                            </button>
+
+                            <button class="btn btn-success" id="btn-update-services">
+                                Update
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
     <!-- /Main Content -->
 
+    {{-- For Services Table --}}
+    <script>
+        $(function() {
+            var department_id = {{ $department->id }};
+
+            $('#update-services').on('click', function() {
+
+                var table = $('#services-table').DataTable();
+
+                if ($.fn.DataTable.isDataTable('#services-table')) {
+                    table.destroy();
+                }
+
+                $('#services-table').DataTable({
+                    responsive: true,
+                    processing: true,
+                    serverSide: true,
+                    ajax: '{{ route('manage.services.fetch', ['id' => ':id']) }}'.replace(':id',
+                        department_id),
+                    columns: [{
+                            data: 'name',
+                            name: 'name',
+                            render: function(data) {
+                                inputClass = 'form-control';
+                                return '<input class="' + inputClass +
+                                    '" type="text" value="' + data + '">';
+                            },
+                            width: '15%'
+                        },
+                        {
+                            data: 'status',
+                            name: 'status',
+                            // render: function(data) {
+                            //     let statusChecked = data == 'active' ? 'checked' : '';
+                            //     let statusText = data == 'active' ? 'Active' : 'Inactive';
+
+                            //     return '<div class="form-check form-switch mb-4"> ' +
+                            //         '<input class = "form-check-input status-switch" type = "checkbox" name = "status" value = "active" ' +
+                            //         statusChecked + ' > ' +
+                            //         '<label class = "form-check-label" for = "status-switch" > ' +
+                            //         '<span class = "fw-bold" > Status: </span> ' +
+                            //         ' <span class = "ms-2" id = "status-label" > ' +
+                            //         statusText +
+                            //         '</span> ' +
+                            //         ' </label> ' +
+                            //         '</div> ';
+                            // },
+                            render: function(data) {
+                                let isChecked = data == 'active';
+                                let statusText = isChecked ? 'Active' : 'Inactive';
+
+                                return '<div class="form-check form-switch mb-4"> ' +
+                                    '<input class="form-check-input status-switch" type="checkbox" name="status" value="active" ' +
+                                    (isChecked ? 'checked' : '') + '> ' +
+                                    '<label class="form-check-label" for="status-switch"> ' +
+                                    '<span class="fw-bold"> Status: </span> ' +
+                                    '<span class="ms-2" id="status-label">' + statusText +
+                                    '</span> ' +
+                                    '</label> ' +
+                                    '</div>';
+                            },
+                            width: '15%',
+                        },
+
+                        {
+                            data: 'actions',
+                            name: 'actions',
+                            orderable: false,
+                            searchable: false,
+                            width: '10%',
+                            className: 'text-center',
+                        }
+                    ],
+                    paging: true,
+                    pageLength: 10,
+                    lengthMenu: [10, 25, 50, 100]
+                });
+            })
+
+            $('#services-table').on('click', '.remove-service', function() {
+                $(this).closest('tr').remove();
+            });
+
+            $('#btn-update-services').on('click', function() {
+                var services = $('#services-table tr td:nth-child(1) input').map(function() {
+                    return $(this).val();
+                }).get();
+
+                var status = $('#services-table tr td:nth-child(2) .status-switch').map(
+                    function() {
+                        if ($(this).prop('checked')) {
+                            return $(this).val();
+                        } else {
+                            return $(this).val();
+                        }
+                    }).get();
+
+                console.log(services);
+                console.log(status);
+                console.log(department_id);
+            });
+        });
+    </script>
 </x-layout>

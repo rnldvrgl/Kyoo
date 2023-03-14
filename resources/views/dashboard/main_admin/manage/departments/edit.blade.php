@@ -89,7 +89,7 @@
                                         </div>
 
                                         {{-- Buttons --}}
-                                        <div class="d-grid gap-2 mb-3">
+                                        <div class="d-grid mb-3 gap-2">
                                             <a href="{{ route('manage.departments.index') }}" class="btn btn-kyoored">
                                                 <i class="fa-solid fa-arrow-left"></i>
                                                 Go back
