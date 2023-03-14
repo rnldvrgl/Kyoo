@@ -43,7 +43,7 @@ class ServiceController extends Controller
                 'department_id' => 'required|exists:departments,id',
                 'service_name' => [
                     'required',
-                    "regex:/^[a-zA-Z0-9 ]*$/",
+                    "regex:/^[a-zA-Z ]*$/",
                     'min:3',
                     'max:20',
                 ],
@@ -71,5 +71,47 @@ class ServiceController extends Controller
 
         // Redirect
         return response()->json(['code' => 200, 'msg' => 'Service added successfully.']);
+    }
+
+    public function update(Request $request)
+    {
+        $servicesArray = [
+            'services' => $request->services,
+            'status' => $request->status
+        ];
+
+        $rules = [
+            'services' => 'required|array',
+            'services.*' => ['required', 'regex:/^[a-zA-Z ]*$/'],
+            'status.*' => 'string'
+        ];
+
+        $messages = [
+            'services.*' => 'Please enter a valid Service name.',
+        ];
+
+        $validatedData = Validator::make($servicesArray, $rules, $messages);
+
+        if ($validatedData->fails()) {
+            return response()->json(['code' => 400, 'errors' => $validatedData->errors()]);
+        }
+
+        // Delete where department_id matches
+        Service::where('department_id', $request->department_id)->delete();
+
+        // Insert
+        $services = $request->services;
+        $statuses = $request->status;
+
+        // loop through the services and statuses arrays and save each pair of values
+        for ($i = 0; $i < count($services); $i++) {
+            $service = new Service();
+            $service->department_id = $request->department_id;
+            $service->name = $services[$i];
+            $service->status = $statuses[$i];
+            $service->save();
+        }
+
+        return response()->json(['code' => 200, 'success' => 'Services modified successfully.']);
     }
 }
