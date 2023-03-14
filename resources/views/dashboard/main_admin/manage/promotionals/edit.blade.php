@@ -41,7 +41,7 @@
                                 {{-- Append Success/Error Messages here --}}
                             </div>
                             <div class="d-flex justify-content-between align-items-center">
-                                <h5 class="card-title">Promotional Videos</h5>
+                                <h5 class="card-title py-0">Promotional Videos</h5>
                                 {{--  Button trigger modal --}}
                                 <button type="button" class="btn btn-success" data-bs-toggle="modal"
                                     data-bs-target="#addVideoModal">
@@ -49,50 +49,61 @@
                                     <i class="fa-solid fa-upload ms-2"></i>
                                 </button>
                             </div>
-                            <table class="table table-bordered table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>File Name</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($videos as $video)
-                                        <tr>
-                                            <td>{{ $video->filename }}</td>
-                                            <td>
-                                                <div class="form-check form-switch">
-                                                    <input class="form-check-input is_active_switch" type="checkbox"
-                                                        id="is_active_switch_{{ $video->id }}"
-                                                        data-video-id="{{ $video->id }}"
-                                                        {{ $video->is_active ? 'checked' : '' }}>
-                                                    <label class="form-check-label"
-                                                        for="is_active_switch_{{ $video->id }}">
-                                                        {{ $video->is_active ? 'Active' : 'Inactive' }}
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex flex-row justify-content-start">
-                                                    {{-- Preview Video --}}
-                                                    <a href="#" class="btn btn-primary btn-rounded mx-auto"
-                                                        data-video-filename="{{ $video->filename }}"
-                                                        onclick="updateVideoPreview(this)">
-                                                        <i class="fa-solid fa-circle-play"></i>
-                                                    </a>
+                            <div class="my-4">
+                                @if (count($videos) > 0)
+                                    <table class="table table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 70%;">File Name</th>
+                                                <th style="width: 20%;">Status</th>
+                                                <th style="width: 10%;">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($videos as $video)
+                                                <tr>
+                                                    <td>{{ $video->filename }}</td>
+                                                    <td>
+                                                        <div class="form-check form-switch">
+                                                            <input class="form-check-input is_active_switch"
+                                                                type="checkbox"
+                                                                id="is_active_switch_{{ $video->id }}"
+                                                                data-video-id="{{ $video->id }}"
+                                                                {{ $video->is_active ? 'checked' : '' }}>
+                                                            <label class="form-check-label"
+                                                                for="is_active_switch_{{ $video->id }}">
+                                                                {{ $video->is_active ? 'Active' : 'Inactive' }}
+                                                            </label>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="d-flex flex-row justify-content-center gap-2">
+                                                            {{-- Preview Video --}}
+                                                            <button type="button" class="btn btn-primary"
+                                                                data-video-filename="{{ $video->filename }}"
+                                                                onclick="updateVideoPreview(this)">
+                                                                <i class="fa-solid fa-circle-play"></i>
+                                                            </button>
 
-                                                    {{-- Delete/Remove Video --}}
-                                                    <a href="#" class="btn btn-danger mx-auto delete-video"
-                                                        data-video-id="{{ $video->id }}">
-                                                        <i class="fa-solid fa-trash-can"></i>
-                                                    </a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                                            {{-- Delete/Remove Video --}}
+                                                            <button type="button" class="btn btn-danger delete-video"
+                                                                data-video-id="{{ $video->id }}">
+                                                                <i class="fa-solid fa-trash-can"></i>
+                                                            </button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                @else
+                                    <div class="text-center py-4">
+                                        <h4 class="text-danger fw-thin mb-3">No promotional videos have been uploaded.
+                                        </h4>
+                                        <p>To add a video, click the "Upload Video" button above.</p>
+                                    </div>
+                                @endif
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -203,8 +214,13 @@
                 var videoId = $(this).data("video-id");
 
                 $.confirm({
+                    type: "red",
                     title: "Confirm Deletion",
+                    icon: "fa-solid fa-trash-can",
                     content: "Are you sure you want to delete this video?",
+                    theme: "Modern",
+                    draggable: false,
+                    typeAnimated: true,
                     buttons: {
                         confirm: function() {
                             // Send AJAX request to delete video
