@@ -23,6 +23,6 @@ class ServingCard extends Component
      */
     public function render()
     {
-        return view('components.serving-card');
+        return view('components.current-serving-card');
     }
 }

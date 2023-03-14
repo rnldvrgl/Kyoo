@@ -50,24 +50,12 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Pending Tickets</h5>
-                            {{-- @foreach ($pendingTickets as $ticket)
-                                <x-queue-card queueNumber="{{ $ticket->queueNumber }}"
-                                    queueTime="{{ $ticket->queueTime }}" studentName="{{ $ticket->studentName }}"
-                                    department="{{ $ticket->department }}" course="{{ $ticket->course }}"
-                                    :services="{{ $ticket->services }}" />
-                            @endforeach --}}
-                            <x-queue-card queueNumber="R001" queueTime="Mar-14-23 09:59:01 PM"
-                                studentName="Ronald Vergel Dela Cruz" department="College" course="BSIT"
-                                :services="['Request Document', 'Add Subject']" />
-
-                            <x-queue-card queueNumber="R002" queueTime="Mar-14-23 10:32:57 PM"
-                                studentName="Mark Lewence Endrano" department="College" course="BSA"
-                                :services="['Add Subject']" />
-
-                            <x-queue-card queueNumber="R003" queueTime="Mar-14-23 10:45:21 PM"
-                                studentName="Juan Dela Cruz" department="SHS" course="ABM" :services="['Request Document']" />
-
-
+                            @foreach ($pendingTickets as $ticket)
+                                <x-queue-card queueNumber="{{ $ticket->ticket_number }}"
+                                    queueTime="{{ $ticket->created_at }}" studentName="{{ $ticket->student_name }}"
+                                    department="{{ $ticket->student_department }}"
+                                    course="{{ $ticket->student_course }}" :services="$ticket->services->pluck('name')->toArray()" />
+                            @endforeach
                         </div>
                     </div>
                 </div>

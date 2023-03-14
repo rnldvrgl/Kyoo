@@ -86,11 +86,4 @@ class HomeController extends Controller
 			'user_data' => $this->getUserData(),
 		]);
 	}
-
-	public function staff()
-	{
-		return view('dashboard.staff.dashboard', [
-			'user_data' => $this->getUserData(),
-		]);
-	}
 }

@@ -11,6 +11,7 @@ use App\Http\Controllers\LiveQueueController;
 use App\Http\Controllers\PromotionalController;
 use App\Http\Controllers\QueueTicketController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\StaffController;
 use App\Http\Controllers\UserProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -177,13 +178,8 @@ Route::middleware(['auth', 'user-access:Department Admin'])->group(function () {
 
 // * Department Staff Routes
 Route::middleware(['auth', 'user-access:Staff'])->group(function () {
-	Route::get('/staff/dashboard', [HomeController::class, 'staff'])->name('dashboard.staff');
+	Route::get('/staff/dashboard', [StaffController::class, 'index'])->name('dashboard.staff');
 })->name('staff');
-
-// * Librarian Routes
-Route::middleware(['auth', 'user-access:Librarian'])->group(function () {
-	Route::get('/librarian/dashboard', [HomeController::class, 'librarian'])->name('dashboard.librarian');
-})->name('librarian');
 
 // * Logout
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
