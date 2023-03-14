@@ -33,22 +33,24 @@
         <section class="section">
             <div class="container-fluid">
                 <div class="row row-cols-1 row-cols-xl-2">
-                    <div class="col mb-4">
-                        <div class="row row-cols-1 row-cols-lg-2">
+                    <div class="col-xl-5 mb-4">
+                        <div
+                            class="row {{ count($ticket_data['departments']) > 4 ? 'row-cols-xl-2 row-cols-lg-1' : 'row-cols-1 row-cols-lg-2 row-cols-xl-1' }}">
                             @foreach ($ticket_data['departments'] as $department_data)
                                 <x-current-serving-card :department="$department_data" />
                             @endforeach
                         </div>
                     </div>
                     {{-- <button class="btn btn-kyoored" id="testButton">TTS Test Button</button> --}}
-                    <div class="col d-none d-xl-block">
+                    <div class="col-xl-7 d-none d-xl-block">
                         <div class="col-auto flex-grow-1" style="max-width: 100%;">
                             @php
                                 $active_videos = \App\Models\PromotionalVideo::where('is_active', true)->get();
                             @endphp
                             @if ($active_videos->count() > 0)
                                 <video class="video" id="loop_video"
-                                    style="object-fit: cover; width: 100%; height: 100%;" autoplay muted></video>
+                                    style="object-fit: cover; width: 100%; height: calc(100vh - 135px);" autoplay
+                                    muted></video>
                                 <script>
                                     const activeVideos = @json($active_videos);
                                     const videoElement = document.getElementById('loop_video');
