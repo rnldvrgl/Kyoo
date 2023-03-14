@@ -40,6 +40,21 @@
         }
     });
 
+    let isActiveSwitch = $("#is_active_switch_");
+    let isActiveLabel = $("label[for='is_active_switch_']");
+    if (isActiveSwitch.is(":checked")) {
+        isActiveLabel.text("Active");
+    } else {
+        isActiveLabel.text("Inactive");
+    }
+    isActiveSwitch.change(function () {
+        if ($(this).is(":checked")) {
+            isActiveLabel.text("Active");
+        } else {
+            isActiveLabel.text("Inactive");
+        }
+    });
+
     // Get the message element
     var messageElement = $("#message");
 
