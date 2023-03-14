@@ -178,7 +178,7 @@
                                 <div class="col-12">
                                     <div class="form-floating mb-3"> <input type="text" name="service_name"
                                             class="form-control" id="floatingServiceName" placeholder="Service Name"
-                                            pattern="^[a-zA-Z0-9 ]*$">
+                                            pattern="^[a-zA-Z ]*$">
                                         <label for="floatingServiceName">Service
                                             Name</label>
                                     </div>
@@ -226,7 +226,7 @@
                             aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <div id="res">
+                        <div id="services-res">
                             {{-- Append Success/Error Messages here --}}
                         </div>
                         <table id="services-table" class="table-bordered table-hover table" style="width:100%">
@@ -335,23 +335,24 @@
                 let services = [];
                 let status = [];
 
+                // Fetch all services and push them into the services array
                 $('#services-table tr td:nth-child(1) input').map(function() {
                     return services.push($(this).val());
                 }).get();
 
+                // Fetch all status and push them into the status array
                 $('#services-table tr td:nth-child(2) .status-switch').map(function() {
                     return status.push($(this).prop('checked') ? 'active' : 'inactive');
                 }).get();
 
-                console.log(services)
-                console.log(status)
-
+                // CSRF Protection
                 $.ajaxSetup({
                     headers: {
                         "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
                     },
                 });
 
+                // AJAX Request to ServiceController update() method
                 $.ajax({
                     url: '{{ route('manage.services.update') }}',
                     type: "POST",
@@ -362,10 +363,32 @@
                     },
                     success: function(response) {
                         if (response.code == 400) {
-                            console.log(response.errors)
-                        }
+                            // List of errors
+                            let errorsHtml = "<ul class='list-unstyled'>";
+                            $.each(response.errors, function(key, value) {
+                                errorsHtml += "<li>" + value + "</li>";
+                            });
+                            errorsHtml += "</ul>";
 
-                        console.log(response.data);
+                            // Encase error messages here
+                            $("#services-res").html(
+                                '<div class="row alert alert-danger pb-0">' +
+                                errorsHtml +
+                                "</div>"
+                            );
+                        } else if (response.code == 200) {
+                            let success =
+                                '<div class="alert alert-success">' +
+                                response.success +
+                                "</div>";
+
+                            $("#services-res").html(success);
+
+                            // Auto refresh the current page
+                            setTimeout(function() {
+                                location.reload();
+                            }, 2000);
+                        }
                     },
                     error: function(response) {
                         console.log(response);
