@@ -71,7 +71,7 @@ Route::middleware(['auth', 'user-access:Main Admin'])->group(function () {
 		// View Account
 		Route::post('/view-account', [AccountController::class, 'show'])->name('manage.accounts.show');
 
-		// Edit Account / List of Accounts
+		// List of Accounts
 		Route::get('/edit-account', [AccountController::class, 'index'])->name('manage.accounts.index');
 		Route::get('/edit-account/fetch', [AccountController::class, 'fetchAccounts'])->name('manage.accounts.fetch_accounts');
 
@@ -87,16 +87,13 @@ Route::middleware(['auth', 'user-access:Main Admin'])->group(function () {
 
 	// Manage Departments
 	Route::prefix('main-admin/manage/departments')->group(function () {
-		// Go to Add Department
-		Route::get('/add-department', [DepartmentController::class, 'create'])->name('manage.departments.add');
-
 		// Store Department
 		Route::post('/store-department', [DepartmentController::class, 'store'])->name('manage.departments.store');
 
 		// View Department
 		Route::post('/view-department', [DepartmentController::class, 'show'])->name('manage.departments.show');
 
-		// Edit Department / List of Departments
+		// List of Departments
 		Route::get('/edit-department', [DepartmentController::class, 'index'])->name('manage.departments.index');
 		Route::get('/edit-department/fetch', [DepartmentController::class, 'fetchDepartments'])->name('manage.departments.fetch_departments');
 
@@ -112,44 +109,42 @@ Route::middleware(['auth', 'user-access:Main Admin'])->group(function () {
 
 	// Manage Frequent Questions
 	Route::prefix('main-admin/manage/frequent_questions')->group(function () {
-		// Add Frequent Question
-		Route::get('/add-frequent-question', function () {
-			$user_data = (new HomeController)->getUserData();
-			$all_data = (new HomeController)->getAllData();
-			return view('dashboard.main_admin.manage.frequent_questions.add', [
-				'user_data' => $user_data,
-				'all_data' => $all_data,
-			]);
-		})->name('manage.frequent_questions.add');
+		// Store FAQ
+		Route::post('/add-frequent-question', [FaqController::class, 'store'])->name('manage.frequent_questions.store');
 
-		// Edit Frequent Question
-		Route::get('/edit-frequent-question', function () {
-			$user_data = (new HomeController)->getUserData();
-			$all_data = (new HomeController)->getAllData();
-			return view('dashboard.main_admin.manage.frequent_questions.edit', [
-				'user_data' => $user_data,
-				'all_data' => $all_data,
-			]);
-		})->name('manage.frequent_questions.edit');
+		// View FAQ
+		Route::post('/view-faq', [FaqController::class, 'show'])->name('manage.frequent_questions.show');
+
+		// List of FAQs
+		Route::get('/edit-frequent-question', [FaqController::class, 'faqList'])->name('manage.frequent_questions.index');
+		Route::get('/edit-frequent-question/fetch', [FaqController::class, 'fetchFAQs'])->name('manage.frequent_questions.fetch_faqs');
+
+		// Specific Department to Edit
+		Route::post('/edit-frequent-question', [FaqController::class, 'edit'])->name('manage.frequent_questions.edit');
+
+		// Update Department Account
+		Route::patch('/update-frequent-question', [FaqController::class, 'update'])->name('manage.frequent_questions.update');
+
+		// Delete Department
+		Route::delete('/delete-frequent-question/{id}', [FaqController::class, 'destroy'])->name('manage.frequent_questions.delete');
 	});
 
-	// ! Manage Services
+	// Manage Services
 	Route::prefix('main-admin/manage/services')->group(function () {
-		// Store Department
+		// Store Service from View Department 
 		Route::post('/add-service', [ServiceController::class, 'store'])->name('manage.services.add');
 
-		// Edit Service
-		Route::get('/edit-service', function () {
-			$user_data = (new HomeController)->getUserData();
-			$all_data = (new HomeController)->getAllData();
-			return view('dashboard.main_admin.manage.services.edit', [
-				'user_data' => $user_data,
-				'all_data' => $all_data,
-			]);
-		})->name('manage.services.edit');
+		// Store Service from Services List
+		Route::post('/add-service-from-list', [ServiceController::class, 'storeServicesFromList'])->name('manage.services-from-list.add');
+
+		// List of Services
+		Route::get('/edit-service', [ServiceController::class, 'index'])->name('manage.services.index');
 
 		// Fetch Services
 		Route::get('/fetch-services/{id}', [ServiceController::class, 'fetchServices'])->name('manage.services.fetch');
+
+		// Fetch Services to Display on the List
+		Route::get('/fetch-services-list/fetch', [ServiceController::class, 'fetchToServicesList'])->name('manage.services.fetchToList');
 
 		// Update Services
 		Route::post('/update-services', [ServiceController::class, 'update'])->name('manage.services.update');

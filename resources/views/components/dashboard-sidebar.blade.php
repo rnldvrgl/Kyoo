@@ -39,7 +39,7 @@
 
         {{-- Services --}}
         <li class="nav-item">
-            <a href="{{ route('manage.services.edit') }}"
+            <a href="{{ route('manage.services.index') }}"
                 class="nav-link {{ $uri == 'main-admin/manage/services/edit-service' ? 'active' : '' }}">
                 <i class="fa-solid fa-hand-holding"></i>
                 <span>Services</span>
@@ -48,7 +48,7 @@
 
         {{-- Frequently Asked Questions --}}
         <li class="nav-item">
-            <a href="{{ route('manage.frequent_questions.edit') }}"
+            <a href="{{ route('manage.frequent_questions.index') }}"
                 class="nav-link {{ $uri == 'main-admin/manage/frequent_questions/edit-frequent-question' ? 'active' : '' }}">
                 <i class="fa-solid fa-file-circle-question"></i>
                 <span>Frequent Questions</span>

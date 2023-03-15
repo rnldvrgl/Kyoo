@@ -225,4 +225,76 @@ $(document).ready(function () {
             },
         });
     });
+
+    // ! Delete FAQ
+    $("#faqs-table").on("click", ".delete-faq", function () {
+        var id = $(this).data("faq-id");
+
+        $.confirm({
+            type: "red",
+            title: "Delete record?",
+            icon: "fa-solid fa-trash-can",
+            content: "Are you sure, you want to delete this record?",
+            theme: "Modern",
+            draggable: false,
+            typeAnimated: true,
+            buttons: {
+                Delete: {
+                    text: "Delete",
+                    btnClass: "btn-danger",
+                    action: function () {
+                        $.ajaxSetup({
+                            headers: {
+                                "X-CSRF-TOKEN": $(
+                                    'meta[name="csrf-token"]'
+                                ).attr("content"),
+                            },
+                        });
+
+                        // AJAX
+                        $.ajax({
+                            url: "delete-frequent-question/" + id,
+                            type: "DELETE",
+                            success: function (response) {
+                                // If may error
+                                if (response.code == 400) {
+                                    // List of errors
+                                    let errorsHtml =
+                                        "<ul class='list-unstyled'>";
+                                    errorsHtml +=
+                                        "<li>" + response.message + "</li>";
+                                    errorsHtml += "</ul>";
+
+                                    // Encase error messages here
+                                    $("#res").html(
+                                        '<div class="row alert alert-danger pb-0">' +
+                                            errorsHtml +
+                                            "</div>"
+                                    );
+                                }
+                                // If walang error
+                                else if (response.code == 200) {
+                                    let success =
+                                        '<div class="alert alert-success">' +
+                                        response.message +
+                                        "</div>";
+
+                                    $("#res").html(success);
+
+                                    // Auto refresh the current page
+                                    setTimeout(function () {
+                                        location.reload();
+                                    }, 2000);
+                                }
+                            },
+                            error: function (xhr) {
+                                console.log("Failed to delete record.");
+                            },
+                        });
+                    },
+                },
+                close: function () {},
+            },
+        });
+    });
 });
