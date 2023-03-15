@@ -233,7 +233,7 @@
                         <div id="services-res">
                             {{-- Append Success/Error Messages here --}}
                         </div>
-                        <table id="services-table" class="table table-bordered  w-100">
+                        <table id="services-table" class="table-bordered w-100 table">
                             <caption>List of Services</caption>
                             <thead>
                                 <tr>
@@ -394,10 +394,11 @@
                     success: function(response) {
                         if (response.code == 400) {
                             // List of errors
+                            let errors = Object.values(response
+                            .errors); // Extract the array of error messages from the response.errors object
                             let errorsHtml = "<ul class='list-unstyled'>";
-                            $.each(response.errors, function(key, value) {
-                                errorsHtml += "<li>" + value + "</li>";
-                            });
+                            errorsHtml += "<li>" + errors[0][0] +
+                                "</li>"; // This return only the first index key value pair
                             errorsHtml += "</ul>";
 
                             // Encase error messages here

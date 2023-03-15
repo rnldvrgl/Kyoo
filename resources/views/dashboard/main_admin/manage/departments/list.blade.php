@@ -1,5 +1,5 @@
 {{-- Page Title --}}
-@section('mytitle', 'Department List')
+@section('mytitle', 'Departments List')
 
 @php
     $details = $user_data['details'];
@@ -47,6 +47,9 @@
                             </div>
 
                             <div class="table-responsive">
+                                <div id="res">
+                                    {{-- Append Success/Error Messages here --}}
+                                </div>
                                 <table id="departments-table" class="table-bordered table-hover table"
                                     style="width:100%">
                                     <caption>List of Departments</caption>
