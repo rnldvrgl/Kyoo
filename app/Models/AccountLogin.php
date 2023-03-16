@@ -24,13 +24,9 @@ class AccountLogin extends Model
         return $this->belongsTo(Accounts::class, 'login_id');
     }
 
-    // public static function checkDuplicateEmail($email)
-    // {
-    //     return self::where(['email' => $email])->exists();
-    // }
-
     public static function checkEmail($email, $id = null)
     {
+        // Check service table where the email (user input) exists on the email column, exclude the email address with the same id
         return self::where('email', $email)
             ->where('id', '<>', $id)
             ->exists();
