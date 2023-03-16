@@ -102,6 +102,17 @@ class ServiceController extends Controller
         $department_id = $validatedData->validated()['department_id'];
         $status = $request->has('status') ? 'active' : 'inactive';
 
+        // Check name if it exist in this department
+        $checkService = Service::checkService($name, $department_id);
+
+        if ($checkService == true) {
+            // Service exists?
+            $error = [
+                'errors' => 'Service already exists'
+            ];
+            return response()->json(['code' => 400, 'errors' => $error]);
+        }
+
         // Insert
         Service::create([
             'name' => $name,
@@ -151,6 +162,17 @@ class ServiceController extends Controller
         $name = $validatedData->validated()['service_name'];
         $status = $request->has('status') ? 'active' : 'inactive';
 
+        // Check name if it exist in this department
+        $checkService = Service::checkService($name, $department_id);
+
+        if ($checkService == true) {
+            // Service exists?
+            $error = [
+                'errors' => 'Service already exists'
+            ];
+            return response()->json(['code' => 400, 'errors' => $error]);
+        }
+
         // Insert
         Service::create([
             'name' => $name,
@@ -169,6 +191,17 @@ class ServiceController extends Controller
             'status' => $request->status
         ];
 
+        // Check if there is duplicated services within the Services array
+        $services = $servicesArray['services'];
+
+        $duplicatedServices = collect($services)->duplicates();
+        if ($duplicatedServices->isNotEmpty()) {
+            $error = [
+                'errors' => 'There seems to be duplicated service/s.'
+            ];
+            return response()->json(['code' => 400, 'errors' => $error]);
+        }
+
         $rules = [
             'services' => 'required|array',
             'services.*' => ['required', 'regex:/^[a-zA-Z ]*$/'],
@@ -184,6 +217,7 @@ class ServiceController extends Controller
         if ($validatedData->fails()) {
             return response()->json(['code' => 400, 'errors' => $validatedData->errors()]);
         }
+
 
         // Delete where department_id matches
         Service::where('department_id', $request->department_id)->delete();
