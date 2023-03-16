@@ -18,4 +18,7 @@
     @else
         @include('dashboard.staff.content.regular-staff')
     @endif
+
+    {{-- Staff JS --}}
+    <script src="{{ asset('assets/js/staff.js') }}"></script>
 </x-layout>

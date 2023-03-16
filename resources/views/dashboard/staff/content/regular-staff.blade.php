@@ -1,63 +1,193 @@
-<main id="main" class="main">
-    <div class="pagetitle">
-        <h1>Dashboard</h1>
-        <nav>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item">
-                    <a href="#">Home</a>
-                </li>
-                <li class="breadcrumb-item active">Regular</li>
-            </ol>
-        </nav>
-    </div>
-
+<main id="main" class="main px-2">
     <section class="section dashboard">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-6 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Current Serving</h5>
-                            <div class="mb-2">
-                                <h3 class="fw-bold text-center mb-0">R004</h3>
-                                <small class="text-center text-muted d-block">Mar-14-23 11:05:39 PM</small>
-                            </div>
-                            <div class="mb-3">
-                                <h6 class="fw-bold mb-0">Student Name</h6>
-                                <p class="text-muted mb-0">Maria Santos</p>
-                            </div>
-                            <div class="mb-3">
-                                <h6 class="fw-bold mb-0">Department</h6>
-                                <p class="text-muted mb-0">SHS</p>
-                            </div>
-                            <div class="">
-                                <h6 class="fw-bold mb-0">Course</h6>
-                                <p class="text-muted mb-0">GAS</p>
-                            </div>
-                            <div class="px-3 mt-3">
-                                <button class="btn btn-primary rounded-sm px-2 py-1" type="button">
-                                    <i class="fas fa-check-circle me-1"></i> Complete
-                                </button>
+        <div class="d-flex " style="height: calc(100vh - 10vh);">
 
-                                <button class="btn btn-outline-secondary rounded-sm px-2 py-1" type="button">
-                                    <i class="fas fa-times-circle me-1"></i> Cancel
-                                </button>
+            {{-- 1st Column --}}
+            <div class="col-auto col-lg-4 px-2">
+                {{-- Pending Tickets --}}
+                <div class="card border h-100 rounded-lg">
+                    <div class="card-header sticky-top bg-kyoodark text-white">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h4 class="fw-bold mb-0">Pending Tickets <span class="fw-light">| 4 Ticket(s)</span></h4>
+                            <span class="badge bg-warning text-warning rounded-circle p-1">
+                                <i class="fa-regular fa-circle"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="card-body p-4" style="overflow-y: scroll; height: calc(100% - 55px);">
+                        @foreach ($pendingTickets as $ticket)
+                            <x-queue-card id="queue-card-{{ $ticket->id }}" ticketId="{{ $ticket->id }}"
+                                queueNumber="{{ $ticket->ticket_number }}"
+                                queueTime="{{ $ticket->created_at->format('Y-m-d h:i:s A') }}"
+                                studentName="{{ $ticket->student_name }}" department="{{ $ticket->student_department }}"
+                                course="{{ $ticket->student_course }}" :services="$ticket->services->pluck('name')->toArray()" />
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+
+            {{-- 2nd Column --}}
+            <div class="col-auto col-lg-5 px-2 d-flex flex-column" style="height: calc(100% - 55px);">
+                {{-- Current Serving Ticket --}}
+                <div class="card rounded-lg" style="flex: 1;">
+                    <div class="col">
+                        <div class="card-header bg-kyoodark text-white">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h4 class="fw-bold mb-0">Current Serving Ticket</h4>
+                                <span class="badge bg-info text-info rounded-circle p-1">
+                                    <i class="fa-regular fa-circle"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="card-body  p-4">
+                            <x-current-serving-ticket id="current-ticket-{{ $servingTicket->id }}"
+                                ticketId="{{ $servingTicket->id }}" queueNumber="{{ $servingTicket->ticket_number }}"
+                                queueTime="{{ $servingTicket->created_at->format('Y-m-d h:i:s A') }}"
+                                studentName="{{ $servingTicket->student_name }}"
+                                department="{{ $servingTicket->student_department }}"
+                                course="{{ $servingTicket->student_course }}" :services="$servingTicket->services->pluck('name')->toArray()" />
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Transferred Tickets --}}
+                <div class="card rounded-lg" style="flex: 1;">
+                    <div class="col">
+                        <div class="card-header bg-kyoodark text-white">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h4 class="fw-bold mb-0">Transferred Ticket(s)</h4>
+                                <span class="badge bg-info text-info rounded-circle p-1">
+                                    <i class="fa-regular fa-circle"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="card-body p-4" style="max-height: 300px; overflow-y: auto; ">
+                            <div class="col">
+                                <div class="d-flex flex-column gap-2">
+                                    @foreach ($holdingTickets as $holdingTicket)
+                                        <x-hold-ticket id="hold-ticket-{{ $holdingTicket->id }}"
+                                            ticketId="{{ $holdingTicket->id }}"
+                                            queueNumber="{{ $holdingTicket->ticket_number }}"
+                                            queueTime="{{ $holdingTicket->created_at->format('Y-m-d h:i:s A') }}"
+                                            studentName="{{ $holdingTicket->student_name }}"
+                                            department="{{ $holdingTicket->student_department }}"
+                                            course="{{ $holdingTicket->student_course }}" :services="$holdingTicket->services->pluck('name')->toArray()" />
+                                    @endforeach
+                                    @foreach ($holdingTickets as $holdingTicket)
+                                        <x-hold-ticket id="hold-ticket-{{ $holdingTicket->id }}"
+                                            ticketId="{{ $holdingTicket->id }}"
+                                            queueNumber="{{ $holdingTicket->ticket_number }}"
+                                            queueTime="{{ $holdingTicket->created_at->format('Y-m-d h:i:s A') }}"
+                                            studentName="{{ $holdingTicket->student_name }}"
+                                            department="{{ $holdingTicket->student_department }}"
+                                            course="{{ $holdingTicket->student_course }}" :services="$holdingTicket->services->pluck('name')->toArray()" />
+                                    @endforeach
+                                    @foreach ($holdingTickets as $holdingTicket)
+                                        <x-hold-ticket id="hold-ticket-{{ $holdingTicket->id }}"
+                                            ticketId="{{ $holdingTicket->id }}"
+                                            queueNumber="{{ $holdingTicket->ticket_number }}"
+                                            queueTime="{{ $holdingTicket->created_at->format('Y-m-d h:i:s A') }}"
+                                            studentName="{{ $holdingTicket->student_name }}"
+                                            department="{{ $holdingTicket->student_department }}"
+                                            course="{{ $holdingTicket->student_course }}" :services="$holdingTicket->services->pluck('name')->toArray()" />
+                                    @endforeach
+                                    @foreach ($holdingTickets as $holdingTicket)
+                                        <x-hold-ticket id="hold-ticket-{{ $holdingTicket->id }}"
+                                            ticketId="{{ $holdingTicket->id }}"
+                                            queueNumber="{{ $holdingTicket->ticket_number }}"
+                                            queueTime="{{ $holdingTicket->created_at->format('Y-m-d h:i:s A') }}"
+                                            studentName="{{ $holdingTicket->student_name }}"
+                                            department="{{ $holdingTicket->student_department }}"
+                                            course="{{ $holdingTicket->student_course }}" :services="$holdingTicket->services->pluck('name')->toArray()" />
+                                    @endforeach
+                                    @foreach ($holdingTickets as $holdingTicket)
+                                        <x-hold-ticket id="hold-ticket-{{ $holdingTicket->id }}"
+                                            ticketId="{{ $holdingTicket->id }}"
+                                            queueNumber="{{ $holdingTicket->ticket_number }}"
+                                            queueTime="{{ $holdingTicket->created_at->format('Y-m-d h:i:s A') }}"
+                                            studentName="{{ $holdingTicket->student_name }}"
+                                            department="{{ $holdingTicket->student_department }}"
+                                            course="{{ $holdingTicket->student_course }}" :services="$holdingTicket->services->pluck('name')->toArray()" />
+                                    @endforeach
+                                    @foreach ($holdingTickets as $holdingTicket)
+                                        <x-hold-ticket id="hold-ticket-{{ $holdingTicket->id }}"
+                                            ticketId="{{ $holdingTicket->id }}"
+                                            queueNumber="{{ $holdingTicket->ticket_number }}"
+                                            queueTime="{{ $holdingTicket->created_at->format('Y-m-d h:i:s A') }}"
+                                            studentName="{{ $holdingTicket->student_name }}"
+                                            department="{{ $holdingTicket->student_department }}"
+                                            course="{{ $holdingTicket->student_course }}" :services="$holdingTicket->services->pluck('name')->toArray()" />
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Pending Tickets</h5>
-                            {{-- {{ dd($pendingTickets) }} --}}
-                            @foreach ($pendingTickets as $ticket)
-                                <x-queue-card id="queue-card-{{ $ticket->id }}" ticketId="{{ $ticket->id }}"
-                                    queueNumber="{{ $ticket->ticket_number }}" queueTime="{{ $ticket->created_at }}"
-                                    studentName="{{ $ticket->student_name }}"
-                                    department="{{ $ticket->student_department }}"
-                                    course="{{ $ticket->student_course }}" :services="$ticket->services->pluck('name')->toArray()" />
-                            @endforeach
+            </div>
+
+
+
+
+            {{-- 3rd Column --}}
+            <div class="col-auto col-lg-3 px-2">
+                {{-- Staff Actions --}}
+                <div class="card rounded-lg">
+                    <div class="card-header bg-kyoodark text-white">
+                        <h4 class="fw-bold fw-bold mb-0">Staff Actions</h4>
+                    </div>
+                    <div class="card-body py-3">
+                        <div class="row g-3  text-center">
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-outline-danger">End Shift <i
+                                        class="fa-solid fa-door-closed ms-2"></i></button>
+                                <button class="btn btn-outline-primary pause-work-btn">Pause Work <i
+                                        class="fa-solid fa-circle-pause ms-2"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Staff Serving Stats --}}
+                <div class="card rounded-lg">
+                    <div class="card-header bg-kyoodark text-white">
+                        <h4 class="fw-bold fw-bold mb-0">Serving Stats</h4>
+                    </div>
+                    <div class="card-body py-3">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div
+                                    class="d-flex flex-column justify-content-center align-items-center h-100 p-4 bg-light border rounded-lg">
+                                    <h5 class="card-subtitle mb-3">Average Service Time</h5>
+                                    <p class="card-text display-6 fw-bold mb-0">25<span class="fs-5"> min</span></p>
+                                    <p class="card-text text-muted mt-1">Based on last 30 served
+                                        tickets</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div
+                                    class="d-flex flex-column justify-content-center align-items-center h-100 p-4 bg-light border  rounded-lg">
+                                    <h5 class="card-subtitle mb-3">Total Served Tickets</h5>
+                                    <p class="card-text display-6 fw-bold mb-0">342</p>
+                                    <p class="card-text text-muted mt-1">Including all services</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div
+                                    class="d-flex flex-column justify-content-center align-items-center h-100 p-4 bg-light border rounded-lg">
+                                    <h5 class="card-subtitle mb-3">Average Wait Time</h5>
+                                    <p class="card-text display-6 fw-bold mb-0">10<span class="fs-5"> min</span></p>
+                                    <p class="card-text text-muted mt-1">Based on last 30 served
+                                        tickets</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div
+                                    class="d-flex flex-column justify-content-center align-items-center h-100 p-4 bg-light border rounded-lg">
+                                    <h5 class="card-subtitle mb-3">Total Rejected Tickets</h5>
+                                    <p class="card-text display-6 fw-bold mb-0">4</p>
+                                    <p class="card-text text-muted mt-1">Including all services</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -12,11 +12,14 @@
             </a>
 
             @if ($role->name === 'Main Admin')
+                <h4 class="text-white fw-semibold mb-0">
+                    {{ $role->name }} Dashboard
+                </h4>
                 <i class="fa-solid fa-bars toggle-sidebar-btn"></i>
             @else
-                <span class="text-white fw-semibold">
-                    {{ $role->name }}
-                </span>
+                <h4 class="text-white fw-semibold mb-0">
+                    {{ $role->name }} Dashboard
+                </h4>
             @endif
         </div>
         @php($profile_image = $details->profile_image)

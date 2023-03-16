@@ -121,4 +121,36 @@ class QueueTicketController extends Controller
 
         return response()->json($data);
     }
+
+
+    // public function serveTicket(Request $request)
+    // {
+    //     $queueNumber = $request->input('queueNumber');
+
+    //     // Update the current serving ticket view with queueNumber
+    //     // For example, you could update the database or session to track the current ticket being served
+
+    //     // Update the pending tickets view with the next queue number
+    //     $nextTicket = QueueTicket::where('ticket_number', '>', $queueNumber)
+    //         ->orderBy('ticket_number')
+    //         ->first();
+
+    //     if ($nextTicket) {
+    //         $nextQueueNumber = $nextTicket->queue_number;
+    //         $nextTicketId = $nextTicket->id;
+    //         $response = [
+    //             'status' => 'success',
+    //             'nextQueueNumber' => $nextQueueNumber,
+    //             'nextTicketId' => $nextTicketId,
+    //         ];
+    //     } else {
+    //         $response = [
+    //             'status' => 'success',
+    //             'nextQueueNumber' => null,
+    //             'nextTicketId' => null,
+    //         ];
+    //     }
+
+    //     return response()->json($response);
+    // }
 }

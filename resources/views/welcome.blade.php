@@ -2,12 +2,12 @@
 @section('mytitle', 'Home')
 
 @auth
-@php
-$details = $user_data['details'];
-$role = $user_data['role'];
-$login = $user_data['login'];
-$department = $user_data['department'];
-@endphp
+    @php
+        $details = $user_data['details'];
+        $role = $user_data['role'];
+        $login = $user_data['login'];
+        $department = $user_data['department'];
+    @endphp
 @endauth
 
 <x-layout>
@@ -24,7 +24,8 @@ $department = $user_data['department'];
             <div class="row gx-5 align-items-center">
                 {{-- Left Item --}}
                 <div class="col-lg-6">
-                    <div data-aos="fade-right" data-aos-duration="1000" class="d-flex align-items-center justify-content-center">
+                    <div data-aos="fade-right" data-aos-duration="1000"
+                        class="d-flex align-items-center justify-content-center">
                         <img class="img-fluid" src="{{ asset('assets/images/waiting-line.svg') }}" alt="Waiting Line">
                     </div>
                 </div>
@@ -53,11 +54,14 @@ $department = $user_data['department'];
                 <div class="accordion" id="accordionPanelsStayOpenExample">
                     <div class="accordion-item" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
                         <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
+                                aria-controls="panelsStayOpen-collapseOne">
                                 Accordion Item #1
                             </button>
                         </h2>
-                        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+                        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show"
+                            aria-labelledby="panelsStayOpen-headingOne">
                             <div class="accordion-body">
                                 <strong>This is the first item's accordion body.</strong> It is shown by default,
                                 until
@@ -72,11 +76,14 @@ $department = $user_data['department'];
                     </div>
                     <div class="accordion-item" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
                         <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
+                                aria-controls="panelsStayOpen-collapseTwo">
                                 Accordion Item #2
                             </button>
                         </h2>
-                        <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+                        <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse"
+                            aria-labelledby="panelsStayOpen-headingTwo">
                             <div class="accordion-body">
                                 <strong>This is the second item's accordion body.</strong> It is hidden by default,
                                 until the collapse plugin adds the appropriate classes that we use to style each
@@ -90,11 +97,14 @@ $department = $user_data['department'];
                     </div>
                     <div class="accordion-item" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
                         <h2 class="accordion-header" id="panelsStayOpen-headingThree">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false"
+                                aria-controls="panelsStayOpen-collapseThree">
                                 Accordion Item #3
                             </button>
                         </h2>
-                        <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+                        <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse"
+                            aria-labelledby="panelsStayOpen-headingThree">
                             <div class="accordion-body">
                                 <strong>This is the third item's accordion body.</strong> It is hidden by default,
                                 until
@@ -106,7 +116,8 @@ $department = $user_data['department'];
                                 <code>.accordion-body</code>, though the transition does limit overflow.
                             </div>
                         </div>
-                        <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+                        <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse"
+                            aria-labelledby="panelsStayOpen-headingThree">
                             <div class="accordion-body">
                                 <strong>This is the third item's accordion body.</strong> It is hidden by default,
                                 until
@@ -118,7 +129,8 @@ $department = $user_data['department'];
                                 <code>.accordion-body</code>, though the transition does limit overflow.
                             </div>
                         </div>
-                        <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+                        <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse"
+                            aria-labelledby="panelsStayOpen-headingThree">
                             <div class="accordion-body">
                                 <strong>This is the third item's accordion body.</strong> It is hidden by default,
                                 until
@@ -133,7 +145,8 @@ $department = $user_data['department'];
                     </div>
                 </div>
                 <div class="text-center mt-5">
-                    <a href="/frequent_questions" data-aos="fade-up" data-aos-anchor-placement="top-bottom" class="btn btn-outline-kyoored">View More
+                    <a href="/frequent_questions" data-aos="fade-up" data-aos-anchor-placement="top-bottom"
+                        class="btn btn-outline-kyoored">View More
                         Questions
                         >></a>
                 </div>
@@ -151,23 +164,27 @@ $department = $user_data['department'];
                 </div>
                 <div class="row">
                     <div class="col-lg-5 d-none d-lg-flex justify-content-center align-items-center p-3">
-                        <img class="img-fluid" src="{{ asset('assets/images/kyoo-logo.svg') }}" alt="Kyoo Logo" data-aos="zoom-in" data-aos-anchor-placement="top-bottom">
+                        <img class="img-fluid" src="{{ asset('assets/images/kyoo-logo.svg') }}" alt="Kyoo Logo"
+                            data-aos="zoom-in" data-aos-anchor-placement="top-bottom">
                     </div>
 
                     <div class="col-lg-7 p-3">
-                        <form id="send-feedback-frm" action="{{ route('feedback.store') }}" method="POST" class="needs-validation d-flex flex-column gap-3" novalidate>
+                        <form id="send-feedback-frm" action="{{ route('feedback.store') }}" method="POST"
+                            class="needs-validation d-flex flex-column gap-3" novalidate>
                             @csrf
                             <!-- Full Name Input -->
                             <div data-aos="zoom-in-right">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="fullname" name="fullname" placeholder="Full Name" title="Enter Full Name">
+                                    <input type="text" class="form-control" id="fullname" name="fullname"
+                                        placeholder="Full Name" title="Enter Full Name">
                                     <label for="fullname">Full Name (Optional)</label>
                                 </div>
                             </div>
                             <!-- Feedback Message Input -->
                             <div data-aos="zoom-in-right">
                                 <div class="form-floating">
-                                    <textarea class="form-control" placeholder="Feedback Message" id="feedback-message" name="feedback-message" style="min-height: 100px; max-height: 200px;" required></textarea>
+                                    <textarea class="form-control" placeholder="Feedback Message" id="feedback-message" name="feedback-message"
+                                        style="min-height: 100px; max-height: 200px;" required></textarea>
                                     <label for="feedback-message">Feedback</label>
                                     <div class="valid-feedback">Looks good!</div>
                                     <div class="invalid-feedback">Required</div>
@@ -175,7 +192,8 @@ $department = $user_data['department'];
                             </div>
 
                             <!-- Button Send -->
-                            <button data-aos="zoom-in-right" type="submit" class="btn btn-success" id="btn-send-feedback">
+                            <button data-aos="zoom-in-right" type="submit" class="btn btn-success"
+                                id="btn-send-feedback">
                                 Send Feedback
                                 <i class="fa-solid fa-paper-plane ms-3"></i>
                             </button>

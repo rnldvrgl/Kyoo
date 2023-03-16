@@ -35,7 +35,6 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="row">
-
                         {{-- Pending --}}
                         <div class="col-xxl-4 col-md-6">
                             <div class="card warning-card shadow">
