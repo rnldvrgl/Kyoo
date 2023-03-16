@@ -395,9 +395,10 @@
                         if (response.code == 400) {
                             // List of errors
                             let errors = Object.values(response
-                            .errors); // Extract the array of error messages from the response.errors object
+                                .errors
+                                ); // Extract the array of error messages from the response.errors object
                             let errorsHtml = "<ul class='list-unstyled'>";
-                            errorsHtml += "<li>" + errors[0][0] +
+                            errorsHtml += "<li>" + errors[0] +
                                 "</li>"; // This return only the first index key value pair
                             errorsHtml += "</ul>";
 
