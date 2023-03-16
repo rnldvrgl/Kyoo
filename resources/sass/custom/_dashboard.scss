@@ -1,31 +1,31 @@
 /*--------------------------------------------------------------
   # Dashboard
   --------------------------------------------------------------*/
-/* Filter dropdown */
-.dashboard .filter {
+/* Actions dropdown */
+.dashboard .actions {
 	position: absolute;
 	right: 0px;
 	top: 15px;
 }
 
-.dashboard .filter .icon {
+.dashboard .actions .icon {
 	color: #323232;
 	padding-right: 20px;
 	padding-bottom: 5px;
 	transition: 0.3s;
-	font-size: 16px;
+	font-size: 24px;
 }
 
-.dashboard .filter .icon:hover,
-.dashboard .filter .icon:focus {
-	color: #323232;
+.dashboard .actions .icon:hover,
+.dashboard .actions .icon:focus {
+	color: #5e5e5e;
 }
 
-.dashboard .filter .dropdown-header {
+.dashboard .actions .dropdown-header {
 	padding: 8px 15px;
 }
 
-.dashboard .filter .dropdown-header h6 {
+.dashboard .actions .dropdown-header h6 {
 	text-transform: uppercase;
 	font-size: 14px;
 	font-weight: 600;
@@ -35,8 +35,28 @@
 	padding: 0;
 }
 
-.dashboard .filter .dropdown-item {
+.dashboard .actions .dropdown-item {
 	padding: 8px 15px;
+}
+
+.actions .dropdown-menu li .dropdown-item.complete:hover {
+	background-color: green;
+	color: white;
+}
+
+.actions .dropdown-menu li .dropdown-item.hold:hover {
+	background-color: orange;
+	color: white;
+}
+
+.actions .dropdown-menu li .dropdown-item.transfer:hover {
+	background-color: blue;
+	color: white;
+}
+
+.actions .dropdown-menu li .dropdown-item.cancel:hover {
+	background-color: red;
+	color: white;
 }
 
 /* Info Cards */

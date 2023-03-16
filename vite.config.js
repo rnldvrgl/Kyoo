@@ -3,6 +3,9 @@ import laravel from "laravel-vite-plugin";
 import path from "path";
 
 export default defineConfig({
+    rollupOptions: {
+        input: "resources/js/app.js",
+    },
     plugins: [
         laravel({
             input: [

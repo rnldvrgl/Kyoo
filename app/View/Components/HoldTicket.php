@@ -4,7 +4,7 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class QueueCard extends Component
+class HoldTicket extends Component
 {
     public $ticketId;
     public $queueNumber;
@@ -24,9 +24,13 @@ class QueueCard extends Component
         $this->course = $course;
         $this->services = $services;
     }
-
+    /**
+     * Get the view / contents that represent the component.
+     *
+     * @return \Illuminate\Contracts\View\View|\Closure|string
+     */
     public function render()
     {
-        return view('components.queue-card');
+        return view('components.hold-ticket');
     }
 }
