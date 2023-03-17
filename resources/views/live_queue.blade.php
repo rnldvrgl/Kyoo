@@ -7,7 +7,7 @@
     <header id="header" class="header d-flex align-items-center bg-kyoodark">
         <div class="d-flex align-items-center justify-content-between">
             <a href="/" class="logo d-flex align-items-center">
-                <img src="{{ asset('assets/images/kyoo-logo.png') }}" alt="Kyoo Logo" />
+                <img src="{{ asset('assets/images/kyoo-logo.png') }}" alt="Kyoo Logo" class="img-fluid" />
                 <span class="d-none d-lg-block">Queueing Management System</span>
             </a>
         </div>
@@ -29,11 +29,11 @@
     <!-- /Header Navbar -->
 
     <!-- Main Content -->
-    <main class="px-2 py-3 mh-100">
+    <main class="px-2 py-3 h-100">
         <section class="section">
             <div class="container-fluid">
-                <div class="row row-cols-1 row-cols-xl-2">
-                    <div class="col-xl-5 mb-4">
+                <div class="row row-cols-1 row-cols-lg-2 align-items-center">
+                    <div class="col {{ count($ticket_data['departments']) > 4 ? 'col-lg-4' : 'col-lg-5' }} mb-4">
                         <div
                             class="row {{ count($ticket_data['departments']) > 4 ? 'row-cols-xl-2 row-cols-lg-1' : 'row-cols-1 row-cols-lg-2 row-cols-xl-1' }}">
                             @foreach ($ticket_data['departments'] as $department_data)
@@ -42,14 +42,15 @@
                         </div>
                     </div>
                     {{-- <button class="btn btn-kyoored" id="testButton">TTS Test Button</button> --}}
-                    <div class="col-xl-7 d-none d-xl-block">
+                    <div
+                        class="col {{ count($ticket_data['departments']) > 4 ? 'col-lg-8' : 'col-lg-7' }} d-none d-lg-block h-100">
                         <div class="col-auto flex-grow-1" style="max-width: 100%;">
                             @php
                                 $active_videos = \App\Models\PromotionalVideo::where('is_active', true)->get();
                             @endphp
                             @if ($active_videos->count() > 0)
                                 <video class="video" id="loop_video"
-                                    style="object-fit: cover; width: 100%; height: calc(100vh - 135px);" autoplay
+                                    style="object-fit: fill; width: 100%; height: calc(100vh - 10%);" autoplay
                                     muted></video>
                                 <script>
                                     const activeVideos = @json($active_videos);
@@ -78,10 +79,19 @@
                                     // Start playing the first video
                                     playNextVideo();
                                 </script>
+                                <style>
+                                    @media (max-width: 991px) {
+                                        #loop_video {
+                                            display: none;
+                                        }
+                                    }
+                                </style>
                             @else
                                 <div class="card border shadow-sm py-5">
                                     <div class="d-flex justify-content-center align-items-center ">
-                                        <h1 class="mb-0 text-danger fw-light">No active promotional video found.</h1>
+                                        <h1 class="mb-0 text-danger fw-light">
+                                            No active promotional video found.
+                                        </h1>
                                     </div>
                                 </div>
                             @endif
@@ -97,11 +107,14 @@
     <div class="d-none d-lg-block fixed-bottom">
         <div class="bg-kyoodark text-white py-2">
             <div class="row justify-content-center">
-                <marquee behavior="scroll" direction="left" class="fw-normal" scrollamount="10">
-                    {{ $promotional_message[0]->text ?? '' }}
+                <marquee behavior="scroll" direction="left" class="fw-normal" scrollamount="3%">
+                    <span class="d-inline-block text-truncate" style="max-width: 90vw;">
+                        {{ $promotional_message[0]->text ?? '' }}
+                    </span>
                 </marquee>
             </div>
         </div>
     </div>
     <!-- /Marquee Text  -->
+
 </x-layout>

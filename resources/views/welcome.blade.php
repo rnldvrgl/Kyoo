@@ -156,7 +156,7 @@
 
     {{-- Send Feedback Section --}}
     <section id="feedback" class="bg-kyoodark border-bottom py-5 border-2 border-kyoored">
-        <div class="container col-lg-12 px-5">
+        <div class="container-fluid px-lg-5">
             <div class="d-flex flex-column justify-content-center align-items-center gap-3">
                 <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" class="gap-3 text-center text-white">
                     <h2 class="display-6 fw-bold">SEND FEEDBACK</h2>
@@ -168,7 +168,7 @@
                             data-aos="zoom-in" data-aos-anchor-placement="top-bottom">
                     </div>
 
-                    <div class="col-lg-7 p-3">
+                    <div class="col-lg-7 p-lg-3">
                         <form id="send-feedback-frm" action="{{ route('feedback.store') }}" method="POST"
                             class="needs-validation d-flex flex-column gap-3" novalidate>
                             @csrf
@@ -204,6 +204,7 @@
         </div>
     </section>
     {{-- /Send Feedback Section --}}
+
 
 
     {{-- Include Footer Bar --}}
