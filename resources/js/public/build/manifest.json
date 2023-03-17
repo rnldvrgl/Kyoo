@@ -1,0 +1,23 @@
+{
+  "../css/app.css": {
+    "file": "assets/app-4ed993c7.js",
+    "isEntry": true,
+    "src": "../css/app.css"
+  },
+  "../sass/app.scss": {
+    "file": "assets/app-53a12e29.css",
+    "src": "app.css"
+  },
+  "app.css": {
+    "file": "assets/app-53a12e29.css",
+    "src": "app.css"
+  },
+  "app.js": {
+    "css": [
+      "assets/app-53a12e29.css"
+    ],
+    "file": "assets/app-a5972c4e.js",
+    "isEntry": true,
+    "src": "app.js"
+  }
+}
