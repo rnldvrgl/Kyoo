@@ -436,6 +436,7 @@ class OperationResponse
             return null;
         }
         // @TODO: This is probably not doing anything and can be removed in the next release.
+        // @phpstan-ignore-next-line
         if (is_null($any->getValue())) {
             return null;
         }

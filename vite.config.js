@@ -25,8 +25,10 @@ export default defineConfig({
     },
     optimizeDeps: {
         include: [
+            "vue",
             "axios",
             "lodash",
+            "jquery",
             "bootstrap",
             "@popperjs/core",
             "@popperjs/core/lib/popper-lite",

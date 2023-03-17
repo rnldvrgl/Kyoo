@@ -7,7 +7,6 @@ use DateInterval;
 use DateTimeInterface;
 use DateTimeZone;
 use DeepCopy\Exception\CloneException;
-use DeepCopy\Filter\ChainableFilter;
 use DeepCopy\Filter\Filter;
 use DeepCopy\Matcher\Matcher;
 use DeepCopy\Reflection\ReflectionHelper;
@@ -239,10 +238,6 @@ class DeepCopy
                         return $this->recursiveCopy($object);
                     }
                 );
-
-                if ($filter instanceof ChainableFilter) {
-                    continue;
-                }
 
                 // If a filter matches, we stop processing this property
                 return;

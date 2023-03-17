@@ -518,8 +518,7 @@ new_elseif_list:
 ;
 
 new_elseif:
-     T_ELSEIF '(' expr ')' ':' inner_statement_list
-         { $$ = Stmt\ElseIf_[$3, $6]; $this->fixupAlternativeElse($$); }
+     T_ELSEIF '(' expr ')' ':' inner_statement_list         { $$ = Stmt\ElseIf_[$3, $6]; }
 ;
 
 else_single:
@@ -529,8 +528,7 @@ else_single:
 
 new_else_single:
       /* empty */                                           { $$ = null; }
-    | T_ELSE ':' inner_statement_list
-          { $$ = Stmt\Else_[$3]; $this->fixupAlternativeElse($$); }
+    | T_ELSE ':' inner_statement_list                       { $$ = Stmt\Else_[$3]; }
 ;
 
 foreach_variable:

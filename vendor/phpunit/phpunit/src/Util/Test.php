@@ -331,7 +331,7 @@ final class Test
     /**
      * @psalm-param class-string $className
      */
-    public static function parseTestMethodAnnotations(string $className, ?string $methodName = null): array
+    public static function parseTestMethodAnnotations(string $className, ?string $methodName = ''): array
     {
         $registry = Registry::getInstance();
 
