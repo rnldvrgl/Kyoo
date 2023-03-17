@@ -56,6 +56,9 @@
 
     {{ $slot }}
 
+    {{-- Bootstrap JS --}}
+    <script src="{{ asset('js/app.js') }}"></script>
+
     {{-- DataTable JS --}}
     <script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
 
