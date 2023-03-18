@@ -34,11 +34,14 @@
                 </li>
             </ul>
 
-            <div class="d-lg-inline-flex d-grid gap-3">
-                <a class="btn btn-outline-kyoored text-white rounded-pill px-3 mb-2 mb-lg-0"
-                    href="{{ route('live_queue') }}">Live
-                    Queue</a>
-                <a class="btn btn-kyoored rounded-pill px-3 mb-2 mb-lg-0" href="{{ route('login') }}">LOGIN</a>
+            <div class="d-lg-inline-flex d-grid gap-3 mb-3 mb-lg-0">
+                <a class="btn btn-outline-kyoored text-white rounded-pill px-3 py-2 mb-2 mb-lg-0"
+                    href="{{ route('live_queue') }}" aria-label="Live Queue">
+                    <span class="d-inline-block">Live Queue</span>
+                </a>
+                <a class="btn btn-kyoored rounded-pill px-3 py-2" href="{{ route('login') }}" aria-label="Log In">
+                    <span class="d-inline-block">Log In</span>
+                </a>
             </div>
         </div>
         <!-- Collapsible wrapper -->
