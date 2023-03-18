@@ -1,6 +1,16 @@
 {{-- Text To Speech JS --}}
 <script  type="module" src="{{ asset('assets/js/textToSpeech.js') }}"></script>
 
+@php
+    $hasCurrentServingTicket = false;
+@endphp
+
+@if ($servingTicket)
+    @php
+        $hasCurrentServingTicket = '{{ $servingTicket ? true : false }}';
+    @endphp
+@endif
+
 <main id="main" class="main px-2">
     <section class="section dashboard">
         <div class="d-flex justify-content-center" style="max-height: 90vh;">
@@ -31,7 +41,7 @@
                     <div class="card-body px-4 py-2 d-flex flex-column justify-content-start"
                         style="overflow-y: scroll; height: calc(100% - 55px);">
                         @if (count($pendingTickets) > 0)
-                            @foreach ($pendingTickets as $ticket)
+                            @foreach ($pendingTickets as $key => $ticket)
                                 <div class="my-1">
                                     <x-queue-card id="queue-card-{{ $ticket->id }}" ticketId="{{ $ticket->id }}"
                                         queueNumber="{{ $ticket->ticket_number }}"
@@ -39,7 +49,8 @@
                                         studentName="{{ $ticket->student_name }}"
                                         department="{{ $ticket->student_department }}"
                                         course="{{ $ticket->student_course }}" :services="$ticket->services->pluck('name')->toArray()"
-                                        serviceDepartment="{{ $department->name }}" />
+                                        serviceDepartment="{{ $department->name }}" :position="$loop->index + 1"
+                                        hasCurrentServingTicket="{{ $hasCurrentServingTicket }}" />
                                 </div>
                             @endforeach
                         @else
@@ -74,9 +85,11 @@
                                 course="{{ $servingTicket->student_course }}" :services="$servingTicket->services->pluck('name')->toArray()" />
                         @else
                             <div class="text-center">
-                                <p class="fw-bold fs-4 mb-0 text-muted" style="overflow-wrap: break-word;">No Ticket is
+                                <p class="fw-bold fs-4 mb-0 text-muted" style="overflow-wrap: break-word;">No Ticket
+                                    is
                                     Currently Serving</p>
-                                <p class="fs-6 text-muted mb-0" style="overflow-wrap: break-word;">Please call a pending
+                                <p class="fs-6 text-muted mb-0" style="overflow-wrap: break-word;">Please call a
+                                    pending
                                     ticket to be served.</p>
                             </div>
                         @endif
@@ -179,7 +192,8 @@
                                 <div
                                     class="d-flex flex-column justify-content-center align-items-center p-4 bg-light border rounded-3">
                                     <h5 class="card-subtitle mb-3">Avg. Service Time</h5>
-                                    <p class="card-text display-6 fw-bold mb-0">25<span class="fs-5"> min</span></p>
+                                    <p class="card-text display-6 fw-bold mb-0">25<span class="fs-5"> min</span>
+                                    </p>
                                     <p class="card-text text-muted mt-1">Last 30 tickets</p>
                                 </div>
                             </div>
@@ -187,7 +201,8 @@
                                 <div
                                     class="d-flex flex-column justify-content-center align-items-center h-100 p-4 bg-light border rounded-3">
                                     <h5 class="card-subtitle mb-3">Avg. Wait Time</h5>
-                                    <p class="card-text display-6 fw-bold mb-0">10<span class="fs-5"> min</span></p>
+                                    <p class="card-text display-6 fw-bold mb-0">10<span class="fs-5"> min</span>
+                                    </p>
                                     <p class="card-text text-muted mt-1">Last 30 tickets</p>
                                 </div>
                             </div>

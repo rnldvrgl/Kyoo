@@ -32,23 +32,31 @@
     </div>
     <div class="px-5">
         <div class="d-grid gap-2">
-            <button class="call-ticket-btn btn btn-kyoodarkblue text-white rounded-pill py-2 btn-sm" type="button"
-                data-queue-number="{{ $queueNumber }}" data-ticket-id="{{ $ticketId }}" data-status="Calling"
-                data-servicedepartment="{{ $serviceDepartment }}">
-                <i class="fas fa-bullhorn me-2"></i> Call Queue Number
-            </button>
+            <span class="text-center {{ $position > 1 ? 'd-none' : '' }} ">Calls: <span id="call-count">0</span></span>
+            @if ($hasCurrentServingTicket)
+                <span class="badge rounded-pill py-3 text-bg-kyoodarkblue {{ $position > 1 ? 'd-none' : '' }}">Currently
+                    Serving
+                    Other Ticket</span>
+            @else
+                <button
+                    class="{{ $position > 1 ? 'd-none' : '' }} call-ticket-btn btn btn-kyoodarkblue text-white rounded-pill py-2 btn-sm"
+                    type="button" data-queue-number="{{ $queueNumber }}" data-ticket-id="{{ $ticketId }}"
+                    data-status="Calling" data-servicedepartment="{{ $serviceDepartment }}">
+                    <i class="fas fa-bullhorn me-2"></i> Call Queue Number
+                </button>
 
-            <button class="serve-ticket-btn btn btn-success rounded-pill py-2 btn-sm" type="button"
-                data-queue-number="{{ $queueNumber }}" data-ticket-id="{{ $ticketId }}" data-status="Serving">
-                <i class="fas fa-check-circle
-                me-2"></i> Serve Ticket
-            </button>
+                <button
+                    class="{{ $position > 1 ? 'd-none' : '' }} serve-ticket-btn btn btn-success rounded-pill py-2 btn-sm"
+                    type="button" data-queue-number="{{ $queueNumber }}" data-ticket-id="{{ $ticketId }}"
+                    data-status="Serving">
+                    <i class="fas fa-check-circle me-2"></i>Serve Ticket
+                </button>
+            @endif
 
             <button class="ask-clearance-btn btn btn-outline-kyoodarkblue rounded-pill py-2 btn-sm" type="button"
                 data-queue-number="{{ $queueNumber }}" data-ticket-id="{{ $ticketId }}"
                 data-status="For Clearance" data-servicedepartment="{{ $serviceDepartment }}">
-                <i class="fas fa-question-circle
-                me-2"></i> Ask for Clearance
+                <i class="fas fa-question-circle me-2"></i> Ask for Clearance
             </button>
         </div>
     </div>

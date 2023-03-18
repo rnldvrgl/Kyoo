@@ -6,6 +6,7 @@ $(document).ready(function () {
     const completeTicketButtons = $(".complete-ticket-btn");
     const transferTicketButtons = $(".transfer-ticket-btn");
     const requestClearanceButtons = $(".request-clearance-btn");
+    let callCount = 0;
 
     // Variables Declaration for TTS, Sound and Video
     const tts = new SpeechSynthesisUtterance();
@@ -37,9 +38,11 @@ $(document).ready(function () {
         const status = $(this).data("status");
         const ticketId = $(this).data("ticket-id");
         const serviceDepartment = $(this).data("servicedepartment");
+        const callCountSpan = $("#call-count");
 
-        callTicketButtons.attr("disabled", true);
-        callTicketButtons.html(
+        const firstButton = callTicketButtons.first();
+        firstButton.attr("disabled", true);
+        firstButton.html(
             "<i class='fa-solid fa-circle-notch fa-spin'></i> Calling ..."
         );
 
@@ -60,19 +63,21 @@ $(document).ready(function () {
                     })
                     .then(function (response) {
                         console.log(response);
-                        callTicketButtons.attr("disabled", false);
-                        callTicketButtons.html(
+                        firstButton.attr("disabled", false);
+                        firstButton.html(
                             '<i class="fas fa-bullhorn me-2"></i> Call Queue Number'
                         );
                     })
                     .catch(function (error) {
                         console.log(error);
-                        callTicketButtons.attr("disabled", false);
-                        callTicketButtons.html(
+                        firstButton.attr("disabled", false);
+                        firstButton.html(
                             '<i class="fas fa-bullhorn me-2"></i> Call Queue Number'
                         );
                     });
-            }
+            },
+            callCount++,
+            callCountSpan.html(callCount)
         );
     });
 
