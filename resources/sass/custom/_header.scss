@@ -32,7 +32,7 @@
 	color: white;
 }
 
-.nav-link {
+.landing-nav-link {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -45,7 +45,7 @@
 	transition: all 0.3s ease-in-out;
 }
 
-.nav-link:before {
+.landing-nav-link:before {
 	content: "";
 	position: absolute;
 	width: 100%;
@@ -58,8 +58,8 @@
 	transition: all 0.3s ease-in-out 0s;
 }
 
-.nav-link:hover:before,
-.nav-link.active:before {
+.landing-nav-link:hover:before,
+.landing-nav-link.active:before {
 	visibility: visible;
 	transform: scaleX(1);
 }

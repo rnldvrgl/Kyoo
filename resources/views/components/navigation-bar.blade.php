@@ -18,17 +18,17 @@
             <ul class="nav navbar-nav mx-auto d-flex justify-content-center mb-2 mb-lg-0" data-bs-spy="scroll"
                 data-bs-target="#scrollspy" data-bs-offset="50">
                 <li class="nav-item">
-                    <a class="nav-link" href="#home">
+                    <a class="landing-nav-link" href="#home">
                         <span class="link-text">HOME</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#faqs">
+                    <a class="landing-nav-link" href="#faqs">
                         <span class="link-text">FAQs</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#feedback">
+                    <a class="landing-nav-link" href="#feedback">
                         <span class="link-text">SEND FEEDBACK</span>
                     </a>
                 </li>
