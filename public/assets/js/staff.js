@@ -2,11 +2,39 @@ $(document).ready(function () {
     // Get all the buttons with the `call-ticket-btn` class
     const callTicketButtons = $(".call-ticket-btn");
 
+    // Variables Declaration for TTS, Sound and Video
+    const tts = new SpeechSynthesisUtterance();
+    tts.lang = "en-US";
+    tts.rate = 1;
+    const notifAudio = new Audio("/assets/sounds/ascend.mp3");
+    notifAudio.muted = true;
+
+    // Text to Speech
+    function speak(text) {
+        if (!text) return;
+        tts.text = text;
+        notifAudio.muted = false;
+        notifAudio.play();
+        setTimeout(() => {
+            window.speechSynthesis.speak(tts);
+        }, 1500);
+    }
+
     // Add a click event listener to each button
     callTicketButtons.click(function () {
         // Get the ticket ID from the data attribute
+        const queueNumber = $(this).data("queue-number");
         const status = $(this).data("status");
         const ticketId = $(this).data("ticket-id");
+        const serviceDepartment = $(this).data("servicedepartment");
+
+        speak(
+            "Queue Number" +
+                queueNumber +
+                ", Please proceed to " +
+                serviceDepartment +
+                "."
+        );
 
         axios.defaults.headers.common["X-CSRF-TOKEN"] = $(
             'meta[name="csrf-token"]'

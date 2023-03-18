@@ -1,3 +1,6 @@
+{{-- Text To Speech JS --}}
+<script  type="module" src="{{ asset('assets/js/textToSpeech.js') }}"></script>
+
 <main id="main" class="main px-2">
     <section class="section dashboard">
         <div class="d-flex justify-content-center" style="max-height: 90vh;">
@@ -35,7 +38,8 @@
                                         queueTime="{{ $ticket->created_at->format('Y-m-d h:i:s A') }}"
                                         studentName="{{ $ticket->student_name }}"
                                         department="{{ $ticket->student_department }}"
-                                        course="{{ $ticket->student_course }}" :services="$ticket->services->pluck('name')->toArray()" />
+                                        course="{{ $ticket->student_course }}" :services="$ticket->services->pluck('name')->toArray()"
+                                        serviceDepartment="{{ $department->name }}" />
                                 </div>
                             @endforeach
                         @else

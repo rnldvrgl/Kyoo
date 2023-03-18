@@ -30,20 +30,27 @@
             </div>
         </div>
     </div>
-    <div class="px-3">
-        <div class="d-grid gap-3">
-            <button class="call-ticket-btn btn btn-kyoodarkblue text-white rounded-pill px-3 py-2 btn-lg" type="button"
-                data-ticket-id="{{ $ticketId }}" data-status="Serving">
+    <div class="px-5">
+        <div class="d-grid gap-2">
+            <button class="call-ticket-btn btn btn-kyoodarkblue text-white rounded-pill py-2 btn-sm" type="button"
+                data-queue-number="{{ $queueNumber }}" data-ticket-id="{{ $ticketId }}" data-status="Calling"
+                data-servicedepartment="{{ $serviceDepartment }}">
                 <i class="fas fa-bullhorn me-2"></i> Call Queue Number
             </button>
 
-            <button class="btn btn-outline-kyoodarkblue rounded-pill px-3 py-2 btn-sm" type="button">
-                <i class="fas fa-file-signature me-2"></i> Ask for Clearance
+            <button class="serve-ticket-btn btn btn-success rounded-pill py-2 btn-sm" type="button"
+                data-queue-number="{{ $queueNumber }}" data-ticket-id="{{ $ticketId }}" data-status="Serving"
+                data-servicedepartment="{{ $serviceDepartment }}">
+                <i class="fas fa-check-circle
+                me-2"></i> Serve Ticket
             </button>
-            {{-- If Clearance Status is Cleared --}}
-            {{-- <button class="btn btn-success rounded-pill px-3 py-2 btn-sm" type="button" disabled>
-                <i class="fas fa-check me-2"></i> Clearance Cleared
-            </button> --}}
+
+            <button class="ask-clearance-btn btn btn-outline-kyoodarkblue rounded-pill py-2 btn-sm" type="button"
+                data-queue-number="{{ $queueNumber }}" data-ticket-id="{{ $ticketId }}"
+                data-status="For Clearance" data-servicedepartment="{{ $serviceDepartment }}">
+                <i class="fas fa-question-circle
+                me-2"></i> Ask for Clearance
+            </button>
         </div>
     </div>
 </div>
