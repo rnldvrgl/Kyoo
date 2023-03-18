@@ -79,6 +79,94 @@ $(document).ready(function () {
             });
     });
 
+    // Cancel Ticket
+    cancelTicketButtons.click(function () {
+        // Get the ticket ID from the data attribute
+        const status = $(this).data("status");
+        const ticketId = $(this).data("ticket-id");
+
+        axios.defaults.headers.common["X-CSRF-TOKEN"] = $(
+            'meta[name="csrf-token"]'
+        ).attr("content");
+
+        axios
+            .put("/tickets/update-status/" + status, {
+                ticketId: ticketId,
+            })
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    });
+
+    // Complete Ticket
+    completeTicketButtons.click(function () {
+        // Get the ticket ID from the data attribute
+        const status = $(this).data("status");
+        const ticketId = $(this).data("ticket-id");
+
+        axios.defaults.headers.common["X-CSRF-TOKEN"] = $(
+            'meta[name="csrf-token"]'
+        ).attr("content");
+
+        axios
+            .put("/tickets/update-status/" + status, {
+                ticketId: ticketId,
+            })
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    });
+
+    // Transfer Ticket
+    transferTicketButtons.click(function () {
+        // Get the ticket ID from the data attribute
+        const status = $(this).data("status");
+        const ticketId = $(this).data("ticket-id");
+
+        axios.defaults.headers.common["X-CSRF-TOKEN"] = $(
+            'meta[name="csrf-token"]'
+        ).attr("content");
+
+        axios
+            .put("/tickets/update-status/" + status, {
+                ticketId: ticketId,
+            })
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    });
+
+    // Request Clearance Ticket
+    requestClearanceButtons.click(function () {
+        // Get the ticket ID from the data attribute
+        const status = $(this).data("status");
+        const ticketId = $(this).data("ticket-id");
+
+        axios.defaults.headers.common["X-CSRF-TOKEN"] = $(
+            'meta[name="csrf-token"]'
+        ).attr("content");
+
+        axios
+            .put("/tickets/update-status/" + status, {
+                ticketId: ticketId,
+            })
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    });
+
     // Pause Work
     $(".pause-work-btn").on("click", function () {
         var btn = $(this);

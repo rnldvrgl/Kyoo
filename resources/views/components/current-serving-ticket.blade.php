@@ -10,14 +10,15 @@
                 </button>
             </li>
             <li>
-                <button class="dropdown-item transfer" type="button" data-queue-number="{{ $queueNumber }}"
-                    data-ticket-id="{{ $ticketId }}" data-status="On Hold">
+                <button class="transfer-ticket-btn dropdown-item transfer" type="button"
+                    data-queue-number="{{ $queueNumber }}" data-ticket-id="{{ $ticketId }}" data-status="On Hold">
                     <i class="fa-solid fa-right-left"></i> Transfer
                 </button>
             </li>
             <li>
-                <button class="dropdown-item cancel" type="button" data-queue-number="{{ $queueNumber }}"
-                    data-ticket-id="{{ $ticketId }}" data-status="Cancelled">
+                <button class="cancel-ticket-btn dropdown-item cancel" type="button"
+                    data-queue-number="{{ $queueNumber }}" data-ticket-id="{{ $ticketId }}"
+                    data-status="Cancelled">
                     <i class="fas fa-times-circle me-2"></i> Cancel
                 </button>
             </li>
