@@ -15,32 +15,30 @@
 
         <!-- Collapsible wrapper -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="nav navbar-nav ms-auto me-4 my-lg-0">
+            <ul class="nav navbar-nav mx-auto d-flex justify-content-center mb-2 mb-lg-0" data-bs-spy="scroll"
+                data-bs-target="#scrollspy" data-bs-offset="50">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="fa-solid fa-house-chimney"></i>
-                        HOME
+                    <a class="nav-link" href="#home">
+                        <span class="link-text">HOME</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#faqs">
-                        <i class="fa-solid fa-file-circle-question"></i>
-                        FAQs
+                        <span class="link-text">FAQs</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#feedback">
-                        <i class="fa-solid fa-message"></i>
-                        SEND FEEDBACK
+                        <span class="link-text">SEND FEEDBACK</span>
                     </a>
                 </li>
             </ul>
 
             <div class="d-lg-inline-flex d-grid gap-3">
-                <a class=" btn btn-outline-kyoored text-white rounded-pill px-3 mb-2 mb-lg-0"
+                <a class="btn btn-outline-kyoored text-white rounded-pill px-3 mb-2 mb-lg-0"
                     href="{{ route('live_queue') }}">Live
                     Queue</a>
-                <a class=" btn btn-kyoored rounded-pill px-3 mb-2 mb-lg-0" href="{{ route('login') }}">LOGIN</a>
+                <a class="btn btn-kyoored rounded-pill px-3 mb-2 mb-lg-0" href="{{ route('login') }}">LOGIN</a>
             </div>
         </div>
         <!-- Collapsible wrapper -->

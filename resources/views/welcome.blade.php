@@ -19,7 +19,7 @@
     <x-navigation-bar />
 
     {{-- Hero Section --}}
-    <section class="bg-kyoodark text-white pt-5 px-2 mb-0 overflow-hidden">
+    <section class="bg-kyoodark text-white pt-5 px-2 mb-0 overflow-hidden" id="home">
         <div class="container">
             <div class="row gx-5 align-items-center">
                 {{-- Left Item --}}
