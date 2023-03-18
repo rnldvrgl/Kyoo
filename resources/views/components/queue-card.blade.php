@@ -1,5 +1,5 @@
 <div {{ $attributes->merge(['class' => 'card rounded-lg shadow-sm w-100 px-4 py-4']) }}
-    style="border-left: 8px solid #F2D388; background-color: #fefaf1;">
+    style="border-left: 8px solid #F2D388; background-color: #f7f7f7;">
     <div class="row d-flex justify-content-evenly">
         <div class="col-lg-6 mb-4 text-left">
             <div class="mb-2">
@@ -32,16 +32,21 @@
     </div>
     <div class="px-3">
         <div class="d-grid gap-3">
-            <button class="btn btn-primary rounded-pill px-3 py-2" type="button"
+            <button class="btn btn-kyoodarkblue text-white rounded-pill px-3 py-2 btn-lg" type="button"
                 onclick="callNext('{{ $ticketId }}', '{{ $queueNumber }}')">
                 <i class="fas fa-bullhorn me-2"></i> Call Queue Number
             </button>
-            <button class="btn btn-outline-secondary rounded-pill px-3 py-2" type="button">
-                <i class="fas fa-file-signature me-2"></i> Clearance
+            <button class="btn btn-outline-kyoodarkblue rounded-pill px-3 py-2 btn-sm" type="button">
+                <i class="fas fa-file-signature me-2"></i> Ask for Clearance
             </button>
+            {{-- If Clearance Status is Cleared --}}
+            {{-- <button class="btn btn-success rounded-pill px-3 py-2 btn-sm" type="button" disabled>
+                <i class="fas fa-check me-2"></i> Clearance Cleared
+            </button> --}}
         </div>
     </div>
 </div>
+
 <script>
     function callNext(ticketId, queueNumber) {
         $('#current-ticket').text(queueNumber);

@@ -10,6 +10,10 @@
 $custom-colors: (
 	"kyoored" : #8C3D3D,
 	"kyoodark" : #323232,
+	"kyooblue" : #17A2B8,
+	"kyoodarkblue" : #2C3E50,
+	"kyooorange" : #E67E22,
+	"kyooyellow" : #FFB400,
 );
 
 $theme-colors: map-merge($theme-colors , $custom-colors );

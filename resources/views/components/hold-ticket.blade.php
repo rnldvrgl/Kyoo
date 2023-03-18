@@ -1,11 +1,13 @@
-<div class="card bg-white-50 border rounded-lg shadow w-100 px-4 py-3 mb-0">
+<div class="card bg-white-50 rounded-lg shadow w-100 px-4 py-3 mb-0"
+    style="border-left: 8px solid #a7ccd2; background-color: #f7f7f7;">
     <div class="d-flex justify-content-between align-items-center mb-2">
-        <div class="d-flex align-items-center ">
-            <h3 class="fw-bold mb-0">{{ $queueNumber }}</h3>
-            <button class="btn btn-link" type="button" id="queueInfoToggle" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="fa-solid fa-caret-down text-kyoodark"></i>
+        <div class="d-flex align-items-center">
+            <button class="btn btn-link text-kyoodark" type="button" id="queueInfoToggle" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                <h3 class="fw-bold mb-0 d-inline-block">{{ $queueNumber }}</h3>
+                <i class="fa-solid fa-caret-down "></i>
             </button>
-            <ul class="dropdown-menu p-3 rounded-lg mb-2" aria-labelledby="queueInfoToggle">
+            <ul class="dropdown-menu p-3 rounded-lg" aria-labelledby="queueInfoToggle">
                 <li><span class="fw-bold">Queue Time:</span> {{ $queueTime }}</li>
                 <li><span class="fw-bold">Student Name:</span> {{ $studentName }}</li>
                 <li><span class="fw-bold">Department:</span> {{ $department }}</li>
@@ -26,5 +28,4 @@
             <button class="btn btn-danger"><i class="fas fa-times-circle me-2"></i> Cancel</button>
         </div>
     </div>
-
 </div>
