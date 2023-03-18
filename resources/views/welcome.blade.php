@@ -32,13 +32,13 @@
                 {{-- Right Item --}}
                 <div class="col-lg-6 text-center text-lg-start">
                     <div class="container">
-                        <h1 class="display-5 fw-normal" data-aos="fade-down-left" data-aos-delay="500"
+                        <h1 class="display-5 fw-normal" data-aos="fade-left" data-aos-delay="500"
                             data-aos-easing="ease-in-sine">
                             Manage your <span class="fw-bold">queues</span> <span class="fw-semibold">efficiently</span>
                             and <br class="d-lg-none">
                             <span class="fw-semibold">effectively</span>
                         </h1>
-                        <p class="lead text-white-50 fw-light" data-aos="zoom-in-down" data-aos-easing="ease-in-sine"
+                        <p class="lead text-white-50 fw-light" data-aos="fade-down" data-aos-easing="ease-in-sine"
                             data-aos-delay="1200">
                             At The Republic Central Colleges, we understand the importance of efficient queueing. Our
                             queue management system provides <span class="fw-semibold">fast and reliable</span> service
