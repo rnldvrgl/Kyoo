@@ -15,11 +15,16 @@ $(document).ready(function () {
     notifAudio.muted = true;
 
     // Text to Speech
-    function speak(text) {
+    function speak(text, callback) {
         if (!text) return;
         tts.text = text;
         notifAudio.muted = false;
         notifAudio.play();
+        tts.onend = function () {
+            if (typeof callback === "function") {
+                callback();
+            }
+        };
         setTimeout(() => {
             window.speechSynthesis.speak(tts);
         }, 1500);
@@ -33,28 +38,42 @@ $(document).ready(function () {
         const ticketId = $(this).data("ticket-id");
         const serviceDepartment = $(this).data("servicedepartment");
 
+        callTicketButtons.attr("disabled", true);
+        callTicketButtons.html(
+            "<i class='fa-solid fa-circle-notch fa-spin'></i> Calling ..."
+        );
+
         speak(
             "Queue Number" +
                 queueNumber +
                 ", Please proceed to " +
                 serviceDepartment +
-                "."
+                ".",
+            function () {
+                axios.defaults.headers.common["X-CSRF-TOKEN"] = $(
+                    'meta[name="csrf-token"]'
+                ).attr("content");
+
+                axios
+                    .put("/tickets/update-status/" + status, {
+                        ticketId: ticketId,
+                    })
+                    .then(function (response) {
+                        console.log(response);
+                        callTicketButtons.attr("disabled", false);
+                        callTicketButtons.html(
+                            '<i class="fas fa-bullhorn me-2"></i> Call Queue Number'
+                        );
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                        callTicketButtons.attr("disabled", false);
+                        callTicketButtons.html(
+                            '<i class="fas fa-bullhorn me-2"></i> Call Queue Number'
+                        );
+                    });
+            }
         );
-
-        axios.defaults.headers.common["X-CSRF-TOKEN"] = $(
-            'meta[name="csrf-token"]'
-        ).attr("content");
-
-        axios
-            .put("/tickets/update-status/" + status, {
-                ticketId: ticketId,
-            })
-            .then(function (response) {
-                console.log(response);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
     });
 
     // Serve Ticket
