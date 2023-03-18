@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 
 class QueueTicketController extends Controller
 {
+    // * FOR MAIN ADMIN DASHBOARD * //
     // Declare a property
     public $queue_ticket_data;
 
@@ -123,34 +124,22 @@ class QueueTicketController extends Controller
     }
 
 
-    // public function serveTicket(Request $request)
-    // {
-    //     $queueNumber = $request->input('queueNumber');
+    // * FOR STAFF SERVING TICKET * //
+    public function updateStatus(Request $request, $status)
+    {
+        $ticketId = $request->ticketId;
 
-    //     // Update the current serving ticket view with queueNumber
-    //     // For example, you could update the database or session to track the current ticket being served
+        // Retrieve the ticket by ID
+        $ticket = QueueTicket::find($ticketId);
+        // dd($ticket);
+        if ($ticket) {
+            // Update the ticket status
+            $ticket->status = $status;
+            $ticket->save();
 
-    //     // Update the pending tickets view with the next queue number
-    //     $nextTicket = QueueTicket::where('ticket_number', '>', $queueNumber)
-    //         ->orderBy('ticket_number')
-    //         ->first();
-
-    //     if ($nextTicket) {
-    //         $nextQueueNumber = $nextTicket->queue_number;
-    //         $nextTicketId = $nextTicket->id;
-    //         $response = [
-    //             'status' => 'success',
-    //             'nextQueueNumber' => $nextQueueNumber,
-    //             'nextTicketId' => $nextTicketId,
-    //         ];
-    //     } else {
-    //         $response = [
-    //             'status' => 'success',
-    //             'nextQueueNumber' => null,
-    //             'nextTicketId' => null,
-    //         ];
-    //     }
-
-    //     return response()->json($response);
-    // }
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Ticket not found']);
+        }
+    }
 }

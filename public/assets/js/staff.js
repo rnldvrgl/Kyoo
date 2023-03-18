@@ -1,4 +1,29 @@
 $(document).ready(function () {
+    // Get all the buttons with the `call-ticket-btn` class
+    const callTicketButtons = $(".call-ticket-btn");
+
+    // Add a click event listener to each button
+    callTicketButtons.click(function () {
+        // Get the ticket ID from the data attribute
+        const status = $(this).data("status");
+        const ticketId = $(this).data("ticket-id");
+
+        axios.defaults.headers.common["X-CSRF-TOKEN"] = $(
+            'meta[name="csrf-token"]'
+        ).attr("content");
+
+        axios
+            .put("/tickets/update-status/" + status, {
+                ticketId: ticketId,
+            })
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    });
+
     // Pause Work
     $(".pause-work-btn").on("click", function () {
         var btn = $(this);

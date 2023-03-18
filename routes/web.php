@@ -178,7 +178,7 @@ Route::middleware(['auth', 'user-access:Department Admin'])->group(function () {
 Route::middleware(['auth', 'user-access:Staff'])->group(function () {
 	Route::get('/staff/dashboard', [StaffController::class, 'index'])->name('dashboard.staff');
 
-	Route::post('/serve-ticket', [QueueTicketController::class, 'serveTicket']);
+	Route::put('/tickets/update-status/{status}', [QueueTicketController::class, 'updateStatus'])->name('tickets.updateStatus');
 })->name('staff');
 
 // * Logout

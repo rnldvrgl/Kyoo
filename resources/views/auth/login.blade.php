@@ -55,7 +55,9 @@
                 </form>
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <a class="btn btn-outline-kyoored text-white rounded-pill btn-sm px-3 mb-2 mb-lg-0"
-                        href="{{ route('landing_page') }}">RETURN
+                        href="{{ route('landing_page') }}">
+                        <i class="fa-solid fa-circle-chevron-left me-2"></i>
+                        RETURN
                         TO
                         LANDING PAGE</a>
                 </div>

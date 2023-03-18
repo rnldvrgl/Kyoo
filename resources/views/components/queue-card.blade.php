@@ -32,10 +32,11 @@
     </div>
     <div class="px-3">
         <div class="d-grid gap-3">
-            <button class="btn btn-kyoodarkblue text-white rounded-pill px-3 py-2 btn-lg" type="button"
-                onclick="callNext('{{ $ticketId }}', '{{ $queueNumber }}')">
+            <button class="call-ticket-btn btn btn-kyoodarkblue text-white rounded-pill px-3 py-2 btn-lg" type="button"
+                data-ticket-id="{{ $ticketId }}" data-status="Serving">
                 <i class="fas fa-bullhorn me-2"></i> Call Queue Number
             </button>
+
             <button class="btn btn-outline-kyoodarkblue rounded-pill px-3 py-2 btn-sm" type="button">
                 <i class="fas fa-file-signature me-2"></i> Ask for Clearance
             </button>
@@ -46,9 +47,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    function callNext(ticketId, queueNumber) {
-        $('#current-ticket').text(queueNumber);
-    }
-</script>
