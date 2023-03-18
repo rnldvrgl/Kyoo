@@ -30,17 +30,28 @@
                     </div>
                 </div>
                 {{-- Right Item --}}
-                <div class="col-lg-6 text-center text-lg-start" data-aos="fade-left" data-aos-duration="2000">
-                    <h1 class="display-5 fw-bold">Handle your queues wisely and
-                        instantaneously</h1>
-                    <p class="text-white-50">The Republic Central Colleges is committed to providing quality
-                        services to
-                        students, graduates, faculty, and other members of the school.</p>
+                <div class="col-lg-6 text-center text-lg-start">
+                    <div class="container">
+                        <h1 class="display-5 fw-normal" data-aos="fade-down-left" data-aos-delay="1000"
+                            data-aos-easing="ease-in-sine" data-aos-duration="1000">
+                            Manage your <span class="fw-bold">queues</span> <span class="fw-semibold">efficiently</span>
+                            and <br class="d-lg-none">
+                            <span class="fw-semibold">effectively</span>
+                        </h1>
+                        <p class="lead text-white-50 fw-light" data-aos="zoom-in-down" data-aos-delay="2000"
+                            data-aos-duration="1000">
+                            At The Republic Central Colleges, we understand the importance of efficient queueing. Our
+                            queue management system provides <span class="fw-semibold">fast and reliable</span> service
+                            to
+                            students, graduates, faculty, and other members of the school.
+                        </p>
+                    </div>
+
                 </div>
             </div>
         </div>
     </section>
-    <img class="img-fluid" src="{{ asset('assets/images/wave.png') }}" alt="wave-down">
+    <img class="img-fluid" src="{{ asset('assets/images/wave.png') }}" alt="wave-down" style="max-width: 100%;">
     {{-- /Hero Section --}}
 
 
