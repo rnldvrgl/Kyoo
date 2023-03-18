@@ -29,6 +29,7 @@
                 </ul>
             </div>
         </div>
+
     </div>
     <div class="px-5">
         <div class="d-grid gap-2">
@@ -53,11 +54,30 @@
                 </button>
             @endif
 
-            <button class="ask-clearance-btn btn btn-outline-kyooorange rounded-pill py-2 btn-sm" type="button"
-                data-queue-number="{{ $queueNumber }}" data-ticket-id="{{ $ticketId }}"
-                data-status="For Clearance" data-servicedepartment="{{ $serviceDepartment }}">
-                <i class="fas fa-question-circle me-2"></i> Ask for Clearance
-            </button>
+            @if ($clearancestatus == 'Pending')
+                <span class="badge rounded-pill py-3 text-bg-kyooorange">
+                    <i class="fas fa-circle-notch fa-spin mr-2"></i>
+                    Pending Clearance ...
+                </span>
+            @elseif($clearancestatus == 'Cleared')
+                <span class="badge rounded-pill py-3 text-bg-success">
+                    <i class="fas fa-check-circle mr-2"></i>
+                    Clearance Cleared
+                </span>
+            @elseif($clearancestatus == 'Not Cleared')
+                <span class="badge rounded-pill py-3 text-bg-kyoored">
+                    <i class="fas fa-exclamation-circle mr-2"></i>
+                    Clearance Not Cleared
+                </span>
+            @else
+                <button class="request-clearance-btn btn btn-outline-kyooorange rounded-pill py-2 btn-sm" type="button"
+                    data-queue-number="{{ $queueNumber }}" data-ticket-id="{{ $ticketId }}"
+                    data-status="For Clearance" data-servicedepartment="{{ $serviceDepartment }}">
+                    <i class="fas fa-question-circle mr-2"></i>
+                    Ask for Clearance
+                </button>
+            @endif
+
 
             <button
                 class="{{ $position > 1 ? 'd-none' : '' }} cancel-ticket-btn btn btn-outline-kyoored rounded-pill py-2 btn-sm"

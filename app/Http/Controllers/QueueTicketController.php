@@ -125,6 +125,13 @@ class QueueTicketController extends Controller
 
 
     // * FOR STAFF SERVING TICKET * //
+    public function show($id)
+    {
+        $ticket = QueueTicket::findOrFail($id);
+
+        return response()->json($ticket);
+    }
+
     public function updateStatus(Request $request, $status)
     {
         $ticketId = $request->ticketId;
@@ -138,11 +145,18 @@ class QueueTicketController extends Controller
                 $ticket->notes = $request->notes;
             }
 
+            if ($request->clearance_status) {
+                // Set the clearance status in the session
+                session(['clearance_status' => $request->clearance_status]);
+                $ticket->clearance_status = $request->clearance_status;
+            } else {
+                // Get the clearance status from the session
+                $ticket->clearance_status = session('clearance_status');
+            }
+
             // Update the ticket status
             $ticket->status = $status;
             $ticket->save();
-
-
 
             return response()->json(['success' => true]);
         } else {

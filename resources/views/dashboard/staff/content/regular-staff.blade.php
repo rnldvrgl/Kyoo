@@ -40,6 +40,7 @@
                     </div>
                     <div class="card-body px-4 py-2 d-flex flex-column justify-content-start"
                         style="overflow-y: scroll; height: calc(100% - 55px);">
+                        <div id="notifications"></div>
                         @if (count($pendingTickets) > 0)
                             @foreach ($pendingTickets as $key => $ticket)
                                 <div class="my-1">
@@ -50,13 +51,15 @@
                                         department="{{ $ticket->student_department }}"
                                         course="{{ $ticket->student_course }}" :services="$ticket->services->pluck('name')->toArray()"
                                         serviceDepartment="{{ $department->name }}" :position="$loop->index + 1"
+                                        clearancestatus="{{ $ticket->clearance_status }}"
                                         hasCurrentServingTicket="{{ $hasCurrentServingTicket }}" />
                                 </div>
                             @endforeach
                         @else
                             <div class="text-center my-auto">
                                 <p class="fw-bold fs-4 mb-0 text-muted">No Pending Ticket(s)</p>
-                                <p class="fs-6 text-muted mb-0">Please call a pending ticket to be served.</p>
+                                <p class="fs-6 text-muted mb-0">Please call a pending ticket to be served.
+                                </p>
                             </div>
                         @endif
                     </div>

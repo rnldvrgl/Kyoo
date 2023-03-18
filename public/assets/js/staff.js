@@ -225,21 +225,37 @@ $(document).ready(function () {
     });
 
     // Request Clearance Ticket
-    requestClearanceButtons.click(function () {
-        // Get the ticket ID from the data attribute
+    $(".request-clearance-btn").click(function () {
+        // Get the ticket ID and other data attributes
         const status = $(this).data("status");
         const ticketId = $(this).data("ticket-id");
+        const serviceDepartment = $(this).data("servicedepartment");
+        const queueNumber = $(this).data("queue-number");
 
+        // Set the CSRF token for AJAX request
         axios.defaults.headers.common["X-CSRF-TOKEN"] = $(
             'meta[name="csrf-token"]'
         ).attr("content");
 
+        // Send an AJAX request to update ticket status
         axios
             .put("/tickets/update-status/" + status, {
                 ticketId: ticketId,
+                clearance_status: "Pending",
+                status: "For Clearance",
+                servicedepartment: serviceDepartment,
             })
             .then(function (response) {
                 console.log(response);
+
+                // Show a notification that the request is successful
+                const notification = `
+            <div class="alert alert-success alert-dismissible fade show position-fixed bottom-0 start-0 mb-2 ml-2" role="alert">
+                Clearance request for Queue #${queueNumber} has been sent!
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        `;
+                $("#notifications").append(notification);
             })
             .catch(function (error) {
                 console.log(error);
