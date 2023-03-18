@@ -33,7 +33,7 @@
                                     </span>
                                 </h4>
                             @endif
-                            <span class="badge bg-warning text-warning rounded-circle p-1">
+                            <span class="badge bg-kyooorange text-kyooorange rounded-circle p-1">
                                 <i class="fa-regular fa-circle"></i>
                             </span>
                         </div>
@@ -114,7 +114,7 @@
                                     </span>
                                 </h4>
                             @endif
-                            <span class="badge bg-info text-info  rounded-circle p-1">
+                            <span class="badge bg-kyooblue text-kyooblue  rounded-circle p-1">
                                 <i class="fa-regular fa-circle"></i>
                             </span>
                         </div>

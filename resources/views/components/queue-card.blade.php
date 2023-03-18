@@ -1,5 +1,5 @@
 <div {{ $attributes->merge(['class' => 'card rounded-lg shadow-sm w-100 px-4 py-4']) }}
-    style="border-left: 8px solid #F2D388; background-color: #f7f7f7;">
+    style="border-left: 8px solid #E67E22; background-color: #f7f7f7;">
     <div class="row d-flex justify-content-evenly">
         <div class="col-lg-6 mb-4 text-left">
             <div class="mb-2">
@@ -49,14 +49,21 @@
                     class="{{ $position > 1 ? 'd-none' : '' }} serve-ticket-btn btn btn-success rounded-pill py-2 btn-sm"
                     type="button" data-queue-number="{{ $queueNumber }}" data-ticket-id="{{ $ticketId }}"
                     data-status="Serving">
-                    <i class="fas fa-check-circle me-2"></i>Serve Ticket
+                    <i class="fas fa-check-circle me-2"></i> Serve Ticket
                 </button>
             @endif
 
-            <button class="ask-clearance-btn btn btn-outline-kyoodarkblue rounded-pill py-2 btn-sm" type="button"
+            <button class="ask-clearance-btn btn btn-outline-kyooorange rounded-pill py-2 btn-sm" type="button"
                 data-queue-number="{{ $queueNumber }}" data-ticket-id="{{ $ticketId }}"
                 data-status="For Clearance" data-servicedepartment="{{ $serviceDepartment }}">
                 <i class="fas fa-question-circle me-2"></i> Ask for Clearance
+            </button>
+
+            <button
+                class="{{ $position > 1 ? 'd-none' : '' }} cancel-ticket-btn btn btn-outline-kyoored rounded-pill py-2 btn-sm"
+                type="button" data-queue-number="{{ $queueNumber }}" data-ticket-id="{{ $ticketId }}"
+                data-status="Cancelled">
+                <i class="fas fa-times-circle me-2"></i> Cancel
             </button>
         </div>
     </div>

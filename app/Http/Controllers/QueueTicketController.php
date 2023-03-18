@@ -131,11 +131,18 @@ class QueueTicketController extends Controller
 
         // Retrieve the ticket by ID
         $ticket = QueueTicket::find($ticketId);
-        // dd($ticket);
+
         if ($ticket) {
+
+            if ($request->notes) {
+                $ticket->notes = $request->notes;
+            }
+
             // Update the ticket status
             $ticket->status = $status;
             $ticket->save();
+
+
 
             return response()->json(['success' => true]);
         } else {

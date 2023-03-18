@@ -105,24 +105,79 @@ $(document).ready(function () {
 
     // Cancel Ticket
     cancelTicketButtons.click(function () {
-        // Get the ticket ID from the data attribute
+        // Get the ticket ID and status from the data attributes
         const status = $(this).data("status");
         const ticketId = $(this).data("ticket-id");
 
-        axios.defaults.headers.common["X-CSRF-TOKEN"] = $(
-            'meta[name="csrf-token"]'
-        ).attr("content");
+        // Show confirmation dialog with input field for notes
+        $.confirm({
+            type: "red",
+            title: "Cancel Confirmation",
+            icon: "fa-solid fa-exclamation-triangle",
+            closeIcon: true,
+            content:
+                '<div class="form-floating mb-3">' +
+                '<select id="cancel-reason" class="form-select">' +
+                '<option value="Changed plans or priorities">Changed plans or priorities</option>' +
+                '<option value="Technical issues">Technical issues</option>' +
+                '<option value="Lack of requirements">Lack of requirements</option>' +
+                '<option value="Client not present">Client not present</option>' +
+                '<option value="Other">Other</option>' +
+                "</select>" +
+                '<label for="cancel-reason">Reason for Cancelling</label>' +
+                "</div>" +
+                '<div id="cancel-notes-div" class="form-floating mb-3 d-none">' +
+                '<input type="text" id="cancel-notes" class="form-control" placeholder="Reason for Cancelling">' +
+                '<label for="cancel-notes">Reason for Cancelling</label>' +
+                "</div>" +
+                "<p>Are you sure you want to cancel this ticket?</p>",
+            theme: "Modern",
+            draggable: false,
+            typeAnimated: true,
+            buttons: {
+                confirm: {
+                    btnClass: "btn-success",
+                    action: function () {
+                        // Get the notes from the input field if "Other" is selected
+                        const reason = $("#cancel-reason").val();
+                        let notes = "";
 
-        axios
-            .put("/tickets/update-status/" + status, {
-                ticketId: ticketId,
-            })
-            .then(function (response) {
-                console.log(response);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+                        if (reason === "Other") {
+                            notes = $("#cancel-notes").val();
+                        } else {
+                            notes = reason;
+                        }
+
+                        // Send PUT request to update ticket status with notes
+                        axios.defaults.headers.common["X-CSRF-TOKEN"] = $(
+                            'meta[name="csrf-token"]'
+                        ).attr("content");
+
+                        axios
+                            .put("/tickets/update-status/" + status, {
+                                ticketId: ticketId,
+                                notes: notes,
+                            })
+                            .then(function (response) {
+                                console.log(response);
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                            });
+                    },
+                },
+            },
+            onContentReady: function () {
+                // Show/hide the notes input field based on the selected reason
+                $("#cancel-reason").change(function () {
+                    if ($(this).val() === "Other") {
+                        $("#cancel-notes-div").removeClass("d-none");
+                    } else {
+                        $("#cancel-notes-div").addClass("d-none");
+                    }
+                });
+            },
+        });
     });
 
     // Complete Ticket
