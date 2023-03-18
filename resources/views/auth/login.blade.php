@@ -5,17 +5,15 @@
     $kyooLogo = asset('assets/images/kyoo-logo.svg');
     $avatarIcon = asset('assets/images/avatar.svg');
 @endphp
-
 <x-layout>
     <div class="opacity-25" id="background-image"></div>
-    <section class="container d-flex justify-content-center align-items-center py-5 min-vh-100">
-        <div class="card border-0 shadow-lg">
-            <div class="card-body vstack justify-content-center align-items-center p-sm-3 p-md-4 p-lg-5 border">
+    <section class="container d-flex justify-content-center align-items-center p-0 py-lg-5 min-vh-100">
+        <div class="card rounded-5 shadow-lg mb-0">
+            <div class="card-body pt-5 vstack justify-content-center align-items-center p-sm-3 p-md-4 p-lg-5">
                 <!-- Avatar icon -->
                 <div class="d-flex justify-content-center align-items-center mb-3">
                     <img class="img-fluid" src="{{ $avatarIcon }}" alt="avatar icon">
                 </div>
-
                 <h4 class="card-title fw-bold mb-4 text-center">{{ __('Login to Your Account') }}</h4>
                 @if (session('error'))
                     <div class="alert alert-danger mb-3">
@@ -54,9 +52,13 @@
                             class="btn btn-outline-kyoodark btn-lg">{{ __('Access Kiosk') }}</a>
                     </div>
                 </form>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <a class="btn btn-outline-kyoored rounded-pill px-3 mb-2 mb-lg-0"
+                        href="{{ route('landing_page') }}">RETURN
+                        TO
+                        LANDING PAGE</a>
+                </div>
             </div>
         </div>
     </section>
-
-
 </x-layout>
