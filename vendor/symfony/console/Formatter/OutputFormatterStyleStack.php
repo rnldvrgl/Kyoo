@@ -24,7 +24,7 @@ class OutputFormatterStyleStack implements ResetInterface
      */
     private array $styles = [];
 
-    private $emptyStyle;
+    private OutputFormatterStyleInterface $emptyStyle;
 
     public function __construct(OutputFormatterStyleInterface $emptyStyle = null)
     {
@@ -55,7 +55,7 @@ class OutputFormatterStyleStack implements ResetInterface
      */
     public function pop(OutputFormatterStyleInterface $style = null): OutputFormatterStyleInterface
     {
-        if (empty($this->styles)) {
+        if (!$this->styles) {
             return $this->emptyStyle;
         }
 
@@ -79,7 +79,7 @@ class OutputFormatterStyleStack implements ResetInterface
      */
     public function getCurrent(): OutputFormatterStyleInterface
     {
-        if (empty($this->styles)) {
+        if (!$this->styles) {
             return $this->emptyStyle;
         }
 
