@@ -31,7 +31,7 @@ class GenerateUlidCommand extends Command
         'rfc4122',
     ];
 
-    private $factory;
+    private UlidFactory $factory;
 
     public function __construct(UlidFactory $factory = null)
     {
@@ -40,9 +40,6 @@ class GenerateUlidCommand extends Command
         parent::__construct();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function configure(): void
     {
         $this
@@ -72,9 +69,6 @@ EOF
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output instanceof ConsoleOutputInterface ? $output->getErrorOutput() : $output);

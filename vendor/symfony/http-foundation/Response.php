@@ -98,6 +98,8 @@ class Response
         'proxy_revalidate' => false,
         'max_age' => true,
         's_maxage' => true,
+        'stale_if_error' => true,         // RFC5861
+        'stale_while_revalidate' => true, // RFC5861
         'immutable' => false,
         'last_modified' => true,
         'etag' => true,
@@ -210,6 +212,8 @@ class Response
     ];
 
     /**
+     * @param int $status The HTTP status code (200 "OK" by default)
+     *
      * @throws \InvalidArgumentException When the HTTP status code is not valid
      */
     public function __construct(?string $content = '', int $status = 200, array $headers = [])
@@ -699,7 +703,7 @@ class Response
     {
         try {
             return $this->headers->getDate('Expires');
-        } catch (\RuntimeException $e) {
+        } catch (\RuntimeException) {
             // according to RFC 2616 invalid date formats (e.g. "0" and "-1") must be treated as in the past
             return \DateTime::createFromFormat('U', time() - 172800);
         }
@@ -716,6 +720,9 @@ class Response
      */
     public function setExpires(\DateTimeInterface $date = null): static
     {
+        if (1 > \func_num_args()) {
+            trigger_deprecation('symfony/http-foundation', '6.2', 'Calling "%s()" without any arguments is deprecated, pass null explicitly instead.', __METHOD__);
+        }
         if (null === $date) {
             $this->headers->remove('Expires');
 
@@ -751,8 +758,10 @@ class Response
             return (int) $this->headers->getCacheControlDirective('max-age');
         }
 
-        if (null !== $this->getExpires()) {
-            return (int) $this->getExpires()->format('U') - (int) $this->getDate()->format('U');
+        if (null !== $expires = $this->getExpires()) {
+            $maxAge = (int) $expires->format('U') - (int) $this->getDate()->format('U');
+
+            return max($maxAge, 0);
         }
 
         return null;
@@ -770,6 +779,38 @@ class Response
     public function setMaxAge(int $value): static
     {
         $this->headers->addCacheControlDirective('max-age', $value);
+
+        return $this;
+    }
+
+    /**
+     * Sets the number of seconds after which the response should no longer be returned by shared caches when backend is down.
+     *
+     * This method sets the Cache-Control stale-if-error directive.
+     *
+     * @return $this
+     *
+     * @final
+     */
+    public function setStaleIfError(int $value): static
+    {
+        $this->headers->addCacheControlDirective('stale-if-error', $value);
+
+        return $this;
+    }
+
+    /**
+     * Sets the number of seconds after which the response should no longer return stale content by shared caches.
+     *
+     * This method sets the Cache-Control stale-while-revalidate directive.
+     *
+     * @return $this
+     *
+     * @final
+     */
+    public function setStaleWhileRevalidate(int $value): static
+    {
+        $this->headers->addCacheControlDirective('stale-while-revalidate', $value);
 
         return $this;
     }
@@ -796,7 +837,7 @@ class Response
      *
      * It returns null when no freshness information is present in the response.
      *
-     * When the responses TTL is <= 0, the response may not be served from cache without first
+     * When the response's TTL is 0, the response may not be served from cache without first
      * revalidating with the origin.
      *
      * @final
@@ -805,7 +846,7 @@ class Response
     {
         $maxAge = $this->getMaxAge();
 
-        return null !== $maxAge ? $maxAge - $this->getAge() : null;
+        return null !== $maxAge ? max($maxAge - $this->getAge(), 0) : null;
     }
 
     /**
@@ -863,6 +904,9 @@ class Response
      */
     public function setLastModified(\DateTimeInterface $date = null): static
     {
+        if (1 > \func_num_args()) {
+            trigger_deprecation('symfony/http-foundation', '6.2', 'Calling "%s()" without any arguments is deprecated, pass null explicitly instead.', __METHOD__);
+        }
         if (null === $date) {
             $this->headers->remove('Last-Modified');
 
@@ -901,6 +945,9 @@ class Response
      */
     public function setEtag(string $etag = null, bool $weak = false): static
     {
+        if (1 > \func_num_args()) {
+            trigger_deprecation('symfony/http-foundation', '6.2', 'Calling "%s()" without any arguments is deprecated, pass null explicitly instead.', __METHOD__);
+        }
         if (null === $etag) {
             $this->headers->remove('Etag');
         } else {
@@ -945,6 +992,14 @@ class Response
 
         if (isset($options['s_maxage'])) {
             $this->setSharedMaxAge($options['s_maxage']);
+        }
+
+        if (isset($options['stale_while_revalidate'])) {
+            $this->setStaleWhileRevalidate($options['stale_while_revalidate']);
+        }
+
+        if (isset($options['stale_if_error'])) {
+            $this->setStaleIfError($options['stale_if_error']);
         }
 
         foreach (self::HTTP_RESPONSE_CACHE_CONTROL_DIRECTIVES as $directive => $hasValue) {

@@ -38,7 +38,7 @@ class BinaryFileResponse extends Response
 
     /**
      * @param \SplFileInfo|string $file               The file to stream
-     * @param int                 $status             The response status code
+     * @param int                 $status             The response status code (200 "OK" by default)
      * @param array               $headers            An array of response headers
      * @param bool                $public             Files are public by default
      * @param string|null         $contentDisposition The type of Content-Disposition to set automatically with the filename
@@ -177,9 +177,6 @@ class BinaryFileResponse extends Response
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function prepare(Request $request): static
     {
         if ($this->isInformational() || $this->isEmpty()) {
@@ -224,7 +221,7 @@ class BinaryFileResponse extends Response
                 $parts = HeaderUtils::split($request->headers->get('X-Accel-Mapping', ''), ',=');
                 foreach ($parts as $part) {
                     [$pathPrefix, $location] = $part;
-                    if (substr($path, 0, \strlen($pathPrefix)) === $pathPrefix) {
+                    if (str_starts_with($path, $pathPrefix)) {
                         $path = $location.substr($path, \strlen($pathPrefix));
                         // Only set X-Accel-Redirect header if a valid URI can be produced
                         // as nginx does not serve arbitrary file paths.
@@ -292,9 +289,6 @@ class BinaryFileResponse extends Response
         return $lastModified->format('D, d M Y H:i:s').' GMT' === $header;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function sendContent(): static
     {
         try {
@@ -339,8 +333,6 @@ class BinaryFileResponse extends Response
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @throws \LogicException when the content is not null
      */
     public function setContent(?string $content): static
@@ -352,9 +344,6 @@ class BinaryFileResponse extends Response
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getContent(): string|false
     {
         return false;
