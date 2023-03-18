@@ -4,17 +4,20 @@
         <a class="icon" href="#" data-bs-toggle="dropdown"><i class="fa-solid fa-ellipsis-vertical"></i></a>
         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
             <li>
-                <button class="dropdown-item complete" type="button">
+                <button class="complete-ticket-btn dropdown-item complete" type="button"
+                    data-queue-number="{{ $queueNumber }}" data-ticket-id="{{ $ticketId }}" data-status="Complete">
                     <i class="fas fa-check-circle me-2"></i> Complete
                 </button>
             </li>
             <li>
-                <button class="dropdown-item transfer" type="button">
+                <button class="dropdown-item transfer" type="button" data-queue-number="{{ $queueNumber }}"
+                    data-ticket-id="{{ $ticketId }}" data-status="On Hold">
                     <i class="fa-solid fa-right-left"></i> Transfer
                 </button>
             </li>
             <li>
-                <button class="dropdown-item cancel" type="button">
+                <button class="dropdown-item cancel" type="button" data-queue-number="{{ $queueNumber }}"
+                    data-ticket-id="{{ $ticketId }}" data-status="Cancelled">
                     <i class="fas fa-times-circle me-2"></i> Cancel
                 </button>
             </li>

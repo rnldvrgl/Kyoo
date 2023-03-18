@@ -39,8 +39,7 @@
             </button>
 
             <button class="serve-ticket-btn btn btn-success rounded-pill py-2 btn-sm" type="button"
-                data-queue-number="{{ $queueNumber }}" data-ticket-id="{{ $ticketId }}" data-status="Serving"
-                data-servicedepartment="{{ $serviceDepartment }}">
+                data-queue-number="{{ $queueNumber }}" data-ticket-id="{{ $ticketId }}" data-status="Serving">
                 <i class="fas fa-check-circle
                 me-2"></i> Serve Ticket
             </button>
