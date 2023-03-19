@@ -250,7 +250,7 @@ $(document).ready(function () {
 
                 // Show a notification that the request is successful
                 const notification = `
-            <div class="alert alert-success alert-dismissible fade show position-fixed bottom-0 start-0 mb-2 ml-2" role="alert">
+            <div class="alert alert-success alert-dismissible fade show position-fixed bottom-0 start-0 mb-2 ml-2" role="alert" style="z-index: 9999;">
                 Clearance request for Queue #${queueNumber} has been sent!
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
