@@ -15,7 +15,12 @@ class QueueTicket extends Model
         'student_department',
         'student_course',
         'status',
-        'service_department_id'
+        'service_department_id',
+        'waiting_time',
+        'service_time',
+        'called_at',
+        'served_at',
+        'completed_at',
     ];
 
     public function serviceDepartment()

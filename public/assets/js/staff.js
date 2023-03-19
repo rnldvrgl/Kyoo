@@ -6,6 +6,7 @@ $(document).ready(function () {
     const completeTicketButtons = $(".complete-ticket-btn");
     const transferTicketButtons = $(".transfer-ticket-btn");
     const requestClearanceButtons = $(".request-clearance-btn");
+    const timestamp = new Date().toISOString().slice(0, 19).replace("T", " ");
     let callCount = 0;
 
     // Variables Declaration for TTS, Sound and Video
@@ -39,8 +40,8 @@ $(document).ready(function () {
         const ticketId = $(this).data("ticket-id");
         const serviceDepartment = $(this).data("servicedepartment");
         const callCountSpan = $("#call-count");
-
         const firstButton = callTicketButtons.first();
+
         firstButton.attr("disabled", true);
         firstButton.html(
             "<i class='fa-solid fa-circle-notch fa-spin'></i> Calling ..."

@@ -156,6 +156,28 @@ class QueueTicketController extends Controller
 
             // Update the ticket status
             $ticket->status = $status;
+
+            if (
+                $status == 'Calling'
+            ) {
+                // Add timestamp to called_at column
+                if (!$ticket->called_at && !$ticket->waiting_time) {
+                    $ticket->called_at = now();
+                    $ticket->waiting_time = $ticket->called_at->diffInSeconds($ticket->created_at);
+                }
+            } elseif ($status == 'Serving') {
+                // Add timestamp to served_at column
+                if (!$ticket->served_at && !$ticket->service_time) {
+                    $ticket->served_at = now();
+                }
+            } elseif ($status == 'Complete') {
+                // Add timestamp to completed_at column
+                if (!$ticket->completed_at && !$ticket->service_time && $ticket->served_at) {
+                    $ticket->completed_at = now();
+                    $ticket->service_time = $ticket->completed_at->diffInSeconds($ticket->served_at);
+                }
+            }
+
             $ticket->save();
 
             return response()->json(['success' => true]);

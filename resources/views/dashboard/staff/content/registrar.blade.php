@@ -58,8 +58,6 @@
                         @else
                             <div class="text-center my-auto">
                                 <p class="fw-bold fs-4 mb-0 text-muted">No Pending Ticket(s)</p>
-                                <p class="fs-6 text-muted mb-0">Please call a pending ticket to be served.
-                                </p>
                             </div>
                         @endif
                     </div>
