@@ -60,6 +60,11 @@
 
 .landing-nav-link:hover:before,
 .landing-nav-link.active:before {
+	color: #8C3D3D;
 	visibility: visible;
 	transform: scaleX(1);
+}
+
+.landing-nav-link:hover, .landing-nav-link:active {
+	color: #8C3D3D;
 }
