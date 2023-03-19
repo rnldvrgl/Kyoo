@@ -20,4 +20,8 @@ export default defineConfig({
             "~bootstrap": path.resolve(__dirname, "node_modules/bootstrap"),
         },
     },
+    server: {
+        host: "127.0.0.1",
+        port: 8080,
+    },
 });

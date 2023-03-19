@@ -102,6 +102,7 @@
 
     {{-- Kiosk JS --}}
     <script src="{{ asset('assets/js/kiosk.js') }}"></script>
+
 </body>
 
 </html>

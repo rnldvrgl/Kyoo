@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\TestEvent;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DepartmentController;
@@ -53,6 +54,11 @@ Route::get('/live_queue', [LiveQueueController::class, 'index'])->name('live_que
 Route::get('/frequent_questions', [FaqController::class, 'index'])->name('frequent_questions');
 
 Route::post('/send-feedback', [FeedbackController::class, 'store'])->name('feedback.store');
+
+Route::get('/test', function () {
+	event(new TestEvent());
+	return null;
+});
 
 // * Main Admin Routes
 Route::middleware(['auth', 'user-access:Main Admin'])->group(function () {
