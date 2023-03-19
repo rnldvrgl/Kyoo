@@ -56,17 +56,6 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        $this->validateLogin($request);
-
-        // Get the remaining time left before the throttle end
-        $seconds = app(\Illuminate\Cache\RateLimiter::class)->availableIn(
-            $this->throttleKey($request)
-        );
-        $remainingTime = round($seconds / 60, 0);
-
-        // Add the remaining time to the view data
-        $data['remainingTime'] = $remainingTime;
-
         $input = $request->only('email', 'password');
 
         $this->validate($request, [
@@ -109,20 +98,17 @@ class LoginController extends Controller
                     case 1:
                         return redirect()
                             ->route('dashboard.main_admin')
-                            ->with('account_id', $account->id)
-                            ->with($data); // Add the view data to the redirect response
+                            ->with('account_id', $account->id);
                         break;
                     case 2:
                         return redirect()
                             ->route('dashboard.department_admin')
-                            ->with('account_id', $account->id)
-                            ->with($data); // Add the view data to the redirect response
+                            ->with('account_id', $account->id);
                         break;
                     case 3:
                         return redirect()
                             ->route('dashboard.staff')
-                            ->with('account_id', $account->id)
-                            ->with($data); // Add the view data to the redirect response
+                            ->with('account_id', $account->id);
                         break;
                     default:
                         return redirect()->route('logout');
@@ -131,7 +117,7 @@ class LoginController extends Controller
         }
 
         // Add the view data to the response when rendering the view
-        return redirect()->route('login', $data)->with('error', 'Invalid Email or Password.');
+        return redirect()->route('login')->with('error', 'Invalid Email or Password.');
     }
 
 

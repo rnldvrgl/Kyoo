@@ -21,17 +21,10 @@
                     </div>
                 @endif
 
-                @if (isset($remainingTime) && $remainingTime > 0)
-                    <div class="alert alert-info mb-3">
-                        You have reached the maximum number of login attempts. Please try again in {{ $remainingTime }}
-                        minute(s).
-                    </div>
-                @endif
-
-                @if (isset($workSession) && $workSession->duration)
+                @if (session('workDuration'))
                     <div class="alert alert-success mb-3">
                         You have worked for
-                        {{ Carbon::createFromTimestamp($workSession->duration)->diffForHumans(['parts' => 2]) }}.
+                        {{ Carbon\CarbonInterval::seconds(session('workDuration'))->cascade()->forHumans(['parts' => 2]) }}.
                     </div>
                 @endif
 
