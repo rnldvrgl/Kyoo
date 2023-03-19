@@ -98,6 +98,51 @@
                         @endif
                     </div>
                 </div>
+
+
+                {{-- Transferred Tickets --}}
+                <div class="card rounded-3 mb-0 border" style="flex: 1;max-height: 40vh; overflow-y: auto;">
+                    <div class="card-header bg-kyoodark text-white">
+                        <div class="d-flex justify-content-between align-items-center">
+                            @if (count($holdingTickets) == 0 || count($holdingTickets) == 1)
+                                <h4 class="fw-bold mb-0">Transferred Ticket
+                                    <span class="fw-light">|
+                                        {{ count($holdingTickets) }} Ticket
+                                    </span>
+                                </h4>
+                            @else
+                                <h4 class="fw-bold mb-0">Transferred Tickets
+                                    <span class="fw-light">|
+                                        {{ count($holdingTickets) }} Tickets
+                                    </span>
+                                </h4>
+                            @endif
+                            <span class="badge bg-kyooblue text-kyooblue  rounded-circle p-1">
+                                <i class="fa-regular fa-circle"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="card-body p-4 d-flex justify-content-start align-items-center flex-column gap-2"
+                        style="max-height: 40vh; overflow-y: auto;">
+                        @if (count($holdingTickets) > 0)
+                            @foreach ($holdingTickets as $holdingTicket)
+                                <x-hold-ticket id="hold-ticket-{{ $holdingTicket->id }}"
+                                    ticketId="{{ $holdingTicket->id }}"
+                                    queueNumber="{{ $holdingTicket->ticket_number }}"
+                                    queueTime="{{ $holdingTicket->created_at->format('Y-m-d h:i:s A') }}"
+                                    studentName="{{ $holdingTicket->student_name }}"
+                                    department="{{ $holdingTicket->student_department }}"
+                                    course="{{ $holdingTicket->student_course }}" :services="$holdingTicket->services->pluck('name')->toArray()" />
+                            @endforeach
+                        @else
+                            <div class="text-center my-auto">
+                                <p class="fw-bold fs-4 mb-0 text-muted text-center">No Ticket is On Hold</p>
+                                <p class="fs-6 text-muted text-center">There are currently no tickets on hold.</p>
+                            </div>
+                        @endif
+                    </div>
+                </div>
             </div>
 
 

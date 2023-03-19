@@ -15,6 +15,8 @@
 
     @if ($department->id == 3 || $department->id == 4)
         @include('dashboard.staff.content.librarian')
+    @elseif($department->id == 1)
+        @include('dashboard.staff.content.registrar')
     @else
         @include('dashboard.staff.content.regular-staff')
     @endif

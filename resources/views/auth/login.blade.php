@@ -7,8 +7,8 @@
 @endphp
 <x-layout>
     <div class="opacity-25" id="background-image"></div>
-    <section class="container d-flex justify-content-center align-items-center p-0 py-lg-5 min-vh-100">
-        <div class="card rounded-5 shadow-lg mb-0 bg-kyoodark text-white">
+    <section class="container d-flex justify-content-center align-items-center min-vh-100 p-0 p-lg-5">
+        <div class="card rounded-5 shadow-lg mb-0 bg-kyoodark text-white" style="max-width: 400px; width: 90%;">
             <div class="card-body pt-5 vstack justify-content-center align-items-center p-sm-3 p-md-4 p-lg-5">
                 <!-- Avatar icon -->
                 <div class="d-flex justify-content-center align-items-center mb-3">
@@ -20,7 +20,7 @@
                         {{ session('error') }}
                     </div>
                 @endif
-                <form method="POST" action="{{ route('login') }}">
+                <form method="POST" action="{{ route('login') }}" class="w-100">
                     @csrf
                     <div class="mb-3">
                         <label for="email" class="form-label">{{ __('Email Address') }}</label>
@@ -50,18 +50,17 @@
                     </div>
                     <div class="d-grid mb-3">
                         <a href="{{ route('kiosk') }}"
-                            class="btn btn-outline-light  btn-sm">{{ __('Access Kiosk') }}</a>
+                            class="btn btn-outline-light btn-sm">{{ __('Access Kiosk') }}</a>
                     </div>
                 </form>
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <a class="btn btn-outline-kyoored text-white rounded-pill btn-sm px-3 mb-2 mb-lg-0"
                         href="{{ route('landing_page') }}">
                         <i class="fa-solid fa-circle-chevron-left me-2"></i>
-                        RETURN
-                        TO
-                        LANDING PAGE</a>
+                        RETURN TO LANDING PAGE</a>
                 </div>
             </div>
         </div>
     </section>
+
 </x-layout>

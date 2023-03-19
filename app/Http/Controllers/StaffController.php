@@ -19,7 +19,15 @@ class StaffController extends Controller
         $servingTicket = $this->getServingTicket();
         $holdingTickets = $this->getOnHoldTickets();
 
-        return view('dashboard.staff.dashboard', ['pendingTickets' => $pendingTickets, 'user_data' => $user_data, 'servingTicket' => $servingTicket, 'holdingTickets' => $holdingTickets]);
+        return view(
+            'dashboard.staff.dashboard',
+            [
+                'pendingTickets' => $pendingTickets,
+                'user_data' => $user_data,
+                'servingTicket' => $servingTicket,
+                'holdingTickets' => $holdingTickets
+            ]
+        );
     }
 
     public function getPendingTickets()
