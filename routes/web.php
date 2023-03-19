@@ -182,9 +182,14 @@ Route::middleware(['auth', 'user-access:Department Admin'])->group(function () {
 
 // * Department Staff Routes
 Route::middleware(['auth', 'user-access:Staff'])->group(function () {
+	// Staff Index Dashboard
 	Route::get('/staff/dashboard', [StaffController::class, 'index'])->name('dashboard.staff');
 
+	// Update Ticket Status
 	Route::put('/tickets/update-status/{status}', [QueueTicketController::class, 'updateStatus'])->name('tickets.updateStatus');
+
+	// Update Clearance Status
+	Route::put('/tickets/request-clearance/', [QueueTicketController::class, 'updateClearanceStatus'])->name('tickets.updateClearanceStatus');
 })->name('staff');
 
 // * Logout

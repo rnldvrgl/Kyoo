@@ -13,8 +13,12 @@ class QueueCard extends Component
     public $department;
     public $course;
     public $services;
+    public $serviceDepartment;
+    public $position;
+    public $hasCurrentServingTicket;
+    public $clearancestatus;
 
-    public function __construct($ticketId, $queueNumber, $queueTime, $studentName, $department, $course, $services)
+    public function __construct($ticketId, $queueNumber, $queueTime, $studentName, $department, $course, $services, $serviceDepartment, $position, $hasCurrentServingTicket, $clearancestatus)
     {
         $this->ticketId = $ticketId;
         $this->queueNumber = $queueNumber;
@@ -23,6 +27,10 @@ class QueueCard extends Component
         $this->department = $department;
         $this->course = $course;
         $this->services = $services;
+        $this->serviceDepartment = $serviceDepartment;
+        $this->position = $position;
+        $this->hasCurrentServingTicket = $hasCurrentServingTicket;
+        $this->clearancestatus = $clearancestatus;
     }
 
     public function render()

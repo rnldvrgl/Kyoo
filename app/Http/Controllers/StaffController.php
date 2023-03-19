@@ -19,7 +19,15 @@ class StaffController extends Controller
         $servingTicket = $this->getServingTicket();
         $holdingTickets = $this->getOnHoldTickets();
 
-        return view('dashboard.staff.dashboard', ['pendingTickets' => $pendingTickets, 'user_data' => $user_data, 'servingTicket' => $servingTicket, 'holdingTickets' => $holdingTickets]);
+        return view(
+            'dashboard.staff.dashboard',
+            [
+                'pendingTickets' => $pendingTickets,
+                'user_data' => $user_data,
+                'servingTicket' => $servingTicket,
+                'holdingTickets' => $holdingTickets
+            ]
+        );
     }
 
     public function getPendingTickets()
@@ -31,7 +39,7 @@ class StaffController extends Controller
         // Get the staff member's department id
         $pendingTickets = QueueTicket::with('services')
             ->where('department_id', $departmentId)
-            ->where('status', 'Pending')
+            ->whereIn('status', ['Pending', 'Calling']) // use whereIn instead of where
             ->whereBetween('created_at', [Carbon::today()->startOfDay(), Carbon::today()->endOfDay()])
             ->whereNull('completed_at')
             ->orderBy('created_at', 'asc')
@@ -39,6 +47,7 @@ class StaffController extends Controller
 
         return $pendingTickets;
     }
+
 
     public function getServingTicket()
     {

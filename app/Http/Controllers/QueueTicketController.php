@@ -125,16 +125,85 @@ class QueueTicketController extends Controller
 
 
     // * FOR STAFF SERVING TICKET * //
+    public function show($id)
+    {
+        $ticket = QueueTicket::findOrFail($id);
+
+        return response()->json($ticket);
+    }
+
     public function updateStatus(Request $request, $status)
     {
         $ticketId = $request->ticketId;
 
         // Retrieve the ticket by ID
         $ticket = QueueTicket::find($ticketId);
-        // dd($ticket);
+
         if ($ticket) {
+
+            if ($request->notes) {
+                $ticket->notes = $request->notes;
+            }
+
+            if ($request->clearance_status) {
+                // Set the clearance status in the session
+                session(['clearance_status' => $request->clearance_status]);
+                $ticket->clearance_status = $request->clearance_status;
+            } else {
+                // Get the clearance status from the session
+                $ticket->clearance_status = session('clearance_status');
+            }
+
             // Update the ticket status
             $ticket->status = $status;
+
+            if (
+                $status == 'Calling'
+            ) {
+                // Add timestamp to called_at column
+                if (!$ticket->called_at && !$ticket->waiting_time) {
+                    $ticket->called_at = now();
+                    $ticket->waiting_time = $ticket->called_at->diffInSeconds($ticket->created_at);
+                }
+            } elseif ($status == 'Serving') {
+                // Add timestamp to served_at column
+                if (!$ticket->served_at && !$ticket->service_time) {
+                    $ticket->served_at = now();
+                }
+            } elseif ($status == 'Complete') {
+                // Add timestamp to completed_at column
+                if (!$ticket->completed_at && !$ticket->service_time && $ticket->served_at) {
+                    $ticket->completed_at = now();
+                    $ticket->service_time = $ticket->completed_at->diffInSeconds($ticket->served_at);
+                }
+            }
+
+            $ticket->save();
+
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Ticket not found']);
+        }
+    }
+
+    public function updateClearanceStatus(Request $request)
+    {
+        $ticketId = $request->ticketId;
+
+        // Retrieve the ticket by ID
+        $ticket = QueueTicket::find($ticketId);
+
+        if ($ticket) {
+
+            if ($request->clearance_status) {
+                // Set the clearance status in the session
+                session(['clearance_status' => $request->clearance_status]);
+                $ticket->clearance_status = $request->clearance_status;
+            } else {
+                // Get the clearance status from the session
+                $ticket->clearance_status = session('clearance_status');
+            }
+
             $ticket->save();
 
             return response()->json(['success' => true]);

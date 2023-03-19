@@ -46,20 +46,22 @@
     <main class="p-3 p-md-5">
         <section class="section">
             <div class="container">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb bg-transparent">
-                        <li class="breadcrumb-item">
-                            <a href="/">
-                                <i class="fa-solid fa-house-chimney"></i>
-                            </a>
-                        </li>
-                        <li class="breadcrumb-item active" aria-current="page">Frequently Asked Questions</li>
-                    </ol>
-                </nav>
-
-                <div class="row mt-4">
-                    <div class="col-lg-6 col-12 mx-auto">
-                        <div class="input-group">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="col col-lg-8">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb bg-transparent">
+                                <li class="breadcrumb-item">
+                                    <a href="/" aria-label="Home">
+                                        <i class="fa-solid fa-house-chimney"></i> Home
+                                    </a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">Frequently Asked Questions</li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <div class="col col-lg-4">
+                        <div class="d-flex">
+                            <label for="search-input" class="visually-hidden">Search a question</label>
                             <input type="text" class="form-control rounded-pill" placeholder="Search a question ..."
                                 aria-label="Search input" aria-describedby="search-addon">
                             <button class="btn btn-kyoodark rounded-pill ms-2" type="button" id="search-addon"
@@ -69,16 +71,14 @@
                         </div>
                     </div>
                 </div>
-
-
                 <div class="row mt-2" id="search-results" style="display:none;">
-                    <div class="col-lg-6 col-12 mx-auto">
+                    <div class="col-12">
                         <p class="text-center"><span id="results-count"></span> found.</p>
                     </div>
                 </div>
 
                 <div class="row mt-5">
-                    <div class="col-lg-10 col-12 mx-auto">
+                    <div class="col-lg-12">
                         <div class="row">
                             <!-- First column of accordion items -->
                             <div class="col-md-6 col-12">
@@ -135,7 +135,6 @@
                         </div>
                     </div>
                 </div>
-
 
             </div>
         </section>

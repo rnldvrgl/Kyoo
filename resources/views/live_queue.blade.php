@@ -117,4 +117,7 @@
     </div>
     <!-- /Marquee Text  -->
 
+    {{-- Text To Speech JS --}}
+    <script src="{{ asset('assets/js/textToSpeech.js') }}"></script>
+
 </x-layout>
