@@ -57,7 +57,7 @@
             @if ($clearancestatus == 'Pending')
                 <span class="badge rounded-pill py-3 text-bg-kyooorange">
                     <i class="fas fa-circle-notch fa-spin mr-2"></i>
-                    Pending Clearance ...
+                    Requesting Clearance ...
                 </span>
             @elseif($clearancestatus == 'Cleared')
                 <span class="badge rounded-pill py-3 text-bg-success">
@@ -74,7 +74,7 @@
                     data-queue-number="{{ $queueNumber }}" data-ticket-id="{{ $ticketId }}"
                     data-status="For Clearance" data-servicedepartment="{{ $serviceDepartment }}">
                     <i class="fas fa-question-circle mr-2"></i>
-                    Ask for Clearance
+                    Request Clearance
                 </button>
             @endif
 

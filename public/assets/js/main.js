@@ -77,6 +77,7 @@
             messageElement.fadeOut();
         }, 4000);
     }
+
     /**
      * Easy selector helper function
      */

@@ -225,7 +225,7 @@ $(document).ready(function () {
     });
 
     // Request Clearance Ticket
-    $(".request-clearance-btn").click(function () {
+    requestClearanceButtons.click(function () {
         // Get the ticket ID and other data attributes
         const status = $(this).data("status");
         const ticketId = $(this).data("ticket-id");
@@ -256,6 +256,15 @@ $(document).ready(function () {
             </div>
         `;
                 $("#notifications").append(notification);
+
+                // Fade out and remove the notification element after 3 seconds
+                const notificationElement = $("#notifications .alert").last();
+                setTimeout(function () {
+                    notificationElement.addClass("fade");
+                    setTimeout(function () {
+                        notificationElement.remove();
+                    }, 300); // Wait for the duration of the fade-out animation (0.3 seconds)
+                }, 3000); // 3 seconds
             })
             .catch(function (error) {
                 console.log(error);
