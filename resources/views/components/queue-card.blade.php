@@ -1,4 +1,4 @@
-<div {{ $attributes->merge(['class' => 'card rounded-lg shadow-sm w-100 px-4 py-4']) }}
+<div {{ $attributes->merge(['class' => 'card rounded-5 shadow-sm w-100 px-4 py-4']) }}
     style="border-left: 8px solid #E67E22; background-color: #f7f7f7;">
     <div class="row d-flex justify-content-evenly">
         <div class="col-lg-6 mb-4 text-left">
@@ -35,7 +35,8 @@
         <div class="d-grid gap-2">
             <span class="text-center {{ $position > 1 ? 'd-none' : '' }} ">Calls: <span id="call-count">0</span></span>
             @if ($hasCurrentServingTicket)
-                <span class="badge rounded-pill py-3 text-bg-kyoodarkblue {{ $position > 1 ? 'd-none' : '' }}">Currently
+                <span
+                    class="badge rounded-pill rounded-pill py-3 text-bg-kyoodarkblue {{ $position > 1 ? 'd-none' : '' }}">Currently
                     Serving
                     Other Ticket</span>
             @else
@@ -54,29 +55,36 @@
                 </button>
             @endif
 
-            @if ($clearancestatus == 'Pending')
-                <span class="badge rounded-pill py-3 text-bg-kyooorange">
-                    <i class="fas fa-circle-notch fa-spin mr-2"></i>
-                    Requesting Clearance ...
-                </span>
-            @elseif($clearancestatus == 'Cleared')
-                <span class="badge rounded-pill py-3 text-bg-success">
-                    <i class="fas fa-check-circle mr-2"></i>
-                    Clearance Cleared
-                </span>
-            @elseif($clearancestatus == 'Not Cleared')
-                <span class="badge rounded-pill py-3 text-bg-kyoored">
-                    <i class="fas fa-exclamation-circle mr-2"></i>
-                    Clearance Not Cleared
-                </span>
-            @else
-                <button class="request-clearance-btn btn btn-outline-kyooorange rounded-pill py-2 btn-sm" type="button"
-                    data-queue-number="{{ $queueNumber }}" data-ticket-id="{{ $ticketId }}"
-                    data-status="For Clearance" data-servicedepartment="{{ $serviceDepartment }}">
-                    <i class="fas fa-question-circle mr-2"></i>
-                    Request Clearance
-                </button>
-            @endif
+            @switch($clearancestatus)
+                @case('Pending')
+                    <span class="badge bg-kyooorange rounded-pill py-3">
+                        <i class="fas fa-circle-notch fa-spin me-2"></i>
+                        Requesting Clearance ...
+                    </span>
+                @break
+
+                @case('Cleared')
+                    <span class="badge bg-success rounded-pill py-3">
+                        <i class="fas fa-check-circle me-2"></i>
+                        Clearance Cleared
+                    </span>
+                @break
+
+                @case('Not Cleared')
+                    <span class="badge bg-kyoored rounded-pill py-3">
+                        <i class="fas fa-exclamation-circle me-2"></i>
+                        Clearance Not Cleared
+                    </span>
+                @break
+
+                @default
+                    <button class="request-clearance-btn btn btn-outline-kyooorange rounded-pill py-2 btn-sm" type="button"
+                        data-queue-number="{{ $queueNumber }}" data-ticket-id="{{ $ticketId }}"
+                        data-servicedepartment="{{ $serviceDepartment }}">
+                        <i class="fas fa-question-circle me-2"></i>
+                        Request Clearance
+                    </button>
+            @endswitch
 
 
             <button

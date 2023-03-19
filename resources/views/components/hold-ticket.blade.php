@@ -24,8 +24,10 @@
         </div>
 
         <div>
-            <button class="btn btn-success me-2"><i class="fas fa-check-circle me-2"></i> Complete</button>
-            <button class="btn btn-danger"><i class="fas fa-times-circle me-2"></i> Cancel</button>
+            <button class="complete-ticket-btn btn btn-success me-2"><i class="fas fa-check-circle me-2"></i>
+                Complete</button>
+            <button class="cancel-ticket-btn btn btn-outline-kyoored"><i class="fas fa-times-circle me-2"></i>
+                Cancel</button>
         </div>
     </div>
 </div>

@@ -185,4 +185,30 @@ class QueueTicketController extends Controller
             return response()->json(['success' => false, 'message' => 'Ticket not found']);
         }
     }
+
+    public function updateClearanceStatus(Request $request)
+    {
+        $ticketId = $request->ticketId;
+
+        // Retrieve the ticket by ID
+        $ticket = QueueTicket::find($ticketId);
+
+        if ($ticket) {
+
+            if ($request->clearance_status) {
+                // Set the clearance status in the session
+                session(['clearance_status' => $request->clearance_status]);
+                $ticket->clearance_status = $request->clearance_status;
+            } else {
+                // Get the clearance status from the session
+                $ticket->clearance_status = session('clearance_status');
+            }
+
+            $ticket->save();
+
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Ticket not found']);
+        }
+    }
 }

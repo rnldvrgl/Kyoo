@@ -240,10 +240,9 @@ $(document).ready(function () {
 
         // Send an AJAX request to update ticket status
         axios
-            .put("/tickets/update-status/" + status, {
+            .put("/tickets/request-clearance/", {
                 ticketId: ticketId,
                 clearance_status: "Pending",
-                status: "For Clearance",
                 servicedepartment: serviceDepartment,
             })
             .then(function (response) {
@@ -278,13 +277,13 @@ $(document).ready(function () {
         if (btn.hasClass("paused")) {
             btn.removeClass("btn-success");
             btn.removeClass("paused");
-            btn.addClass("btn-primary");
+            btn.addClass("btn-outline-kyoodarkblue");
             btn.html(
                 'Pause Work <i class="fa-solid fa-circle-pause ms-2"></i>'
             );
             // Resume work functionality here
         } else {
-            btn.removeClass("btn-primary");
+            btn.removeClass("btn-outline-kyoodarkblue");
             btn.addClass("btn-success paused");
             btn.html('Resume Work <i class="fa-solid fa-play ms-2"></i>');
             // Pause work functionality here

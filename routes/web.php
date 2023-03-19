@@ -182,8 +182,8 @@ Route::middleware(['auth', 'user-access:Staff'])->group(function () {
 	// Update Ticket Status
 	Route::put('/tickets/update-status/{status}', [QueueTicketController::class, 'updateStatus'])->name('tickets.updateStatus');
 
-	// Get Ticket
-	Route::get('/tickets/{id}', [QueueTicketController::class, 'show']);
+	// Update Clearance Status
+	Route::put('/tickets/request-clearance/', [QueueTicketController::class, 'updateClearanceStatus'])->name('tickets.updateClearanceStatus');
 })->name('staff');
 
 // * Logout
