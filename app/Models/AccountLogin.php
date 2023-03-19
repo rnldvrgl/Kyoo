@@ -12,6 +12,7 @@ class AccountLogin extends Model
     protected $fillable = [
         'email',
         'password',
+        'status'
     ];
 
     protected $hidden = [
@@ -30,5 +31,11 @@ class AccountLogin extends Model
         return self::where('email', $email)
             ->where('id', '<>', $id)
             ->exists();
+    }
+
+    public function updateAccountStatus($status)
+    {
+        $this->status = $status;
+        $this->save();
     }
 }

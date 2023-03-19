@@ -65,6 +65,26 @@ class LoginController extends Controller
             $accountLogin = AccountLogin::where('email', $input['email'])->first();
 
             if ($accountLogin && password_verify($input['password'], $accountLogin->password)) {
+                // Check the status of the account
+                switch ($accountLogin->status) {
+                    case 'logged in':
+                        return redirect()->route('login')->with(
+                            'error',
+                            'This account is already logged in.'
+                        );
+                        break;
+                    case 'on break':
+                        return redirect()->route('login')->with(
+                            'error',
+                            'This account is currently on break.'
+                        );
+                        break;
+                    default:
+                        // Update the status of the account
+                        $accountLogin->updateAccountStatus('logged in');
+                }
+
+
                 $account = Accounts::where('login_id', $accountLogin->id)->first();
 
                 $role_id = $account->role_id;
@@ -98,18 +118,28 @@ class LoginController extends Controller
         }
 
         return redirect()->route('login')->with('error', 'Invalid Email or Password.');
-        ddd($request);
     }
 
 
     public function logout(Request $request)
     {
+        // Get the logged in user
+        $user = Auth::user();
+
+        // Update the status of the account to "logged out"
+        $accountLogin = AccountLogin::where('email', $user->email)->first();
+        if ($accountLogin) {
+            $accountLogin->updateAccountStatus('logged out');
+        }
+
+        // Log out the user
         Auth::guard('web')->logout();
 
+        // Invalidate the session and regenerate the CSRF token
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
 
+        // Redirect the user to the login page
         return redirect('/login');
     }
 }
