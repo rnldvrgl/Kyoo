@@ -25,6 +25,12 @@ class AccountLogin extends Model
         return $this->belongsTo(Accounts::class, 'login_id');
     }
 
+    public function work_sessions()
+    {
+        return $this->hasMany(WorkSession::class, 'login_id');
+    }
+
+
     public static function checkEmail($email, $id = null)
     {
         // Check service table where the email (user input) exists on the email column, exclude the email address with the same id

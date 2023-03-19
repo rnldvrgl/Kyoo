@@ -20,6 +20,21 @@
                         {{ session('error') }}
                     </div>
                 @endif
+
+                @if (isset($remainingTime) && $remainingTime > 0)
+                    <div class="alert alert-info mb-3">
+                        You have reached the maximum number of login attempts. Please try again in {{ $remainingTime }}
+                        minute(s).
+                    </div>
+                @endif
+
+                @if (isset($workSession) && $workSession->duration)
+                    <div class="alert alert-success mb-3">
+                        You have worked for
+                        {{ Carbon::createFromTimestamp($workSession->duration)->diffForHumans(['parts' => 2]) }}.
+                    </div>
+                @endif
+
                 <form method="POST" action="{{ route('login') }}" class="w-100">
                     @csrf
                     <div class="mb-3">

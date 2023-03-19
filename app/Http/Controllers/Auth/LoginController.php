@@ -8,8 +8,10 @@ use App\Models\AccountLogin;
 use Illuminate\Http\Request;
 use App\Models\AccountDetails;
 use App\Http\Controllers\Controller;
+use App\Models\WorkSession;
 use Illuminate\Support\Facades\Auth;
 use App\Providers\RouteServiceProvider;
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 
@@ -54,6 +56,17 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
+        $this->validateLogin($request);
+
+        // Get the remaining time left before the throttle end
+        $seconds = app(\Illuminate\Cache\RateLimiter::class)->availableIn(
+            $this->throttleKey($request)
+        );
+        $remainingTime = round($seconds / 60, 0);
+
+        // Add the remaining time to the view data
+        $data['remainingTime'] = $remainingTime;
+
         $input = $request->only('email', 'password');
 
         $this->validate($request, [
@@ -65,7 +78,6 @@ class LoginController extends Controller
             $accountLogin = AccountLogin::where('email', $input['email'])->first();
 
             if ($accountLogin && password_verify($input['password'], $accountLogin->password)) {
-                // Check the status of the account
                 switch ($accountLogin->status) {
                     case 'logged in':
                         return redirect()->route('login')->with(
@@ -80,10 +92,14 @@ class LoginController extends Controller
                         );
                         break;
                     default:
-                        // Update the status of the account
+                        // Create a new WorkSession record
+                        $workSession = new WorkSession();
+                        $workSession->login_id = $accountLogin->id;
+                        $workSession->start_time = now();
+                        $workSession->save();
+
                         $accountLogin->updateAccountStatus('logged in');
                 }
-
 
                 $account = Accounts::where('login_id', $accountLogin->id)->first();
 
@@ -93,23 +109,20 @@ class LoginController extends Controller
                     case 1:
                         return redirect()
                             ->route('dashboard.main_admin')
-                            ->with(session([
-                                'account_id' => $account->id
-                            ]));
+                            ->with('account_id', $account->id)
+                            ->with($data); // Add the view data to the redirect response
                         break;
                     case 2:
                         return redirect()
                             ->route('dashboard.department_admin')
-                            ->with(session([
-                                'account_id' => $account->id
-                            ]));
+                            ->with('account_id', $account->id)
+                            ->with($data); // Add the view data to the redirect response
                         break;
                     case 3:
                         return redirect()
                             ->route('dashboard.staff')
-                            ->with(session([
-                                'account_id' => $account->id
-                            ]));
+                            ->with('account_id', $account->id)
+                            ->with($data); // Add the view data to the redirect response
                         break;
                     default:
                         return redirect()->route('logout');
@@ -117,29 +130,36 @@ class LoginController extends Controller
             }
         }
 
-        return redirect()->route('login')->with('error', 'Invalid Email or Password.');
+        // Add the view data to the response when rendering the view
+        return redirect()->route('login', $data)->with('error', 'Invalid Email or Password.');
     }
+
 
 
     public function logout(Request $request)
     {
-        // Get the logged in user
         $user = Auth::user();
-
-        // Update the status of the account to "logged out"
         $accountLogin = AccountLogin::where('email', $user->email)->first();
+
         if ($accountLogin) {
+            // Update the WorkSession record with the end time and duration
+            $workSession = WorkSession::where('login_id', $accountLogin->id)->orderBy('id', 'desc')->first();
+            if ($workSession && !$workSession->end_time) {
+                $workSession->end_time = now();
+                $workSession->paused_duration = $workSession->paused_duration ?? 0;
+                $workSession->duration = Carbon::parse($workSession->start_time)->diffInSeconds(now()) - $workSession->paused_duration;
+                $workSession->save();
+            }
+
             $accountLogin->updateAccountStatus('logged out');
+            Auth::guard('web')->logout();
+
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+
+            return redirect('/login');
         }
 
-        // Log out the user
-        Auth::guard('web')->logout();
-
-        // Invalidate the session and regenerate the CSRF token
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        // Redirect the user to the login page
-        return redirect('/login');
+        return redirect('/login')->with('error', 'Failed to logout. Please try again later.');
     }
 }
