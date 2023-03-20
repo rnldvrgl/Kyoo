@@ -6,7 +6,7 @@ $(document).ready(function () {
     const completeTicketButtons = $(".complete-ticket-btn");
     const transferTicketButtons = $(".transfer-ticket-btn");
     const requestClearanceButtons = $(".request-clearance-btn");
-    const timestamp = new Date().toISOString().slice(0, 19).replace("T", " ");
+    const pauseWorkButton = $(".pause-work-btn");
     let callCount = 0;
 
     // Variables Declaration for TTS, Sound and Video
@@ -272,21 +272,59 @@ $(document).ready(function () {
     });
 
     // Pause Work
-    $(".pause-work-btn").on("click", function () {
+    pauseWorkButton.click(function () {
         var btn = $(this);
-        if (btn.hasClass("paused")) {
-            btn.removeClass("btn-success");
-            btn.removeClass("paused");
-            btn.addClass("btn-outline-kyoodarkblue");
-            btn.html(
-                'Pause Work <i class="fa-solid fa-circle-pause ms-2"></i>'
-            );
-            // Resume work functionality here
-        } else {
-            btn.removeClass("btn-outline-kyoodarkblue");
-            btn.addClass("btn-success paused");
-            btn.html('Resume Work <i class="fa-solid fa-play ms-2"></i>');
-            // Pause work functionality here
-        }
+
+        // Set the CSRF token for AJAX request
+        axios.defaults.headers.common["X-CSRF-TOKEN"] = $(
+            'meta[name="csrf-token"]'
+        ).attr("content");
+
+        axios
+            .put("/pause_work", {
+                status: "On Break",
+            })
+            .then(function (response) {
+                console.log(response);
+
+                if (btn.hasClass("paused")) {
+                    btn.removeClass("btn-success resume-work-btn");
+                    btn.removeClass("paused");
+                    btn.addClass("btn-outline-kyoodarkblue pause-work-btn");
+                    btn.html(
+                        'Pause Work <i class="fa-solid fa-circle-pause ms-2"></i>'
+                    );
+                }
+
+                // Show a notification that the request is successful
+                const notification = `
+            <div class="alert alert-success alert-dismissible fade show position-fixed bottom-0 start-0 mb-2 ml-2" role="alert" style="z-index: 9999;">
+                Yes
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        `;
+                $("#notifications").append(notification);
+
+                // Fade out and remove the notification element after 3 seconds
+                const notificationElement = $("#notifications .alert").last();
+                setTimeout(function () {
+                    notificationElement.addClass("fade");
+                    setTimeout(function () {
+                        notificationElement.remove();
+                    }, 300); // Wait for the duration of the fade-out animation (0.3 seconds)
+                }, 3000); // 3 seconds
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     });
+
+    //
+    //     // Resume work functionality here
+    // } else {
+    //     btn.removeClass("btn-outline-kyoodarkblue pause-work-btn");
+    //     btn.addClass("btn-success resume-work-btn paused");
+    //     btn.html('Resume Work <i class="fa-solid fa-play ms-2"></i>');
+    //     // Pause work functionality here
+    // }
 });

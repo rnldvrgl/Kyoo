@@ -155,64 +155,52 @@ class LoginController extends Controller
 
 
     // ! TODO PAUSE WORK 
-    // public function pauseWork(Request $request)
+    public function pauseWork(Request $request)
+    {
+
+        dd($request);
+        // $user = Auth::user();
+        // $accountLogin = AccountLogin::where('email', $user->email)->first();
+
+        // if ($accountLogin) {
+        //     // Update the WorkSession record with the end time and duration
+        //     $workSession = WorkSession::where('login_id', $accountLogin->id)->orderBy('id', 'desc')->first();
+        //     if ($workSession && !$workSession->end_time) {
+        //         $workSession->paused_at = now();
+        //         $workSession->save();
+        //     }
+
+        //     $accountLogin->updateAccountStatus($request->status);
+
+        //     return response()->json(['success' => true]);
+        // } else {
+        //     return response()->json(['success' => false, 'message' => 'Ticket not found']);
+        // }
+    }
+    // public function updateClearanceStatus(Request $request)
     // {
-    //     $user = Auth::user();
-    //     $accountLogin = AccountLogin::where('email', $user->email)->first();
+    //     $ticketId = $request->ticketId;
 
-    //     if ($accountLogin) {
-    //         // Update the WorkSession record with the end time and duration
-    //         $workSession = WorkSession::where('login_id', $accountLogin->id)->orderBy('id', 'desc')->first();
-    //         if ($workSession && !$workSession->end_time) {
-    //             $workSession->paused_at = now();
-    //             $workSession->save();
-    //         }
-    //         $workSession = new WorkSession();
-    //         $workSession->login_id = $accountLogin->id;
-    //         $workSession->start_time = now();
-    //         $workSession->save();
+    //     // Retrieve the ticket by ID
+    //     $ticket = QueueTicket::find($ticketId);
 
-    //         $accountLogin->updateAccountStatus('On Break');
+    //     if ($ticket) {
 
-    //         $accountLogin->updateAccountStatus('Logged Out');
-    //         Auth::guard('web')->logout();
-
-    //         $request->session()->invalidate();
-    //         $request->session()->regenerateToken();
-
-    //         return redirect('/login');
-    //     }
-
-    //     return redirect('/login')->with('error', 'Failed to logout. Please try again later.');
-    // }
-
-    // public function resumeWork(Request $request)
-    // {
-    //     $user = Auth::user();
-    //     $accountLogin = AccountLogin::where('email', $user->email)->first();
-
-    //     if ($accountLogin) {
-    //         // Update the WorkSession record with the end time and duration
-    //         $workSession = WorkSession::where(
-    //             'login_id',
-    //             $accountLogin->id
-    //         )->orderBy('id', 'desc')->first();
-    //         if ($workSession && !$workSession->end_time) {
-    //             $workSession->end_time = now();
-    //             $workSession->paused_duration = $workSession->paused_duration ?? 0;
-    //             $workSession->duration = Carbon::parse($workSession->start_time)->diffInSeconds(now()) - $workSession->paused_duration;
-    //             $workSession->save();
+    //         if ($request->clearance_status) {
+    //             // Set the clearance status in the session
+    //             session(['clearance_status' => $request->clearance_status]);
+    //             $ticket->clearance_status = $request->clearance_status;
+    //         } else {
+    //             // Get the clearance status from the session
+    //             $ticket->clearance_status = session('clearance_status');
     //         }
 
-    //         $accountLogin->updateAccountStatus('logged out');
-    //         Auth::guard('web')->logout();
+    //         $ticket->save();
 
-    //         $request->session()->invalidate();
-    //         $request->session()->regenerateToken();
-
-    //         return redirect('/login');
+    //         return response()->json(['success' => true]);
+    //     } else {
+    //         return response()->json(['success' => false, 'message' => 'Ticket not found']);
     //     }
-
-    //     return redirect('/login')->with('error', 'Failed to logout. Please try again later.');
     // }
+
 }

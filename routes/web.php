@@ -190,7 +190,7 @@ Route::middleware(['auth', 'user-access:Staff'])->group(function () {
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // * Pause Work
-Route::get('/pause_work', [LoginContoller::class, 'pauseWork'])->name('pause_work');
+Route::put('/pause_work', [LoginContoller::class, 'pauseWork'])->name('pause_work');
 
 // * User Profile
 Route::middleware('auth')->group(function () {
