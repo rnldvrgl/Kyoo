@@ -13,13 +13,24 @@
     {{-- Dashboard Header Navbar --}}
     <x-dashboard-header :details="$details" :role="$role" />
 
-    @if ($department->id == 3 || $department->id == 4)
-        @include('dashboard.staff.content.librarian')
-    @elseif($department->id == 1)
-        @include('dashboard.staff.content.registrar')
-    @else
-        @include('dashboard.staff.content.regular-staff')
-    @endif
+
+    @switch($department->id)
+        @case(1)
+            @include('dashboard.staff.content.registrar')
+        @break
+
+        @case(3)
+            @include('dashboard.staff.content.librarian')
+        @break
+
+        @case(4)
+            @include('dashboard.staff.content.librarian')
+        @break
+
+        @default
+            @include('dashboard.staff.content.regular-staff')
+        @break
+    @endswitch
 
     {{-- Staff JS --}}
     <script src="{{ asset('assets/js/staff.js') }}"></script>

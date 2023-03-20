@@ -189,6 +189,9 @@ Route::middleware(['auth', 'user-access:Staff'])->group(function () {
 // * Logout
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
+// * Pause Work
+Route::get('/pause_work', [LoginContoller::class, 'pauseWork'])->name('pause_work');
+
 // * User Profile
 Route::middleware('auth')->group(function () {
 	Route::get('/user_profile', [UserProfileController::class, 'index'])->name('user_profile');

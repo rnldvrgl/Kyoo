@@ -10,6 +10,8 @@
 @endphp
 
 <x-layout :role='$role'>
+
+    {{-- {{ dd($user_data) }} --}}
     {{-- Dashboard Header Navbar --}}
     <x-dashboard-header :details="$details" :role="$role" />
 

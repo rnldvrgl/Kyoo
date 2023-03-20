@@ -115,7 +115,7 @@
                                 End Shift
                                 <i class="fa-solid fa-door-closed ms-2"></i>
                             </button>
-                            <button class="btn btn-primary pause-work-btn">
+                            <button class="btn btn-primary pause-work-btn" href="{{ route('pause_work') }}">
                                 Pause Work
                                 <i class="fa-solid fa-circle-pause ms-2"></i>
                             </button>

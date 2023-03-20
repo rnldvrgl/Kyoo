@@ -67,6 +67,7 @@ class LoginController extends Controller
             $accountLogin = AccountLogin::where('email', $input['email'])->first();
 
             if ($accountLogin && password_verify($input['password'], $accountLogin->password)) {
+
                 switch ($accountLogin->status) {
                     case 'logged in':
                         return redirect()->route('login')->with(
@@ -87,7 +88,7 @@ class LoginController extends Controller
                         $workSession->start_time = now();
                         $workSession->save();
 
-                        $accountLogin->updateAccountStatus('logged in');
+                        $accountLogin->updateAccountStatus('Logged In');
                 }
 
                 $account = Accounts::where('login_id', $accountLogin->id)->first();
@@ -98,17 +99,23 @@ class LoginController extends Controller
                     case 1:
                         return redirect()
                             ->route('dashboard.main_admin')
-                            ->with('account_id', $account->id);
+                            ->with(session([
+                                'account_id' => $account->id
+                            ]));
                         break;
                     case 2:
                         return redirect()
                             ->route('dashboard.department_admin')
-                            ->with('account_id', $account->id);
+                            ->with(session([
+                                'account_id' => $account->id
+                            ]));
                         break;
                     case 3:
                         return redirect()
                             ->route('dashboard.staff')
-                            ->with('account_id', $account->id);
+                            ->with(session([
+                                'account_id' => $account->id
+                            ]));
                         break;
                     default:
                         return redirect()->route('logout');
@@ -116,11 +123,8 @@ class LoginController extends Controller
             }
         }
 
-        // Add the view data to the response when rendering the view
         return redirect()->route('login')->with('error', 'Invalid Email or Password.');
     }
-
-
 
     public function logout(Request $request)
     {
@@ -148,4 +152,67 @@ class LoginController extends Controller
 
         return redirect('/login')->with('error', 'Failed to logout. Please try again later.');
     }
+
+
+    // ! TODO PAUSE WORK 
+    // public function pauseWork(Request $request)
+    // {
+    //     $user = Auth::user();
+    //     $accountLogin = AccountLogin::where('email', $user->email)->first();
+
+    //     if ($accountLogin) {
+    //         // Update the WorkSession record with the end time and duration
+    //         $workSession = WorkSession::where('login_id', $accountLogin->id)->orderBy('id', 'desc')->first();
+    //         if ($workSession && !$workSession->end_time) {
+    //             $workSession->paused_at = now();
+    //             $workSession->save();
+    //         }
+    //         $workSession = new WorkSession();
+    //         $workSession->login_id = $accountLogin->id;
+    //         $workSession->start_time = now();
+    //         $workSession->save();
+
+    //         $accountLogin->updateAccountStatus('On Break');
+
+    //         $accountLogin->updateAccountStatus('Logged Out');
+    //         Auth::guard('web')->logout();
+
+    //         $request->session()->invalidate();
+    //         $request->session()->regenerateToken();
+
+    //         return redirect('/login');
+    //     }
+
+    //     return redirect('/login')->with('error', 'Failed to logout. Please try again later.');
+    // }
+
+    // public function resumeWork(Request $request)
+    // {
+    //     $user = Auth::user();
+    //     $accountLogin = AccountLogin::where('email', $user->email)->first();
+
+    //     if ($accountLogin) {
+    //         // Update the WorkSession record with the end time and duration
+    //         $workSession = WorkSession::where(
+    //             'login_id',
+    //             $accountLogin->id
+    //         )->orderBy('id', 'desc')->first();
+    //         if ($workSession && !$workSession->end_time) {
+    //             $workSession->end_time = now();
+    //             $workSession->paused_duration = $workSession->paused_duration ?? 0;
+    //             $workSession->duration = Carbon::parse($workSession->start_time)->diffInSeconds(now()) - $workSession->paused_duration;
+    //             $workSession->save();
+    //         }
+
+    //         $accountLogin->updateAccountStatus('logged out');
+    //         Auth::guard('web')->logout();
+
+    //         $request->session()->invalidate();
+    //         $request->session()->regenerateToken();
+
+    //         return redirect('/login');
+    //     }
+
+    //     return redirect('/login')->with('error', 'Failed to logout. Please try again later.');
+    // }
 }
