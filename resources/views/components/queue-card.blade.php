@@ -1,4 +1,4 @@
-<div {{ $attributes->merge(['class' => 'card rounded-5 shadow-sm w-100 px-4 py-4']) }}
+<div {{ $attributes->merge(['class' => 'card rounded-3 shadow-sm w-100 px-4 py-4']) }}
     style="border-left: 8px solid #E67E22; background-color: #f7f7f7;">
     <div class="row d-flex justify-content-evenly">
         <div class="col-lg-6 mb-4 text-left">

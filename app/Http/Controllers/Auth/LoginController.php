@@ -69,17 +69,11 @@ class LoginController extends Controller
             if ($accountLogin && password_verify($input['password'], $accountLogin->password)) {
 
                 switch ($accountLogin->status) {
-                    case 'logged in':
-                        return redirect()->route('login')->with(
-                            'error',
-                            'This account is already logged in.'
-                        );
+                    case 'Logged In':
+                        return redirect()->route('login')->with('error', 'This account is already logged in.');
                         break;
-                    case 'on break':
-                        return redirect()->route('login')->with(
-                            'error',
-                            'This account is currently on break.'
-                        );
+                    case 'On Break':
+                        return redirect()->route('login')->with('error', 'This account is currently on break.');
                         break;
                     default:
                         // Create a new WorkSession record
@@ -113,7 +107,7 @@ class LoginController extends Controller
                         break;
                     case 3:
                         switch ($department_id) {
-                            case 2:
+                            case 1:
                                 return redirect()
                                     ->route('dashboard.registrar')
                                     ->with(session([

@@ -8,7 +8,7 @@
 <x-layout>
     <div class="opacity-25" id="background-image"></div>
     <section class="container d-flex justify-content-center align-items-center min-vh-100 p-0 p-lg-5">
-        <div class="card rounded-5 shadow-lg mb-0 bg-kyoodark text-white" style="max-width: 400px; width: 90%;">
+        <div class="card rounded-3 shadow-lg mb-0 bg-kyoodark text-white" style="max-width: 400px; width: 90%;">
             <div class="card-body pt-5 vstack justify-content-center align-items-center p-sm-3 p-md-4 p-lg-5">
                 <!-- Avatar icon -->
                 <div class="d-flex justify-content-center align-items-center mb-3">

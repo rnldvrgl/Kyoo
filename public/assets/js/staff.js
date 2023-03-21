@@ -6,7 +6,11 @@ $(document).ready(function () {
     const completeTicketButtons = $(".complete-ticket-btn");
     const transferTicketButtons = $(".transfer-ticket-btn");
     const requestClearanceButtons = $(".request-clearance-btn");
+    const clearButton = $(".cleared-btn");
+    const notClearButton = $(".not-cleared-btn");
+
     const pauseWorkButton = $(".pause-work-btn");
+
     let callCount = 0;
 
     // Variables Declaration for TTS, Sound and Video
@@ -269,6 +273,73 @@ $(document).ready(function () {
             .catch(function (error) {
                 console.log(error);
             });
+    });
+
+    // * Librarian
+
+    // Clear Clearance
+    clearButton.click(function () {
+        // Get the ticket ID from the data attribute
+        const clearance_status = $(this).data("clearance_status");
+        const ticketId = $(this).data("ticket-id");
+
+        axios.defaults.headers.common["X-CSRF-TOKEN"] = $(
+            'meta[name="csrf-token"]'
+        ).attr("content");
+
+        axios
+            .put("/tickets/clearance/update-status/" + clearance_status, {
+                ticketId: ticketId,
+            })
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    });
+
+    // Clear Clearance
+    notClearButton.click(function () {
+        // Get the ticket ID from the data attribute
+        const clearance_status = $(this).data("clearance_status");
+        const ticketId = $(this).data("ticket-id");
+
+        $.confirm({
+            type: "red",
+            title: "Clearance Confirmation",
+            content: "Are you sure this student is not cleared?",
+            theme: "Modern",
+            closeIcon: true,
+            draggable: false,
+            typeAnimated: true,
+            buttons: {
+                confirm: {
+                    btnClass: "btn-success",
+                    action: function () {
+                        // Send PUT request to update ticket status with notes
+                        axios.defaults.headers.common["X-CSRF-TOKEN"] = $(
+                            'meta[name="csrf-token"]'
+                        ).attr("content");
+
+                        axios
+                            .put(
+                                "/tickets/clearance/update-status/" +
+                                    clearance_status,
+                                {
+                                    ticketId: ticketId,
+                                }
+                            )
+                            .then(function (response) {
+                                console.log(response);
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                            });
+                    },
+                },
+            },
+        });
     });
 
     // Pause Work

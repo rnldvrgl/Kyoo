@@ -32,8 +32,8 @@
                 {{-- 1st Column --}}
                 <div class="col col-lg-4 px-2 flex-grow-1" style="min-height: 100%;">
                     {{-- Pending Tickets --}}
-                    <div class="card border h-100 rounded-5">
-                        <div class="card-header rounded-bottom rounded-4 bg-kyoodark text-white">
+                    <div class="card border h-100 rounded-3">
+                        <div class="card-header rounded-bottom rounded-3 bg-kyoodark text-white">
                             <div class="d-flex justify-content-between align-items-center">
                                 @if (count($pendingTickets) == 0 || count($pendingTickets) == 1)
                                     <h4 class="fw-bold mb-0">Pending Ticket
@@ -82,8 +82,8 @@
                 {{-- 2nd Column --}}
                 <div class="col col-lg-6 px-2 d-flex flex-column" style="min-height: 100%;">
                     {{-- Current Serving Ticket --}}
-                    <div class="card rounded-5 border mb-3" style="flex: 1;">
-                        <div class="card-header rounded-bottom rounded-4 bg-kyoodark text-white">
+                    <div class="card rounded-3 border mb-3" style="flex: 1;">
+                        <div class="card-header rounded-bottom rounded-3 bg-kyoodark text-white">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h4 class="fw-bold mb-0">Current Serving Ticket</h4>
                                 <span class="badge bg-success text-success rounded-circle p-1">
@@ -117,7 +117,7 @@
 
 
                     {{-- On Hold Tickets --}}
-                    <div class="card rounded-5 mb-0 border" style="flex: 1;max-height: 40vh; overflow-y: auto;">
+                    <div class="card rounded-3 mb-0 border" style="flex: 1;max-height: 40vh; overflow-y: auto;">
                         <div class="card-header bg-kyoodark text-white">
                             <div class="d-flex justify-content-between align-items-center">
                                 @if (count($holdingTickets) == 0 || count($holdingTickets) == 1)
@@ -166,8 +166,8 @@
                 <div class="col col-lg-2 px-2 d-flex flex-column" style="min-height: 100%;">
 
                     {{-- Staff Actions --}}
-                    <div class="card rounded-5 mb-3">
-                        <div class="card-header rounded-bottom rounded-4 bg-kyoodark text-white">
+                    <div class="card rounded-3 mb-3">
+                        <div class="card-header rounded-bottom rounded-3 bg-kyoodark text-white">
                             <h4 class="fw-bold mb-0 text-center">Staff Actions</h4>
                         </div>
                         <div class="card-body d-flex justify-content-center align-items-center py-sm-1 py-md-2 py-lg-3">
@@ -186,7 +186,7 @@
                     </div>
 
                     {{-- Serving Stats --}}
-                    <div class="card rounded-5 mb-0" style="flex: 2;max-height: 80vh; overflow-y: auto;">
+                    <div class="card rounded-3 mb-0" style="flex: 2;max-height: 80vh; overflow-y: auto;">
                         <div class="card-header bg-kyoodark text-white">
                             <h4 class="fw-bold mb-0 text-center">Serving Stats</h4>
                         </div>
@@ -194,7 +194,7 @@
                             <div class="d-flex flex-column justify-content-center gap-1 gap-md-2 gap-lg-3">
                                 <div class="col">
                                     <div
-                                        class="d-flex flex-column justify-content-center align-items-center h-100 p-4 bg-light border rounded-5">
+                                        class="d-flex flex-column justify-content-center align-items-center h-100 p-4 bg-light border rounded-3">
                                         <h5 class="card-subtitle mb-3">Total Served Tickets</h5>
                                         <p class="card-text display-6 fw-bold mb-0">342</p>
                                         <p class="card-text text-muted mt-1">All services</p>
@@ -202,7 +202,7 @@
                                 </div>
                                 <div class="col">
                                     <div
-                                        class="d-flex flex-column justify-content-center align-items-center h-100 p-4 bg-light border rounded-5">
+                                        class="d-flex flex-column justify-content-center align-items-center h-100 p-4 bg-light border rounded-3">
                                         <h5 class="card-subtitle mb-3">Cancelled Tickets</h5>
                                         <p class="card-text display-6 fw-bold mb-0">4</p>
                                         <p class="card-text text-muted mt-1">All services</p>
@@ -210,7 +210,7 @@
                                 </div>
                                 <div class="col">
                                     <div
-                                        class="d-flex flex-column justify-content-center align-items-center p-4 bg-light border rounded-5">
+                                        class="d-flex flex-column justify-content-center align-items-center p-4 bg-light border rounded-3">
                                         <h5 class="card-subtitle mb-3">Avg. Service Time</h5>
                                         <p class="card-text display-6 fw-bold mb-0">25<span class="fs-5"> min</span>
                                         </p>
@@ -219,7 +219,7 @@
                                 </div>
                                 <div class="col">
                                     <div
-                                        class="d-flex flex-column justify-content-center align-items-center h-100 p-4 bg-light border rounded-5">
+                                        class="d-flex flex-column justify-content-center align-items-center h-100 p-4 bg-light border rounded-3">
                                         <h5 class="card-subtitle mb-3">Avg. Wait Time</h5>
                                         <p class="card-text display-6 fw-bold mb-0">10<span class="fs-5"> min</span>
                                         </p>

@@ -145,32 +145,33 @@ class QueueTicketController extends Controller
                 $ticket->notes = $request->notes;
             }
 
-            if ($request->clearance_status) {
-                // Set the clearance status in the session
-                session(['clearance_status' => $request->clearance_status]);
-                $ticket->clearance_status = $request->clearance_status;
+            // Only update the clearance status if it's provided in the request
+            if ($request->has('clearance_status')) {
+                $clearanceStatus = $request->clearance_status;
+                session(['clearance_status' => $clearanceStatus]);
+                $ticket->clearance_status = $clearanceStatus;
             } else {
-                // Get the clearance status from the session
-                $ticket->clearance_status = session('clearance_status');
+                $clearanceStatus = session('clearance_status');
+                if ($clearanceStatus) {
+                    $ticket->clearance_status = $clearanceStatus;
+                }
             }
 
             // Update the ticket status
             $ticket->status = $status;
 
-            if (
-                $status == 'Calling'
-            ) {
+            if ($status === 'Calling') {
                 // Add timestamp to called_at column
                 if (!$ticket->called_at && !$ticket->waiting_time) {
                     $ticket->called_at = now();
                     $ticket->waiting_time = $ticket->called_at->diffInSeconds($ticket->created_at);
                 }
-            } elseif ($status == 'Serving') {
+            } elseif ($status === 'Serving') {
                 // Add timestamp to served_at column
-                if (!$ticket->served_at && !$ticket->service_time) {
+                if (!$ticket->served_at) {
                     $ticket->served_at = now();
                 }
-            } elseif ($status == 'Complete') {
+            } elseif ($status === 'Complete') {
                 // Add timestamp to completed_at column
                 if (!$ticket->completed_at && !$ticket->service_time && $ticket->served_at) {
                     $ticket->completed_at = now();
@@ -203,6 +204,28 @@ class QueueTicketController extends Controller
                 // Get the clearance status from the session
                 $ticket->clearance_status = session('clearance_status');
             }
+
+            $ticket->save();
+
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Ticket not found']);
+        }
+    }
+
+
+    public function signClearance(Request $request, $status)
+    {
+        $ticketId = $request->ticketId;
+
+        // Retrieve the ticket by ID
+        $ticket = QueueTicket::find($ticketId);
+
+        if ($ticket) {
+
+
+            // Update the ticket status
+            $ticket->clearance_status = $status;
 
             $ticket->save();
 

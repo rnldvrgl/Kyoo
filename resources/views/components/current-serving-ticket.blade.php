@@ -1,4 +1,4 @@
-<div class="card rounded-5 shadow w-100 px-4 pt-3 pb-4 mb-0"
+<div class="card rounded-3 shadow w-100 px-4 pt-3 pb-4 mb-0"
     style="border-left: 8px solid #a7d2ad; background-color: #f7f7f7; height: fit-content;">
     <div class="actions">
         <a class="icon" href="#" data-bs-toggle="dropdown"><i class="fa-solid fa-ellipsis-vertical"></i></a>
