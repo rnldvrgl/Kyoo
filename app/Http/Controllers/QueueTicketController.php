@@ -171,16 +171,13 @@ class QueueTicketController extends Controller
                 }
             } elseif ($status === 'Serving') {
 
-                $queueTicket = QueueTicket::find($ticketId);
-                // Can pass the query to get the data and pass it to the TestEvent as data
-                event(new TestEvent($queueTicket));
+                // Event Trigger for Live Queue 
+                event(new TestEvent($ticket));
 
                 // Add timestamp to served_at column
                 if (!$ticket->served_at) {
                     $ticket->served_at = now();
                 }
-
-                // return null;
             } elseif ($status === 'Complete') {
                 // Add timestamp to completed_at column
                 if (!$ticket->completed_at && !$ticket->service_time && $ticket->served_at) {

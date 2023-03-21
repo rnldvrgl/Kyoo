@@ -68,7 +68,4 @@ class LiveQueueController extends Controller
         // Return view with departments data
         return view('live_queue', compact('ticket_data', 'promotional_message'));
     }
-
-    // For the Websocket Event
-    // As of now, try mo muna sa web.php
 }
