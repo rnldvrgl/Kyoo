@@ -66,7 +66,6 @@ class LibrarianController extends Controller
             ->whereIn('student_department', ['College', 'Graduate School'])
             ->whereIn('clearance_status', ['Cleared', 'Not Cleared'])
             ->whereBetween('created_at', [Carbon::today()->startOfDay(), Carbon::today()->endOfDay()])
-            ->whereNull('completed_at')
             ->orderBy('created_at', 'asc')
             ->get();
 
@@ -80,7 +79,6 @@ class LibrarianController extends Controller
             ->whereIn('student_department', ['Junior High School', 'Senior High School'])
             ->whereIn('clearance_status', ['Cleared', 'Not Cleared'])
             ->whereBetween('created_at', [Carbon::today()->startOfDay(), Carbon::today()->endOfDay()])
-            ->whereNull('completed_at')
             ->orderBy('created_at', 'asc')
             ->get();
 

@@ -148,14 +148,16 @@ class QueueTicketController extends Controller
             // Only update the clearance status if it's provided in the request
             if ($request->has('clearance_status')) {
                 $clearanceStatus = $request->clearance_status;
-                session(['clearance_status' => $clearanceStatus]);
                 $ticket->clearance_status = $clearanceStatus;
-            } else {
-                $clearanceStatus = session('clearance_status');
-                if ($clearanceStatus) {
-                    $ticket->clearance_status = $clearanceStatus;
-                }
             }
+
+            // Check the actual clearance status of the ticket
+            // $actualClearanceStatus = $ticket->clearance_status;
+
+            // Only update the clearance status in the session if it's different from the actual clearance status
+            // if ($clearanceStatus !== $actualClearanceStatus) {
+            //     session(['clearance_status' => $actualClearanceStatus]);
+            // }
 
             // Update the ticket status
             $ticket->status = $status;
@@ -186,6 +188,7 @@ class QueueTicketController extends Controller
             return response()->json(['success' => false, 'message' => 'Ticket not found']);
         }
     }
+
 
     public function updateClearanceStatus(Request $request)
     {
