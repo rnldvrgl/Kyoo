@@ -14,14 +14,16 @@ class TestEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    public $queueTicket;
+
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($queueTicket)
     {
-        //
+        $this->queueTicket = $queueTicket;
     }
 
     /**
@@ -44,7 +46,7 @@ class TestEvent implements ShouldBroadcast
     public function broadcastWith()
     {
         return [
-            'test' => 'I am working',
+            'test' => $this->queueTicket,
         ];
     }
 }

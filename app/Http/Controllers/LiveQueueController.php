@@ -70,5 +70,5 @@ class LiveQueueController extends Controller
     }
 
     // For the Websocket Event
-
+    // As of now, try mo muna sa web.php
 }

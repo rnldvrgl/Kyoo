@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\TestEvent;
 use App\Http\Controllers\Controller;
 use App\Models\QueueTicket;
 use Carbon\Carbon;
@@ -169,10 +170,17 @@ class QueueTicketController extends Controller
                     $ticket->waiting_time = $ticket->called_at->diffInSeconds($ticket->created_at);
                 }
             } elseif ($status === 'Serving') {
+
+                $queueTicket = QueueTicket::find($ticketId);
+                // Can pass the query to get the data and pass it to the TestEvent as data
+                event(new TestEvent($queueTicket));
+
                 // Add timestamp to served_at column
                 if (!$ticket->served_at) {
                     $ticket->served_at = now();
                 }
+
+                // return null;
             } elseif ($status === 'Complete') {
                 // Add timestamp to completed_at column
                 if (!$ticket->completed_at && !$ticket->service_time && $ticket->served_at) {

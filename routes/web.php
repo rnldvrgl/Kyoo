@@ -16,6 +16,7 @@ use App\Http\Controllers\RegistrarController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\UserProfileController;
+use App\Models\QueueTicket;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -58,9 +59,10 @@ Route::get('/frequent_questions', [FaqController::class, 'index'])->name('freque
 Route::post('/send-feedback', [FeedbackController::class, 'store'])->name('feedback.store');
 
 Route::get('/testing', function () {
-	// Can pass the query to get the data and pass it to the TestEvent as data
-	event(new TestEvent());
-	return null;
+	// $queueTicket = QueueTicket::all();
+	// // Can pass the query to get the data and pass it to the TestEvent as data
+	// event(new TestEvent($queueTicket));
+	// return null;
 });
 
 // * Main Admin Routes
