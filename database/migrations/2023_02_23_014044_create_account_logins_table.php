@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('status')->default('logged out');
+            $table->string('status')->default('Logged Out');
             $table->rememberToken();
             $table->timestamps();
         });

@@ -11,5 +11,5 @@
 
 <x-layout :role='$role'>
     {{-- Dashboard Header Navbar --}}
-    <x-dashboard-header :details="$details" :role="$role" />
+    <x-dashboard-header :details="$details" :role="$role" :department="$department" />
 </x-layout>

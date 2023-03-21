@@ -12,13 +12,13 @@
             </a>
 
             @if ($role->name === 'Main Admin')
-                <h5 class="text-white fw-semibold mb-0">
+                <h5 class="text-white fw-light mb-0 ms-2 ">
                     {{ $role->name }} Dashboard
                 </h5>
                 <i class="fa-solid fa-bars toggle-sidebar-btn"></i>
             @else
-                <h5 class="text-white fw-semibold mb-0">
-                    {{ $role->name }} Dashboard
+                <h5 class="text-white fw-light mb-0 ms-2 ">
+                    {{ $department->name }} {{ $role->name }} Dashboard
                 </h5>
             @endif
         </div>

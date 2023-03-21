@@ -4,23 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Models\Accounts;
 use App\Models\QueueTicket;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class StaffController extends Controller
+class RegistrarController extends Controller
 {
     public function index(HomeController $homeController)
     {
-        // dd(Carbon::today()->startOfDay(), Carbon::today()->endOfDay());
         $user_data = $homeController->getUserData();
         $pendingTickets = $this->getPendingTickets();
         $servingTicket = $this->getServingTicket();
         $holdingTickets = $this->getOnHoldTickets();
 
         return view(
-            'dashboard.staff.regular-dashboard',
+            'dashboard.staff.registrar-dashboard',
             [
                 'pendingTickets' => $pendingTickets,
                 'user_data' => $user_data,

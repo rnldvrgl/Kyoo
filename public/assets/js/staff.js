@@ -280,13 +280,15 @@ $(document).ready(function () {
             'meta[name="csrf-token"]'
         ).attr("content");
 
+        // Send a PUT request to the server to update the work status
         axios
-            .put("/pause_work", {
+            .put("/account/pause_work/", {
                 status: "On Break",
             })
             .then(function (response) {
-                console.log(response);
+                console.log(response.data);
 
+                // Update the UI to show the user is on break
                 if (btn.hasClass("paused")) {
                     btn.removeClass("btn-success resume-work-btn");
                     btn.removeClass("paused");
@@ -295,24 +297,6 @@ $(document).ready(function () {
                         'Pause Work <i class="fa-solid fa-circle-pause ms-2"></i>'
                     );
                 }
-
-                // Show a notification that the request is successful
-                const notification = `
-            <div class="alert alert-success alert-dismissible fade show position-fixed bottom-0 start-0 mb-2 ml-2" role="alert" style="z-index: 9999;">
-                Yes
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        `;
-                $("#notifications").append(notification);
-
-                // Fade out and remove the notification element after 3 seconds
-                const notificationElement = $("#notifications .alert").last();
-                setTimeout(function () {
-                    notificationElement.addClass("fade");
-                    setTimeout(function () {
-                        notificationElement.remove();
-                    }, 300); // Wait for the duration of the fade-out animation (0.3 seconds)
-                }, 3000); // 3 seconds
             })
             .catch(function (error) {
                 console.log(error);

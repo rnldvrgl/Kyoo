@@ -7,9 +7,11 @@ use App\Http\Controllers\FaqController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KioskController;
+use App\Http\Controllers\LibrarianController;
 use App\Http\Controllers\LiveQueueController;
 use App\Http\Controllers\PromotionalController;
 use App\Http\Controllers\QueueTicketController;
+use App\Http\Controllers\RegistrarController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\UserProfileController;
@@ -179,6 +181,12 @@ Route::middleware(['auth', 'user-access:Staff'])->group(function () {
 	// Staff Index Dashboard
 	Route::get('/staff/dashboard', [StaffController::class, 'index'])->name('dashboard.staff');
 
+	// Registrar Index Dashboard
+	Route::get('/registrar/dashboard', [RegistrarController::class, 'index'])->name('dashboard.registrar');
+
+	// Librarian Index Dashboard
+	Route::get('/librarian/dashboard', [LibrarianController::class, 'index'])->name('dashboard.librarian');
+
 	// Update Ticket Status
 	Route::put('/tickets/update-status/{status}', [QueueTicketController::class, 'updateStatus'])->name('tickets.updateStatus');
 
@@ -189,8 +197,11 @@ Route::middleware(['auth', 'user-access:Staff'])->group(function () {
 // * Logout
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
+// * End Shift
+Route::get('/end_shift', [LoginController::class, 'endShift'])->name('end_shift');
+
 // * Pause Work
-Route::put('/pause_work', [LoginContoller::class, 'pauseWork'])->name('pause_work');
+Route::put('/account/pause_work/', [LoginContoller::class, 'pauseWork'])->name('pause_work');
 
 // * User Profile
 Route::middleware('auth')->group(function () {

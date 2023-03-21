@@ -51,7 +51,7 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
 
         // For Rate limiting throttle:limit of attempts, minutes the user is locked out
-        $this->middleware('throttle:3,1')->only('login');
+        // $this->middleware('throttle:3,1')->only('login');
     }
 
     public function login(Request $request)
@@ -94,6 +94,7 @@ class LoginController extends Controller
                 $account = Accounts::where('login_id', $accountLogin->id)->first();
 
                 $role_id = $account->role_id;
+                $department_id = $account->department_id;
 
                 switch ($role_id) {
                     case 1:
@@ -111,12 +112,36 @@ class LoginController extends Controller
                             ]));
                         break;
                     case 3:
-                        return redirect()
-                            ->route('dashboard.staff')
-                            ->with(session([
-                                'account_id' => $account->id
-                            ]));
-                        break;
+                        switch ($department_id) {
+                            case 2:
+                                return redirect()
+                                    ->route('dashboard.registrar')
+                                    ->with(session([
+                                        'account_id' => $account->id
+                                    ]));
+                                break;
+                            case 3:
+                                return redirect()
+                                    ->route('dashboard.librarian')
+                                    ->with(session([
+                                        'account_id' => $account->id
+                                    ]));
+                                break;
+                            case 4:
+                                return redirect()
+                                    ->route('dashboard.librarian')
+                                    ->with(session([
+                                        'account_id' => $account->id
+                                    ]));
+                                break;
+                            default:
+                                return redirect()
+                                    ->route('dashboard.staff')
+                                    ->with(session([
+                                        'account_id' => $account->id
+                                    ]));
+                                break;
+                        }
                     default:
                         return redirect()->route('logout');
                 }
@@ -132,6 +157,24 @@ class LoginController extends Controller
         $accountLogin = AccountLogin::where('email', $user->email)->first();
 
         if ($accountLogin) {
+            $accountLogin->updateAccountStatus('Logged Out');
+            Auth::guard('web')->logout();
+
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+
+            return redirect('/login');
+        }
+
+        return redirect('/login')->with('error', 'Failed to End Shift. Please try again later.');
+    }
+
+    public function endShift(Request $request)
+    {
+        $user = Auth::user();
+        $accountLogin = AccountLogin::where('email', $user->email)->first();
+
+        if ($accountLogin) {
             // Update the WorkSession record with the end time and duration
             $workSession = WorkSession::where('login_id', $accountLogin->id)->orderBy('id', 'desc')->first();
             if ($workSession && !$workSession->end_time) {
@@ -141,7 +184,7 @@ class LoginController extends Controller
                 $workSession->save();
             }
 
-            $accountLogin->updateAccountStatus('logged out');
+            $accountLogin->updateAccountStatus('Logged Out');
             Auth::guard('web')->logout();
 
             $request->session()->invalidate();
@@ -150,57 +193,31 @@ class LoginController extends Controller
             return redirect('/login');
         }
 
-        return redirect('/login')->with('error', 'Failed to logout. Please try again later.');
+        return redirect('/login')->with('error', 'Failed to End Shift. Please try again later.');
     }
 
 
     // ! TODO PAUSE WORK 
     public function pauseWork(Request $request)
     {
+        $user = Auth::user();
+        $accountLogin = AccountLogin::where('email', $user->email)->first();
 
-        dd($request);
-        // $user = Auth::user();
-        // $accountLogin = AccountLogin::where('email', $user->email)->first();
+        if ($accountLogin) {
+            // Update the WorkSession record with the paused at time
+            $workSession = WorkSession::where('login_id', $accountLogin->id)->orderBy('id', 'desc')->first();
+            if (
+                $workSession && !$workSession->end_time
+            ) {
+                $workSession->paused_at = now();
+                $workSession->save();
+            }
 
-        // if ($accountLogin) {
-        //     // Update the WorkSession record with the end time and duration
-        //     $workSession = WorkSession::where('login_id', $accountLogin->id)->orderBy('id', 'desc')->first();
-        //     if ($workSession && !$workSession->end_time) {
-        //         $workSession->paused_at = now();
-        //         $workSession->save();
-        //     }
+            $accountLogin->updateAccountStatus($request->status);
 
-        //     $accountLogin->updateAccountStatus($request->status);
-
-        //     return response()->json(['success' => true]);
-        // } else {
-        //     return response()->json(['success' => false, 'message' => 'Ticket not found']);
-        // }
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Ticket not found']);
+        }
     }
-    // public function updateClearanceStatus(Request $request)
-    // {
-    //     $ticketId = $request->ticketId;
-
-    //     // Retrieve the ticket by ID
-    //     $ticket = QueueTicket::find($ticketId);
-
-    //     if ($ticket) {
-
-    //         if ($request->clearance_status) {
-    //             // Set the clearance status in the session
-    //             session(['clearance_status' => $request->clearance_status]);
-    //             $ticket->clearance_status = $request->clearance_status;
-    //         } else {
-    //             // Get the clearance status from the session
-    //             $ticket->clearance_status = session('clearance_status');
-    //         }
-
-    //         $ticket->save();
-
-    //         return response()->json(['success' => true]);
-    //     } else {
-    //         return response()->json(['success' => false, 'message' => 'Ticket not found']);
-    //     }
-    // }
-
 }
