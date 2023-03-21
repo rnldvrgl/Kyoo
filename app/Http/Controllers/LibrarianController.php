@@ -35,7 +35,7 @@ class LibrarianController extends Controller
     {
         // Get the staff member's department id
         $p_c_clearance_tickets = QueueTicket::with('services')
-            ->where('student_department', ['College', 'Graduate School'])
+            ->whereIn('student_department', ['College', 'Graduate School'])
             ->where('clearance_status', 'Pending')
             ->whereBetween('created_at', [Carbon::today()->startOfDay(), Carbon::today()->endOfDay()])
             ->whereNull('completed_at')
@@ -49,7 +49,7 @@ class LibrarianController extends Controller
     {
         // Get the staff member's department id
         $p_hs_clearance_tickets = QueueTicket::with('services')
-            ->where('student_department', ['Senior High School', 'Junior High School'])
+            ->whereIn('student_department', ['Senior High School', 'Junior High School'])
             ->where('clearance_status', 'Pending')
             ->whereBetween('created_at', [Carbon::today()->startOfDay(), Carbon::today()->endOfDay()])
             ->whereNull('completed_at')
