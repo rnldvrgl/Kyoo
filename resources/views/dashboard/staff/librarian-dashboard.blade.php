@@ -18,46 +18,10 @@
         <section class="section dashboard">
             <div class="d-flex justify-content-center" style="max-height: 90vh;">
 
-                {{-- 2nd Column --}}
-                <div class="col col-lg-2 px-2 d-flex flex-column" style="min-height: 100%;">
-                    {{-- Current Serving Ticket --}}
-                    <div class="card rounded-3 border mb-3" style="flex: 1;">
-                        <div class="card-header rounded-bottom rounded-3 bg-kyoodark text-white">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <h4 class="fw-bold mb-0">Clearances</h4>
-                                <span class="badge bg-success text-success rounded-circle p-1">
-                                    <i class="fa-regular fa-circle"></i>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="card-body p-4 d-flex flex-column justify-content-center align-items-center">
-                            {{-- @if ($servingTicket)
-                        <x-pending-clearance-card id="current-ticket-{{ $servingTicket->id }}"
-                            ticketId="{{ $servingTicket->id }}" queueNumber="{{ $servingTicket->ticket_number }}"
-                            queueTime="{{ $servingTicket->created_at->format('Y-m-d h:i:s A') }}"
-                            studentName="{{ $servingTicket->student_name }}"
-                            department="{{ $servingTicket->student_department }}"
-                            course="{{ $servingTicket->student_course }}" :services="$servingTicket->services->pluck('name')->toArray()"
-                            clearancestatus="{{ $servingTicket->clearance_status }}"
-                            serviceDepartment="{{ $department->name }}" />
-                    @else
-                        <div class="text-center">
-                            <p class="fw-bold fs-4 mb-0 text-muted" style="overflow-wrap: break-word;">No Ticket
-                                is
-                                Currently Serving</p>
-                            <p class="fs-6 text-muted mb-0" style="overflow-wrap: break-word;">Please call a
-                                pending
-                                ticket to be served.</p>
-                        </div>
-                    @endif --}}
-                        </div>
-                    </div>
-                </div>
-
                 {{-- 1st Column --}}
-                <div class="col col-lg-8 px-2 flex-grow-1" style="min-height: 100%;">
+                <div class="col col-lg-10 px-2 d-flex flex-column" style="min-height: 100%;">
                     {{-- Pending Clearances --}}
-                    <div class="card border h-100 rounded-3">
+                    <div class="card rounded-3 mb-3 border" style="flex: 1;max-height: 60vh; overflow-y: auto;">
                         <div class="card-header rounded-bottom rounded-3 bg-kyoodark text-white">
                             <div class="d-flex justify-content-between align-items-center">
                                 @if (count($p_c_clearance_tickets) == 0 || count($p_c_clearance_tickets) == 1)
@@ -79,7 +43,7 @@
                             </div>
                         </div>
                         <div class="card-body px-4 pt-4 pb-2 d-flex flex-column justify-content-start"
-                            style="overflow-y: scroll; height: calc(100% - 55px);">
+                            style="max-height: 60vh; overflow-y: auto;">
                             <div id="notifications"></div>
                             @switch($department->id)
                                 @case(3)
@@ -139,11 +103,77 @@
                             @endswitch
                         </div>
                     </div>
+
+                    {{-- Signed Clearances --}}
+                    <div class="card rounded-3 mb-0 border" style="max-height: 30vh; overflow-y: auto;">
+                        <div class="card-header rounded-bottom rounded-3 bg-kyoodark text-white">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h4 class="fw-bold mb-0">Signed Clearances</h4>
+                                <span class="badge bg-success text-success rounded-circle p-1">
+                                    <i class="fa-regular fa-circle"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="card-body px-4 pt-4 pb-2 d-flex flex-column justify-content-start"
+                            style="max-height: 30vh; overflow-y: auto;">
+                            @switch($department->id)
+                                @case(3)
+                                    @if ($c_signed_clearances !== null && count($c_signed_clearances) > 0)
+                                        @foreach ($c_signed_clearances as $key => $c_signed_clearance)
+                                            <div class="my-1">
+                                                <x-signed-clearance id="queue-card-{{ $c_signed_clearance->id }}"
+                                                    ticketId="{{ $c_signed_clearance->id }}"
+                                                    queueNumber="{{ $c_signed_clearance->ticket_number }}"
+                                                    queueTime="{{ $c_signed_clearance->created_at->format('Y-m-d h:i:s A') }}"
+                                                    studentName="{{ $c_signed_clearance->student_name }}"
+                                                    department="{{ $c_signed_clearance->student_department }}"
+                                                    course="{{ $c_signed_clearance->student_course }}" :services="$c_signed_clearance->services->pluck('name')->toArray()"
+                                                    serviceDepartment="{{ $department->name }}" :position="$loop->index + 1"
+                                                    clearancestatus="{{ $c_signed_clearance->clearance_status }}" />
+                                            </div>
+                                        @endforeach
+                                    @else
+                                        <div class="text-center my-auto">
+                                            <p class="fw-bold fs-4 mb-0 text-muted">No Signed Clearance Yet</p>
+                                        </div>
+                                    @endif
+                                @break
+
+                                @case(4)
+                                    @if ($hs_signed_clearances !== null && count($hs_signed_clearances) > 0)
+                                        @foreach ($hs_signed_clearances as $key => $hs_signed_clearance)
+                                            <div class="my-1">
+                                                <x-pending-clearance-card id="queue-card-{{ $hs_signed_clearance->id }}"
+                                                    ticketId="{{ $hs_signed_clearance->id }}"
+                                                    queueNumber="{{ $hs_signed_clearance->ticket_number }}"
+                                                    queueTime="{{ $hs_signed_clearance->created_at->format('Y-m-d h:i:s A') }}"
+                                                    studentName="{{ $hs_signed_clearance->student_name }}"
+                                                    department="{{ $hs_signed_clearance->student_department }}"
+                                                    course="{{ $hs_signed_clearance->student_course }}" :services="$hs_signed_clearance->services->pluck('name')->toArray()"
+                                                    serviceDepartment="{{ $department->name }}" :position="$loop->index + 1"
+                                                    clearancestatus="{{ $hs_signed_clearance->clearance_status }}" />
+                                            </div>
+                                        @endforeach
+                                    @else
+                                        <div class="text-center my-auto">
+                                            <p class="fw-bold fs-4 mb-0 text-muted">No Pending Clearance Yet</p>
+                                        </div>
+                                    @endif
+                                @break
+
+                                @default
+                                    <div class="text-center my-auto">
+                                        <p class="fw-bold fs-4 mb-0 text-muted">No Pending Clearance(s)</p>
+                                    </div>
+                                @break
+
+                            @endswitch
+                        </div>
+                    </div>
                 </div>
 
-                {{-- 3rd Column --}}
+                {{-- 2nd Column --}}
                 <div class="col col-lg-2 px-2 d-flex flex-column" style="min-height: 100%;">
-
                     {{-- Staff Actions --}}
                     <div class="card rounded-3 mb-3">
                         <div class="card-header rounded-bottom rounded-3 bg-kyoodark text-white">

@@ -36,7 +36,7 @@
             <span class="text-center {{ $position > 1 ? 'd-none' : '' }} ">Calls: <span id="call-count">0</span></span>
             @if ($hasCurrentServingTicket)
                 <span
-                    class="badge rounded-pill rounded-pill py-3 text-bg-kyoodarkblue {{ $position > 1 ? 'd-none' : '' }}">Currently
+                    class="badge rounded-pill rounded-pill py-3 text-success border border-success {{ $position > 1 ? 'd-none' : '' }}">Currently
                     Serving
                     Other Ticket</span>
             @else
@@ -48,12 +48,19 @@
                 </button>
 
                 <button
-                    class="{{ $position > 1 ? 'd-none' : '' }} serve-ticket-btn btn btn-success rounded-pill py-2 btn-sm"
+                    class="{{ $position > 1 ? 'd-none' : '' }} serve-ticket-btn btn btn-outline-success rounded-pill py-2 btn-sm"
                     type="button" data-queue-number="{{ $queueNumber }}" data-ticket-id="{{ $ticketId }}"
                     data-status="Serving">
                     <i class="fas fa-check-circle me-2"></i> Serve Ticket
                 </button>
             @endif
+
+            <button
+                class="{{ $position > 1 ? 'd-none' : '' }} cancel-ticket-btn btn btn-outline-kyoored rounded-pill py-2 btn-sm"
+                type="button" data-queue-number="{{ $queueNumber }}" data-ticket-id="{{ $ticketId }}"
+                data-status="Cancelled">
+                <i class="fas fa-times-circle me-2"></i> Cancel
+            </button>
 
             @switch($clearancestatus)
                 @case('Pending')
@@ -86,13 +93,6 @@
                     </button>
             @endswitch
 
-
-            <button
-                class="{{ $position > 1 ? 'd-none' : '' }} cancel-ticket-btn btn btn-outline-kyoored rounded-pill py-2 btn-sm"
-                type="button" data-queue-number="{{ $queueNumber }}" data-ticket-id="{{ $ticketId }}"
-                data-status="Cancelled">
-                <i class="fas fa-times-circle me-2"></i> Cancel
-            </button>
         </div>
     </div>
 </div>

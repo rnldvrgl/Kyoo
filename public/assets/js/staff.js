@@ -316,6 +316,7 @@ $(document).ready(function () {
             buttons: {
                 confirm: {
                     btnClass: "btn-success",
+                    text: "Yes",
                     action: function () {
                         // Send PUT request to update ticket status with notes
                         axios.defaults.headers.common["X-CSRF-TOKEN"] = $(

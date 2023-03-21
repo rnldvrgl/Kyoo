@@ -4,7 +4,7 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class PendingClearanceCard extends Component
+class SignedClearance extends Component
 {
     public $ticketId;
     public $queueNumber;
@@ -33,6 +33,6 @@ class PendingClearanceCard extends Component
 
     public function render()
     {
-        return view('components.pending-clearance-card');
+        return view('components.signed-clearance');
     }
 }
