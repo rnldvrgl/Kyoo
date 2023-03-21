@@ -7,8 +7,6 @@
     $cashier = $departments->find(2);
 @endphp
 <x-layout>
-    {{-- Background Image --}}
-    <div id="background-image" style="opacity: 5%;"></div>
 
     {{-- Cancel Queue Button --}}
     <x-cancel-queue-button />

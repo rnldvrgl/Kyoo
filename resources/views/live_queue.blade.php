@@ -3,6 +3,7 @@
 
 {{-- Main Content --}}
 <x-layout>
+
     <!-- Header Navbar -->
     <header id="header" class="header d-flex align-items-center bg-kyoodark">
         <div class="d-flex align-items-center justify-content-between">

@@ -54,6 +54,9 @@
 
     <x-loading-screen />
 
+    {{-- Background Image --}}
+    <div id="background-image" style="opacity: 5%;"></div>
+
     {{ $slot }}
 
     {{-- DataTable JS --}}

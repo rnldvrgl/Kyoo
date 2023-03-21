@@ -18,6 +18,7 @@
     {{-- Include Navigation Bar --}}
     <x-navigation-bar />
 
+
     {{-- Hero Section --}}
     <section class="bg-kyoodark text-white pt-5 px-2 mb-0 overflow-hidden" id="home">
         <div class="container">
