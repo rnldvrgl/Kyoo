@@ -105,7 +105,7 @@
                     </div>
 
                     {{-- Signed Clearances --}}
-                    <div class="card rounded-3 mb-0 border" style="max-height: 30vh; overflow-y: auto;">
+                    <div class="card rounded-3 mb-0 border" style="flex: 1; max-height: 30vh; overflow-y: auto;">
                         <div class="card-header rounded-bottom rounded-3 bg-kyoodark text-white">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h4 class="fw-bold mb-0">Signed Clearances</h4>
