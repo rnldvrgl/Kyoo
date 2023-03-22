@@ -6,9 +6,9 @@
             @if ($department->status == 'active')
                 <div class="d-flex justify-content-center align-items-center">
                     @if ($department->ticket_number)
-                        <div class="d-flex flex-column align-items-center">
-                            <h1 class="card-subtitle mb-2" style="font-size: clamp(2rem, 5vw, 3rem);">
-                                {{ $department->ticket_number }}</h1>
+                        <div class="d-flex flex-column align-items-center serving-ticket">
+                            <h1 class="card-subtitle mb-2" style="font-size: clamp(2rem, 5vw, 3rem);" id="ticket_number">
+                            </h1>
                             <span class="text-primary fw-semibold"
                                 style="font-size: clamp(0.8rem, 2vw, 1.2rem);">Currently
                                 Serving</span>

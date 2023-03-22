@@ -8,5 +8,10 @@ window.Echo.channel("test-channel")
     })
     // Trigger for Live Queue
     .listen(".test-event", (e) => {
-        console.log(e.test);
+        let ticket_number = e.test["ticket_number"];
+
+        // Append in an element
+        $("#ticket_number").html(ticket_number);
+
+        console.log(ticket_number);
     });
