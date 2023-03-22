@@ -2,16 +2,29 @@ import "./bootstrap";
 
 import "../sass/app.scss";
 
-window.Echo.channel("test-channel")
+window.Echo.channel("live-queue-channel")
     .subscribed((e) => {
         console.log("Subscribed");
     })
-    // Trigger for Live Queue
-    .listen(".test-event", (e) => {
-        let ticket_number = e.test["ticket_number"];
+    .listen("LiveQueueEvent", (e) => {
+        let ticket = e.queueTicket;
 
-        // Append in an element
-        $("#ticket_number").html(ticket_number);
+        let ticketDisplay = $("#display-ticket-" + ticket.department_id);
 
-        console.log(ticket_number);
+        if (ticket) {
+            let ticketHasSomething = `
+            <div class="d-flex flex-column align-items-center serving-ticket">
+                <h1 class="card-subtitle mb-2" style="font-size: clamp(2rem, 5vw, 3rem);">
+                ${ticket.ticket_number}
+                </h1>
+                <span class="text-primary fw-semibold"
+                    style="font-size: clamp(0.8rem, 2vw, 1.2rem);">Currently
+                    Serving</span>
+            </div>
+        `;
+
+            ticketDisplay.html(ticketHasSomething);
+        }
+
+        console.log(ticket.ticket_number);
     });

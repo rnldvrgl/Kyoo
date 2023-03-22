@@ -10,7 +10,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class TestEvent implements ShouldBroadcast
+class LiveQueueEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -33,20 +33,6 @@ class TestEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('test-channel');
-    }
-
-    // Custome Name of the Event
-    public function broadcastAs()
-    {
-        return 'test-event';
-    }
-
-    // Data to be passed to the event
-    public function broadcastWith()
-    {
-        return [
-            'test' => $this->queueTicket,
-        ];
+        return new Channel('live-queue-channel');
     }
 }

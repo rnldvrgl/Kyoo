@@ -1,6 +1,6 @@
 <?php
 
-use App\Events\TestEvent;
+use App\Events\LiveQueueEvent;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DepartmentController;
@@ -58,10 +58,11 @@ Route::get('/frequent_questions', [FaqController::class, 'index'])->name('freque
 
 Route::post('/send-feedback', [FeedbackController::class, 'store'])->name('feedback.store');
 
-Route::get('/testing', function () {
-	// $queueTicket = QueueTicket::all();
+Route::get('/testing/{id}', function ($id) {
+	// $queueTicket = QueueTicket::find($id);
+
 	// // Can pass the query to get the data and pass it to the TestEvent as data
-	// event(new TestEvent($queueTicket));
+	// event(new LiveQueueEvent($queueTicket));
 	// return null;
 });
 

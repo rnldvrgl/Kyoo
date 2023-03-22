@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\TestEvent;
+use App\Events\LiveQueueEvent;
 use App\Http\Controllers\Controller;
 use App\Models\QueueTicket;
 use Carbon\Carbon;
@@ -164,6 +164,10 @@ class QueueTicketController extends Controller
             $ticket->status = $status;
 
             if ($status === 'Calling') {
+
+                // Event Trigger for Live Queue when Ticket is Called
+                event(new LiveQueueEvent($ticket));
+
                 // Add timestamp to called_at column
                 if (!$ticket->called_at && !$ticket->waiting_time) {
                     $ticket->called_at = now();
@@ -171,8 +175,8 @@ class QueueTicketController extends Controller
                 }
             } elseif ($status === 'Serving') {
 
-                // Event Trigger for Live Queue 
-                event(new TestEvent($ticket));
+                // Event Trigger for Live Queue when Ticket is being served
+                event(new LiveQueueEvent($ticket));
 
                 // Add timestamp to served_at column
                 if (!$ticket->served_at) {
