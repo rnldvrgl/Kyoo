@@ -1,6 +1,5 @@
 <?php
 
-use App\Events\LiveQueueEvent;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DepartmentController;
@@ -16,7 +15,6 @@ use App\Http\Controllers\RegistrarController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\UserProfileController;
-use App\Models\QueueTicket;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -57,14 +55,6 @@ Route::get('/live_queue', [LiveQueueController::class, 'index'])->name('live_que
 Route::get('/frequent_questions', [FaqController::class, 'index'])->name('frequent_questions');
 
 Route::post('/send-feedback', [FeedbackController::class, 'store'])->name('feedback.store');
-
-Route::get('/testing/{id}', function ($id) {
-	// $queueTicket = QueueTicket::find($id);
-
-	// // Can pass the query to get the data and pass it to the TestEvent as data
-	// event(new LiveQueueEvent($queueTicket));
-	// return null;
-});
 
 // * Main Admin Routes
 Route::middleware(['auth', 'user-access:Main Admin'])->group(function () {

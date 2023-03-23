@@ -15,7 +15,6 @@
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.2",
         "mike42/escpos-php": "^2.2",
-        "pusher/pusher-php-server": "~7.0",
         "yajra/laravel-datatables-oracle": "10.0"
     },
     "require-dev": {
