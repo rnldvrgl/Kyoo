@@ -10,6 +10,7 @@ use App\Models\QueueTicket;
 use App\Models\Service;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -368,5 +369,23 @@ class QueueTicketController extends Controller
         } else {
             return response()->json(['success' => false, 'message' => 'Ticket not found']);
         }
+    }
+
+
+    public function countStaffCancelledTickets()
+    {
+        $accountId = Auth::user()->id;
+        $cancelledCount = 0;
+        $tickets = QueueTicket::all();
+
+        if ($tickets) {
+            foreach ($tickets as $ticket) {
+                if ($ticket->status == 'Cancelled' && $ticket->account_id == session('account_id')) {
+                    $cancelledCount++;
+                }
+            }
+        }
+
+        return $cancelledCount;
     }
 }

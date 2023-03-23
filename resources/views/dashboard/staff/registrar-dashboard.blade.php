@@ -205,7 +205,7 @@
                                     <div
                                         class="d-flex flex-column justify-content-center align-items-center h-100 p-4 bg-light border rounded-3">
                                         <h5 class="card-subtitle mb-3">Cancelled Tickets</h5>
-                                        <p class="card-text display-6 fw-bold mb-0">4</p>
+                                        <p class="card-text display-6 fw-bold mb-0">{{ $c_cancelled_tickets }}</p>
                                         <p class="card-text text-muted mt-1">All services</p>
                                     </div>
                                 </div>

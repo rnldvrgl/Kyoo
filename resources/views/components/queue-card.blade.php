@@ -59,7 +59,7 @@
             <button
                 class="{{ $position > 1 ? 'd-none' : '' }} cancel-ticket-btn btn btn-outline-kyoored rounded-pill py-2 btn-sm"
                 type="button" data-queue-number="{{ $queueNumber }}" data-ticket-id="{{ $ticketId }}"
-                data-status="Cancelled">
+                data-status="Cancelled" data-account-id="{{ session('account_id') }}">
                 <i class="fas fa-times-circle me-2"></i> Cancel
             </button>
 

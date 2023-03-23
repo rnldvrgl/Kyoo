@@ -93,6 +93,7 @@ $(document).ready(function () {
         // Get the ticket ID from the data attribute
         const status = $(this).data("status");
         const ticketId = $(this).data("ticket-id");
+        const account_id = $(this).data("account-id");
 
         axios.defaults.headers.common["X-CSRF-TOKEN"] = $(
             'meta[name="csrf-token"]'
@@ -101,6 +102,7 @@ $(document).ready(function () {
         axios
             .put("/tickets/update-status/" + status, {
                 ticketId: ticketId,
+                account_id: account_id,
             })
             .then(function (response) {
                 console.log(response);
@@ -115,6 +117,7 @@ $(document).ready(function () {
         // Get the ticket ID and status from the data attributes
         const status = $(this).data("status");
         const ticketId = $(this).data("ticket-id");
+        const account_id = $(this).data("account-id");
 
         // Show confirmation dialog with input field for notes
         $.confirm({
@@ -163,6 +166,7 @@ $(document).ready(function () {
                         axios
                             .put("/tickets/update-status/" + status, {
                                 ticketId: ticketId,
+                                account_id: account_id,
                                 notes: notes,
                             })
                             .then(function (response) {

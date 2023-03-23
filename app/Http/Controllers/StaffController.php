@@ -13,15 +13,18 @@ class StaffController extends Controller
 {
     public function index(HomeController $homeController)
     {
-        // dd(Carbon::today()->startOfDay(), Carbon::today()->endOfDay());
+        // Create an instance of the QueueTicketController
+        $queueTicketController = new QueueTicketController();
         $user_data = $homeController->getUserData();
         $pendingTickets = $this->getPendingTickets();
         $servingTicket = $this->getServingTicket();
         $holdingTickets = $this->getOnHoldTickets();
+        $c_cancelled_tickets = $queueTicketController->countStaffCancelledTickets();
 
         return view(
             'dashboard.staff.regular-dashboard',
             [
+                'c_cancelled_tickets' => $c_cancelled_tickets,
                 'pendingTickets' => $pendingTickets,
                 'user_data' => $user_data,
                 'servingTicket' => $servingTicket,
