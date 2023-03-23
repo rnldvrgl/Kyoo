@@ -45,6 +45,7 @@ $(document).ready(function () {
         const serviceDepartment = $(this).data("servicedepartment");
         const callCountSpan = $("#call-count");
         const firstButton = callTicketButtons.first();
+        const account_id = $(this).data("account-id");
 
         firstButton.attr("disabled", true);
         firstButton.html(
@@ -58,6 +59,7 @@ $(document).ready(function () {
         axios
             .put("/tickets/update-status/" + status, {
                 ticketId: ticketId,
+                account_id: account_id,
             })
             .then(function (response) {
                 console.log(response);

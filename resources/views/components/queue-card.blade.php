@@ -43,7 +43,8 @@
                 <button
                     class="{{ $position > 1 ? 'd-none' : '' }} call-ticket-btn btn btn-kyoodarkblue text-white rounded-pill py-2 btn-sm"
                     type="button" data-queue-number="{{ $queueNumber }}" data-ticket-id="{{ $ticketId }}"
-                    data-status="Calling" data-servicedepartment="{{ $serviceDepartment }}">
+                    data-status="Calling" data-servicedepartment="{{ $serviceDepartment }}"
+                    data-account-id="{{ session('account_id') }}">
                     <i class="fas fa-bullhorn me-2"></i> Call Queue Number
                 </button>
 

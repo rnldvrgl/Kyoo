@@ -56,10 +56,11 @@ class StaffController extends Controller
 
         // Get the staff member's department id
         $servingTicket = QueueTicket::with('services')
-            ->whereIn('id', function ($query) use ($departmentId) {
+            ->whereIn('id', function ($query) use ($departmentId, $accountId) {
                 $query->select(DB::raw('MAX(id)'))
                     ->from('queue_tickets')
                     ->where('department_id', $departmentId)
+                    ->where('account_id', $accountId)
                     ->where('status', 'Serving')
                     ->whereBetween('created_at', [Carbon::today()->startOfDay(), Carbon::today()->endOfDay()])
                     ->groupBy('department_id');
@@ -78,6 +79,7 @@ class StaffController extends Controller
         // Get the staff member's department id
         $HoldTickets = QueueTicket::with('services')
             ->where('department_id', $departmentId)
+            ->where('account_id', $accountId)
             ->where('status', 'On Hold')
             ->whereBetween('created_at', [Carbon::today()->startOfDay(), Carbon::today()->endOfDay()])
             ->whereNull('completed_at')

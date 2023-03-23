@@ -158,6 +158,10 @@ class QueueTicketController extends Controller
                 $ticket->clearance_status = $clearanceStatus;
             }
 
+            if ($request->account_id) {
+                $ticket->account_id = $request->account_id;
+            }
+
             // Check the actual clearance status of the ticket
             // $actualClearanceStatus = $ticket->clearance_status;
 

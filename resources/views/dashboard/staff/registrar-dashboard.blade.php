@@ -56,6 +56,7 @@
                         <div class="card-body px-4 pt-4 pb-2 d-flex flex-column justify-content-start"
                             style="overflow-y: scroll; height: calc(100% - 55px);">
                             <div id="notifications"></div>
+
                             @if (count($pendingTickets) > 0)
                                 @foreach ($pendingTickets as $key => $ticket)
                                     <div class="my-1">
