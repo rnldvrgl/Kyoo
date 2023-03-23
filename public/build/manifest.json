@@ -9,22 +9,24 @@
     "src": "resources/css/app.css"
   },
   "resources/js/app.css": {
-    "file": "assets/app-3ed1aff3.css",
-    "src": "resources/js/app.css"
+    "file": "assets/app-7b639b41.css",
+    "isEntry": true,
+    "src": "resources/sass/app.scss"
   },
   "resources/js/app.js": {
     "assets": [
       "assets/Hexagon-e7018cfb.svg"
     ],
     "css": [
-      "assets/app-3ed1aff3.css"
+      "assets/app-7b639b41.css"
     ],
-    "file": "assets/app-063cf8a2.js",
+    "file": "assets/app-10c8bdcd.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   },
   "resources/sass/app.scss": {
-    "file": "assets/app-3ed1aff3.css",
-    "src": "resources/js/app.css"
+    "file": "assets/app-7b639b41.css",
+    "isEntry": true,
+    "src": "resources/sass/app.scss"
   }
 }

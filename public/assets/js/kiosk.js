@@ -170,7 +170,7 @@ $(document).ready(function () {
             this.submit();
         }
 
-        console.log(selectedDepartment);
+        // console.log(selectedDepartment);
         // console.log(selectedCourse);
         // console.log(errors);
     });
