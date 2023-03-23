@@ -38,9 +38,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
 
-    {{-- Chart.js CDN --}}
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
     {{-- Google Chart CDN --}}
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
