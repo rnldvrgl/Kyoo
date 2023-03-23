@@ -11,9 +11,7 @@
             </li>
             <li>
                 <button class="transfer-ticket-btn dropdown-item transfer" type="button"
-                    data-queue-number="{{ $queueNumber }}" data-student-name="{{ $studentName }}"
-                    data-student-department="{{ $department }}" data-student-course="{{ $course }}"
-                    data-ticket-id="{{ $ticketId }}" data-status="On Hold">
+                    data-queue-number="{{ $queueNumber }}" data-ticket-id="{{ $ticketId }}" data-status="On Hold">
                     <i class="fa-solid fa-right-left"></i> For Payment
                 </button>
             </li>
