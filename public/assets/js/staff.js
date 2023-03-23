@@ -51,39 +51,39 @@ $(document).ready(function () {
             "<i class='fa-solid fa-circle-notch fa-spin'></i> Calling ..."
         );
 
-        speak(
-            "Queue Number" +
-                queueNumber +
-                ", Please proceed to " +
-                serviceDepartment +
-                ".",
-            function () {
-                axios.defaults.headers.common["X-CSRF-TOKEN"] = $(
-                    'meta[name="csrf-token"]'
-                ).attr("content");
+        axios.defaults.headers.common["X-CSRF-TOKEN"] = $(
+            'meta[name="csrf-token"]'
+        ).attr("content");
 
-                axios
-                    .put("/tickets/update-status/" + status, {
-                        ticketId: ticketId,
-                    })
-                    .then(function (response) {
-                        console.log(response);
+        axios
+            .put("/tickets/update-status/" + status, {
+                ticketId: ticketId,
+            })
+            .then(function (response) {
+                console.log(response);
+                speak(
+                    "Queue Number" +
+                        queueNumber +
+                        ", Please proceed to " +
+                        serviceDepartment +
+                        ".",
+                    function () {
                         firstButton.attr("disabled", false);
                         firstButton.html(
                             '<i class="fas fa-bullhorn me-2"></i> Call Queue Number'
                         );
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                        firstButton.attr("disabled", false);
-                        firstButton.html(
-                            '<i class="fas fa-bullhorn me-2"></i> Call Queue Number'
-                        );
-                    });
-            },
-            callCount++,
-            callCountSpan.html(callCount)
-        );
+                    },
+                    callCount++,
+                    callCountSpan.html(callCount)
+                );
+            })
+            .catch(function (error) {
+                console.log(error);
+                firstButton.attr("disabled", false);
+                firstButton.html(
+                    '<i class="fas fa-bullhorn me-2"></i> Call Queue Number'
+                );
+            });
     });
 
     // Serve Ticket
@@ -212,6 +212,9 @@ $(document).ready(function () {
         // Get the ticket ID from the data attribute
         const status = $(this).data("status");
         const ticketId = $(this).data("ticket-id");
+        const student_name = $(this).data("student-name");
+        const student_course = $(this).data("student-course");
+        const student_department = $(this).data("student-department");
 
         axios.defaults.headers.common["X-CSRF-TOKEN"] = $(
             'meta[name="csrf-token"]'
@@ -220,6 +223,9 @@ $(document).ready(function () {
         axios
             .put("/tickets/update-status/" + status, {
                 ticketId: ticketId,
+                student_name: student_name,
+                student_course: student_course,
+                student_department: student_department,
             })
             .then(function (response) {
                 console.log(response);
