@@ -190,6 +190,7 @@
                     <div class="card rounded-3 mb-0" style="flex: 2;max-height: 80vh; overflow-y: auto;">
                         <div class="card-header bg-kyoodark text-white">
                             <h4 class="fw-bold mb-0 text-center">Serving Stats</h4>
+                            {{-- {{ dd($avg_service_time) }} --}}
                         </div>
                         <div class="card-body py-3" style="max-height: 80vh; overflow-y: auto;">
                             <div class="d-flex flex-column justify-content-center gap-1 gap-md-2 gap-lg-3">
@@ -213,7 +214,16 @@
                                     <div
                                         class="d-flex flex-column justify-content-center align-items-center p-4 bg-light border rounded-3">
                                         <h5 class="card-subtitle mb-3">Avg. Service Time</h5>
-                                        <p class="card-text display-6 fw-bold mb-0">25<span class="fs-5"> min</span>
+                                        <p class="card-text display-6 fw-bold mb-0">
+                                            @switch($avg_service_time)
+                                                @case(null)
+                                                    0
+                                                @break
+
+                                                @default
+                                                    {{ $avg_service_time }}
+                                            @endswitch
+                                            <span class="fs-5"> min</span>
                                         </p>
                                         <p class="card-text text-muted mt-1">Last 30 tickets</p>
                                     </div>

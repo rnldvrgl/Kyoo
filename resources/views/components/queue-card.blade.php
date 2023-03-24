@@ -22,6 +22,7 @@
         <div class="col-lg-6 h-100">
             <div class="mb-4">
                 <h6 class="fw-bold mb-3">Selected Services:</h6>
+
                 <ul class="list-group">
                     @foreach ($services as $service)
                         <li class="bg-transparent border-0">{{ $service }}</li>
@@ -51,7 +52,7 @@
                 <button
                     class="{{ $position > 1 ? 'd-none' : '' }} serve-ticket-btn btn btn-outline-success rounded-pill py-2 btn-sm"
                     type="button" data-queue-number="{{ $queueNumber }}" data-ticket-id="{{ $ticketId }}"
-                    data-status="Serving">
+                    data-status="Serving" data-account-id="{{ session('account_id') }}">
                     <i class="fas fa-check-circle me-2"></i> Serve Ticket
                 </button>
             @endif

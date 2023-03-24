@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\LiveQueueEvent;
 use App\Http\Controllers\Controller;
+use App\Models\Accounts;
 use App\Models\DailyCounter;
 use App\Models\Department;
 use App\Models\QueueTicket;
@@ -132,6 +133,57 @@ class QueueTicketController extends Controller
     }
 
 
+    // * FOR STAFF STATISTICS
+    // Count Cancelled Tickets per Staff
+    public function countStaffCancelledTickets()
+    {
+        $cancelledCount = 0;
+        $tickets = QueueTicket::all();
+
+        if ($tickets) {
+            foreach ($tickets as $ticket) {
+                if ($ticket->status == 'Cancelled' && $ticket->account_id == session('account_id')) {
+                    $cancelledCount++;
+                }
+            }
+        }
+
+        return $cancelledCount;
+    }
+
+    public function getAverageServiceTime()
+    {
+        $avg_service_time = QueueTicket::where('login_id', session('account_id'))
+            ->whereNotNull('served_at')
+            ->orderByDesc('served_at')
+            ->limit(30)
+            ->avg('service_time');
+
+        return $avg_service_time;
+    }
+
+
+
+    public function getPendingTickets()
+    {
+        $accountId = Auth::user()->id;
+        $account = Accounts::find($accountId);
+        $departmentId = $account->department_id;
+
+        // Get the staff member's department id
+        $pendingTickets = QueueTicket::with('services')
+            ->where('department_id', $departmentId)
+            ->whereIn('status', ['Pending', 'Calling']) // use whereIn instead of where
+            ->whereBetween('created_at', [
+                Carbon::today()->startOfDay(), Carbon::today()->endOfDay()
+            ])
+            ->whereNull('completed_at')
+            ->orderBy('created_at', 'asc')
+            ->get();
+
+        return $pendingTickets;
+    }
+
     // * FOR STAFF SERVING TICKET * //
     public function show($id)
     {
@@ -153,14 +205,14 @@ class QueueTicketController extends Controller
                 $ticket->notes = $request->notes;
             }
 
+            if ($request->account_id) {
+                $ticket->login_id = $request->account_id;
+            }
+
             // Only update the clearance status if it's provided in the request
             if ($request->has('clearance_status')) {
                 $clearanceStatus = $request->clearance_status;
                 $ticket->clearance_status = $clearanceStatus;
-            }
-
-            if ($request->account_id) {
-                $ticket->account_id = $request->account_id;
             }
 
             // Check the actual clearance status of the ticket
@@ -185,10 +237,9 @@ class QueueTicketController extends Controller
                 if (!$ticket->served_at) {
                     $ticket->served_at = now();
                 }
-            } else if ($status === 'On Hold') {
-
+            } elseif ($status === 'On Hold') {
                 $department = Department::where('name', 'Cashier')->first();
-                $service = Service::where('name', 'Payment')->first();
+                $service = Service::where('name', 'Payment')->first(); // If error, check if Payment service exists in the Service table
                 $name = $request->student_name;
                 $student_department = $request->student_department;
                 $course = $request->student_course;
@@ -369,23 +420,5 @@ class QueueTicketController extends Controller
         } else {
             return response()->json(['success' => false, 'message' => 'Ticket not found']);
         }
-    }
-
-
-    public function countStaffCancelledTickets()
-    {
-        $accountId = Auth::user()->id;
-        $cancelledCount = 0;
-        $tickets = QueueTicket::all();
-
-        if ($tickets) {
-            foreach ($tickets as $ticket) {
-                if ($ticket->status == 'Cancelled' && $ticket->account_id == session('account_id')) {
-                    $cancelledCount++;
-                }
-            }
-        }
-
-        return $cancelledCount;
     }
 }
