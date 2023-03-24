@@ -215,15 +215,11 @@
                                         class="d-flex flex-column justify-content-center align-items-center p-4 bg-light border rounded-3">
                                         <h5 class="card-subtitle mb-3">Avg. Service Time</h5>
                                         <p class="card-text display-6 fw-bold mb-0">
-                                            @switch($avg_service_time)
-                                                @case(null)
-                                                    0
-                                                @break
-
-                                                @default
-                                                    {{ $avg_service_time }}
-                                            @endswitch
-                                            <span class="fs-5"> min</span>
+                                            @if ($avg_service_time)
+                                                {{ $avg_service_time < 60 ? gmdate('s', $avg_service_time) . ' sec' : gmdate('i', $avg_service_time) . ' min' }}
+                                            @else
+                                                0 sec
+                                            @endif
                                         </p>
                                         <p class="card-text text-muted mt-1">Last 30 tickets</p>
                                     </div>
