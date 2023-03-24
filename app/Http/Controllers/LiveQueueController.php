@@ -41,7 +41,9 @@ class LiveQueueController extends Controller
     public function index()
     {
         // Get all departments
-        $departments = Department::all();
+
+        $departments = Department::whereNotIn('id', [3, 4])->get();
+
         $promotional_message = PromotionalText::all();
         $ticket_data = [
             'departments' => []

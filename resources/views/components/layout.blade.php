@@ -10,7 +10,11 @@
     {{-- CSRF Token --}}
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('mytitle') | Kyoo : Queueing Management System</title>
+    @if (url('/'))
+        <title>Kyoo : Queueing Management System</title>
+    @else
+        <title>@yield('mytitle') | Kyoo : Queueing Management System</title>
+    @endif
 
     {{-- Scripts --}}
     @vite(['resources/sass/app.scss', 'resources/css/app.css', 'resources/js/app.js'])
