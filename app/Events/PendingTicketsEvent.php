@@ -2,6 +2,8 @@
 
 namespace App\Events;
 
+use App\Models\QueueTicket;
+use App\Models\QueueTicketService;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;

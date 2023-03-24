@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\DailyCounter;
 use App\Models\Department;
 use App\Models\QueueTicket;
+use App\Models\QueueTicketService;
 use App\Models\Service;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -363,5 +364,12 @@ class QueueTicketController extends Controller
         } else {
             return response()->json(['success' => false, 'message' => 'Ticket not found']);
         }
+    }
+
+    public function fetchQueueTickets($id)
+    {
+        $tickets = QueueTicketService::where('ticket_id', $id)->get();
+
+        return $tickets;
     }
 }

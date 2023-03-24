@@ -9,6 +9,8 @@ class QueueTicketService extends Model
 {
     protected $fillable = ['ticket_id', 'service_id'];
 
+    protected $table = 'queue_ticket_service';
+
     public function ticket()
     {
         return $this->belongsTo(QueueTicket::class);

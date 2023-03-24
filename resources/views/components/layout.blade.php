@@ -99,6 +99,10 @@
 
     {{-- Kiosk JS --}}
     <script src="{{ asset('assets/js/kiosk.js') }}"></script>
+
+    {{-- Date Format --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-dateFormat/1.0/jquery.dateFormat.min.js"></script>
+
 </body>
 
 </html>
