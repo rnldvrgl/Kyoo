@@ -60,7 +60,7 @@ $(document).ready(function () {
                 ticketId: ticketId,
             })
             .then(function (response) {
-                console.log(response);
+                // console.log(response);
                 speak(
                     "Queue Number" +
                         queueNumber +

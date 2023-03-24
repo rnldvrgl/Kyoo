@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Events\LiveQueueEvent;
+use App\Events\PendingTicketsEvent;
 use App\Models\QueueTicket;
 
 class QueueTicketObserver
@@ -15,7 +16,9 @@ class QueueTicketObserver
      */
     public function created(QueueTicket $queueTicket)
     {
-        //
+        if ($queueTicket->status == "Pending") {
+            event(new PendingTicketsEvent($queueTicket));
+        }
     }
 
     /**
@@ -26,7 +29,9 @@ class QueueTicketObserver
      */
     public function updated(QueueTicket $queueTicket)
     {
-        event(new LiveQueueEvent($queueTicket));
+        if ($queueTicket->status == "Serving" || $queueTicket->status == "Calling") {
+            event(new LiveQueueEvent($queueTicket));
+        }
     }
 
     /**

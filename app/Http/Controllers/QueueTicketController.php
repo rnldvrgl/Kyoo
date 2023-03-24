@@ -180,10 +180,9 @@ class QueueTicketController extends Controller
                 if (!$ticket->served_at) {
                     $ticket->served_at = now();
                 }
-            } else if ($status === 'On Hold') {
-
+            } elseif ($status === 'On Hold') {
                 $department = Department::where('name', 'Cashier')->first();
-                $service = Service::where('name', 'Payment')->first();
+                $service = Service::where('name', 'Payment')->first(); // If error, check if Payment service exists in the Service table
                 $name = $request->student_name;
                 $student_department = $request->student_department;
                 $course = $request->student_course;

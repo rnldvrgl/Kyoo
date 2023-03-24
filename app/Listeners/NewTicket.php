@@ -2,19 +2,19 @@
 
 namespace App\Listeners;
 
-use App\Events\LiveQueueEvent;
+use App\Events\PendingTicketsEvent;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-class LiveQueue
+class NewTicket
 {
     /**
      * Handle the event.
      *
-     * @param  \App\Events\LiveQueueEvent  $event
+     * @param  \App\Events\PendingTicketsEvent  $event
      * @return void
      */
-    public function handle(LiveQueueEvent $event)
+    public function handle(PendingTicketsEvent $event)
     {
         return $event;
     }

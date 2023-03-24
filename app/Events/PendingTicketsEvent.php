@@ -10,11 +10,11 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class LiveQueueEvent implements ShouldBroadcast
+class PendingTicketsEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    private $queueTicket;
+    public $queueTicket;
 
     /**
      * Create a new event instance.
@@ -33,6 +33,6 @@ class LiveQueueEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('public.live-queue');
+        return new Channel('public.pending-tickets');
     }
 }

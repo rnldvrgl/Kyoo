@@ -284,7 +284,6 @@ class KioskController extends Controller
             Log::error('Printing failed: ' . $e->getMessage());
         }
 
-
         // clear session data
         Session::forget('department_name');
         Session::forget('department_id');
