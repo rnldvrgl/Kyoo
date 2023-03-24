@@ -151,6 +151,23 @@ class QueueTicketController extends Controller
         return $cancelledCount;
     }
 
+
+    public function countStaffCompletedTickets()
+    {
+        $completedCount = 0;
+        $tickets = QueueTicket::all();
+
+        if ($tickets) {
+            foreach ($tickets as $ticket) {
+                if ($ticket->status == 'Completed' && $ticket->account_id == session('account_id')) {
+                    $completedCount++;
+                }
+            }
+        }
+
+        return $completedCount;
+    }
+
     public function getAverageServiceTime()
     {
         $avg_service_time = QueueTicket::where('login_id', session('account_id'))
@@ -162,8 +179,21 @@ class QueueTicketController extends Controller
         return $avg_service_time;
     }
 
+    public function getAverageWaitingTime()
+    {
+        $avg_wait_time = QueueTicket::where('login_id', session('account_id'))
+            ->whereNotNull('called_at')
+            ->orderByDesc('called_at')
+            ->limit(30)
+            ->avg('waiting_time');
+
+        return $avg_wait_time;
+    }
 
 
+
+
+    // * FOR STAFF SERVING TICKET * //
     public function getPendingTickets()
     {
         $accountId = Auth::user()->id;
@@ -184,7 +214,6 @@ class QueueTicketController extends Controller
         return $pendingTickets;
     }
 
-    // * FOR STAFF SERVING TICKET * //
     public function show($id)
     {
         $ticket = QueueTicket::findOrFail($id);

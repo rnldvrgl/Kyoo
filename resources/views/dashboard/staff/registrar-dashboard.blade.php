@@ -197,8 +197,8 @@
                                 <div class="col">
                                     <div
                                         class="d-flex flex-column justify-content-center align-items-center h-100 p-4 bg-light border rounded-3">
-                                        <h5 class="card-subtitle mb-3">Total Served Tickets</h5>
-                                        <p class="card-text display-6 fw-bold mb-0">342</p>
+                                        <h5 class="card-subtitle mb-3">Completed Tickets</h5>
+                                        <p class="card-text display-6 fw-bold mb-0">{{ $c_completed_tickets }}</p>
                                         <p class="card-text text-muted mt-1">All services</p>
                                     </div>
                                 </div>
@@ -228,7 +228,13 @@
                                     <div
                                         class="d-flex flex-column justify-content-center align-items-center h-100 p-4 bg-light border rounded-3">
                                         <h5 class="card-subtitle mb-3">Avg. Wait Time</h5>
-                                        <p class="card-text display-6 fw-bold mb-0">10<span class="fs-5"> min</span>
+                                        <p class="card-text display-6 fw-bold mb-0">
+                                            @if ($avg_wait_time)
+                                                {{ $avg_wait_time < 60 ? gmdate('s', $avg_wait_time) . ' sec' : gmdate('i', $avg_wait_time) . ' min' }}
+                                            @else
+                                                0 sec
+                                            @endif
+                                            </span>
                                         </p>
                                         <p class="card-text text-muted mt-1">Last 30 tickets</p>
                                     </div>
