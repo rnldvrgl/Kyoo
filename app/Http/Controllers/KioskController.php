@@ -60,7 +60,7 @@ class KioskController extends Controller
     public function selectOtherDept()
     {
         // Get all departments sorted by name in ascending order
-        $departments = Department::orderBy('name', 'asc')->get();
+        $departments = Department::whereNotIn('id', [3, 4])->orderBy('name', 'asc')->get();
 
         // Return view with departments data
         return view('kiosk.other-department', compact('departments'));
