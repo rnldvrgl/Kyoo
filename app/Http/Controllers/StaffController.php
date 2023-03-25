@@ -13,22 +13,36 @@ class StaffController extends Controller
 {
     public function index(HomeController $homeController)
     {
-        // dd(Carbon::today()->startOfDay(), Carbon::today()->endOfDay());
+        // Create an instance of the QueueTicketController
+        $queueTicketController = new QueueTicketController();
         $user_data = $homeController->getUserData();
         $pendingTickets = $this->getPendingTickets();
         $servingTicket = $this->getServingTicket();
         $holdingTickets = $this->getOnHoldTickets();
+        $servedTickets = $this->getServedTickets();
+        $c_cancelled_tickets = $queueTicketController->countStaffCancelledTickets();
+        $c_completed_tickets = $queueTicketController->countStaffCompletedTickets();
+        $avg_serving_time = $queueTicketController->getAverageServiceTime();
+        $avg_wait_time = $queueTicketController->getAverageWaitingTime();
+
+
 
         return view(
             'dashboard.staff.regular-dashboard',
             [
+                'avg_wait_time' => $avg_wait_time,
+                'avg_serving_time' => $avg_serving_time,
+                'c_cancelled_tickets' => $c_cancelled_tickets,
+                'c_completed_tickets' => $c_completed_tickets,
                 'pendingTickets' => $pendingTickets,
                 'user_data' => $user_data,
                 'servingTicket' => $servingTicket,
-                'holdingTickets' => $holdingTickets
+                'holdingTickets' => $holdingTickets,
+                'servedTickets' => $servedTickets,
             ]
         );
     }
+
 
     public function getPendingTickets()
     {
@@ -85,5 +99,23 @@ class StaffController extends Controller
             ->get();
 
         return $HoldTickets;
+    }
+
+    public function getServedTickets()
+    {
+        $accountId = Auth::user()->id;
+        $account = Accounts::find($accountId);
+        $departmentId = $account->department_id;
+
+        // Get the staff member's department id
+        $servedTickets = QueueTicket::with('services')
+            ->where('login_id', session('account_id'))
+            ->where('department_id', $departmentId)
+            ->whereIn('status', ['Complete', 'Cancelled'])
+            ->whereBetween('created_at', [Carbon::today()->startOfDay(), Carbon::today()->endOfDay()])
+            ->orderBy('created_at', 'asc')
+            ->get();
+
+        return $servedTickets;
     }
 }

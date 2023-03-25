@@ -1,4 +1,4 @@
-<div class="card rounded-3 shadow w-100 px-4 pt-3 pb-4 mb-0"
+<div class="card rounded-5 shadow w-100 px-4 pt-3 pb-4 mb-0"
     style="border-left: 8px solid #a7d2ad; background-color: #f7f7f7; height: fit-content;">
     <div class="actions">
         <a class="icon" href="#" data-bs-toggle="dropdown"><i class="fa-solid fa-ellipsis-vertical"></i></a>
@@ -9,14 +9,16 @@
                     <i class="fas fa-check-circle me-2"></i> Complete
                 </button>
             </li>
-            <li>
-                <button class="transfer-ticket-btn dropdown-item transfer" type="button"
-                    data-queue-number="{{ $queueNumber }}" data-student-name="{{ $studentName }}"
-                    data-student-department="{{ $department }}" data-student-course="{{ $course }}"
-                    data-ticket-id="{{ $ticketId }}" data-status="On Hold">
-                    <i class="fa-solid fa-right-left"></i> For Payment
-                </button>
-            </li>
+            @if ($serviceDepartmentId == 1)
+                <li>
+                    <button class="transfer-ticket-btn dropdown-item transfer" type="button"
+                        data-queue-number="{{ $queueNumber }}" data-student-name="{{ $studentName }}"
+                        data-student-department="{{ $department }}" data-student-course="{{ $course }}"
+                        data-ticket-id="{{ $ticketId }}" data-status="On Hold">
+                        <i class="fa-solid fa-credit-card"></i> For Payment
+                    </button>
+                </li>
+            @endif
             <li>
                 <button class="cancel-ticket-btn dropdown-item cancel" type="button"
                     data-queue-number="{{ $queueNumber }}" data-ticket-id="{{ $ticketId }}"
@@ -50,36 +52,48 @@
         @endforeach
     </ul>
 
-    @switch($clearancestatus)
-        @case('Pending')
-            <span class="badge bg-kyooorange rounded-pill py-3">
-                <i class="fas fa-circle-notch fa-spin me-2"></i>
-                Requesting Clearance ...
-            </span>
-        @break
+    {{-- Notes --}}
+    @if ($notes)
+        <div class="alert alert-primary d-flex justify-content-center align-items-center p-2 mx-auto" role="alert">
+            <i class="fa-solid fa-circle-info me-2"></i>
+            <small class="text-center">
+                {{ $notes }}
+            </small>
+        </div>
+    @endif
 
-        @case('Cleared')
-            <span class="badge bg-success rounded-pill py-3">
-                <i class="fas fa-check-circle me-2"></i>
-                Clearance Cleared
-            </span>
-        @break
+    @if ($serviceDepartmentId == 1)
+        @switch($clearancestatus)
+            @case('Pending')
+                <span class="badge bg-kyooorange rounded-pill py-3">
+                    <i class="fas fa-circle-notch fa-spin me-2"></i>
+                    Requesting Clearance ...
+                </span>
+            @break
 
-        @case('Not Cleared')
-            <span class="badge bg-kyoored rounded-pill py-3">
-                <i class="fas fa-exclamation-circle me-2"></i>
-                Clearance Not Cleared
-            </span>
-        @break
+            @case('Cleared')
+                <span class="badge bg-success rounded-pill py-3">
+                    <i class="fas fa-check-circle me-2"></i>
+                    Clearance Cleared
+                </span>
+            @break
 
-        @default
-            <button class="request-clearance-btn btn btn-outline-kyooorange rounded-pill py-3 btn-sm" type="button"
-                data-queue-number="{{ $queueNumber }}" data-ticket-id="{{ $ticketId }}"
-                data-servicedepartment="{{ $serviceDepartment }}">
-                <i class="fas fa-question-circle me-2"></i>
-                Request Clearance
-            </button>
-    @endswitch
+            @case('Not Cleared')
+                <span class="badge bg-kyoored rounded-pill py-3">
+                    <i class="fas fa-exclamation-circle me-2"></i>
+                    Clearance Not Cleared
+                </span>
+            @break
+
+            @default
+                <button class="request-clearance-btn btn btn-outline-kyooorange rounded-pill py-3 btn-sm" type="button"
+                    data-queue-number="{{ $queueNumber }}" data-ticket-id="{{ $ticketId }}"
+                    data-servicedepartment="{{ $serviceDepartment }}">
+                    <i class="fas fa-question-circle me-2"></i>
+                    Request Clearance
+                </button>
+        @endswitch
+    @endif
 
 
 </div>

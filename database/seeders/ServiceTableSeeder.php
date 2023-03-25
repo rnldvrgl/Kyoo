@@ -17,12 +17,43 @@ class ServiceTableSeeder extends Seeder
      */
     public function run()
     {
-        $departmentIds = Department::pluck('id')->toArray();
+        $registrar = Department::where('name', 'Registrar')->first();
+        $cashier = Department::where('name', 'Cashier')->first();
+        $college_lib = Department::where('name', 'College Library')->first();
+        $hs_lib = Department::where('name', 'High School Library')->first();
+        $registrar_service = ['Request Document', 'Claim Requested Document', 'Add Subject', 'Change Subject', 'Drop Subject', 'Drop Course', 'Subject Crediting', 'Certification', 'Authentication', 'Verification', 'Transcript of Records', 'Transfer Credentials', 'Completion of Grades', 'Inquiry', 'Others'];
+        $cashier_service = ['Payment', 'Permit'];
 
-        Service::factory(10)->create([
-            'department_id' => function () use ($departmentIds) {
-                return Arr::random($departmentIds);
-            }
+        // Registrar
+        foreach ($registrar_service as $service_name) {
+            Service::create([
+                'department_id' => $registrar->id,
+                'name' => $service_name,
+                'status' => 'active'
+            ]);
+        }
+
+        // Cashier
+        foreach ($cashier_service as $service_name) {
+            Service::create([
+                'department_id' => $cashier->id,
+                'name' => $service_name,
+                'status' => 'active'
+            ]);
+        }
+
+        // College Library
+        Service::create([
+            'department_id' => $college_lib->id,
+            'name' => 'Clearance',
+            'status' => 'active'
+        ]);
+
+        // College Library
+        Service::create([
+            'department_id' => $hs_lib->id,
+            'name' => 'Clearance',
+            'status' => 'active'
         ]);
     }
 }

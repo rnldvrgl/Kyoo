@@ -10,6 +10,7 @@
     {{-- CSRF Token --}}
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+
     <title>@yield('mytitle') | Kyoo : Queueing Management System</title>
 
     {{-- Scripts --}}

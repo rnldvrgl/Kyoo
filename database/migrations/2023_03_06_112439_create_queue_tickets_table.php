@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('queue_tickets', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('login_id')->nullable()->constrained('account_logins')->onDelete('set null')->onUpdate('cascade');
             $table->foreignId('department_id')->constrained('departments')->onDelete('restrict')->onUpdate('cascade');
             $table->string('ticket_number');
             $table->string('student_name');
@@ -23,9 +24,11 @@ return new class extends Migration
             $table->string('status');
             $table->string('clearance_status')->nullable();
             $table->integer('waiting_time')->nullable();
-            $table->integer('service_time')->nullable();
+            $table->integer('serving_time')->nullable();
+            $table->integer('holding_time')->nullable();
             $table->dateTime('called_at')->nullable();
             $table->dateTime('served_at')->nullable();
+            $table->dateTime('hold_at')->nullable();
             $table->dateTime('completed_at')->nullable();
             $table->string('notes')->nullable();
             $table->date('date');

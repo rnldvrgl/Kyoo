@@ -11,7 +11,7 @@
 
 <x-layout :role='$role'>
     {{-- Dashboard Header Navbar --}}
-    <x-dashboard-header :details="$details" :role="$role" />
+    <x-dashboard-header :details="$details" :role="$role" :department="$department" />
 
     @if ($role->name === 'Main Admin')
         {{-- Dashboard Sidebar --}}
@@ -94,14 +94,16 @@
                                             {{ $details->name }}
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-4 label">
-                                            Department
+                                    @if ($department)
+                                        <div class="row">
+                                            <div class="col-lg-3 col-md-4 label">
+                                                Department
+                                            </div>
+                                            <div class="col-lg-9 col-md-8">
+                                                {{ $department->name }}
+                                            </div>
                                         </div>
-                                        <div class="col-lg-9 col-md-8">
-                                            {{ $department->name }}
-                                        </div>
-                                    </div>
+                                    @endif
                                     <div class="row">
                                         <div class="col-lg-3 col-md-4 label">
                                             Position

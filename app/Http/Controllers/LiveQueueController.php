@@ -22,7 +22,7 @@ class LiveQueueController extends Controller
         foreach ($departments as $department) {
             // Get the current ticket for this department
             $current_ticket = $tickets->where('department_id', $department->id)
-                ->whereIn('status', ['Pending', 'Called'])
+                ->whereIn('status', ['Pending', 'Calling'])
                 ->first();
 
             // Set the ticket number to null if no current ticket
@@ -41,7 +41,9 @@ class LiveQueueController extends Controller
     public function index()
     {
         // Get all departments
-        $departments = Department::all();
+
+        $departments = Department::whereNotIn('id', [3, 4])->get();
+
         $promotional_message = PromotionalText::all();
         $ticket_data = [
             'departments' => []
@@ -51,7 +53,7 @@ class LiveQueueController extends Controller
         foreach ($departments as $department) {
             // Get the current ticket for this department
             $current_ticket = QueueTicket::where('department_id', $department->id)
-                ->whereIn('status', ['Serving', 'Called'])
+                ->whereIn('status', ['Serving', 'Calling'])
                 ->first();
 
             // Set the ticket number to null if no current ticket

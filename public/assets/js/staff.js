@@ -45,6 +45,7 @@ $(document).ready(function () {
         const serviceDepartment = $(this).data("servicedepartment");
         const callCountSpan = $("#call-count");
         const firstButton = callTicketButtons.first();
+        const account_id = $(this).data("account-id");
 
         firstButton.attr("disabled", true);
         firstButton.html(
@@ -58,6 +59,7 @@ $(document).ready(function () {
         axios
             .put("/tickets/update-status/" + status, {
                 ticketId: ticketId,
+                account_id: account_id,
             })
             .then(function (response) {
                 // console.log(response);
@@ -91,6 +93,7 @@ $(document).ready(function () {
         // Get the ticket ID from the data attribute
         const status = $(this).data("status");
         const ticketId = $(this).data("ticket-id");
+        const account_id = $(this).data("account-id");
 
         axios.defaults.headers.common["X-CSRF-TOKEN"] = $(
             'meta[name="csrf-token"]'
@@ -99,6 +102,7 @@ $(document).ready(function () {
         axios
             .put("/tickets/update-status/" + status, {
                 ticketId: ticketId,
+                account_id: account_id,
             })
             .then(function (response) {
                 console.log(response);
@@ -113,6 +117,7 @@ $(document).ready(function () {
         // Get the ticket ID and status from the data attributes
         const status = $(this).data("status");
         const ticketId = $(this).data("ticket-id");
+        const account_id = $(this).data("account-id");
 
         // Show confirmation dialog with input field for notes
         $.confirm({
@@ -161,6 +166,7 @@ $(document).ready(function () {
                         axios
                             .put("/tickets/update-status/" + status, {
                                 ticketId: ticketId,
+                                account_id: account_id,
                                 notes: notes,
                             })
                             .then(function (response) {
@@ -215,6 +221,7 @@ $(document).ready(function () {
         const student_name = $(this).data("student-name");
         const student_course = $(this).data("student-course");
         const student_department = $(this).data("student-department");
+        const transfer_notes = "Transferred from Registrar";
 
         axios.defaults.headers.common["X-CSRF-TOKEN"] = $(
             'meta[name="csrf-token"]'
@@ -226,6 +233,7 @@ $(document).ready(function () {
                 student_name: student_name,
                 student_course: student_course,
                 student_department: student_department,
+                transfer_notes: transfer_notes,
             })
             .then(function (response) {
                 console.log(response);
