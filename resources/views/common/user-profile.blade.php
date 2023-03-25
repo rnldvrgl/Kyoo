@@ -11,7 +11,7 @@
 
 <x-layout :role='$role'>
     {{-- Dashboard Header Navbar --}}
-    <x-dashboard-header :details="$details" :role="$role" />
+    <x-dashboard-header :details="$details" :role="$role" :department="$department" />
 
     @if ($role->name === 'Main Admin')
         {{-- Dashboard Sidebar --}}

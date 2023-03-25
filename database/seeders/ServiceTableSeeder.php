@@ -21,7 +21,7 @@ class ServiceTableSeeder extends Seeder
         $cashier = Department::where('name', 'Cashier')->first();
         $college_lib = Department::where('name', 'College Library')->first();
         $hs_lib = Department::where('name', 'High School Library')->first();
-        $registrar_service = ['Request Document', 'Claim Requested Document', 'Add Subject', 'Change Subject', 'Drop Subject', 'Drop Course', 'Subject Crediting', 'Clearance', 'Certification', 'Authentication', 'Verification', 'Transcript of Records', 'Transfer Credentials', 'Completion of Grades', 'Inquiry', 'Others'];
+        $registrar_service = ['Request Document', 'Claim Requested Document', 'Add Subject', 'Change Subject', 'Drop Subject', 'Drop Course', 'Subject Crediting', 'Certification', 'Authentication', 'Verification', 'Transcript of Records', 'Transfer Credentials', 'Completion of Grades', 'Inquiry', 'Others'];
         $cashier_service = ['Payment', 'Permit'];
 
         // Registrar

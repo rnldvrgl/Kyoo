@@ -21,7 +21,7 @@ class RegistrarController extends Controller
         $holdingTickets = $this->getOnHoldTickets();
         $c_cancelled_tickets = $queueTicketController->countStaffCancelledTickets();
         $c_completed_tickets = $queueTicketController->countStaffCompletedTickets();
-        $avg_service_time = $queueTicketController->getAverageServiceTime();
+        $avg_serving_time = $queueTicketController->getAverageServiceTime();
         $avg_wait_time = $queueTicketController->getAverageWaitingTime();
 
 
@@ -29,7 +29,7 @@ class RegistrarController extends Controller
             'dashboard.staff.registrar-dashboard',
             [
                 'avg_wait_time' => $avg_wait_time,
-                'avg_service_time' => $avg_service_time,
+                'avg_serving_time' => $avg_serving_time,
                 'c_cancelled_tickets' => $c_cancelled_tickets,
                 'c_completed_tickets' => $c_completed_tickets,
                 'pendingTickets' => $pendingTickets,

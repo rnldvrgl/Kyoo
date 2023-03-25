@@ -170,13 +170,13 @@ class QueueTicketController extends Controller
 
     public function getAverageServiceTime()
     {
-        $avg_service_time = QueueTicket::where('login_id', session('account_id'))
+        $avg_serving_time = QueueTicket::where('login_id', session('account_id'))
             ->whereNotNull('served_at')
             ->orderByDesc('served_at')
             ->limit(30)
-            ->avg('service_time');
+            ->avg('serving_time');
 
-        return $avg_service_time;
+        return $avg_serving_time;
     }
 
     public function getAverageWaitingTime()
@@ -274,6 +274,7 @@ class QueueTicketController extends Controller
                 $course = $request->student_course;
                 $department_id = $department->id;
                 $service_id = $service->id;
+                $notes = $request->transfer_notes;
 
                 // retrieve department code
                 $department_code = '';
@@ -312,6 +313,7 @@ class QueueTicketController extends Controller
                 $new_ticket->ticket_number = $ticket_number;
                 $new_ticket->status = 'Pending';
                 $new_ticket->date = $today;
+                $new_ticket->notes = $notes;
                 $new_ticket->save();
 
                 // save selected services to queue_ticket_service table
@@ -388,9 +390,9 @@ class QueueTicketController extends Controller
                 }
             } elseif ($status === 'Complete') {
                 // Add timestamp to completed_at column
-                if (!$ticket->completed_at && !$ticket->service_time && $ticket->served_at) {
+                if (!$ticket->completed_at && !$ticket->serving_time && $ticket->served_at) {
                     $ticket->completed_at = now();
-                    $ticket->service_time = $ticket->completed_at->diffInSeconds($ticket->served_at);
+                    $ticket->serving_time = $ticket->completed_at->diffInSeconds($ticket->served_at);
                 }
             }
 

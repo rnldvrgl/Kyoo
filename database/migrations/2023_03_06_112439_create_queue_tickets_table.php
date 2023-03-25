@@ -24,9 +24,11 @@ return new class extends Migration
             $table->string('status');
             $table->string('clearance_status')->nullable();
             $table->integer('waiting_time')->nullable();
-            $table->integer('service_time')->nullable();
+            $table->integer('serving_time')->nullable();
+            $table->integer('holding_time')->nullable();
             $table->dateTime('called_at')->nullable();
             $table->dateTime('served_at')->nullable();
+            $table->dateTime('hold_at')->nullable();
             $table->dateTime('completed_at')->nullable();
             $table->string('notes')->nullable();
             $table->date('date');

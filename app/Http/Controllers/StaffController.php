@@ -19,25 +19,30 @@ class StaffController extends Controller
         $pendingTickets = $this->getPendingTickets();
         $servingTicket = $this->getServingTicket();
         $holdingTickets = $this->getOnHoldTickets();
+        $servedTickets = $this->getServedTickets();
         $c_cancelled_tickets = $queueTicketController->countStaffCancelledTickets();
         $c_completed_tickets = $queueTicketController->countStaffCompletedTickets();
-        $avg_service_time = $queueTicketController->getAverageServiceTime();
+        $avg_serving_time = $queueTicketController->getAverageServiceTime();
         $avg_wait_time = $queueTicketController->getAverageWaitingTime();
+
+
 
         return view(
             'dashboard.staff.regular-dashboard',
             [
                 'avg_wait_time' => $avg_wait_time,
-                'avg_service_time' => $avg_service_time,
+                'avg_serving_time' => $avg_serving_time,
                 'c_cancelled_tickets' => $c_cancelled_tickets,
                 'c_completed_tickets' => $c_completed_tickets,
                 'pendingTickets' => $pendingTickets,
                 'user_data' => $user_data,
                 'servingTicket' => $servingTicket,
-                'holdingTickets' => $holdingTickets
+                'holdingTickets' => $holdingTickets,
+                'servedTickets' => $servedTickets,
             ]
         );
     }
+
 
     public function getPendingTickets()
     {
@@ -65,11 +70,10 @@ class StaffController extends Controller
 
         // Get the staff member's department id
         $servingTicket = QueueTicket::with('services')
-            ->whereIn('id', function ($query) use ($departmentId, $accountId) {
+            ->whereIn('id', function ($query) use ($departmentId) {
                 $query->select(DB::raw('MAX(id)'))
                     ->from('queue_tickets')
                     ->where('department_id', $departmentId)
-                    ->where('account_id', $accountId)
                     ->where('status', 'Serving')
                     ->whereBetween('created_at', [Carbon::today()->startOfDay(), Carbon::today()->endOfDay()])
                     ->groupBy('department_id');
@@ -88,7 +92,6 @@ class StaffController extends Controller
         // Get the staff member's department id
         $HoldTickets = QueueTicket::with('services')
             ->where('department_id', $departmentId)
-            ->where('account_id', $accountId)
             ->where('status', 'On Hold')
             ->whereBetween('created_at', [Carbon::today()->startOfDay(), Carbon::today()->endOfDay()])
             ->whereNull('completed_at')
@@ -96,5 +99,23 @@ class StaffController extends Controller
             ->get();
 
         return $HoldTickets;
+    }
+
+    public function getServedTickets()
+    {
+        $accountId = Auth::user()->id;
+        $account = Accounts::find($accountId);
+        $departmentId = $account->department_id;
+
+        // Get the staff member's department id
+        $servedTickets = QueueTicket::with('services')
+            ->where('login_id', session('account_id'))
+            ->where('department_id', $departmentId)
+            ->whereIn('status', ['Complete', 'Cancelled'])
+            ->whereBetween('created_at', [Carbon::today()->startOfDay(), Carbon::today()->endOfDay()])
+            ->orderBy('created_at', 'asc')
+            ->get();
+
+        return $servedTickets;
     }
 }

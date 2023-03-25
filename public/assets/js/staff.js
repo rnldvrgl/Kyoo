@@ -221,6 +221,7 @@ $(document).ready(function () {
         const student_name = $(this).data("student-name");
         const student_course = $(this).data("student-course");
         const student_department = $(this).data("student-department");
+        const transfer_notes = "Transferred from Registrar";
 
         axios.defaults.headers.common["X-CSRF-TOKEN"] = $(
             'meta[name="csrf-token"]'
@@ -232,6 +233,7 @@ $(document).ready(function () {
                 student_name: student_name,
                 student_course: student_course,
                 student_department: student_department,
+                transfer_notes: transfer_notes,
             })
             .then(function (response) {
                 console.log(response);
