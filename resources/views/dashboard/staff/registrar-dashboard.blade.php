@@ -74,7 +74,7 @@
                                 @endforeach
                             @else
                                 <div class="text-center my-auto">
-                                    <p class="fw-bold fs-4 mb-0 text-muted">No Pending Ticket(s)</p>
+                                    <p class="fw-bold fs-4 mb-0 text-muted">No corresponding ticket(s)</p>
                                 </div>
                             @endif
                         </div>

@@ -5,6 +5,7 @@ const pendingTicketsTab = window.Echo.channel("public.pending-tickets");
     })
     .listen("PendingTicketsEvent", (e) => {
         let ticket = e.queueTicket;
+        let services = e.services;
 
         let hasCurrentServingTicket = false;
 
@@ -13,20 +14,12 @@ const pendingTicketsTab = window.Echo.channel("public.pending-tickets");
 
         // Content of each card
         let rowID = ticket.id;
+        let department_id = ticket.department_id;
         let ticketID = ticket.ticket_number;
         let createdAt = $.format.date(ticket.created_at, 'Y-m-d h:i:s A');
         let studentName = ticket.student_name;
         let department = ticket.student_department;
         let course = ticket.student_course;
-
-        // AJAX Fetch
-        let services = axios.get('/fetch-services/' + rowID)
-            .then(function (response) {
-                console.log(response);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
 
         // let servicedepartment = ;
         let clearanceStatus = ticket.clearance_status;
@@ -68,15 +61,8 @@ const pendingTicketsTab = window.Echo.channel("public.pending-tickets");
             </div>
             `;
 
-            pendingTab.append(ticketHasSomething);
-        } else {
-            let ticketHasNothing = `
-                <div class="text-center my-auto">
-                    <p class="fw-bold fs-4 mb-0 text-muted">No Pending Ticket(s)</p>
-                </div>
-            `;
-
-            pendingTab.append(ticketHasNothing);
+            // pendingTab.append(ticketHasSomething);
         }
-        console.log(ticket);
+
+        console.log(e);
     });

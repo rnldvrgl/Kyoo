@@ -207,7 +207,7 @@ Route::middleware(['auth', 'user-access:Staff'])->group(function () {
 	Route::put('/tickets/clearance/update-status/{status}', [QueueTicketController::class, 'signClearance'])->name('tickets.signClearance');
 
 	// Fetch Services
-	Route::get('/fetch-services/{id}', [QueueTicketController::class, 'fetchQueueTickets'])->name('tickets.fetchServices');
+	Route::get('/fetch-services/{id}', [QueueTicketController::class, 'fetchServices'])->name('tickets.fetchServices');
 })->name('staff');
 
 // * Logout

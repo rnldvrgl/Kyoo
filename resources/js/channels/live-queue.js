@@ -25,5 +25,5 @@ const liveQueueChannel = window.Echo.channel("public.live-queue");
 
         // console.log(ticket.ticket_number);
 
-        console.log(e)
+        console.log(ticket)
     });

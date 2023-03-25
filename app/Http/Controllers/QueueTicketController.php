@@ -365,11 +365,4 @@ class QueueTicketController extends Controller
             return response()->json(['success' => false, 'message' => 'Ticket not found']);
         }
     }
-
-    public function fetchQueueTickets($id)
-    {
-        $tickets = QueueTicketService::where('ticket_id', $id)->get();
-
-        return $tickets;
-    }
 }
