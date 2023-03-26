@@ -358,56 +358,25 @@ $(document).ready(function () {
     });
 
     // Pause Work
-    $(".pause-work-btn").click(function () {
-        var btn = $(this);
-        var startTime = new Date();
-
+    pauseWorkButton.click(function () {
         // Set the CSRF token for AJAX request
-        $.ajaxSetup({
-            headers: {
-                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-            },
-        });
+        axios.defaults.headers.common["X-CSRF-TOKEN"] = $(
+            'meta[name="csrf-token"]'
+        ).attr("content");
 
-        // Send a PUT request to the server to update the work status
-        $.ajax({
-            type: "PUT",
-            url: "/account/pause_work/",
-            data: { status: "On Break" },
-            success: function (response) {
-                console.log(response);
+        // Send a POST request to the server to update the work status
+        axios
+            .post("/pause_work", { status: "On Break" })
+            .then(function (response) {
+                console.log(response.data);
 
                 // Update the UI to show the user is on break
-                if (btn.hasClass("pause-work-btn")) {
-                    btn.removeClass("btn-outline-kyoodarkblue pause-work-btn");
-                    btn.addClass("btn-success resume-work-btn paused");
-                    btn.html(
-                        'Resume Work <i class="fa-solid fa-play ms-2"></i>'
-                    );
-
-                    // Show the end shift button
-                    $("#end-shift-btn").show();
-
-                    // Hide the pause work button
-                    btn.hide();
-
-                    // Calculate the duration of the break and update the UI
-                    var duration = new Date() - startTime;
-                    var breakDurationLabel = $(
-                        '<span class="badge rounded-pill bg-warning"></span>'
-                    ).text("On Break for " + formatDuration(duration));
-                    breakDurationLabel.insertAfter(btn);
-
-                    // Remove the break duration label after 5 seconds
-                    setTimeout(function () {
-                        breakDurationLabel.remove();
-                    }, 5000);
-                }
-            },
-            error: function (error) {
+                resumeWorkButton.removeClass("d-none");
+                pauseWorkButton.addClass("d-none");
+            })
+            .catch(function (error) {
                 console.log(error);
-            },
-        });
+            });
     });
 
     // Resume Work

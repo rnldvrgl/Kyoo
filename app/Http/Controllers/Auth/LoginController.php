@@ -14,6 +14,7 @@ use App\Providers\RouteServiceProvider;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
+use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
@@ -197,6 +198,18 @@ class LoginController extends Controller
         $user = Auth::user();
         $accountLogin = AccountLogin::where('email', $user->email)->first();
 
+        // Validate the request data
+        $validator = Validator::make($request->all(), [
+            'status' => 'required|in:On Break',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => $validator->errors()->first(),
+            ]);
+        }
+
         if ($accountLogin) {
             // Update the WorkSession record with the paused at time
             $workSession = WorkSession::where('login_id', $accountLogin->id)->orderBy('id', 'desc')->first();
@@ -212,22 +225,19 @@ class LoginController extends Controller
                 }
                 $workSession->save();
 
-                // toggle the visibility of the buttons based on whether the work is paused or resumed
-                $resumeWorkBtn = ($workSession->paused_at) ? true : false;
-                $pauseWorkBtn = (!$workSession->paused_at) ? true : false;
                 return response()->json([
                     'success' => true,
-                    'resume_work_btn' => $resumeWorkBtn,
-                    'pause_work_btn' => $pauseWorkBtn,
                 ]);
             }
 
             $accountLogin->updateAccountStatus($request->status);
+
             return response()->json(['success' => true]);
         } else {
             return response()->json(['success' => false, 'message' => 'Ticket not found']);
         }
     }
+
 
 
     // ! RESUME WORK 
