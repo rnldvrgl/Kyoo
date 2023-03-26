@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\LiveQueueEvent;
 use App\Http\Controllers\Controller;
+use App\Models\Accounts;
 use App\Models\DailyCounter;
 use App\Models\Department;
 use App\Models\QueueTicket;
@@ -11,6 +12,7 @@ use App\Models\QueueTicketService;
 use App\Models\Service;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -132,7 +134,87 @@ class QueueTicketController extends Controller
     }
 
 
+    // * FOR STAFF STATISTICS
+    // Count Cancelled Tickets per Staff
+    public function countStaffCancelledTickets()
+    {
+        $cancelledCount = 0;
+        $tickets = QueueTicket::all();
+
+        if ($tickets) {
+            foreach ($tickets as $ticket) {
+                if ($ticket->status == 'Cancelled' && $ticket->account_id == session('account_id')) {
+                    $cancelledCount++;
+                }
+            }
+        }
+
+        return $cancelledCount;
+    }
+
+
+    public function countStaffCompletedTickets()
+    {
+        $completedCount = 0;
+        $tickets = QueueTicket::all();
+
+        if ($tickets) {
+            foreach ($tickets as $ticket) {
+                if ($ticket->status == 'Completed' && $ticket->account_id == session('account_id')) {
+                    $completedCount++;
+                }
+            }
+        }
+
+        return $completedCount;
+    }
+
+    public function getAverageServiceTime()
+    {
+        $avg_serving_time = QueueTicket::where('login_id', session('account_id'))
+            ->whereNotNull('served_at')
+            ->orderByDesc('served_at')
+            ->limit(30)
+            ->avg('serving_time');
+
+        return $avg_serving_time;
+    }
+
+    public function getAverageWaitingTime()
+    {
+        $avg_wait_time = QueueTicket::where('login_id', session('account_id'))
+            ->whereNotNull('called_at')
+            ->orderByDesc('called_at')
+            ->limit(30)
+            ->avg('waiting_time');
+
+        return $avg_wait_time;
+    }
+
+
+
+
     // * FOR STAFF SERVING TICKET * //
+    public function getPendingTickets()
+    {
+        $accountId = Auth::user()->id;
+        $account = Accounts::find($accountId);
+        $departmentId = $account->department_id;
+
+        // Get the staff member's department id
+        $pendingTickets = QueueTicket::with('services')
+            ->where('department_id', $departmentId)
+            ->whereIn('status', ['Pending', 'Calling']) // use whereIn instead of where
+            ->whereBetween('created_at', [
+                Carbon::today()->startOfDay(), Carbon::today()->endOfDay()
+            ])
+            ->whereNull('completed_at')
+            ->orderBy('created_at', 'asc')
+            ->get();
+
+        return $pendingTickets;
+    }
+
     public function show($id)
     {
         $ticket = QueueTicket::findOrFail($id);
@@ -151,6 +233,10 @@ class QueueTicketController extends Controller
 
             if ($request->notes) {
                 $ticket->notes = $request->notes;
+            }
+
+            if ($request->account_id) {
+                $ticket->login_id = $request->account_id;
             }
 
             // Only update the clearance status if it's provided in the request
@@ -189,6 +275,7 @@ class QueueTicketController extends Controller
                 $course = $request->student_course;
                 $department_id = $department->id;
                 $service_id = $service->id;
+                $notes = $request->transfer_notes;
 
                 // retrieve department code
                 $department_code = '';
@@ -227,6 +314,7 @@ class QueueTicketController extends Controller
                 $new_ticket->ticket_number = $ticket_number;
                 $new_ticket->status = 'Pending';
                 $new_ticket->date = $today;
+                $new_ticket->notes = $notes;
                 $new_ticket->save();
 
                 // save selected services to queue_ticket_service table
@@ -303,9 +391,9 @@ class QueueTicketController extends Controller
                 }
             } elseif ($status === 'Complete') {
                 // Add timestamp to completed_at column
-                if (!$ticket->completed_at && !$ticket->service_time && $ticket->served_at) {
+                if (!$ticket->completed_at && !$ticket->serving_time && $ticket->served_at) {
                     $ticket->completed_at = now();
-                    $ticket->service_time = $ticket->completed_at->diffInSeconds($ticket->served_at);
+                    $ticket->serving_time = $ticket->completed_at->diffInSeconds($ticket->served_at);
                 }
             }
 

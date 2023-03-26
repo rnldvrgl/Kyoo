@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('details_id')->constrained('account_details')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('login_id')->constrained('account_logins')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('role_id')->constrained('account_roles')->onDelete('restrict')->onUpdate('cascade');
-            $table->foreignId('department_id')->constrained('departments')->onDelete('restrict')->onUpdate('cascade');
+            $table->foreignId('department_id')->nullable()->constrained('departments')->onDelete('restrict')->onUpdate('cascade');
             $table->timestamps();
         });
     }

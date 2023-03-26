@@ -17,7 +17,7 @@ class QueueTicket extends Model
         'status',
         'service_department_id',
         'waiting_time',
-        'service_time',
+        'serving_time',
         'called_at',
         'served_at',
         'completed_at',

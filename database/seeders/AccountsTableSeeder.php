@@ -29,7 +29,6 @@ class AccountsTableSeeder extends Seeder
             'details_id' => $accountDetails[0]->id,
             'login_id' => $accountLogin[0]->id,
             'role_id' => $main_admin->id,
-            'department_id' => $department->random()->id,
         ]);
 
         // Registrar
