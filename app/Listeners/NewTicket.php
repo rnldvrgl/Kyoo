@@ -16,6 +16,6 @@ class NewTicket
      */
     public function handle(PendingTicketsEvent $event)
     {
-        return $event;
+        return $event->queueTicket->id;
     }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Events;
 
+use App\Models\QueueTicket;
+use App\Models\QueueTicketService;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -15,15 +17,17 @@ class PendingTicketsEvent implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $queueTicket;
+    public $services;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($queueTicket)
+    public function __construct($queueTicket, $services)
     {
         $this->queueTicket = $queueTicket;
+        $this->services = $services;
     }
 
     /**

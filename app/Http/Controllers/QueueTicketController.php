@@ -8,6 +8,7 @@ use App\Models\Accounts;
 use App\Models\DailyCounter;
 use App\Models\Department;
 use App\Models\QueueTicket;
+use App\Models\QueueTicketService;
 use App\Models\Service;
 use Carbon\Carbon;
 use Illuminate\Http\Request;

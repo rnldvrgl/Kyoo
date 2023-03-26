@@ -43,7 +43,6 @@
         </div>
     </div>
 
-    {{-- Buttons --}}
     <div class="px-5">
         <div class="d-grid gap-2">
             <span class="text-center {{ $position > 1 ? 'd-none' : '' }} ">Calls: <span id="call-count">0</span></span>

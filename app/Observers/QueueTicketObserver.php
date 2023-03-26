@@ -5,6 +5,8 @@ namespace App\Observers;
 use App\Events\LiveQueueEvent;
 use App\Events\PendingTicketsEvent;
 use App\Models\QueueTicket;
+use App\Models\QueueTicketService;
+use Illuminate\Support\Facades\Log;
 
 class QueueTicketObserver
 {
@@ -17,7 +19,10 @@ class QueueTicketObserver
     public function created(QueueTicket $queueTicket)
     {
         if ($queueTicket->status == "Pending") {
-            event(new PendingTicketsEvent($queueTicket));
+            // Fetch the services of the created queue ticket
+            $services = QueueTicketService::where('ticket_id', $queueTicket->id)->with('service')->get()->pluck('service');
+
+            event(new PendingTicketsEvent($queueTicket, $services));
         }
     }
 

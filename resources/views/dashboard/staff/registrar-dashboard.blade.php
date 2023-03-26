@@ -60,7 +60,7 @@
 
                         {{-- Pending Tickets --}}
                         <div class="card-body px-4 pt-4 pb-2 d-flex flex-column justify-content-start"
-                            style="overflow-y: scroll; height: calc(100% - 55px);">
+                            style="overflow-y: scroll; height: calc(100% - 55px);" id="pending-tab">
                             <div id="notifications"></div>
 
                             @if (count($pendingTickets) > 0)
@@ -81,7 +81,7 @@
                                 @endforeach
                             @else
                                 <div class="text-center my-auto">
-                                    <p class="fw-bold fs-4 mb-0 text-muted">No Pending Ticket(s)</p>
+                                    <p class="fw-bold fs-4 mb-0 text-muted">No corresponding ticket(s)</p>
                                 </div>
                             @endif
                         </div>

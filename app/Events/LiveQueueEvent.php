@@ -14,7 +14,7 @@ class LiveQueueEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    private $queueTicket;
+    public $queueTicket;
 
     /**
      * Create a new event instance.
