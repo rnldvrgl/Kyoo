@@ -191,7 +191,7 @@ class LoginController extends Controller
     }
 
 
-    // ! TODO PAUSE WORK 
+    // ! PAUSE WORK 
     public function pauseWork(Request $request)
     {
         $user = Auth::user();
@@ -200,16 +200,56 @@ class LoginController extends Controller
         if ($accountLogin) {
             // Update the WorkSession record with the paused at time
             $workSession = WorkSession::where('login_id', $accountLogin->id)->orderBy('id', 'desc')->first();
-            if (
-                $workSession && !$workSession->end_time
-            ) {
-                $workSession->paused_at = now();
+            if ($workSession && !$workSession->end_time) {
+                if (!$workSession->paused_at) {
+                    // if not already paused, set the paused_at time
+                    $workSession->paused_at = now();
+                } else {
+                    // if already paused, set the resumed_at time and calculate the paused duration
+                    $workSession->resumed_at = now();
+                    $workSession->paused_duration += $workSession->resumed_at->diffInSeconds($workSession->paused_at);
+                    $workSession->paused_at = null;
+                }
                 $workSession->save();
+
+                // toggle the visibility of the buttons based on whether the work is paused or resumed
+                $resumeWorkBtn = ($workSession->paused_at) ? true : false;
+                $pauseWorkBtn = (!$workSession->paused_at) ? true : false;
+                return response()->json([
+                    'success' => true,
+                    'resume_work_btn' => $resumeWorkBtn,
+                    'pause_work_btn' => $pauseWorkBtn,
+                ]);
             }
 
             $accountLogin->updateAccountStatus($request->status);
-
             return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Ticket not found']);
+        }
+    }
+
+
+    // ! RESUME WORK 
+    public function resumeWork(Request $request)
+    {
+        $user = Auth::user();
+        $accountLogin = AccountLogin::where('email', $user->email)->first();
+
+        if ($accountLogin) {
+            // Find the latest work session that has not ended and not paused
+            $workSession = WorkSession::where('login_id', $accountLogin->id)
+                ->whereNull('end_time')
+                ->whereNull('paused_at')
+                ->orderBy('id', 'desc')
+                ->first();
+            if ($workSession) {
+                $workSession->resumed_at = now();
+                $workSession->save();
+                return response()->json(['success' => true]);
+            } else {
+                return response()->json(['success' => false, 'message' => 'No work session to resume']);
+            }
         } else {
             return response()->json(['success' => false, 'message' => 'Ticket not found']);
         }

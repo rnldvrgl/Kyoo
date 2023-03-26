@@ -219,6 +219,9 @@ Route::get('/end_shift', [LoginController::class, 'endShift'])->name('end_shift'
 // * Pause Work
 Route::put('/account/pause_work/', [LoginContoller::class, 'pauseWork'])->name('pause_work');
 
+// * Resume Work
+Route::put('/account/resume_work/', [LoginController::class, 'resumeWork'])->name('resume_work');
+
 // * User Profile
 Route::middleware('auth')->group(function () {
 	Route::get('/user_profile', [UserProfileController::class, 'index'])->name('user_profile');

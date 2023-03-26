@@ -4,13 +4,16 @@
     </div>
     <div class="card-body d-flex justify-content-center align-items-center py-sm-1 py-md-2 py-lg-3">
         <div class="d-grid w-100 gap-1">
-            <button class="btn btn-outline-kyoored rounded-pill" id="end-shift-btn" href="{{ route('end_shift') }}">
+            <button class="btn btn-outline-kyoored rounded-pill" id="end-shift-btn">
                 End Shift
                 <i class="fa-solid fa-door-closed ms-2"></i>
             </button>
-            <button class="btn btn-outline-kyoodarkblue pause-work-btn rounded-pill">
-                Pause Work
-                <i class="fa-solid fa-circle-pause ms-2"></i>
+
+            <button type="button" class="btn btn-outline-kyoodarkblue pause-work-btn rounded-pill">
+                <i class="fa-solid fa-pause"></i> Pause Work
+            </button>
+            <button type="button" class="btn btn-outline-success resume-work-btn rounded-pill">
+                <i class="fa-solid fa-play"></i> Resume Work
             </button>
         </div>
     </div>

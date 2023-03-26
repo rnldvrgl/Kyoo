@@ -8,7 +8,7 @@ $(document).ready(function () {
     const requestClearanceButtons = $(".request-clearance-btn");
     const clearButton = $(".cleared-btn");
     const notClearButton = $(".not-cleared-btn");
-
+    const resumeWorkButton = $(".resume-work-btn");
     const pauseWorkButton = $(".pause-work-btn");
 
     let callCount = 0;
@@ -358,43 +358,125 @@ $(document).ready(function () {
     });
 
     // Pause Work
-    pauseWorkButton.click(function () {
+    $(".pause-work-btn").click(function () {
         var btn = $(this);
+        var startTime = new Date();
 
         // Set the CSRF token for AJAX request
-        axios.defaults.headers.common["X-CSRF-TOKEN"] = $(
-            'meta[name="csrf-token"]'
-        ).attr("content");
+        $.ajaxSetup({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+        });
 
         // Send a PUT request to the server to update the work status
-        axios
-            .put("/account/pause_work/", {
-                status: "On Break",
-            })
-            .then(function (response) {
-                console.log(response.data);
+        $.ajax({
+            type: "PUT",
+            url: "/account/pause_work/",
+            data: { status: "On Break" },
+            success: function (response) {
+                console.log(response);
 
                 // Update the UI to show the user is on break
-                if (btn.hasClass("paused")) {
-                    btn.removeClass("btn-success resume-work-btn");
-                    btn.removeClass("paused");
+                if (btn.hasClass("pause-work-btn")) {
+                    btn.removeClass("btn-outline-kyoodarkblue pause-work-btn");
+                    btn.addClass("btn-success resume-work-btn paused");
+                    btn.html(
+                        'Resume Work <i class="fa-solid fa-play ms-2"></i>'
+                    );
+
+                    // Show the end shift button
+                    $("#end-shift-btn").show();
+
+                    // Hide the pause work button
+                    btn.hide();
+
+                    // Calculate the duration of the break and update the UI
+                    var duration = new Date() - startTime;
+                    var breakDurationLabel = $(
+                        '<span class="badge rounded-pill bg-warning"></span>'
+                    ).text("On Break for " + formatDuration(duration));
+                    breakDurationLabel.insertAfter(btn);
+
+                    // Remove the break duration label after 5 seconds
+                    setTimeout(function () {
+                        breakDurationLabel.remove();
+                    }, 5000);
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            },
+        });
+    });
+
+    // Resume Work
+    $(".resume-work-btn").click(function () {
+        var btn = $(this);
+        var startTime = new Date();
+
+        // Set the CSRF token for AJAX request
+        $.ajaxSetup({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+        });
+
+        // Send a PUT request to the server to update the work status
+        $.ajax({
+            type: "PUT",
+            url: "/account/resume_work/",
+            data: { status: "Working" },
+            success: function (response) {
+                console.log(response);
+
+                // Update the UI to show the user is working
+                if (btn.hasClass("resume-work-btn")) {
+                    btn.removeClass("btn-success resume-work-btn paused");
                     btn.addClass("btn-outline-kyoodarkblue pause-work-btn");
                     btn.html(
                         'Pause Work <i class="fa-solid fa-circle-pause ms-2"></i>'
                     );
+
+                    // Hide the end shift button
+                    $("#end-shift-btn").hide();
+
+                    // Show the pause work button
+                    btn.show();
+
+                    // Calculate the duration of the break and update the UI
+                    var duration = new Date() - startTime;
+                    var breakDurationLabel = $(
+                        '<span class="badge rounded-pill bg-warning"></span>'
+                    ).text("On Break for " + formatDuration(duration));
+                    breakDurationLabel.insertAfter(btn);
+
+                    // Remove the break duration label after 5 seconds
+                    setTimeout(function () {
+                        breakDurationLabel.remove();
+                    }, 5000);
                 }
-            })
-            .catch(function (error) {
+            },
+            error: function (error) {
                 console.log(error);
-            });
+            },
+        });
     });
 
-    //
-    //     // Resume work functionality here
-    // } else {
-    //     btn.removeClass("btn-outline-kyoodarkblue pause-work-btn");
-    //     btn.addClass("btn-success resume-work-btn paused");
-    //     btn.html('Resume Work <i class="fa-solid fa-play ms-2"></i>');
-    //     // Pause work functionality here
-    // }
+    // Helper function to format the duration in hh:mm:ss format
+    function formatDuration(duration) {
+        var hours = Math.floor(duration / 3600000);
+        var minutes = Math.floor((duration - hours * 3600000) / 60000);
+        var seconds = Math.floor(
+            (duration - hours * 3600000 - minutes * 60000) / 1000
+        );
+
+        return (
+            hours.toString().padStart(2, "0") +
+            ":" +
+            minutes.toString().padStart(2, "0") +
+            ":" +
+            seconds.toString().padStart(2, "0")
+        );
+    }
 });

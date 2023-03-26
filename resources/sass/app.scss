@@ -8,30 +8,38 @@
 
 // 4. Include any default map overrides here
 $custom-colors: (
-	"kyoored" : #8C3D3D,
-	"kyoodark" : #323232,
-	"kyooblue" : #17A2B8,
-	"kyoodarkblue" : #2C3E50,
-	"kyooorange" : #E67E22,
-	"kyooyellow" : #FFB400,
-	"kyoogreen" : #2F4C39,
+    "kyoored": #8c3d3d,
+    "kyoodark": #323232,
+    "kyooblue": #17a2b8,
+    "kyoodarkblue": #2c3e50,
+    "kyooorange": #e67e22,
+    "kyooyellow": #ffb400,
+    "kyoogreen": #2f4c39,
+    "pastel-peach": #ffe5b4,
+    "pastel-lavender": #e0b0ff,
+    "pastel-mint": #bdfcc9,
+    "pastel-blue": #b4dce7,
+    "pastel-green": #b7d6a1,
+    "pastel-yellow": #fce38a,
+    "pastel-pink": #f8c1c1,
+    "pastel-purple": #d8b6ff,
+    "pastel-orange": #ffd8b5,
+    "pastel-gray": #d9d9d9,
 );
 
-$theme-colors: map-merge($theme-colors , $custom-colors );
+$theme-colors: map-merge($theme-colors, $custom-colors);
 
 @import "../../node_modules/bootstrap/scss/bootstrap";
 
 // 8. Add additional custom code here
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
 
 :root {
-	--bs-body-font-family: 'Poppins',
-		sans-serif !important;
+    --bs-body-font-family: "Poppins", sans-serif !important;
 }
 
 // Globals SCSS
-@import 'globals';
+@import "globals";
 
 // Custom CSS
-@import 'custom';
+@import "custom";
