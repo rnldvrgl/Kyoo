@@ -9,7 +9,7 @@
 {{-- Page Title --}}
 @section('mytitle', $department->name . ' Dashboard')
 
-
+{{-- {{ dd($department); }} --}}
 
 <x-layout :role='$role'>
     {{-- Dashboard Header Navbar --}}
@@ -49,6 +49,7 @@
                         </div>
                         <div class="card-body p-4 d-flex flex-column justify-content-center align-items-center">
                             <div id="notifications"></div>
+                            {{-- {{ dd($p_hs_clearance_tickets) }} --}}
                             @switch($department->id)
                                 @case(3)
                                     @if ($p_c_clearance_tickets !== null && count($p_c_clearance_tickets) > 0)
@@ -75,7 +76,7 @@
                                 @break
 
                                 @case(4)
-                                    @if ($p_hs_clearance_tickets !== null && count($p_c_clearance_tickets) > 0)
+                                    @if ($p_hs_clearance_tickets !== null && count($p_hs_clearance_tickets) > 0)    
                                         @foreach ($p_hs_clearance_tickets as $key => $p_hs_clearance_ticket)
                                             <div class="my-1">
                                                 <x-pending-clearance-card id="queue-card-{{ $p_hs_clearance_ticket->id }}"
@@ -87,7 +88,7 @@
                                                     course="{{ $p_hs_clearance_ticket->student_course }}" :services="$p_hs_clearance_ticket->services
                                                         ->pluck('name')
                                                         ->toArray()"
-                                                    serviceDepartmentId="{{ $department->id }}" :position="$loop->index + 1"
+                                                    serviceDepartment="{{ $department->id }}" :position="$loop->index + 1"
                                                     clearancestatus="{{ $p_hs_clearance_ticket->clearance_status }}" />
                                             </div>
                                         @endforeach
