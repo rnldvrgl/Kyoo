@@ -16,7 +16,7 @@
 
 
     {{-- Dashboard Sidebar --}}
-    <x-dashboard-sidebar name="{{ $role->name }}" />
+    <x-dashboard-sidebar name="{{ $role->name }}" :role="$role" />
 
     <!-- Main Content -->
     <main id="main" class="main">
@@ -37,17 +37,16 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="row">
-                        {{-- Pending --}}
                         <div class="col-xxl-4 col-md-6">
-                            <div class="card bg-pastel-yellow text-kyoodark rounded-5 shadow-lg mb-4">
+                            <div class="card bg-secondary text-white rounded-5 shadow-lg mb-4">
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <h5 class="card-title  mb-0">Pending | Today</h5>
+                                        <h5 class="card-title mb-0 text-white">Pending | Today</h5>
                                         <div class="card-icon d-flex justify-content-center align-items-center">
-                                            <i class="fa-solid fa-stopwatch"></i>
+                                            <i class="fa-solid fa-stopwatch text-pastel-yellow"></i>
                                         </div>
                                     </div>
-                                    <hr class="border border-1 border-kyoodark my-0">
+                                    <hr class="border border-1 border-pastel-yellow my-0">
                                     <div class="d-flex justify-content-between align-items-end mt-3">
                                         <div class="h1 mb-0">{{ $pending_tickets }}</div>
                                         <div class="text-end">
@@ -60,16 +59,16 @@
 
                         {{-- Current Serving --}}
                         <div class="col-xxl-4 col-md-6">
-                            <div class="card bg-pastel-blue text-kyoodark rounded-5 shadow-lg mb-4">
+                            <div class="card bg-secondary text-white rounded-5 shadow-lg mb-4">
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <h5 class="card-title mb-0">Current Serving | Today</h5>
+                                        <h5 class="card-title mb-0 text-white">Current Serving | Today</h5>
                                         <div class="card-icon d-flex justify-content-center align-items-center">
-                                            <i class="fas fa-user-check"></i>
+                                            <i class="fas fa-user-check text-pastel-blue"></i>
                                         </div>
                                     </div>
 
-                                    <hr class="border border-1 border-kyoodark my-0">
+                                    <hr class="border border-1 border-pastel-blue my-0">
                                     <div class="d-flex justify-content-between align-items-end mt-3">
                                         <div class="h1 mb-0">{{ $serving_tickets }}</div>
                                         <div class="text-end">
@@ -82,16 +81,16 @@
 
                         {{-- Total Served --}}
                         <div class="col-xxl-4 col-md-6">
-                            <div class="card bg-pastel-mint text-kyoodark rounded-5 shadow-lg mb-4">
+                            <div class="card bg-secondary text-white rounded-5 shadow-lg mb-4">
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <h5 class="card-title mb-0">Served | Today</h5>
+                                        <h5 class="card-title mb-0 text-white ">Served | Today</h5>
                                         <div class="card-icon d-flex justify-content-center align-items-center">
-                                            <i class="fas fa-clipboard-check"></i>
+                                            <i class="fas fa-clipboard-check text-pastel-mint"></i>
                                         </div>
                                     </div>
 
-                                    <hr class="border border-1 border-kyoodark my-0">
+                                    <hr class="border border-1 border-pastel-mint my-0">
                                     <div class="d-flex justify-content-between align-items-end mt-3">
                                         <div class="h1 mb-0">{{ $served_tickets }}</div>
                                         <div class="text-end">
@@ -138,7 +137,7 @@
                         </div>
 
                         {{-- Most Selected Services (Pie Chart) --}}
-                        <div class="col-md-6">
+                        {{-- <div class="col-md-6">
                             <div class="card rounded-5 shadow-lg py-3">
                                 <div class="container-fluid">
                                     <div class="card-body">
@@ -161,13 +160,13 @@
 
                                         <div class="chart-container">
                                             <div id="pie-chart" class="w-100 h-100">
-                                                {{-- Insert Chart here --}}
+
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
 
                     </div>
                 </div>
@@ -175,7 +174,7 @@
 
                 <div class="col-lg-4">
                     {{-- Active Staff --}}
-                    <div class="card bg-pastel-green text-kyoodark rounded-5 shadow-lg mb-4">
+                    <div class="card bg-pastel-mint text-kyoodark rounded-5 shadow-lg mb-4">
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h5 class="card-title mb-0">Active Staff</h5>

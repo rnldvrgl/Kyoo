@@ -13,7 +13,7 @@
 
 
     {{-- Dashboard Sidebar --}}
-    <x-dashboard-sidebar name="{{ $role->name }}" />
+    <x-dashboard-sidebar name="{{ $role->name }}" :role="$role" />
 
     <!-- Main Content -->
     <main id="main" class="main">
