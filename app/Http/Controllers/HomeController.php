@@ -81,6 +81,7 @@ class HomeController extends Controller
 			'served_tickets' => $queueTicketController->countServedTickets(),
 			'cancelled_tickets' => $queueTicketController->countCancelledTickets(),
 			'years' => $queueTicketController->getYear(),
+			'departments' => $queueTicketController->getDepartments(),
 		]);
 	}
 

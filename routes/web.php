@@ -76,6 +76,9 @@ Route::middleware(['auth', 'user-access:Main Admin'])->group(function () {
 	// Fetch Data based on Year
 	Route::get('/fetch-queue-data/{year}', [QueueTicketController::class, 'getDataForYear'])->name('dashboard.fetch_queues');
 
+	// Fetch Data based on Year
+	Route::get('/fetch-department-data/{year}', [QueueTicketController::class, 'getDataForDepartment'])->name('dashboard.fetch_services');
+
 	// Manage Accounts
 	Route::prefix('main-admin/manage/accounts')->group(function () {
 		// Store Account

@@ -34,6 +34,7 @@
         </div>
         <h5 class="date mb-3"></h5>
         <section class="section dashboard">
+
             <div class="row">
                 <div class="col-lg-8">
                     <div class="row">
@@ -137,93 +138,44 @@
                             </div>
                         </div>
 
-                        <div class="col-12">
-                            <div class="card overflow-auto shadow">
-                                <div class="card-body">
-                                    <h5 class="card-title fw-bold">
-                                        Sample
-                                    </h5>
-                                    <table class="table-borderless datatable table">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">#</th>
-                                                <th scope="col">
-                                                    1
-                                                </th>
-                                                <th scope="col">Col</th>
-                                                <th scope="col">Col</th>
-                                                <th scope="col">Col</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <th scope="row">
-                                                    0
-                                                </th>
-                                                <td>
-                                                    1
+                        {{-- Most Selected Services (Pie Chart) --}}
+                        <div class="col-md-6">
+                            <div class="card rounded-5 shadow-lg py-3">
+                                <div class="container-fluid">
+                                    <div class="card-body">
+                                        <div class="col-12 mb-2">
+                                            <div class="row d-flex align-items-center">
+                                                <div class="col-lg-8">
+                                                    <h5 class="card-title fw-bold">Service Selection Report</h5>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <select name="department" id="department-dropdown"
+                                                        class="form-select rounded-5">
+                                                        @foreach ($departments['departments'] as $department)
+                                                            <option value="{{ $department }}">{{ $department->name }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
 
-                                                </td>
-                                                <td>
-                                                    2
-                                                </td>
-                                                <td>
-                                                    3
-
-                                                </td>
-                                                <td>
-                                                    4
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                        <div class="chart-container">
+                                            <div id="pie-chart" class="w-100 h-100">
+                                                {{-- Insert Chart here --}}
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12">
-                            <div class="card overflow-auto shadow">
-                                <div class="card-body pb-0">
-                                    <h5 class="card-title">
-                                        Sample
-                                    </h5>
-                                    <table class="table-borderless table">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">Col</th>
-                                                <th scope="col">Col</th>
-                                                <th scope="col">Col</th>
-                                                <th scope="col">Col</th>
-                                                <th scope="col">Col</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <th scope="row">
-                                                    0
-                                                </th>
-                                                <td>
-                                                    1
-                                                </td>
-                                                <td>
-                                                    2
-                                                </td>
-                                                <td>
-                                                    3
-                                                </td>
-                                                <td>
-                                                    4
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
 
-                {{-- Active Staff --}}
+
                 <div class="col-lg-4">
+                    {{-- Active Staff --}}
                     <div class="card bg-pastel-green text-kyoodark rounded-5 shadow-lg mb-4">
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center">
@@ -258,7 +210,8 @@
                                         <div
                                             class="card-body justify-content-center d-flex flex-column justify-content-center ">
                                             <div class="d-flex justify-content-between">
-                                                <h5 class="fw-bold text-secondary mb-0">{{ $department->name }}</h5>
+                                                <h5 class="fw-bold text-secondary mb-0">{{ $department->name }}
+                                                </h5>
                                                 <span
                                                     class="badge bg-primary">{{ $department->accounts->where('account_login.status', 'Logged In')->count() }}</span>
                                             </div>
@@ -286,11 +239,12 @@
                                                                         ->first();
                                                                 @endphp
                                                                 <li
-                                                                    class="list-group-item d-flex justify-content-between my-2">
+                                                                    class="list-group-item d-flex justify-content-between my-2 px-0">
                                                                     <div class="d-flex">
                                                                         <i
                                                                             class="fa-solid fa-user text-primary me-3"></i>
-                                                                        <h6 class="mb-0">{{ $staff }}</h6>
+                                                                        <h6 class="mb-0">{{ $staff }}
+                                                                        </h6>
                                                                     </div>
                                                                     <span
                                                                         class="badge rounded-pill {{ $staffAccount && $staffAccount->account_login && $staffAccount->account_login->status == 'On Break' ? 'bg-kyooyellow' : 'bg-kyoodarkblue' }}">
@@ -311,7 +265,8 @@
                                                     </div>
                                                 @else
                                                     <div class="d-flex justify-content-center mt-3">
-                                                        <p class="text-secondary text-center mb-0">All accounts in this
+                                                        <p class="text-secondary text-center mb-0">All accounts in
+                                                            this
                                                             department are idle</p>
                                                     </div>
                                                 @endif

@@ -64,7 +64,7 @@ class QueueTicketController extends Controller
 
         foreach ($tickets as $ticket) {
 
-            if ($ticket->status == 'Serving') {
+            if ($ticket->status == 'Serving' || $ticket->status == 'Calling') {
                 $servingCount++;
             }
         }
@@ -80,7 +80,7 @@ class QueueTicketController extends Controller
 
         foreach ($tickets as $ticket) {
 
-            if ($ticket->status == 'Served') {
+            if ($ticket->status == 'Complete' || $ticket->status == 'Cancelled') {
                 $servedCount++;
             }
         }
@@ -134,6 +134,38 @@ class QueueTicketController extends Controller
     }
 
 
+    // Fetch departments to display on the dropdown
+    // Fetch departments to display on the dropdown
+    public function getDepartments()
+    {
+        $departments = Department::whereIn('id', QueueTicket::distinct()->pluck('department_id'))
+            ->orderBy('name')
+            ->get();
+
+        return compact('departments');
+    }
+
+
+    // Fetch data based on the department selected from the dropdown
+    public function getDataForDepartment($department)
+    {
+        $data = QueueTicket::select('service', DB::raw('COUNT(*) as service_count'))
+            ->where('department_id', $department)
+            ->groupBy('service')
+            ->orderBy('service_count', 'desc')
+            ->get();
+
+        // get the department name using the relationship
+        $departmentName = QueueTicket::with('serviceDepartment')->find($department)->serviceDepartment->name;
+
+        // add department name to the data and return as JSON
+        $data = collect(['department' => $departmentName])->merge($data);
+        return response()->json($data);
+    }
+
+
+
+
     // * FOR STAFF STATISTICS
     // Count Cancelled Tickets per Staff
     public function countStaffCancelledTickets()
@@ -143,7 +175,7 @@ class QueueTicketController extends Controller
 
         if ($tickets) {
             foreach ($tickets as $ticket) {
-                if ($ticket->status == 'Cancelled' && $ticket->account_id == session('account_id')) {
+                if ($ticket->status == 'Cancelled' && $ticket->login_id == session('account_id')) {
                     $cancelledCount++;
                 }
             }
@@ -160,7 +192,7 @@ class QueueTicketController extends Controller
 
         if ($tickets) {
             foreach ($tickets as $ticket) {
-                if ($ticket->status == 'Completed' && $ticket->account_id == session('account_id')) {
+                if ($ticket->status == 'Complete' && $ticket->login_id == session('account_id')) {
                     $completedCount++;
                 }
             }
