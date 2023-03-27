@@ -42,6 +42,8 @@ class QueueTicketObserver
         if($queueTicket->clearance_status != null && $queueTicket->clearance_status == "Pending")
         {
             event(new RequestClearanceEvent($queueTicket));
+        } else if($queueTicket->clearance_status != null && $queueTicket->clearance_status == "Cleared"){
+            // 
         }
     }
 

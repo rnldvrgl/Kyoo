@@ -21,7 +21,7 @@
             <div class="d-flex justify-content-center" style="max-height: 90vh;">
                 <div class="col col-lg-10 px-2 d-flex flex-column" style="min-height: 100%;">
                     {{-- Pending Clearance --}}
-                    <div class="card rounded-5 shadow-lg mb-3 flex-grow-1">
+                    <div class="card rounded-5 shadow-lg mb-3 flex-grow-1" style="max-height: 50vh; overflow-y: auto;">
                         <div class="card-header bg-transparent text-kyoodark border-bottom border-success border-5">
                             <div class="container-fluid">
                                 <div class="d-flex justify-content-between align-items-center">
@@ -65,8 +65,9 @@
                                 </div>
                             </div>
                         </div>
-                        
-                        <div class="card-body p-4 d-flex flex-column justify-content-center align-items-center" id="pending-clearance">
+
+                        <div class="card-body p-4 d-flex flex-column justify-content-start pending-clearance"
+                            style="max-height: 50vh; overflow-y: auto;">
                             <div id="notifications"></div>
                             @switch($department->id)
                                 @case(3)
@@ -140,7 +141,7 @@
                             </div>
                         </div>
 
-                        <div class="card-body p-4 d-flex justify-content-start  flex-column gap-2"
+                        <div class="card-body p-4 d-flex justify-content-start flex-column gap-2"
                             style="max-height: 40vh; overflow-y: auto;">
                             @switch($department->id)
                                 @case(3)
