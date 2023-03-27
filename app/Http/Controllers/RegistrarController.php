@@ -47,17 +47,24 @@ class RegistrarController extends Controller
         $account = Accounts::find($accountId);
         $departmentId = $account->department_id;
 
-        // Get the staff member's department id
         $pendingTickets = QueueTicket::with('services')
-            ->where('department_id', $departmentId)
-            ->whereIn('status', ['Pending', 'Calling']) // use whereIn instead of where
-            ->whereBetween('created_at', [Carbon::today()->startOfDay(), Carbon::today()->endOfDay()])
-            ->whereNull('completed_at')
+            ->where(function ($query) use ($departmentId) {
+                $query->where(function ($query) {
+                    $query->whereNull('login_id')
+                        ->orWhere('login_id', session('account_id'));
+                });
+                $query->where('department_id', $departmentId)
+                    ->whereIn('status', ['Pending', 'Calling'])
+                    ->whereBetween('created_at', [Carbon::today()->startOfDay(), Carbon::today()->endOfDay()])
+                    ->whereNull('completed_at');
+            })
             ->orderBy('created_at', 'asc')
             ->get();
 
         return $pendingTickets;
     }
+
+
 
     public function getServingTicket()
     {
@@ -70,6 +77,7 @@ class RegistrarController extends Controller
             ->whereIn('id', function ($query) use ($departmentId) {
                 $query->select(DB::raw('MAX(id)'))
                     ->from('queue_tickets')
+                    ->where('login_id', session('account_id'))
                     ->where('department_id', $departmentId)
                     ->where('status', 'Serving')
                     ->whereBetween('created_at', [Carbon::today()->startOfDay(), Carbon::today()->endOfDay()])
@@ -88,6 +96,7 @@ class RegistrarController extends Controller
 
         // Get the staff member's department id
         $HoldTickets = QueueTicket::with('services')
+            ->where('login_id', session('account_id'))
             ->where('department_id', $departmentId)
             ->where('status', 'On Hold')
             ->whereBetween('created_at', [Carbon::today()->startOfDay(), Carbon::today()->endOfDay()])
