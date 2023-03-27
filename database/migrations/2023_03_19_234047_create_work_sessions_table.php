@@ -20,7 +20,6 @@ return new class extends Migration
             $table->dateTime('end_time')->nullable();
             $table->unsignedInteger('duration')->default(0);
             $table->dateTime('paused_at')->nullable();
-            $table->dateTime('resumed_at')->nullable();
             $table->unsignedInteger('paused_duration')->default(0);
             $table->timestamps();
         });

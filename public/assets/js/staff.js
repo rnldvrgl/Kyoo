@@ -10,6 +10,7 @@ $(document).ready(function () {
     const notClearButton = $(".not-cleared-btn");
     const resumeWorkButton = $("#resume-work-btn");
     const pauseWorkButton = $("#pause-work-btn");
+    const endShiftButton = $("#end-shift-btn");
 
     let callCount = 0;
 
@@ -382,8 +383,6 @@ $(document).ready(function () {
         });
     });
 
-    // ! TO DO
-
     // Pause Work
     pauseWorkButton.click(function () {
         // Set the CSRF token for AJAX request
@@ -405,6 +404,7 @@ $(document).ready(function () {
             });
     });
 
+    // Resume Work
     resumeWorkButton.click(function () {
         // Set the CSRF token for AJAX request
         axios.defaults.headers.common["X-CSRF-TOKEN"] = $(
@@ -425,7 +425,44 @@ $(document).ready(function () {
             });
     });
 
-    // ! / TO DO
+    // ! TO DO
+    // End Shift
+    endShiftButton.confirm({
+        title: "End Shift Confirmation",
+        content: "Are you sure you want to end your shift?",
+        theme: "Modern",
+        draggable: false,
+        typeAnimated: true,
+        buttons: {
+            confirm: {
+                text: "Yes",
+                btnClass: "btn-success rounded-pill",
+                action: function () {
+                    // Set the CSRF token for AJAX request
+                    axios.defaults.headers.common["X-CSRF-TOKEN"] = $(
+                        'meta[name="csrf-token"]'
+                    ).attr("content");
+
+                    // Send a POST request to the server to update the work status
+                    axios
+                        .post("/update-work-session", {
+                            status: "Logged Out",
+                        })
+                        .then(function (response) {
+                            // Redirect to the login page
+                            window.location.replace("/login");
+                        })
+                        .catch(function (error) {
+                            console.error(error);
+                        });
+                },
+            },
+            cancel: {
+                text: "No",
+                btnClass: "btn-outline-kyoored rounded-pill",
+            },
+        },
+    });
 
     // Helper function to format the duration in hh:mm:ss format
     function formatDuration(duration) {

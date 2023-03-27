@@ -37,18 +37,22 @@ class WorkSessionController extends Controller
                         $workSession->paused_at = now();
                         $workSession->save();
                     }
+                } else if ($status === 'Logged Out') {
+                    // End the work session and log out the user
+                    $workSession->end_time = now();
+                    $workSession->duration = Carbon::parse($workSession->start_time)->diffInSeconds(now()) - $workSession->paused_duration;
+                    $workSession->save();
+
+                    Auth::logout();
+
+                    return response()->json(['message' => 'Work status updated and user logged out.']);
                 } else {
-                    // Resume or end the work session
+                    // Resume the work session
                     if ($workSession->paused_at) {
-                        // Resume the work session
                         $workSession->paused_duration += Carbon::parse($workSession->paused_at)->diffInSeconds(now());
                         $workSession->paused_at = null;
-                    } else {
-                        // End the work session
-                        $workSession->end_time = now();
-                        $workSession->duration = Carbon::parse($workSession->start_time)->diffInSeconds(now()) - $workSession->paused_duration;
+                        $workSession->save();
                     }
-                    $workSession->save();
                 }
             }
 
@@ -58,6 +62,7 @@ class WorkSessionController extends Controller
             return response()->json(['error' => 'Account not found.'], 404);
         }
     }
+
 
     public function endShift(Request $request)
     {

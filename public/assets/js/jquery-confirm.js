@@ -80,28 +80,6 @@ $(document).ready(function () {
         },
     });
 
-    // End Shift Confirmation
-    $("button#end-shift-btn").confirm({
-        title: "End Shift Confirmation",
-        content: "Are you sure you want to end your shift?",
-        theme: "Modern",
-        draggable: false,
-        typeAnimated: true,
-        buttons: {
-            confirm: {
-                text: "Yes",
-                btnClass: "btn-kyoodark",
-                action: function () {
-                    location.href = this.$target.attr("href");
-                },
-            },
-            cancel: {
-                text: "No",
-                btnClass: "btn-kyoored",
-            },
-        },
-    });
-
     // Delete Account
     $("#accounts-table").on("click", ".delete-account", function () {
         var id = $(this).data("account-id");
