@@ -1,4 +1,4 @@
-<div class="card rounded-3 shadow w-100 px-4 pt-2 pb-3 mb-3" style="border-left: 8px solid #E67E22; background-color: #f7f7f7;">
+<div class="card rounded-5 shadow w-100 px-4 py-4" style="border-left: 8px solid #E67E22; background-color: #f7f7f7;">
     <div class="card-body">
         <h5 class="card-title pb-2 fw-bold">Student Information</h5>
         <table class="table table-hover align-middle mb-4">

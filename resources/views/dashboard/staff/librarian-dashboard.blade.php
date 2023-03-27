@@ -16,37 +16,56 @@
     <x-dashboard-header :details="$details" :role="$role" :department="$department" />
 
 
-    <main id="main" class="main px-2 mb-0">
+    <main id="main" class="main px-2">
         <section class="section dashboard">
             <div class="d-flex justify-content-center" style="max-height: 90vh;">
-
-
-                {{-- 1st Column --}}
                 <div class="col col-lg-10 px-2 d-flex flex-column" style="min-height: 100%;">
-                    {{-- Current Serving Ticket --}}
-                    <div class="card rounded-5 shadow-lg mb-3" style="flex: 1;">
+                    {{-- Pending Clearance --}}
+                    <div class="card rounded-5 shadow-lg mb-3 flex-grow-1">
                         <div class="card-header bg-transparent text-kyoodark border-bottom border-success border-5">
                             <div class="container-fluid">
                                 <div class="d-flex justify-content-between align-items-center">
-                                    @if (count($p_c_clearance_tickets) == 0 || count($p_c_clearance_tickets) == 1)
-                                        <h4 class="fw-bold mb-0">Pending Clearance
-                                            <span class="fw-light">|
-                                                {{ count($p_c_clearance_tickets) }} Pending
-                                            </span>
-                                        </h4>
-                                    @else
-                                        <h4 class="fw-bold mb-0">Pending Clearances
-                                            <span class="fw-light">|
-                                                {{ count($p_c_clearance_tickets) }} Pendings
-                                            </span>
-                                        </h4>
-                                    @endif
+                                    @switch($department->id)
+                                        @case(3)
+                                            @if (count($p_c_clearance_tickets) == 0 || count($p_c_clearance_tickets) == 1)
+                                                <h4 class="fw-bold mb-0">Pending Clearance
+                                                    <span class="fw-light">|
+                                                        {{ count($p_c_clearance_tickets) }} Pending
+                                                    </span>
+                                                </h4>
+                                            @else
+                                                <h4 class="fw-bold mb-0">Pending Clearances
+                                                    <span class="fw-light">|
+                                                        {{ count($p_c_clearance_tickets) }} Pendings
+                                                    </span>
+                                                </h4>
+                                            @endif
+                                        @break
+
+                                        @case(4)
+                                            @if (count($p_hs_clearance_tickets) == 0 || count($p_hs_clearance_tickets) == 1)
+                                                <h4 class="fw-bold mb-0">Pending Clearance
+                                                    <span class="fw-light">|
+                                                        {{ count($p_hs_clearance_tickets) }} Pending
+                                                    </span>
+                                                </h4>
+                                            @else
+                                                <h4 class="fw-bold mb-0">Pending Clearances
+                                                    <span class="fw-light">|
+                                                        {{ count($p_hs_clearance_tickets) }} Pendings
+                                                    </span>
+                                                </h4>
+                                            @endif
+                                        @break
+
+                                    @endswitch
                                     <span class="badge bg-success text-success rounded-circle p-1">
                                         <i class="fa-regular fa-circle"></i>
                                     </span>
                                 </div>
                             </div>
                         </div>
+                        
                         <div class="card-body p-4 d-flex flex-column justify-content-center align-items-center" id="pending-clearance">
                             <div id="notifications"></div>
                             @switch($department->id)
@@ -75,7 +94,7 @@
                                 @break
 
                                 @case(4)
-                                    @if ($p_hs_clearance_tickets !== null && count($p_hs_clearance_tickets) > 0)    
+                                    @if ($p_hs_clearance_tickets !== null && count($p_hs_clearance_tickets) > 0)
                                         @foreach ($p_hs_clearance_tickets as $key => $p_hs_clearance_ticket)
                                             <div class="my-1">
                                                 <x-pending-clearance-card id="queue-card-{{ $p_hs_clearance_ticket->id }}"
@@ -108,9 +127,8 @@
                         </div>
                     </div>
 
-
-                    {{-- Signed Clearances --}}
-                    <div class="card rounded-5 mb-0 shadow-lg" style="flex: 1;max-height: 40vh; overflow-y: auto;">
+                    {{-- Signed Clearance --}}
+                    <div class="card rounded-5 mb-0 shadow-lg flex-grow-1" style="max-height: 40vh; overflow-y: auto;">
                         <div class="card-header bg-transparent text-kyoodark border-bottom border-kyooblue border-5">
                             <div class="container-fluid">
                                 <div class="d-flex justify-content-between align-items-center">
@@ -122,7 +140,7 @@
                             </div>
                         </div>
 
-                        <div class="card-body p-4 d-flex justify-content-start align-items-center flex-column gap-2"
+                        <div class="card-body p-4 d-flex justify-content-start  flex-column gap-2"
                             style="max-height: 40vh; overflow-y: auto;">
                             @switch($department->id)
                                 @case(3)
@@ -152,7 +170,7 @@
                                     @if ($hs_signed_clearances !== null && count($hs_signed_clearances) > 0)
                                         @foreach ($hs_signed_clearances as $key => $hs_signed_clearance)
                                             <div class="my-1">
-                                                <x-pending-clearance-card id="queue-card-{{ $hs_signed_clearance->id }}"
+                                                <x-signed-clearance id="queue-card-{{ $hs_signed_clearance->id }}"
                                                     ticketId="{{ $hs_signed_clearance->id }}"
                                                     queueNumber="{{ $hs_signed_clearance->ticket_number }}"
                                                     queueTime="{{ $hs_signed_clearance->created_at->format('Y-m-d h:i:s A') }}"
@@ -187,12 +205,10 @@
                     {{-- Staff Actions --}}
                     <x-staff-actions />
 
-                    {{-- Serving Stats --}}
-                    {{-- <x-serving-stats avgServingTime="{{ $avg_serving_time }}"
-                        countCompletedTickets="{{ $c_completed_tickets }}"
-                        countCancelledTickets="{{ $c_cancelled_tickets }}" avgWaitTime="{{ $avg_wait_time }}" /> --}}
+
+                    {{-- Librarian Stats --}}
+                    <x-librarian-stats />
                 </div>
-            </div>
         </section>
     </main>
 

@@ -46,12 +46,14 @@ class StaffController extends Controller
 
     public function getPendingTickets()
     {
+        dd(session('account_id'));
         $accountId = Auth::user()->id;
         $account = Accounts::find($accountId);
         $departmentId = $account->department_id;
 
         // Get the staff member's department id
         $pendingTickets = QueueTicket::with('services')
+            ->whereIn('login_id', [null, session('account_id')])
             ->where('department_id', $departmentId)
             ->whereIn('status', ['Pending', 'Calling']) // use whereIn instead of where
             ->whereBetween('created_at', [Carbon::today()->startOfDay(), Carbon::today()->endOfDay()])
@@ -62,8 +64,11 @@ class StaffController extends Controller
         return $pendingTickets;
     }
 
+
     public function getServingTicket()
     {
+
+
         $accountId = Auth::user()->id;
         $account = Accounts::find($accountId);
         $departmentId = $account->department_id;
@@ -73,6 +78,7 @@ class StaffController extends Controller
             ->whereIn('id', function ($query) use ($departmentId) {
                 $query->select(DB::raw('MAX(id)'))
                     ->from('queue_tickets')
+                    ->where('login_id', session('account_id'))
                     ->where('department_id', $departmentId)
                     ->where('status', 'Serving')
                     ->whereBetween('created_at', [Carbon::today()->startOfDay(), Carbon::today()->endOfDay()])
@@ -91,6 +97,7 @@ class StaffController extends Controller
 
         // Get the staff member's department id
         $HoldTickets = QueueTicket::with('services')
+            ->where('login_id', session('account_id'))
             ->where('department_id', $departmentId)
             ->where('status', 'On Hold')
             ->whereBetween('created_at', [Carbon::today()->startOfDay(), Carbon::today()->endOfDay()])
