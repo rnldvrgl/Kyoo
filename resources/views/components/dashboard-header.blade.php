@@ -11,7 +11,7 @@
                 @endif
             </a>
 
-            @if ($role->name === 'Main Admin')
+            @if ($role->name === 'Main Admin' || $role->name === 'Department Admin')
                 <h5 class="text-white fw-light mb-0 ms-2 ">
                     {{ $role->name }} Dashboard
                 </h5>

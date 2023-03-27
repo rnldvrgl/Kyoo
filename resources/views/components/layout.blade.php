@@ -47,8 +47,10 @@
 
 </head>
 
-<body @auth class="{{ $role->name !== 'Main Admin' ? 'toggle-sidebar' : '' }}" @endauth data-bs-spy="scroll"
-    data-bs-target="#scrollspy" data-bs-root-margin="0px 0px -20% 0px" data-bs-smooth-scroll="true" tabindex="0">
+<body
+    @auth class="{{ $role->name !== 'Main Admin' || $role->name !== 'Department Admin' ? 'toggle-sidebar' : '' }}" @endauth
+    data-bs-spy="scroll" data-bs-target="#scrollspy" data-bs-root-margin="0px 0px -20% 0px" data-bs-smooth-scroll="true"
+    tabindex="0">
 
     <x-loading-screen />
 

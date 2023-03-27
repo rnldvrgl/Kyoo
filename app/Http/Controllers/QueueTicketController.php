@@ -133,8 +133,6 @@ class QueueTicketController extends Controller
         return response()->json($data);
     }
 
-
-    // Fetch departments to display on the dropdown
     // Fetch departments to display on the dropdown
     public function getDepartments()
     {
@@ -144,7 +142,6 @@ class QueueTicketController extends Controller
 
         return compact('departments');
     }
-
 
     // Fetch data based on the department selected from the dropdown
     public function getDataForDepartment($department)
@@ -163,9 +160,6 @@ class QueueTicketController extends Controller
         return response()->json($data);
     }
 
-
-
-
     // * FOR STAFF STATISTICS
     // Count Cancelled Tickets per Staff
     public function countStaffCancelledTickets()
@@ -183,7 +177,6 @@ class QueueTicketController extends Controller
 
         return $cancelledCount;
     }
-
 
     public function countStaffCompletedTickets()
     {
@@ -222,9 +215,6 @@ class QueueTicketController extends Controller
 
         return $avg_wait_time;
     }
-
-
-
 
     // * FOR STAFF SERVING TICKET * //
     public function getPendingTickets()

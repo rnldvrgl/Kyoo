@@ -13,9 +13,9 @@
     {{-- Dashboard Header Navbar --}}
     <x-dashboard-header :details="$details" :role="$role" :department="$department" />
 
-    @if ($role->name === 'Main Admin')
+    @if ($role->name === 'Main Admin' || $role->name === 'Department Admin')
         {{-- Dashboard Sidebar --}}
-        <x-dashboard-sidebar name="{{ $role->name }}" />
+        <x-dashboard-sidebar name="{{ $role->name }}" :role="$role" />
     @endif
 
 

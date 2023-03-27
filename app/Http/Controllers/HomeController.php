@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Accounts;
 use App\Models\AccountRole;
-use Illuminate\Http\Request;
 use App\Models\AccountDetails;
 use App\Models\AccountLogin;
 use App\Models\Department;
 use App\Models\Service;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -56,7 +56,7 @@ class HomeController extends Controller
 
 		$data = [
 			'departments' => $department,
-			// 'services' => $services,
+			'services' => $services,
 			'account_roles' => $role,
 			'account_logins' => $login,
 			'account_details' => $details,
@@ -64,6 +64,36 @@ class HomeController extends Controller
 
 		return $data;
 	}
+
+	public function getDepartmentAllData()
+	{
+		$accountLogin = AccountLogin::where('email', Auth::user()->email)->first();
+		$account = Accounts::where('login_id', $accountLogin->id)->first();
+		$department_id = $account->department_id;
+
+		$department = Department::find($department_id);
+
+		$role = AccountRole::where('name', '!=', 'Department Admin')->get();
+
+		$login = AccountLogin::join('accounts', 'accounts.login_id', '=', 'account_logins.id')
+			->where('accounts.department_id', $department->id)
+			->get();
+
+		$details = AccountDetails::where('id', $account->details_id)->get();
+
+		$services = Service::where('department_id', $department->id)->get();
+
+		$data = [
+			'departments' => [$department],
+			'services' => $services,
+			'account_roles' => $role,
+			'account_logins' => $login,
+			'account_details' => $details,
+		];
+
+		return $data;
+	}
+
 
 	// TODO: Isang function for dashboard, concat the role
 	public function main_admin(QueueTicketController $queueTicketController, StatisticsController $statsController)
@@ -85,10 +115,20 @@ class HomeController extends Controller
 		]);
 	}
 
-	public function department_admin()
+	public function department_admin(DepartmentAdminController $departmentAdminController, StatisticsController $statsController)
 	{
 		return view('dashboard.department_admin.dashboard', [
+			'totalStaff' =>  $statsController->countDepartmentTotalStaff(),
+			'activeStaff' => $statsController->countDepartmentActiveStaff(),
 			'user_data' => $this->getUserData(),
+			'all_data' => $this->getDepartmentAllData(),
+			'queue_ticket_data' => $departmentAdminController->getDepartmentQueueTickets(),
+			'pending_tickets' => $departmentAdminController->countDepartmentPendingTickets(),
+			'serving_tickets' => $departmentAdminController->countDepartmentServingTickets(),
+			'served_tickets' => $departmentAdminController->countDepartmentServedTickets(),
+			'cancelled_tickets' => $departmentAdminController->countDepartmentCancelledTickets(),
+			'years' => $departmentAdminController->getDepartmentYear(),
+			'departments' => $departmentAdminController->getDepartmentDataForYear(2023),
 		]);
 	}
 }

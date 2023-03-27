@@ -220,10 +220,8 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 // * End Shift
 Route::get('/end_shift', [LoginController::class, 'endShift'])->name('end_shift');
 
-// ! TO DO 
 // Update Work Session
 Route::post('/update-work-session', [WorkSessionController::class, 'updateWorkSession'])->name('work-session.update');
-// ! /TO DO
 
 // * User Profile
 Route::middleware('auth')->group(function () {
