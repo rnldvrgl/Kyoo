@@ -12,6 +12,8 @@ class Accounts extends Model
 
     protected $fillable = ['details_id', 'login_id', 'role_id', 'department_id'];
 
+    protected $with = ['account_details', 'account_login', 'account_role', 'department'];
+
     public function account_details()
     {
         return $this->belongsTo(AccountDetails::class, 'details_id');

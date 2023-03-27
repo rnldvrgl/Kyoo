@@ -47,9 +47,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card-body p-4 d-flex flex-column justify-content-center align-items-center">
+                        <div class="card-body p-4 d-flex flex-column justify-content-center align-items-center" id="pending-clearance">
                             <div id="notifications"></div>
-                            {{-- {{ dd($p_hs_clearance_tickets) }} --}}
                             @switch($department->id)
                                 @case(3)
                                     @if ($p_c_clearance_tickets !== null && count($p_c_clearance_tickets) > 0)
