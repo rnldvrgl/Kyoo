@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Events\LiveQueueEvent;
 use App\Events\PendingTicketsEvent;
+use App\Events\RequestClearanceEvent;
 use App\Models\QueueTicket;
 use App\Models\QueueTicketService;
 use Illuminate\Support\Facades\Log;
@@ -36,6 +37,11 @@ class QueueTicketObserver
     {
         if ($queueTicket->status == "Serving" || $queueTicket->status == "Calling") {
             event(new LiveQueueEvent($queueTicket));
+        }
+
+        if($queueTicket->clearance_status != null && $queueTicket->clearance_status == "Pending")
+        {
+            event(new RequestClearanceEvent($queueTicket));
         }
     }
 

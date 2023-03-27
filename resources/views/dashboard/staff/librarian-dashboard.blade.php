@@ -65,8 +65,8 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div class="card-body p-4 d-flex flex-column justify-content-center align-items-center">
+                        
+                        <div class="card-body p-4 d-flex flex-column justify-content-center align-items-center" id="pending-clearance">
                             <div id="notifications"></div>
                             @switch($department->id)
                                 @case(3)
