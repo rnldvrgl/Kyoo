@@ -66,7 +66,7 @@
                             </div>
                         </div>
 
-                        <div class="card-body p-4 d-flex flex-column justify-content-center"
+                        <div class="card-body p-4 d-flex flex-column justify-content-start"
                             style="max-height: 50vh; overflow-y: auto;">
                             <div id="notifications"></div>
                             @switch($department->id)
