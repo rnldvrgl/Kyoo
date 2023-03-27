@@ -16,6 +16,7 @@ use App\Http\Controllers\RegistrarController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\UserProfileController;
+use App\Http\Controllers\WorkSessionController;
 use App\Models\QueueTicket;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -216,10 +217,10 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 // * End Shift
 Route::get('/end_shift', [LoginController::class, 'endShift'])->name('end_shift');
 
-Route::post('/pause_work', [LoginController::class, 'pauseWork'])->name('pause_work');
-
-// * Resume Work
-Route::put('/account/resume_work', [LoginController::class, 'resumeWork'])->name('resume_work');
+// ! TO DO 
+// Update Work Session
+Route::post('/update-work-session', [WorkSessionController::class, 'updateWorkSession'])->name('work-session.update');
+// ! /TO DO
 
 // * User Profile
 Route::middleware('auth')->group(function () {

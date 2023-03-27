@@ -4,16 +4,17 @@
     </div>
     <div class="card-body d-flex justify-content-center align-items-center py-sm-1 py-md-2 py-lg-3">
         <div class="d-grid w-100 gap-1">
-            <button class="btn btn-outline-kyoored rounded-pill" id="end-shift-btn">
+            <button id="end-shift-btn" class="btn btn-outline-kyoored rounded-pill">
                 End Shift
                 <i class="fa-solid fa-door-closed ms-2"></i>
             </button>
 
-            <button type="button" class="btn btn-outline-kyoodarkblue pause-work-btn rounded-pill">
-                <i class="fa-solid fa-pause"></i> Pause Work
+            <button id="pause-work-btn" type="button" class="btn btn-outline-kyoodarkblue rounded-pill">
+                Take a Break <i class="fa-solid fa-pause ms-2"></i>
             </button>
-            <button type="button" class="btn btn-outline-success resume-work-btn rounded-pill">
-                <i class="fa-solid fa-play"></i> Resume Work
+
+            <button id="resume-work-btn" type="button" class="btn btn-outline-success rounded-pill d-none">
+                Resume Work <i class="fa-solid fa-play ms-2"></i>
             </button>
         </div>
     </div>

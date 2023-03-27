@@ -8,8 +8,8 @@ $(document).ready(function () {
     const requestClearanceButtons = $(".request-clearance-btn");
     const clearButton = $(".cleared-btn");
     const notClearButton = $(".not-cleared-btn");
-    const resumeWorkButton = $(".resume-work-btn");
-    const pauseWorkButton = $(".pause-work-btn");
+    const resumeWorkButton = $("#resume-work-btn");
+    const pauseWorkButton = $("#pause-work-btn");
 
     let callCount = 0;
 
@@ -106,6 +106,9 @@ $(document).ready(function () {
             })
             .then(function (response) {
                 console.log(response);
+
+                // Auto Refresh Page
+                location.reload();
             })
             .catch(function (error) {
                 console.log(error);
@@ -171,6 +174,11 @@ $(document).ready(function () {
                             })
                             .then(function (response) {
                                 console.log(response);
+
+                                // Auto Refresh Page
+                                setTimeout(() => {
+                                    location.reload();
+                                }, 1000);
                             })
                             .catch(function (error) {
                                 console.log(error);
@@ -207,6 +215,9 @@ $(document).ready(function () {
             })
             .then(function (response) {
                 console.log(response);
+
+                // Auto Refresh Page
+                location.reload();
             })
             .catch(function (error) {
                 console.log(error);
@@ -237,6 +248,9 @@ $(document).ready(function () {
             })
             .then(function (response) {
                 console.log(response);
+
+                // Auto Refresh Page
+                location.reload();
             })
             .catch(function (error) {
                 console.log(error);
@@ -283,6 +297,9 @@ $(document).ready(function () {
                         notificationElement.remove();
                     }, 300); // Wait for the duration of the fade-out animation (0.3 seconds)
                 }, 3000); // 3 seconds
+
+                // Auto Refresh Page
+                location.reload();
             })
             .catch(function (error) {
                 console.log(error);
@@ -307,6 +324,9 @@ $(document).ready(function () {
             })
             .then(function (response) {
                 console.log(response);
+
+                // Auto Refresh Page
+                location.reload();
             })
             .catch(function (error) {
                 console.log(error);
@@ -347,6 +367,11 @@ $(document).ready(function () {
                             )
                             .then(function (response) {
                                 console.log(response);
+
+                                // Auto Refresh Page
+                                setTimeout(() => {
+                                    location.reload();
+                                }, 1000);
                             })
                             .catch(function (error) {
                                 console.log(error);
@@ -357,6 +382,8 @@ $(document).ready(function () {
         });
     });
 
+    // ! TO DO
+
     // Pause Work
     pauseWorkButton.click(function () {
         // Set the CSRF token for AJAX request
@@ -366,71 +393,39 @@ $(document).ready(function () {
 
         // Send a POST request to the server to update the work status
         axios
-            .post("/pause_work", { status: "On Break" })
+            .post("/update-work-session", {
+                status: "On Break",
+            })
             .then(function (response) {
-                console.log(response.data);
-
-                // Update the UI to show the user is on break
-                resumeWorkButton.removeClass("d-none");
                 pauseWorkButton.addClass("d-none");
+                resumeWorkButton.removeClass("d-none");
             })
             .catch(function (error) {
-                console.log(error);
+                console.error(error);
             });
     });
 
-    // Resume Work
-    $(".resume-work-btn").click(function () {
-        var btn = $(this);
-        var startTime = new Date();
-
+    resumeWorkButton.click(function () {
         // Set the CSRF token for AJAX request
-        $.ajaxSetup({
-            headers: {
-                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-            },
-        });
+        axios.defaults.headers.common["X-CSRF-TOKEN"] = $(
+            'meta[name="csrf-token"]'
+        ).attr("content");
 
-        // Send a PUT request to the server to update the work status
-        $.ajax({
-            type: "PUT",
-            url: "/account/resume_work/",
-            data: { status: "Working" },
-            success: function (response) {
-                console.log(response);
-
-                // Update the UI to show the user is working
-                if (btn.hasClass("resume-work-btn")) {
-                    btn.removeClass("btn-success resume-work-btn paused");
-                    btn.addClass("btn-outline-kyoodarkblue pause-work-btn");
-                    btn.html(
-                        'Pause Work <i class="fa-solid fa-circle-pause ms-2"></i>'
-                    );
-
-                    // Hide the end shift button
-                    $("#end-shift-btn").hide();
-
-                    // Show the pause work button
-                    btn.show();
-
-                    // Calculate the duration of the break and update the UI
-                    var duration = new Date() - startTime;
-                    var breakDurationLabel = $(
-                        '<span class="badge rounded-pill bg-warning"></span>'
-                    ).text("On Break for " + formatDuration(duration));
-                    breakDurationLabel.insertAfter(btn);
-
-                    // Remove the break duration label after 5 seconds
-                    setTimeout(function () {
-                        breakDurationLabel.remove();
-                    }, 5000);
-                }
-            },
-            error: function (error) {
-                console.log(error);
-            },
-        });
+        // Send a POST request to the server to update the work status
+        axios
+            .post("/update-work-session", {
+                status: "Logged In",
+            })
+            .then(function (response) {
+                pauseWorkButton.removeClass("d-none");
+                resumeWorkButton.addClass("d-none");
+            })
+            .catch(function (error) {
+                console.error(error);
+            });
     });
+
+    // ! / TO DO
 
     // Helper function to format the duration in hh:mm:ss format
     function formatDuration(duration) {
