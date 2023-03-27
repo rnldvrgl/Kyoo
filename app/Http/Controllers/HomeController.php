@@ -126,6 +126,7 @@ class HomeController extends Controller
 			'pending_tickets' => $departmentAdminController->countDepartmentPendingTickets(),
 			'serving_tickets' => $departmentAdminController->countDepartmentServingTickets(),
 			'served_tickets' => $departmentAdminController->countDepartmentServedTickets(),
+			'completed_tickets' => $departmentAdminController->countDepartmentCompletedTickets(),
 			'cancelled_tickets' => $departmentAdminController->countDepartmentCancelledTickets(),
 			'years' => $departmentAdminController->getDepartmentYear(),
 			'departments' => $departmentAdminController->getDepartmentDataForYear(2023),

@@ -82,6 +82,23 @@ class DepartmentAdminController extends Controller
         return $servedCount;
     }
 
+    // Count Completed tickets for the department
+    public function countDepartmentCompletedTickets()
+    {
+        $completeCount = 0;
+        $tickets = $this->department_queue_ticket_data['queueTickets'];
+
+        foreach ($tickets as $ticket) {
+            if (
+                $ticket->status == 'Complete'
+            ) {
+                $completeCount++;
+            }
+        }
+
+        return $completeCount;
+    }
+
     // Count Cancelled tickets for the department
     public function countDepartmentCancelledTickets()
     {

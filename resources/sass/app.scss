@@ -25,6 +25,13 @@ $custom-colors: (
     "pastel-purple": #d8b6ff,
     "pastel-orange": #ffd8b5,
     "pastel-gray": #d9d9d9,
+    "pastel-red": #ffb6c1,
+        "pastel-coral": #ffb6c1,
+        "pastel-teal": #add8e6,
+        "pastel-lilac": #c8a2c8,
+        "pastel-salmon": #fa8072,
+        "pastel-sky-blue": #87ceeb,
+        "pastel-mauve": #e0b0ff,
 );
 
 $theme-colors: map-merge($theme-colors, $custom-colors);
