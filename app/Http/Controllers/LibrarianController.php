@@ -18,11 +18,15 @@ class LibrarianController extends Controller
         $p_hs_clearance_tickets = $this->getHSPendingClearances();
         $c_signed_clearances = $this->getCollegeSignedClearance();
         $hs_signed_clearances = $this->getHSSignedClearance();
-        $count_c_signed_clearances = count($c_signed_clearances);
+        $count_signed_clearances = $this->countSignedClearance();
+        $count_completed_clearances = $this->countCompletedClearance();
+        $count_uncleared_clearances = $this->countUnclearedClearance();
         return view(
             'dashboard.staff.librarian-dashboard',
             [
-                'count_c_signed_clearances' => $count_c_signed_clearances,
+                'count_completed_clearances' => $count_completed_clearances,
+                'count_uncleared_clearances' => $count_uncleared_clearances,
+                'count_signed_clearances' => $count_signed_clearances,
                 'c_signed_clearances' => $c_signed_clearances,
                 'hs_signed_clearances' => $hs_signed_clearances,
                 'p_hs_clearance_tickets' => $p_hs_clearance_tickets,
@@ -123,28 +127,48 @@ class LibrarianController extends Controller
             }
         }
 
-        return [$signedCollegeCount, $signedHSCount];
+        return ['signedCollegeCount' => $signedCollegeCount, 'signedHSCount' => $signedHSCount];
     }
 
-    public function getAverageServiceTime()
+    public function countCompletedClearance()
     {
-        $avg_serving_time = QueueTicket::where('login_id', session('account_id'))
-            ->whereNotNull('served_at')
-            ->orderByDesc('served_at')
-            ->limit(30)
-            ->avg('serving_time');
+        $clearedCollegeCount = 0;
+        $clearedHSCount = 0;
+        $tickets = QueueTicket::all();
 
-        return $avg_serving_time;
+        if ($tickets) {
+            foreach ($tickets as $ticket) {
+                if ($ticket->clearance_status == 'Cleared') {
+                    if ($ticket->student_department == 'College' || $ticket->student_department == 'Graduate School') {
+                        $clearedCollegeCount++;
+                    } elseif ($ticket->student_department == 'Junior High School' || $ticket->student_department == 'Senior High School') {
+                        $clearedHSCount++;
+                    }
+                }
+            }
+        }
+
+        return ['clearedCollegeCount' => $clearedCollegeCount, 'clearedHSCount' => $clearedHSCount];
     }
 
-    public function getAverageWaitingTime()
+    public function countUnclearedClearance()
     {
-        $avg_wait_time = QueueTicket::where('login_id', session('account_id'))
-            ->whereNotNull('called_at')
-            ->orderByDesc('called_at')
-            ->limit(30)
-            ->avg('waiting_time');
+        $unclearedCollegeCount = 0;
+        $unclearedHSCount = 0;
+        $tickets = QueueTicket::all();
 
-        return $avg_wait_time;
+        if ($tickets) {
+            foreach ($tickets as $ticket) {
+                if ($ticket->clearance_status == 'Not Cleared') {
+                    if ($ticket->student_department == 'College' || $ticket->student_department == 'Graduate School') {
+                        $unclearedCollegeCount++;
+                    } elseif ($ticket->student_department == 'Junior High School' || $ticket->student_department == 'Senior High School') {
+                        $unclearedHSCount++;
+                    }
+                }
+            }
+        }
+
+        return ['unclearedCollegeCount' => $unclearedCollegeCount, 'unclearedHSCount' => $unclearedHSCount];
     }
 }

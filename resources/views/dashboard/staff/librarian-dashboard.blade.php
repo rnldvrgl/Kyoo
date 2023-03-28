@@ -206,9 +206,9 @@
                     {{-- Staff Actions --}}
                     <x-staff-actions />
 
-
                     {{-- Librarian Stats --}}
-                    <x-librarian-stats collegeCountSC="{{ $count_c_signed_clearances }}" />
+                    <x-librarian-stats :countSignedClearances="$count_signed_clearances" :countClearedClearances="$count_completed_clearances" :countUnclearedClearances="$count_uncleared_clearances"
+                        departmentId="{{ $department->id }}" />
                 </div>
         </section>
     </main>
