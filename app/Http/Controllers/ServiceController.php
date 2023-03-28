@@ -233,4 +233,12 @@ class ServiceController extends Controller
 
         return response()->json(['code' => 200, 'success' => 'Services modified successfully.']);
     }
+
+    public function destroy(Service $service)
+    {
+        $service->delete();
+
+        // Redirect to the index page with a success message
+        return response()->json(['code' => 200, 'message' => 'Service deleted successfully']);
+    }
 }

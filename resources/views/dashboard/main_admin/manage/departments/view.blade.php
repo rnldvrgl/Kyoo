@@ -137,14 +137,25 @@
                                             @foreach ($services->sortBy('name') as $service)
                                                 <li
                                                     class="list-group-item d-flex justify-content-between align-items-center">
-                                                    <div>{{ $service->name }}</div>
-                                                    @if ($service->status == 'active')
-                                                        <span
-                                                            class="badge bg-success rounded-pill">{{ $service->status }}</span>
-                                                    @elseif ($service->status == 'inactive')
-                                                        <span
-                                                            class="badge bg-danger rounded-pill">{{ $service->status }}</span>
-                                                    @endif
+                                                    <div>
+                                                        {{ $service->name }}
+                                                    </div>
+
+                                                    <div
+                                                        class="d-flex justify-content-between align-items-center gap-5">
+                                                        @if ($service->status == 'active')
+                                                            <span
+                                                                class="badge bg-success rounded-pill p-2">{{ $service->status }}</span>
+                                                        @elseif ($service->status == 'inactive')
+                                                            <span
+                                                                class="badge bg-danger rounded-pill">{{ $service->status }}</span>
+                                                        @endif
+
+                                                        <button class="btn btn-danger rounded-circle delete-service"
+                                                            data-id="{{ $service->id }}">
+                                                            <i class="fa-solid fa-trash-can"></i>
+                                                        </button>
+                                                    </div>
                                                 </li>
                                             @endforeach
                                         </ul>
@@ -243,7 +254,6 @@
                                 <tr>
                                     <th>Service/s</th>
                                     <th>Status</th>
-                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -253,14 +263,9 @@
 
                         {{-- Buttons --}}
                         <div class="text-center">
-                            <button class="btn btn-kyoored">
-                                <i class="fas fa-trash me-2"></i>
-                                Delete All
-                            </button>
-
                             <button class="btn btn-success" id="btn-update-services">
                                 Update
-                                <i class="fa-solid fa-chevron-right"></i>
+                                <i class="fas fa-pencil-alt"></i>
                             </button>
                         </div>
                     </div>
@@ -284,11 +289,11 @@
                         data: 'name',
                         name: 'name',
                         render: function(data) {
-                            return '<input class="form-control w-100" name="name" type="text" value="' +
+                            return '<input class="form-control w-100"  name="name"  type="text" value="' +
                                 data +
                                 '" style="max-width: 90%;">';
                         },
-                        width: '60%',
+                        width: '70%',
                         targets: 0,
                         padding: '10px',
                         orderable: true,
@@ -318,12 +323,12 @@
                         name: 'actions',
                         orderable: false,
                         searchable: false,
-                        className: 'text-center',
-                        width: '10%',
+                        className: 'd-none',
+                        width: '0%',
                         targets: 2,
                         padding: '10px',
                         render: function(data, type, full, meta) {
-                            return '<button class="btn btn-danger btn-delete remove-service" data-id="' +
+                            return '<button class="d-none btn btn-danger btn-delete remove-service" data-id="' +
                                 full.id +
                                 '"><i class="fa fa-trash"></i></button>';
                         }
@@ -342,23 +347,43 @@
                 ],
             });
 
-            $('#services-table').on('click', '.remove-service', function() {
-                let row = $(this).closest('tr');
+            $('body').on('click', '.delete-service', function(e) {
+                e.preventDefault();
+                let serviceId = $(this).data('id');
+                let serviceUrl = "{{ route('services.destroy', ':service') }}".replace(':service',
+                    serviceId);
+
                 $.confirm({
                     type: "red",
-                    title: 'Remove Confirmation',
+                    title: 'Delete Confirmation!',
                     icon: "fa-solid fa-trash-can",
-                    content: 'Are you sure you want to remove this service?',
+                    content: 'Are you sure you want to delete this service?',
                     theme: "Modern",
                     draggable: false,
                     typeAnimated: true,
                     buttons: {
-                        confirm: function() {
-                            row.remove();
-                            // Add an AJAX request to remove the service from the database here
+                        confirm: {
+                            text: "Yes",
+                            btnClass: "btn-success rounded-pill",
+                            confirm: function() {
+                                axios.delete(serviceUrl)
+                                    .then(response => {
+                                        console.log(response);
+                                        // Remove the service from the DOM
+                                        $(this).closest('li').remove();
+                                        location.reload();
+                                    })
+                                    .catch(error => {
+                                        console.log(error);
+                                    });
+                            }
                         },
-                        cancel: function() {
-                            // Do nothing
+                        cancel: {
+                            text: "No",
+                            btnClass: "btn-outline-kyoored rounded-pill",
+                            action: function() {
+                                // do nothing
+                            },
                         }
                     }
                 });

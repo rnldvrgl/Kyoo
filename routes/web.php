@@ -166,6 +166,9 @@ Route::middleware(['auth', 'user-access:Main Admin'])->group(function () {
 
 		// Update Services
 		Route::post('/update-services', [ServiceController::class, 'update'])->name('manage.services.update');
+
+		// Delete Service
+		Route::delete('/services/{service}', [ServiceController::class, 'destroy'])->name('services.destroy');
 	});
 
 	// Manage Promotionals
@@ -237,6 +240,9 @@ Route::middleware(['auth', 'user-access:Department Admin'])->group(function () {
 
 		// Update Services
 		Route::post('/update-department-services', [ServiceController::class, 'update'])->name('manage.department_services.update');
+
+		// Delete Service
+		Route::delete('/department-services/{service}', [ServiceController::class, 'destroy'])->name('department_services.destroy');
 	});
 })->name('department_admin');
 
