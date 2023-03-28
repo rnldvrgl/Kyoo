@@ -310,7 +310,7 @@ $(document).ready(function () {
     // * Librarian
 
     // Clear Clearance
-    clearButton.click(function () {
+    $(document).on("click", ".cleared-btn", function () {
         // Get the ticket ID from the data attribute
         const clearance_status = $(this).data("clearance_status");
         const ticketId = $(this).data("ticket-id");
@@ -335,7 +335,7 @@ $(document).ready(function () {
     });
 
     // Clear Clearance
-    notClearButton.click(function () {
+    $(document).on("click", ".not-cleared-btn", function () {
         // Get the ticket ID from the data attribute
         const clearance_status = $(this).data("clearance_status");
         const ticketId = $(this).data("ticket-id");

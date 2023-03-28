@@ -1,16 +1,20 @@
-const requestClearanceChannel = window.Echo.channel("public.request-clearance");
+$(document).ready(function () {
+    const requestClearanceChannel = window.Echo.channel(
+        "public.request-clearance"
+    );
 
-requestClearanceChannel
-    .subscribed((e) => {
-        console.log("Subscribed");
-    })
-    .listen(".request-clearance", (e) => {
-        const ticket = e.queueTicket;
+    requestClearanceChannel
+        .subscribed((e) => {
+            console.log("Subscribed");
+        })
+        .listen(".request-clearance", (e) => {
+            const ticket = e.queueTicket;
 
-        let pendingClearanceDisplay = $(".pending-clearance");
+            let c_clearance = $(".c-pending-clearance");
+            let hs_clearance = $(".hs-pending-clearance");
 
-        if (ticket) {
-            let ticketHasSomething = `
+            if (ticket) {
+                let ticketHasSomething = `
             <div class="my-1">
                 <div class="card rounded-5 shadow w-100 px-4 py-4" style="border-left: 8px solid #E67E22; background-color: #f7f7f7;">
                     <div class="card-body">
@@ -45,26 +49,19 @@ requestClearanceChannel
             </div>
             `;
 
-            if (
-                ticket.student_department == "College" ||
-                ticket.student_department == "Graduate School"
-            ) {
-                pendingClearanceDisplay.append(ticketHasSomething);
-            } else if (
-                ticket.student_department == "Senior High School" ||
-                ticket.student_department == "Junior High School"
-            ) {
-                pendingClearanceDisplay.append(ticketHasSomething);
+                if (
+                    ticket.student_department == "College" ||
+                    ticket.student_department == "Graduate School"
+                ) {
+                    c_clearance.append(ticketHasSomething);
+                } else if (
+                    ticket.student_department == "Senior High School" ||
+                    ticket.student_department == "Junior High School"
+                ) {
+                    hs_clearance.append(ticketHasSomething);
+                }
             }
-        } else {
-            let ticketHasNothing = `
-            <div class="text-center my-auto">
-                <p class="fw-bold fs-4 mb-0 text-muted">No Signed Clearance Yet</p>
-            </div>
-            `;
 
-            pendingClearanceDisplay.html(ticketHasNothing);
-        }
-
-        console.log(ticket);
-    });
+            console.log(e);
+        });
+});
