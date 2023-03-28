@@ -5,6 +5,7 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DepartmentAccountController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\DepartmentServiceController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\HomeController;
@@ -214,6 +215,32 @@ Route::middleware(['auth', 'user-access:Department Admin'])->group(function () {
 
 		// Delete Account
 		Route::delete('/delete-account/{id}', [DepartmentAccountController::class, 'destroy'])->name('manage.department_accounts.delete');
+	});
+
+
+	// Manage Services
+	Route::prefix('main-admin/manage/services')->group(function () {
+
+		// View Department
+		Route::post('/view-department-services', [DepartmentServiceController::class, 'show'])->name('manage.departments-services.show');
+
+		// Store Service from View Department 
+		Route::post('/add-department-service', [DepartmentServiceController::class, 'store'])->name('manage.departments-services.add');
+
+		// Store Service from Services List
+		Route::post('/add-department-service-from-list', [DepartmentServiceController::class, 'storeServicesFromList'])->name('manage.department-services-from-list.add');
+
+		// List of Services
+		Route::get('/edit-department-service', [DepartmentServiceController::class, 'index'])->name('manage.department-services.index');
+
+		// Fetch Services
+		Route::get('/fetch-department-services/{id}', [DepartmentServiceController::class, 'fetchServices'])->name('manage.department-services.fetch');
+
+		// Fetch Services to Display on the List
+		Route::get('/fetch-department-services-list/fetch', [DepartmentServiceController::class, 'fetchToServicesList'])->name('manage.department-services.fetchToList');
+
+		// Update Services
+		Route::post('/update-department-services', [DepartmentServiceController::class, 'update'])->name('manage.department-services.update');
 	});
 })->name('department_admin');
 

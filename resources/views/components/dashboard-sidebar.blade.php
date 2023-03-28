@@ -79,7 +79,6 @@
     {{-- Manage --}}
     <li class="nav-heading">MANAGE</li>
 
-    {{-- {{ route('m') }} --}}
     {{-- Accounts --}}
     <li class="nav-item">
         <a href="{{ route('manage.department_accounts.index') }}"
@@ -89,10 +88,9 @@
         </a>
     </li>
 
-    {{-- {{ route('manage.department_services.index') }} --}}
     {{-- Services --}}
     <li class="nav-item">
-        <a href="#"
+        <a href="{{ route('manage.departments-services.show') }}"
             class="nav-link {{ $uri == 'department-admin/manage/services/edit-service' ? 'active' : '' }}">
             <i class="fa-solid fa-hand-holding"></i>
             <span>Services</span>

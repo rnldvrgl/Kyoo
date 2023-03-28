@@ -43,21 +43,23 @@ class StaffController extends Controller
         );
     }
 
-
     public function getPendingTickets()
     {
-        dd(session('account_id'));
         $accountId = Auth::user()->id;
         $account = Accounts::find($accountId);
         $departmentId = $account->department_id;
 
-        // Get the staff member's department id
         $pendingTickets = QueueTicket::with('services')
-            ->whereIn('login_id', [null, session('account_id')])
-            ->where('department_id', $departmentId)
-            ->whereIn('status', ['Pending', 'Calling']) // use whereIn instead of where
-            ->whereBetween('created_at', [Carbon::today()->startOfDay(), Carbon::today()->endOfDay()])
-            ->whereNull('completed_at')
+            ->where(function ($query) use ($departmentId) {
+                $query->where(function ($query) {
+                    $query->whereNull('login_id')
+                        ->orWhere('login_id', session('account_id'));
+                });
+                $query->where('department_id', $departmentId)
+                    ->whereIn('status', ['Pending', 'Calling'])
+                    ->whereBetween('created_at', [Carbon::today()->startOfDay(), Carbon::today()->endOfDay()])
+                    ->whereNull('completed_at');
+            })
             ->orderBy('created_at', 'asc')
             ->get();
 
