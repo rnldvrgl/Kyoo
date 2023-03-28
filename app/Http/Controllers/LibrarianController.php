@@ -18,9 +18,11 @@ class LibrarianController extends Controller
         $p_hs_clearance_tickets = $this->getHSPendingClearances();
         $c_signed_clearances = $this->getCollegeSignedClearance();
         $hs_signed_clearances = $this->getHSSignedClearance();
+        $count_c_signed_clearances = count($c_signed_clearances);
         return view(
             'dashboard.staff.librarian-dashboard',
             [
+                'count_c_signed_clearances' => $count_c_signed_clearances,
                 'c_signed_clearances' => $c_signed_clearances,
                 'hs_signed_clearances' => $hs_signed_clearances,
                 'p_hs_clearance_tickets' => $p_hs_clearance_tickets,
@@ -83,5 +85,66 @@ class LibrarianController extends Controller
             ->get();
 
         return $hs_signed_clearance;
+    }
+
+    // * FOR LIBRARIAN STATISTICS
+    // Count Cancelled Tickets per Staff
+    public function countStaffCancelledTickets()
+    {
+        $cancelledCount = 0;
+        $tickets = QueueTicket::all();
+
+        if ($tickets) {
+            foreach ($tickets as $ticket) {
+                if ($ticket->status == 'Cancelled' && $ticket->login_id == session('account_id')) {
+                    $cancelledCount++;
+                }
+            }
+        }
+
+        return $cancelledCount;
+    }
+
+    public function countSignedClearance()
+    {
+        $signedCollegeCount = 0;
+        $signedHSCount = 0;
+        $tickets = QueueTicket::all();
+
+        if ($tickets) {
+            foreach ($tickets as $ticket) {
+                if ($ticket->clearance_status == 'Cleared' || $ticket->clearance_status == 'Not Cleared') {
+                    if ($ticket->student_department == 'College' || $ticket->student_department == 'Graduate School') {
+                        $signedCollegeCount++;
+                    } elseif ($ticket->student_department == 'Junior High School' || $ticket->student_department == 'Senior High School') {
+                        $signedHSCount++;
+                    }
+                }
+            }
+        }
+
+        return [$signedCollegeCount, $signedHSCount];
+    }
+
+    public function getAverageServiceTime()
+    {
+        $avg_serving_time = QueueTicket::where('login_id', session('account_id'))
+            ->whereNotNull('served_at')
+            ->orderByDesc('served_at')
+            ->limit(30)
+            ->avg('serving_time');
+
+        return $avg_serving_time;
+    }
+
+    public function getAverageWaitingTime()
+    {
+        $avg_wait_time = QueueTicket::where('login_id', session('account_id'))
+            ->whereNotNull('called_at')
+            ->orderByDesc('called_at')
+            ->limit(30)
+            ->avg('waiting_time');
+
+        return $avg_wait_time;
     }
 }

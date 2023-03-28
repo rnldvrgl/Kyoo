@@ -15,8 +15,8 @@
                         </div>
                         <hr class="border border-1 my-0">
                         <div class="d-flex justify-content-between align-items-end mt-3">
-                            <div class="h1 mb-0">1</div>
-                            {{-- <div class="h1 mb-0">{{ $total_clearances }}</div> --}}
+                            {{-- <div class="h1 mb-0">1</div> --}}
+                            <div class="h1 mb-0">{{ dd($collegeCountSC) }}</div>
                             <div class="ms-1 text-end">
                                 <p class="card-text mb-0">All time</p>
                             </div>

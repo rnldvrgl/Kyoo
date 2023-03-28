@@ -208,7 +208,7 @@
 
 
                     {{-- Librarian Stats --}}
-                    <x-librarian-stats />
+                    <x-librarian-stats collegeCountSC="{{ $count_c_signed_clearances }}" />
                 </div>
         </section>
     </main>
