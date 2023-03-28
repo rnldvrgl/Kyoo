@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\Auth;
 
 class DepartmentServiceController extends Controller
 {
-    public function show(HomeController $homeController)
+
+    public function index(HomeController $homeController)
     {
 
         $accountId = Auth::user()->id;
@@ -21,11 +22,14 @@ class DepartmentServiceController extends Controller
         // Get services of the selected department
         $services = $department->services;
 
-        return view('dashboard.department_admin.manage.services.view', [
-            'all_data' => $homeController->getDepartmentAllData(),
-            'user_data' => $homeController->getUserData(),
+        $user_data = $homeController->getUserData();
+        $all_data = $homeController->getDepartmentAllData();
+
+        return view('dashboard.department_admin.manage.services.view', with([
+            'user_data' => $user_data,
+            'all_data' => $all_data,
             'department' => $department,
             'services' => $services
-        ]);
+        ]));
     }
 }

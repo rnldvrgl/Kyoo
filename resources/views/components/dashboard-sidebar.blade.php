@@ -90,8 +90,8 @@
 
     {{-- Services --}}
     <li class="nav-item">
-        <a href="{{ route('manage.departments-services.show') }}"
-            class="nav-link {{ $uri == 'department-admin/manage/services/edit-service' ? 'active' : '' }}">
+        <a href="{{ route('manage.departments-services.index') }}"
+            class="nav-link {{ $uri == 'department-admin/manage/services/view-department-services' ? 'active' : '' }}">
             <i class="fa-solid fa-hand-holding"></i>
             <span>Services</span>
         </a>
