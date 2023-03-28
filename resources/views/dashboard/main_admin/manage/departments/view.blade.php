@@ -230,9 +230,13 @@
                             aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <div id="services-res">
-                            {{-- Append Success/Error Messages here --}}
+
+                        <div id="update-message" class="d-none alert alert-dismissible fade show" role="alert">
+                            <span></span>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                aria-label="Close"></button>
                         </div>
+
                         <table id="services-table" class="table-bordered w-100 table">
                             <caption>List of Services</caption>
                             <thead>
@@ -280,7 +284,8 @@
                         data: 'name',
                         name: 'name',
                         render: function(data) {
-                            return '<input class="form-control w-100" type="text" value="' + data +
+                            return '<input class="form-control w-100" name="name" type="text" value="' +
+                                data +
                                 '" style="max-width: 90%;">';
                         },
                         width: '60%',
@@ -361,6 +366,7 @@
 
 
             $('#btn-update-services').on('click', function() {
+                console.log(department_id);
                 let services = [];
 
                 $('#services-table tbody tr').each(function() {
@@ -374,24 +380,31 @@
                     services.push(service);
                 });
 
-                axios.post('/department-admin/manage/services/update-department-services', {
+                axios.post('/main-admin/manage/services/update-services', {
                         services: services,
                         department_id: department_id,
                     })
                     .then(function(response) {
+                        console.log(response);
                         if (response.data.code === 200) {
-                            alert('Services updated successfully!');
-                            location.reload(); // reload the page
+                            $('#update-message span').text('Services updated successfully!');
+                            $('#update-message').removeClass('alert-danger d-none').addClass(
+                                'alert-success show');
+                            window.location.reload(); // Reload the page if successfully updated
                         } else {
-                            alert('Failed to update services. Please try again later.');
+                            $('#update-message span').text(
+                                'Failed to update services. Please try again later.');
+                            $('#update-message').removeClass('alert-success d-none').addClass(
+                                'alert-danger show');
                         }
                     })
-                    .catch(function(error) {
-                        alert('Failed to update services. Please try again later.');
-                        console.log(error);
+                    .catch(function() {
+                        $('#update-message span').text(
+                            'Failed to update services. Please try again later.');
+                        $('#update-message').removeClass('alert-success d-none').addClass(
+                            'alert-danger show');
                     });
             });
-
         });
     </script>
 </x-layout>

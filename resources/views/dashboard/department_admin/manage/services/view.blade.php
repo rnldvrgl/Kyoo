@@ -228,6 +228,7 @@
                             aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
+
                         <div id="update-message" class="d-none alert alert-dismissible fade show" role="alert">
                             <span></span>
                             <button type="button" class="btn-close" data-bs-dismiss="alert"
@@ -388,7 +389,6 @@
                                 'alert-success show');
                             window.location.reload(); // Reload the page if successfully updated
                         } else {
-                            console.log(response);
                             $('#update-message span').text(
                                 'Failed to update services. Please try again later.');
                             $('#update-message').removeClass('alert-success d-none').addClass(
@@ -396,7 +396,6 @@
                         }
                     })
                     .catch(function() {
-                        console.log(response);
                         $('#update-message span').text(
                             'Failed to update services. Please try again later.');
                         $('#update-message').removeClass('alert-success d-none').addClass(

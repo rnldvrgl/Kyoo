@@ -227,7 +227,7 @@ class ServiceController extends Controller
             if ($service) {
                 $service->update(['name' => $name, 'status' => $status]);
             } else {
-                return response()->json(['code' => 400, 'failed' => 'Error!']);
+                // 
             }
         }
 
