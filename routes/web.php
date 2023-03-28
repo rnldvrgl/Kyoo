@@ -49,15 +49,15 @@ Auth::routes();
 
 Route::get('/', function () {
 	return view('welcome');
-})->name('landing_page');
+})->name('landing_page')->middleware('guest');
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('guest');
 
-Route::get('/live_queue', [LiveQueueController::class, 'index'])->name('live_queue');
+Route::get('/live_queue', [LiveQueueController::class, 'index'])->name('live_queue')->middleware('guest');
 
-Route::get('/frequent_questions', [FaqController::class, 'index'])->name('frequent_questions');
+Route::get('/frequent_questions', [FaqController::class, 'index'])->name('frequent_questions')->middleware('guest');
 
-Route::post('/send-feedback', [FeedbackController::class, 'store'])->name('feedback.store');
+Route::post('/send-feedback', [FeedbackController::class, 'store'])->name('feedback.store')->middleware('guest');
 
 Route::get('/testing/{id}', function ($id) {
 	// $queueTicket = QueueTicket::find($id);
@@ -218,7 +218,7 @@ Route::middleware(['auth', 'user-access:Staff'])->group(function () {
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // * End Shift
-Route::get('/end_shift', [LoginController::class, 'endShift'])->name('end_shift');
+Route::get('/end_shift', [LoginController::class, 'endShift'])->name('end_shift')->middleware('auth');
 
 // Update Work Session
 Route::post('/update-work-session', [WorkSessionController::class, 'updateWorkSession'])->name('work-session.update');
