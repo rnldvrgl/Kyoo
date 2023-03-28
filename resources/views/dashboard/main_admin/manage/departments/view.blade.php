@@ -362,67 +362,36 @@
 
             $('#btn-update-services').on('click', function() {
                 let services = [];
+
                 $('#services-table tbody tr').each(function() {
                     let service = {};
-                    service.id = $(this).attr('data-id');
+
+                    service.id = $(this).find('.remove-service').data('id');
                     service.name = $(this).find('input[name="name"]').val();
                     service.status = $(this).find('input[name="status"]').prop('checked') ?
                         'active' : 'inactive';
+
                     services.push(service);
                 });
 
-                // CSRF Protection
-                $.ajaxSetup({
-                    headers: {
-                        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-                    },
-                });
-
-                // AJAX Request to ServiceController update() method
-                $.ajax({
-                    url: '{{ route('manage.services.update') }}',
-                    type: "POST",
-                    data: {
+                axios.post('/department-admin/manage/services/update-department-services', {
+                        services: services,
                         department_id: department_id,
-                        services: services
-                    },
-                    success: function(response) {
-
-                        if (response.code == 400) {
-                            // List of errors
-                            let errors = Object.values(response
-                                .errors
-                            ); // Extract the array of error messages from the response.errors object
-                            let errorsHtml = "<ul class='list-unstyled'>";
-                            errorsHtml += "<li>" + errors[0] +
-                                "</li>"; // This return only the first index key value pair
-                            errorsHtml += "</ul>";
-
-                            // Encase error messages here
-                            $("#services-res").html(
-                                '<div class="row alert alert-danger pb-0">' +
-                                errorsHtml +
-                                "</div>"
-                            );
-                        } else if (response.code == 200) {
-                            let success =
-                                '<div class="alert alert-success">' +
-                                response.success +
-                                "</div>";
-
-                            $("#services-res").html(success);
-
-                            // Auto refresh the current page
-                            setTimeout(function() {
-                                location.reload();
-                            }, 2000);
+                    })
+                    .then(function(response) {
+                        if (response.data.code === 200) {
+                            alert('Services updated successfully!');
+                            location.reload(); // reload the page
+                        } else {
+                            alert('Failed to update services. Please try again later.');
                         }
-                    },
-                    error: function(response) {
-                        console.log(response);
-                    }
-                });
+                    })
+                    .catch(function(error) {
+                        alert('Failed to update services. Please try again later.');
+                        console.log(error);
+                    });
             });
+
         });
     </script>
 </x-layout>

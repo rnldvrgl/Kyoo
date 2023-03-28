@@ -186,15 +186,11 @@ class ServiceController extends Controller
 
     public function update(Request $request)
     {
-        $servicesArray = [
-            'services' => $request->services,
-            'status' => $request->status
-        ];
+        $servicesArray = $request->services; // Assuming that $request->services is already an array of objects containing the necessary data
 
         // Check if there are duplicate services within the Services array
-        $services = $servicesArray['services'];
-
-        $duplicatedServices = collect($services)->duplicates();
+        $services = collect($servicesArray)->pluck('name');
+        $duplicatedServices = $services->duplicates();
         if ($duplicatedServices->isNotEmpty()) {
             $error = [
                 'errors' => 'There seems to be duplicated service/s.'
@@ -203,32 +199,36 @@ class ServiceController extends Controller
         }
 
         $rules = [
-            'services' => 'required|array',
-            'services.*' => ['required', 'regex:/^[a-zA-Z ]*$/'],
-            'status.*' => 'string'
+            'services.*.name' => ['required', 'regex:/^[a-zA-Z ]*$/'],
+            'services.*.status' => 'string'
         ];
 
         $messages = [
-            'services.*' => 'Please enter a valid Service name.',
+            'services.*.name' => 'Please enter a valid Service name.',
         ];
 
-        $validatedData = Validator::make($servicesArray, $rules, $messages);
+        $validatedData = Validator::make(['services' => $servicesArray], $rules, $messages);
 
         if ($validatedData->fails()) {
             return response()->json(['code' => 400, 'errors' => $validatedData->errors()]);
         }
 
         $departmentId = $request->department_id;
-        $services = $request->services;
-        $statuses = $request->status;
 
-        // loop through the services and statuses arrays and update each existing service record or create a new one if it doesn't exist
-        foreach ($services as $index => $name) {
-            $status = isset($statuses[$index]) ? $statuses[$index] : null;
-            $service = Service::updateOrCreate(
-                ['department_id' => $departmentId, 'name' => $name],
-                ['status' => $status]
-            );
+        // loop through the services array and update each existing service record or create a new one if it doesn't exist
+        foreach ($servicesArray as $serviceData) {
+            $id = $serviceData['id'];
+            $name = $serviceData['name'];
+            $status = $serviceData['status'];
+            $service = Service::where('department_id', $departmentId)
+                ->where('id', $id)
+                ->first();
+
+            if ($service) {
+                $service->update(['name' => $name, 'status' => $status]);
+            } else {
+                return response()->json(['code' => 400, 'failed' => 'Error!']);
+            }
         }
 
         return response()->json(['code' => 200, 'success' => 'Services modified successfully.']);

@@ -228,9 +228,12 @@
                             aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <div id="services-res">
-                            {{-- Append Success/Error Messages here --}}
+                        <div id="update-message" class="d-none alert alert-dismissible fade show" role="alert">
+                            <span></span>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                aria-label="Close"></button>
                         </div>
+
                         <table id="services-table" class="table-bordered w-100 table">
                             <caption>List of Services</caption>
                             <thead>
@@ -359,12 +362,13 @@
             });
 
             $('#btn-update-services').on('click', function() {
+                console.log(department_id);
                 let services = [];
 
                 $('#services-table tbody tr').each(function() {
                     let service = {};
 
-                    service.id = $(this).find('data-id');
+                    service.id = $(this).find('.remove-service').data('id');
                     service.name = $(this).find('input[name="name"]').val();
                     service.status = $(this).find('input[name="status"]').prop('checked') ?
                         'active' : 'inactive';
@@ -372,28 +376,33 @@
                     services.push(service);
                 });
 
-                console.log(services);
-
-                // $.ajax({
-                //     url: '/update-services',
-                //     type: 'POST',
-                //     dataType: 'json',
-                //     data: {
-                //         services: services
-                //     },
-                //     success: function(response) {
-                //         if (response.status === 'success') {
-                //             alert('Services updated successfully!');
-                //         } else {
-                //             alert('Failed to update services. Please try again later.');
-                //         }
-                //     },
-                //     error: function() {
-                //         alert('Failed to update services. Please try again later.');
-                //     }
-                // });
+                axios.post('/department-admin/manage/services/update-department-services', {
+                        services: services,
+                        department_id: department_id,
+                    })
+                    .then(function(response) {
+                        console.log(response);
+                        if (response.data.code === 200) {
+                            $('#update-message span').text('Services updated successfully!');
+                            $('#update-message').removeClass('alert-danger d-none').addClass(
+                                'alert-success show');
+                            window.location.reload(); // Reload the page if successfully updated
+                        } else {
+                            console.log(response);
+                            $('#update-message span').text(
+                                'Failed to update services. Please try again later.');
+                            $('#update-message').removeClass('alert-success d-none').addClass(
+                                'alert-danger show');
+                        }
+                    })
+                    .catch(function() {
+                        console.log(response);
+                        $('#update-message span').text(
+                            'Failed to update services. Please try again later.');
+                        $('#update-message').removeClass('alert-success d-none').addClass(
+                            'alert-danger show');
+                    });
             });
-
         });
     </script>
 </x-layout>
