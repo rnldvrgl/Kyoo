@@ -23,7 +23,7 @@
             {{-- Accounts --}}
             <li class="nav-item">
                 <a href="{{ route('manage.accounts.index') }}"
-                    class="nav-link {{ $uri == 'main-admin/manage/accounts/edit-account' || $uri == 'main-admin/manage/accounts/view-account' || $uri == 'department-admin/manage/accounts/edit-account' || $uri == 'department/manage/accounts/view-account' ? 'active' : '' }}">
+                    class="nav-link {{ $uri == 'main-admin/manage/accounts/edit-account' || $uri == 'main-admin/manage/accounts/view-account' }}">
                     <i class="fa-solid fa-user"></i>
                     <span>Accounts</span>
                 </a>
@@ -79,10 +79,10 @@
     {{-- Manage --}}
     <li class="nav-heading">MANAGE</li>
 
-    {{-- {{ route('manage.department_accounts.index') }} --}}
+    {{-- {{ route('m') }} --}}
     {{-- Accounts --}}
     <li class="nav-item">
-        <a href="#"
+        <a href="{{ route('manage.department_accounts.index') }}"
             class="nav-link {{ $uri == 'department-admin/manage/accounts/edit-account' || $uri == 'department/manage/accounts/view-account' ? 'active' : '' }}">
             <i class="fa-solid fa-user"></i>
             <span>Accounts</span>

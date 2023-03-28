@@ -3,6 +3,7 @@
 use App\Events\LiveQueueEvent;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\DepartmentAccountController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\FeedbackController;
@@ -188,6 +189,32 @@ Route::middleware(['auth', 'user-access:Main Admin'])->group(function () {
 // * Department Admin Routes
 Route::middleware(['auth', 'user-access:Department Admin'])->group(function () {
 	Route::get('/department-admin/dashboard', [HomeController::class, 'department_admin'])->name('dashboard.department_admin');
+
+	Route::get('/edit-department-account', [DepartmentAccountController::class, 'index'])->name('manage.department_accounts.index');
+
+	Route::get('/edit-department-account/fetch', [DepartmentAccountController::class, 'fetchAccounts'])->name('manage.department_accounts.fetch_accounts');
+
+	// Manage Accounts
+	Route::prefix('department-admin/manage/accounts')->group(function () {
+		// Store Account
+		Route::post('/store-account', [DepartmentAccountController::class, 'store'])->name('manage.accounts.store');
+
+		// View Account
+		Route::post('/view-account', [DepartmentAccountController::class, 'show'])->name('manage.department_accounts.show');
+
+		// List of Accounts
+		Route::get('/edit-account', [DepartmentAccountController::class, 'index'])->name('manage.department_accounts.index');
+		Route::get('/edit-account/fetch', [DepartmentAccountController::class, 'fetchAccounts'])->name('manage.department_accounts.fetch_accounts');
+
+		// Specific Employee to Edit
+		Route::post('/edit-account', [DepartmentAccountController::class, 'edit'])->name('manage.department_accounts.edit');
+
+		// Update Employee Account
+		Route::patch('/update-account', [DepartmentAccountController::class, 'update'])->name('manage.department_accounts.update');
+
+		// Delete Account
+		Route::delete('/delete-account/{id}', [DepartmentAccountController::class, 'destroy'])->name('manage.department_accounts.delete');
+	});
 })->name('department_admin');
 
 // * Department Staff Routes
