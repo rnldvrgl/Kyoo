@@ -40,7 +40,7 @@
                 </h4>
 
                 <div class="d-grid col-8 col-md-6 mx-auto p-3" data-aos="zoom-in" data-aos-easing="ease-in-out">
-                    <a href="{{ route('select-department') }}" class="btn btn-kyoored text-uppercase">
+                    <a href="{{ route('select-department') }}" class="btn btn-kyoored btn-lg text-uppercase">
                         Get Started
                         <i class="fa-regular fa-hand-pointer fa-beat-fade ms-2"
                             style="--fa-animation-duration: 2s; --fa-animation-timing: ease-in-out;"></i>

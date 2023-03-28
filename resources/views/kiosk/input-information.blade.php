@@ -43,7 +43,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="form-floating mb-3">
+                                <div class="form-floating mb-3 rounded-pill ">
                                     <select class="form-select" name="department" id="floatingDepartment"
                                         aria-label="Department" required>
                                         <option value="" selected disabled>Select Department</option>
@@ -70,11 +70,12 @@
                                 </div>
 
                                 <div class="text-center">
-                                    <button type="submit" class="btn btn-success btn-lg mb-2" id="queue_now" disabled>
+                                    <p id="consent-instruction" class="text-muted mb-2">Please agree to the data privacy
+                                        consent below before queuing.</p>
+                                    <button type="submit" class="btn btn-success btn-lg rounded-pill mb-0"
+                                        id="queue_now" disabled>
                                         Queue Now
                                     </button>
-                                    <p id="consent-instruction" class="text-muted mb-0">Please agree to the data privacy
-                                        consent below before queuing.</p>
                                 </div>
                             </fieldset>
                         </form>
@@ -99,7 +100,7 @@
                 </div>
             </div>
             <div class="col-lg-2 text-end">
-                <button type="button" id="agree-button" class="btn btn-lg btn-kyoored">
+                <button type="button" id="agree-button" class="btn btn-lg btn-success text-white rounded-pill">
                     OK, I agree
                     <i class="fa-solid fa-circle-check fa-beat ms-2"></i>
                 </button>

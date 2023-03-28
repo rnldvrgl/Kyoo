@@ -49,20 +49,20 @@
                 <div class="col-md-4 mb-3" data-aos="fade-right" data-aos-delay="50">
                     {{-- If the service is already selected, show it as disabled --}}
                     @if ($service_already_selected)
-                        <div class="card disabled shadow">
+                        <div class="card disabled shadow rounded-5">
                             <div class="card-body px-5 py-4">
                                 <h3 class="fw-bold text-muted">{{ $service->name }}</h3>
-                                <p><span class="badge bg-danger">Already Selected</span></p>
+                                <p><span class="badge bg-danger rounded-pill">Already Selected</span></p>
                             </div>
                         </div>
 
                         {{-- If the service is not yet selected, show it as a clickable button --}}
                     @else
-                        <form method="POST" action="{{ route('add-to-queue') }}" class="shadow">
+                        <form method="POST" action="{{ route('add-to-queue') }}" class="shadow rounded-5">
                             @csrf
                             <input type="hidden" name="department_id" value="{{ $department->id }}">
                             <input type="hidden" name="service_id" value="{{ $service->id }}">
-                            <button type="submit" class="card h-100 w-100 text-kyoodark link-card">
+                            <button type="submit" class="card h-100 w-100 text-kyoodark link-card rounded-5">
                                 <div class="card-body p-5">
                                     <h3 class="fw-bold">{{ $service->name }}</h3>
                                 </div>
@@ -84,7 +84,7 @@
         {{-- If no service is available, show a message --}}
         @if ($services->where('department_id', $department->id)->where('status', 'active')->count() === 0)
             <div class="col-12">
-                <div class="card h-100 w-100">
+                <div class="card h-100 w-100 rounded-5 ">
                     <div class="card-body p-5 text-center">
                         <h3 class="fw-bold mb-3 text-kyoored">
                             <i>We're sorry, but there are no services currently being offered.</i>

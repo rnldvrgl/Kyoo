@@ -10,14 +10,14 @@ $(document).ready(function () {
         buttons: {
             confirm: {
                 text: "Yes",
-                btnClass: "btn-kyoodark",
+                btnClass: "btn-success rounded-pill",
                 action: function () {
                     location.href = this.$target.attr("href");
                 },
             },
             cancel: {
                 text: "No",
-                btnClass: "btn-kyoored",
+                btnClass: "btn-outline-kyoored rounded-pill",
             },
         },
     });
