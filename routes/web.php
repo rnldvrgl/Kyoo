@@ -222,6 +222,21 @@ Route::middleware(['auth', 'user-access:Department Admin'])->group(function () {
 
 		// View Department
 		Route::get('/view-department-services', [DepartmentServiceController::class, 'index'])->name('manage.departments-services.index');
+
+		// Store Service from View Department 
+		Route::post('/add-department-service', [ServiceController::class, 'store'])->name('manage.department-services.add');
+
+		// Store Service from Services List
+		Route::post('/add-service-from-list', [ServiceController::class, 'storeServicesFromList'])->name('manage.department-services-from-list.add');
+
+		// Fetch Services
+		Route::get('/fetch-department-services/{id}', [ServiceController::class, 'fetchServices'])->name('manage.department_services.fetch');
+
+		// Fetch Services to Display on the List
+		Route::get('/fetch-department-services-list/fetch', [ServiceController::class, 'fetchToServicesList'])->name('manage.department_services.fetchToList');
+
+		// Update Services
+		Route::post('/update-department-services', [ServiceController::class, 'update'])->name('manage.department_services.update');
 	});
 })->name('department_admin');
 

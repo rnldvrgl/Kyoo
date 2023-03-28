@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('queue_ticket_service', function (Blueprint $table) {
             $table->id();
             $table->foreignId('ticket_id')->constrained('queue_tickets')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('service_id')->constrained('services')->onDelete('restrict')->onUpdate('cascade');
+            $table->foreignId('service_id')->constrained('services')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

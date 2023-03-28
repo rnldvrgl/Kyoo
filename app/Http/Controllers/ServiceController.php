@@ -191,7 +191,7 @@ class ServiceController extends Controller
             'status' => $request->status
         ];
 
-        // Check if there is duplicated services within the Services array
+        // Check if there are duplicate services within the Services array
         $services = $servicesArray['services'];
 
         $duplicatedServices = collect($services)->duplicates();
@@ -218,21 +218,17 @@ class ServiceController extends Controller
             return response()->json(['code' => 400, 'errors' => $validatedData->errors()]);
         }
 
-
-        // Delete where department_id matches
-        Service::where('department_id', $request->department_id)->delete();
-
-        // Insert
+        $departmentId = $request->department_id;
         $services = $request->services;
         $statuses = $request->status;
 
-        // loop through the services and statuses arrays and save each pair of values
-        for ($i = 0; $i < count($services); $i++) {
-            $service = new Service();
-            $service->department_id = $request->department_id;
-            $service->name = $services[$i];
-            $service->status = $statuses[$i];
-            $service->save();
+        // loop through the services and statuses arrays and update each existing service record or create a new one if it doesn't exist
+        foreach ($services as $index => $name) {
+            $status = isset($statuses[$index]) ? $statuses[$index] : null;
+            $service = Service::updateOrCreate(
+                ['department_id' => $departmentId, 'name' => $name],
+                ['status' => $status]
+            );
         }
 
         return response()->json(['code' => 200, 'success' => 'Services modified successfully.']);

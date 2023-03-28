@@ -170,8 +170,8 @@
                         <div id="res">
                             {{-- Append Success/Error Messages here --}}
                         </div>
-                        <form id="add-services-frm" action="{{ route('manage.services.add') }}" method="POST"
-                            autocomplete="off">
+                        <form id="add-services-frm" action="{{ route('manage.department-services.add') }}"
+                            method="POST" autocomplete="off">
 
                             @csrf
                             <input type="hidden" name="department_id" value="{{ $department->id }}">
@@ -273,12 +273,13 @@
                 responsive: true,
                 processing: true,
                 serverSide: true,
-                ajax: '{{ route('manage.services.fetch', ['id' => $department->id]) }}',
+                ajax: '{{ route('manage.department_services.fetch', ['id' => $department->id]) }}',
                 columns: [{
                         data: 'name',
                         name: 'name',
                         render: function(data) {
-                            return '<input class="form-control w-100" type="text" value="' + data +
+                            return '<input class="form-control w-100"  name="name"  type="text" value="' +
+                                data +
                                 '" style="max-width: 90%;">';
                         },
                         width: '60%',
@@ -357,75 +358,42 @@
                 });
             });
 
-
             $('#btn-update-services').on('click', function() {
-
                 let services = [];
-                let status = [];
 
-                // Fetch all services and push them into the services array
-                $('#services-table tr td:nth-child(1) input').map(function() {
-                    return services.push($(this).val());
-                }).get();
+                $('#services-table tbody tr').each(function() {
+                    let service = {};
 
-                // Fetch all status and push them into the status array
-                $('#services-table tr td:nth-child(2) .status-switch').map(function() {
-                    return status.push($(this).prop('checked') ? 'active' : 'inactive');
-                }).get();
+                    service.id = $(this).find('data-id');
+                    service.name = $(this).find('input[name="name"]').val();
+                    service.status = $(this).find('input[name="status"]').prop('checked') ?
+                        'active' : 'inactive';
 
-                // CSRF Protection
-                $.ajaxSetup({
-                    headers: {
-                        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-                    },
+                    services.push(service);
                 });
 
-                // AJAX Request to ServiceController update() method
-                $.ajax({
-                    url: '{{ route('manage.services.update') }}',
-                    type: "POST",
-                    data: {
-                        department_id: department_id,
-                        services: services,
-                        status: status
-                    },
-                    success: function(response) {
+                console.log(services);
 
-                        if (response.code == 400) {
-                            // List of errors
-                            let errors = Object.values(response
-                                .errors
-                            ); // Extract the array of error messages from the response.errors object
-                            let errorsHtml = "<ul class='list-unstyled'>";
-                            errorsHtml += "<li>" + errors[0] +
-                                "</li>"; // This return only the first index key value pair
-                            errorsHtml += "</ul>";
-
-                            // Encase error messages here
-                            $("#services-res").html(
-                                '<div class="row alert alert-danger pb-0">' +
-                                errorsHtml +
-                                "</div>"
-                            );
-                        } else if (response.code == 200) {
-                            let success =
-                                '<div class="alert alert-success">' +
-                                response.success +
-                                "</div>";
-
-                            $("#services-res").html(success);
-
-                            // Auto refresh the current page
-                            setTimeout(function() {
-                                location.reload();
-                            }, 2000);
-                        }
-                    },
-                    error: function(response) {
-                        console.log(response);
-                    }
-                });
+                // $.ajax({
+                //     url: '/update-services',
+                //     type: 'POST',
+                //     dataType: 'json',
+                //     data: {
+                //         services: services
+                //     },
+                //     success: function(response) {
+                //         if (response.status === 'success') {
+                //             alert('Services updated successfully!');
+                //         } else {
+                //             alert('Failed to update services. Please try again later.');
+                //         }
+                //     },
+                //     error: function() {
+                //         alert('Failed to update services. Please try again later.');
+                //     }
+                // });
             });
+
         });
     </script>
 </x-layout>

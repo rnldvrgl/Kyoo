@@ -361,19 +361,15 @@
 
 
             $('#btn-update-services').on('click', function() {
-
                 let services = [];
-                let status = [];
-
-                // Fetch all services and push them into the services array
-                $('#services-table tr td:nth-child(1) input').map(function() {
-                    return services.push($(this).val());
-                }).get();
-
-                // Fetch all status and push them into the status array
-                $('#services-table tr td:nth-child(2) .status-switch').map(function() {
-                    return status.push($(this).prop('checked') ? 'active' : 'inactive');
-                }).get();
+                $('#services-table tbody tr').each(function() {
+                    let service = {};
+                    service.id = $(this).attr('data-id');
+                    service.name = $(this).find('input[name="name"]').val();
+                    service.status = $(this).find('input[name="status"]').prop('checked') ?
+                        'active' : 'inactive';
+                    services.push(service);
+                });
 
                 // CSRF Protection
                 $.ajaxSetup({
@@ -388,8 +384,7 @@
                     type: "POST",
                     data: {
                         department_id: department_id,
-                        services: services,
-                        status: status
+                        services: services
                     },
                     success: function(response) {
 
