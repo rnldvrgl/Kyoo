@@ -70,12 +70,13 @@
                                 </div>
 
                                 <div class="text-center">
-                                    <p id="consent-instruction" class="text-muted mb-2">Please agree to the data privacy
-                                        consent below before queuing.</p>
-                                    <button type="submit" class="btn btn-success btn-lg rounded-pill mb-0"
+                                    <button type="submit" class="btn btn-success btn-lg rounded-pill mb-3"
                                         id="queue_now" disabled>
                                         Queue Now
                                     </button>
+                                    <p id="consent-instruction" class="text-muted mb-0 fw-bold">Please agree to the data
+                                        privacy
+                                        consent below before queuing.</p>
                                 </div>
                             </fieldset>
                         </form>

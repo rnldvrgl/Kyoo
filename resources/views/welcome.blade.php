@@ -158,7 +158,7 @@
                 </div>
                 <div class="text-center mt-5">
                     <a href="/frequent_questions" data-aos="fade-up" data-aos-anchor-placement="top-bottom"
-                        class="btn btn-outline-kyoored">View More
+                        class="btn btn-outline-kyoored rounded-pill">View More
                         Questions
                         >></a>
                 </div>
@@ -187,16 +187,16 @@
                             <!-- Full Name Input -->
                             <div data-aos="zoom-in-right">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="fullname" name="fullname"
-                                        placeholder="Full Name" title="Enter Full Name">
+                                    <input type="text" class="form-control rounded-4" id="fullname"
+                                        name="fullname" placeholder="Full Name" title="Enter Full Name">
                                     <label for="fullname">Full Name (Optional)</label>
                                 </div>
                             </div>
                             <!-- Feedback Message Input -->
                             <div data-aos="zoom-in-right">
                                 <div class="form-floating">
-                                    <textarea class="form-control" placeholder="Feedback Message" id="feedback-message" name="feedback-message"
-                                        style="min-height: 100px; max-height: 200px;" required></textarea>
+                                    <textarea class="form-control rounded-4" placeholder="Feedback Message" id="feedback-message"
+                                        name="feedback-message" style="min-height: 100px; max-height: 200px;" required></textarea>
                                     <label for="feedback-message">Feedback</label>
                                     <div class="valid-feedback">Looks good!</div>
                                     <div class="invalid-feedback">Required</div>
@@ -204,7 +204,7 @@
                             </div>
 
                             <!-- Button Send -->
-                            <button data-aos="zoom-in-right" type="submit" class="btn btn-success"
+                            <button data-aos="zoom-in-right" type="submit" class="btn btn-success rounded-pill"
                                 id="btn-send-feedback">
                                 Send Feedback
                                 <i class="fa-solid fa-paper-plane ms-3"></i>
