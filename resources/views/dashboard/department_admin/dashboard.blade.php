@@ -102,15 +102,15 @@
 
                         {{-- Completed Tickets --}}
                         <div class="col-md-6">
-                            <div class="card bg-pastel-blue text-kyoodark rounded-5 shadow-lg mb-4">
+                            <div class="card bg-secondary text-white rounded-5 shadow-lg mb-4">
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <h5 class="card-title mb-0 text-kyoodark">Resolved Tickets</h5>
+                                        <h5 class="card-title mb-0 text-white">Resolved Tickets</h5>
                                         <div class="card-icon d-flex justify-content-center align-items-center">
-                                            <i class="fa-solid fa-check-circle"></i>
+                                            <i class="fa-solid fa-check-circle text-pastel-sky-blue"></i>
                                         </div>
                                     </div>
-                                    <hr class="border border-1 border-kyoodark my-0">
+                                    <hr class="border border-1 border-pastel-sky-blue my-0">
                                     <div class="d-flex justify-content-between align-items-end mt-3">
                                         <div class="h1 mb-0">{{ $completed_tickets }}</div>
                                         <div class="text-end">
@@ -123,15 +123,15 @@
 
                         {{-- Cancelled Tickets --}}
                         <div class="col-md-6">
-                            <div class="card bg-pastel-salmon text-kyoodark rounded-5 shadow-lg mb-4">
+                            <div class="card bg-secondary text-white rounded-5 shadow-lg mb-4">
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <h5 class="card-title mb-0  text-kyoodark ">Cancelled Tickets</h5>
+                                        <h5 class="card-title mb-0  text-white ">Cancelled Tickets</h5>
                                         <div class="card-icon d-flex justify-content-center align-items-center">
-                                            <i class="fa-solid fa-times-circle"></i>
+                                            <i class="fa-solid fa-times-circle text-pastel-red"></i>
                                         </div>
                                     </div>
-                                    <hr class="border border-1 border-kyoodark my-0">
+                                    <hr class="border border-1 border-pastel-red my-0">
                                     <div class="d-flex justify-content-between align-items-end mt-3">
                                         <div class="h1 mb-0">{{ $cancelled_tickets }}</div>
                                         <div class="text-end">
