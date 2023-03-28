@@ -79,21 +79,23 @@
             @if ($serviceDepartmentId == 1)
                 @switch($clearancestatus)
                     @case('Pending')
+                    <div id="clearance-status-{{ $ticketId }}">
                         <span class="badge bg-kyooorange rounded-pill py-3">
                             <i class="fas fa-circle-notch fa-spin me-2"></i>
                             Requesting Clearance ...
                         </span>
+                    </div>
                     @break
 
                     @case('Cleared')
-                        <span class="badge bg-success rounded-pill py-3 clearance-cleared">
+                        <span class="badge bg-success rounded-pill py-3">
                             <i class="fas fa-check-circle me-2"></i>
                             Clearance Cleared
                         </span>
                     @break
 
                     @case('Not Cleared')
-                        <span class="badge bg-kyoored rounded-pill py-3 clearance-not-cleared">
+                        <span class="badge bg-kyoored rounded-pill py-3">
                             <i class="fas fa-exclamation-circle me-2"></i>
                             Clearance Not Cleared
                         </span>

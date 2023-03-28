@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Events\ClearanceStatusEvent;
 use App\Models\QueueTicket;
 use App\Events\LiveQueueEvent;
 use App\Events\NewTicketEvent;
@@ -36,8 +37,8 @@ class QueueTicketObserver
         if($queueTicket->clearance_status != null && $queueTicket->clearance_status == "Pending")
         {
             event(new RequestClearanceEvent($queueTicket));
-        } else if($queueTicket->clearance_status != null && $queueTicket->clearance_status == "Cleared"){
-            // 
+        } else if($queueTicket->clearance_status != null && $queueTicket->clearance_status == "Cleared" || $queueTicket->clearance_status == "Not Cleared"){
+            event(new ClearanceStatusEvent($queueTicket));
         }
     }
 

@@ -24,7 +24,5 @@ liveQueueChannel
             ticketDisplay.html(ticketHasSomething);
         }
 
-        // console.log(ticket.ticket_number);
-
         console.log(ticket);
     });
