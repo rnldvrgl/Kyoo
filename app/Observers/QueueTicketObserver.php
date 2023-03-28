@@ -2,12 +2,11 @@
 
 namespace App\Observers;
 
-use App\Events\LiveQueueEvent;
-use App\Events\PendingTicketsEvent;
-use App\Events\RequestClearanceEvent;
 use App\Models\QueueTicket;
-use App\Models\QueueTicketService;
+use App\Events\LiveQueueEvent;
+use App\Events\NewTicketEvent;
 use Illuminate\Support\Facades\Log;
+use App\Events\RequestClearanceEvent;
 
 class QueueTicketObserver
 {
@@ -19,12 +18,7 @@ class QueueTicketObserver
      */
     public function created(QueueTicket $queueTicket)
     {
-        if ($queueTicket->status == "Pending") {
-            // Fetch the services of the created queue ticket
-            $services = QueueTicketService::where('ticket_id', $queueTicket->id)->with('service')->get()->pluck('service');
-
-            event(new PendingTicketsEvent($queueTicket, $services));
-        }
+        event(new NewTicketEvent($queueTicket));
     }
 
     /**

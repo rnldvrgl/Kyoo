@@ -91,7 +91,7 @@
                                             </div>
                                         @endforeach
                                     @else
-                                        <div class="text-center my-auto">
+                                        <div class="text-center my-auto no-pending-clearance">
                                             <p class="fw-bold fs-4 mb-0 text-muted">No Pending Clearance(s)</p>
                                         </div>
                                     @endif
@@ -119,14 +119,14 @@
                                         </div>
                                         @endforeach
                                     @else
-                                        <div class="text-center my-auto">
+                                        <div class="text-center my-auto no-pending-clearance">
                                             <p class="fw-bold fs-4 mb-0 text-muted">No Pending Clearance(s)</p>
                                         </div>
                                     @endif
                                 @break
 
                                 @default
-                                    <div class="text-center my-auto">
+                                    <div class="text-center my-auto no-pending-clearance">
                                         <p class="fw-bold fs-4 mb-0 text-muted">No Pending Clearance(s)</p>
                                     </div>
                                 @break

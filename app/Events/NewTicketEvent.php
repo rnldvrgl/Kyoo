@@ -2,8 +2,6 @@
 
 namespace App\Events;
 
-use App\Models\QueueTicket;
-use App\Models\QueueTicketService;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -12,7 +10,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class PendingTicketsEvent implements ShouldBroadcast
+class NewTicketEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -35,11 +33,11 @@ class PendingTicketsEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('public.pending-tickets');
+        return new Channel('public.new-pending-ticket');
     }
 
     public function broadcastAs()
     {
-        return "pending-tickets-to-dashboard";
+        return "new-pending-ticket";
     }
 }

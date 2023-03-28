@@ -2,7 +2,7 @@
 
 namespace App\Listeners;
 
-use App\Events\PendingTicketsEvent;
+use App\Events\NewTicketEvent;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
@@ -11,11 +11,11 @@ class NewTicket
     /**
      * Handle the event.
      *
-     * @param  \App\Events\PendingTicketsEvent  $event
+     * @param  \App\Events\NewTicketEvent  $event
      * @return void
      */
-    public function handle(PendingTicketsEvent $event)
+    public function handle(NewTicketEvent $event)
     {
-        return $event->queueTicket->id;
+        return $event;
     }
 }
