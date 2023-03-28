@@ -27,7 +27,7 @@ class EventServiceProvider extends ServiceProvider
         LiveQueueEvent::class => [
             LiveQueue::class,
         ],
-        PendingTicketsEvent::class => [
+        NewTicketEvent::class => [
             NewTicket::class,
         ],
         RequestClearanceEvent::class => [

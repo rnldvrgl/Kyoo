@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Models\QueueTicket;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -21,9 +22,10 @@ class NewTicketEvent implements ShouldBroadcast
      *
      * @return void
      */
-    public function __construct($queueTicket)
+    public function __construct()
     {
-        $this->queueTicket = $queueTicket;
+        $tickets = QueueTicket::where('status', "Pending")->orderBy('created_at', 'asc')->get();
+        $this->queueTicket = $tickets;
     }
 
     /**

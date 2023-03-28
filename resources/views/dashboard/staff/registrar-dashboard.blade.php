@@ -9,8 +9,6 @@
 {{-- Page Title --}}
 @section('mytitle', $department->name . ' Dashboard')
 
-
-
 <x-layout :role='$role'>
     {{-- Dashboard Header Navbar --}}
     <x-dashboard-header :details="$details" :role="$role" :department="$department" />

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Listeners\NewTicket;
 use App\Models\Accounts;
 use App\Models\QueueTicket;
 use App\Models\QueueTicketService;
@@ -25,7 +26,6 @@ class RegistrarController extends Controller
         $avg_serving_time = $queueTicketController->getAverageServiceTime();
         $avg_wait_time = $queueTicketController->getAverageWaitingTime();
 
-
         return view(
             'dashboard.staff.registrar-dashboard',
             [
@@ -36,7 +36,7 @@ class RegistrarController extends Controller
                 'pendingTickets' => $pendingTickets,
                 'user_data' => $user_data,
                 'servingTicket' => $servingTicket,
-                'holdingTickets' => $holdingTickets
+                'holdingTickets' => $holdingTickets,
             ]
         );
     }

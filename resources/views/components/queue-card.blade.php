@@ -86,14 +86,14 @@
                     @break
 
                     @case('Cleared')
-                        <span class="badge bg-success rounded-pill py-3">
+                        <span class="badge bg-success rounded-pill py-3 clearance-cleared">
                             <i class="fas fa-check-circle me-2"></i>
                             Clearance Cleared
                         </span>
                     @break
 
                     @case('Not Cleared')
-                        <span class="badge bg-kyoored rounded-pill py-3">
+                        <span class="badge bg-kyoored rounded-pill py-3 clearance-not-cleared">
                             <i class="fas fa-exclamation-circle me-2"></i>
                             Clearance Not Cleared
                         </span>
