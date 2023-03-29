@@ -5,6 +5,22 @@
     // Retrieve the Registrar and Cashier departments from the $departments collection
     $registrar = $departments->find(1);
     $cashier = $departments->find(2);
+    $registrar_status = 'inactive';
+    $cashier_status = 'inactive';
+    
+    foreach ($registrar_staff as $r_staff) {
+        if ($r_staff->account_login->status === 'Logged In') {
+            $registrar_status = 'active';
+            break;
+        }
+    }
+    
+    foreach ($cashier_staff as $c_staff) {
+        if ($c_staff->account_login->status === 'Logged In') {
+            $cashier_status = 'active';
+            break;
+        }
+    }
 @endphp
 <x-layout>
 
@@ -45,6 +61,17 @@
                         </div>
                     </div>
                 </div>
+            @elseif($registrar_status === 'inactive')
+                <div class="col">
+                    <div class="card h-100 rounded-5">
+                        <div class="card-body p-5 text-muted">
+                            <p><span class="badge bg-warning">No Active Staff</span></p>
+                            <span class="display-6 fw-bold mb-3">
+                                {{ $registrar->name }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
             @else
                 {{-- Active Registrar Department Card --}}
                 <x-department-card :department="$registrar" />
@@ -57,6 +84,17 @@
                     <div class="card h-100 rounded-5">
                         <div class="card-body p-5 text-muted">
                             <p><span class="badge bg-danger">Inactive</span></p>
+                            <span class="display-6 fw-bold mb-3">
+                                {{ $cashier->name }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            @elseif($cashier_status === 'inactive')
+                <div class="col">
+                    <div class="card h-100 rounded-5">
+                        <div class="card-body p-5 text-muted">
+                            <p><span class="badge bg-warning">No Active Staff</span></p>
                             <span class="display-6 fw-bold mb-3">
                                 {{ $cashier->name }}
                             </span>

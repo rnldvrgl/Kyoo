@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Accounts;
 use App\Models\DailyCounter;
 use App\Models\Department;
 use App\Models\QueueTicket;
@@ -50,10 +51,13 @@ class KioskController extends Controller
     // Select department page
     public function selectDepartment()
     {
+        $users = Accounts::with(['account_login'])->get();
+        $registrar_staff = $users->where('department_id', 1)->where('role_id', 3);
+        $cashier_staff = $users->where('department_id', 2)->where('role_id', 3);
         // Get all departments
         $departments = Department::all();
         // Return view with departments data
-        return view('kiosk.select-department', compact('departments'));
+        return view('kiosk.select-department', compact('departments', 'registrar_staff', 'cashier_staff'));
     }
 
     // Other department selection page
@@ -62,8 +66,13 @@ class KioskController extends Controller
         // Get all departments sorted by name in ascending order
         $departments = Department::whereNotIn('id', [3, 4])->orderBy('name', 'asc')->get();
 
+        // Get users from selected departments only
+        $users = Accounts::with(['account_login'])
+            ->whereIn('department_id', $departments->pluck('id'))->where('role_id', 3)
+            ->get();
+
         // Return view with departments data
-        return view('kiosk.other-department', compact('departments'));
+        return view('kiosk.other-department', compact('departments', 'users'));
     }
 
     // Select transaction page

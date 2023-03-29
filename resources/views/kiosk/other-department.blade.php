@@ -14,7 +14,6 @@
         </div>
     </div>
 
-
     {{-- Main Content --}}
     <div class="container-fluid d-flex flex-column px-5 py-4">
         {{-- Select Department Heading --}}
@@ -24,6 +23,7 @@
                 <p>Select a department where you will be served.</p>
             </div>
         </div>
+
         {{-- Loop through all departments, display department card and increment active count if it's active --}}
         <div class="row align-items-center justify-content-center">
             @php
@@ -31,13 +31,25 @@
             @endphp
             @foreach ($departments as $department)
                 @if ($department->id != 1 && $department->id != 2 && $department->status == 'active')
+                    @php
+                        $staffAvailable = false;
+                        foreach ($users as $user) {
+                            if ($user->department_id == $department->id && $user->account_login->status == 'Logged In') {
+                                $staffAvailable = true;
+                                break;
+                            }
+                        }
+                    @endphp
                     <div class="col-md-6 mb-4" data-aos="fade-right" data-aos-delay="50">
                         <form method="POST" action="{{ route('select-transaction') }}">
                             @csrf
                             <input type="hidden" name="department_id" value="{{ $department->id }}">
-                            <button type="submit" class="card h-100 w-100 text-kyoodark link-card rounded-5"
-                                id="select-department">
+                            <button type="submit" class="card text-start h-100 w-100 text-kyoodark link-card rounded-5"
+                                id="select-department" {{ $staffAvailable ? '' : 'disabled' }}>
                                 <div class="card-body p-5">
+                                    @if (!$staffAvailable)
+                                        <p><span class="badge bg-warning">No Active Staff</span></p>
+                                    @endif
                                     <span class="display-6 fw-bold mb-3">
                                         {{ $department->name }}
                                     </span>
