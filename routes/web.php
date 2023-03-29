@@ -202,6 +202,9 @@ Route::middleware(['auth', 'user-access:Department Admin'])->group(function () {
 
 	Route::get('/edit-department-account/fetch', [DepartmentAccountController::class, 'fetchAccounts'])->name('manage.department_accounts.fetch_accounts');
 
+	// Fetch Department Data use for the Chart based on Year
+	Route::get('/fetch-department-queue-data/{year}/{department}', [QueueTicketController::class, 'getDepartmentDataForYear'])->name('dashboard.department_fetch_queues');
+
 	// Manage Accounts
 	Route::prefix('department-admin/manage/accounts')->group(function () {
 		// Store Account
