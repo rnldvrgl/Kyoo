@@ -22,10 +22,10 @@ class NewTicketEvent implements ShouldBroadcast
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($queueTicket)
     {
-        $tickets = QueueTicket::where('status', "Pending")->orderBy('created_at', 'asc')->get();
-        $this->queueTicket = $tickets;
+        // $tickets = QueueTicket::where('status', "Pending")->orderBy('created_at', 'asc')->get();
+        $this->queueTicket = $queueTicket;
     }
 
     /**
