@@ -36,7 +36,7 @@
             @if ($registrar->status === 'inactive')
                 {{-- Inactive Registrar Department Card --}}
                 <div class="col">
-                    <div class="card h-100 ">
+                    <div class="card h-100 rounded-5">
                         <div class="card-body p-5 text-muted">
                             <p><span class="badge bg-danger">Inactive</span></p>
                             <span class="display-6 fw-bold mb-3">
@@ -54,7 +54,7 @@
             @if ($cashier->status === 'inactive')
                 {{-- Inactive Cashier Department Card --}}
                 <div class="col">
-                    <div class="card h-100">
+                    <div class="card h-100 rounded-5">
                         <div class="card-body p-5 text-muted">
                             <p><span class="badge bg-danger">Inactive</span></p>
                             <span class="display-6 fw-bold mb-3">
@@ -73,7 +73,7 @@
         {{-- Other Department Button --}}
         <div class="row mt-3">
             <div class="col-md-4 offset-md-4">
-                <a href="{{ route('other-department') }}" class="btn btn-outline-kyoored btn-lg w-100">
+                <a href="{{ route('other-department') }}" class="btn btn-outline-kyoored btn-lg w-100 rounded-pill ">
                     Other Department
                     <i class="fa-solid fa-chevron-right"></i>
                 </a>

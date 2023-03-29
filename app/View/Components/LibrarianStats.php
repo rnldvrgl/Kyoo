@@ -6,14 +6,17 @@ use Illuminate\View\Component;
 
 class LibrarianStats extends Component
 {
-    /**
-     * Create a new component instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public $countSignedClearances;
+    public $countClearedClearances;
+    public $countUnclearedClearances;
+    public $departmentId;
+
+    public function __construct($countSignedClearances, $departmentId, $countClearedClearances, $countUnclearedClearances)
     {
-        //
+        $this->countSignedClearances = $countSignedClearances;
+        $this->countClearedClearances = $countClearedClearances;
+        $this->countUnclearedClearances = $countUnclearedClearances;
+        $this->departmentId = $departmentId;
     }
 
     /**

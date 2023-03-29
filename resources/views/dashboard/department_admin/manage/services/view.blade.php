@@ -1,20 +1,18 @@
 {{-- Page Title --}}
-@section('mytitle', 'View Department')
+@section('mytitle', 'Services List')
 
 @php
     $details = $user_data['details'];
     $role = $user_data['role'];
     $login = $user_data['login'];
+    $department = $user_data['department'];
     $profile_image = $details->profile_image;
 @endphp
 
 <x-layout :role='$role'>
-
-    {{-- Back to top button --}}
-    <x-return-top />
-
     {{-- Dashboard Header Navbar --}}
     <x-dashboard-header :details="$details" :role="$role" />
+
 
     {{-- Dashboard Sidebar --}}
     <x-dashboard-sidebar name="{{ $role->name }}" :role="$role" />
@@ -27,8 +25,8 @@
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('manage.departments.index') }}">Departments</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('manage.departments.index') }}">Department List</a></li>
+                    {{-- <li class="breadcrumb-item"><a href="{{ route('manage.departments.index') }}">Departments</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('manage.departments.index') }}">Department List</a></li> --}}
                     <li class="breadcrumb-item active">{{ $department->name }}</li>
                 </ol>
             </nav>
@@ -284,7 +282,7 @@
                 responsive: true,
                 processing: true,
                 serverSide: true,
-                ajax: '{{ route('manage.services.fetch', ['id' => $department->id]) }}',
+                ajax: '{{ route('manage.department_services.fetch', ['id' => $department->id]) }}',
                 columns: [{
                         data: 'name',
                         name: 'name',
@@ -350,7 +348,8 @@
             $('body').on('click', '.delete-service', function(e) {
                 e.preventDefault();
                 let serviceId = $(this).data('id');
-                let serviceUrl = "{{ route('services.destroy', ':service') }}".replace(':service',
+                let serviceUrl = "{{ route('department_services.destroy', ':service') }}".replace(
+                    ':service',
                     serviceId);
 
                 $.confirm({
@@ -389,7 +388,6 @@
                 });
             });
 
-
             $('#btn-update-services').on('click', function() {
                 console.log(department_id);
                 let services = [];
@@ -405,7 +403,7 @@
                     services.push(service);
                 });
 
-                axios.post('/main-admin/manage/services/update-services', {
+                axios.post('/department-admin/manage/services/update-department-services', {
                         services: services,
                         department_id: department_id,
                     })

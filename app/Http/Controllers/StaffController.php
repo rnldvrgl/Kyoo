@@ -43,14 +43,12 @@ class StaffController extends Controller
         );
     }
 
-
     public function getPendingTickets()
     {
         $accountId = Auth::user()->id;
         $account = Accounts::find($accountId);
         $departmentId = $account->department_id;
 
-        // Get the staff member's department id
         $pendingTickets = QueueTicket::with('services')
             ->where(function ($query) use ($departmentId) {
                 $query->where(function ($query) {

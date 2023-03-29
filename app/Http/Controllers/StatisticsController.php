@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 class StatisticsController extends Controller
 {
+    // * Main Admin
     // Count Total Staff
     public function countTotalStaff()
     {

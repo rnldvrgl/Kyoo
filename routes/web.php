@@ -3,7 +3,9 @@
 use App\Events\LiveQueueEvent;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\DepartmentAccountController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\DepartmentServiceController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\HomeController;
@@ -49,15 +51,15 @@ Auth::routes();
 
 Route::get('/', function () {
 	return view('welcome');
-})->name('landing_page');
+})->name('landing_page')->middleware('guest');
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('guest');
 
-Route::get('/live_queue', [LiveQueueController::class, 'index'])->name('live_queue');
+Route::get('/live_queue', [LiveQueueController::class, 'index'])->name('live_queue')->middleware('guest');
 
-Route::get('/frequent_questions', [FaqController::class, 'index'])->name('frequent_questions');
+Route::get('/frequent_questions', [FaqController::class, 'index'])->name('frequent_questions')->middleware('guest');
 
-Route::post('/send-feedback', [FeedbackController::class, 'store'])->name('feedback.store');
+Route::post('/send-feedback', [FeedbackController::class, 'store'])->name('feedback.store')->middleware('guest');
 
 Route::get('/testing/{id}', function ($id) {
 	// $queueTicket = QueueTicket::find($id);
@@ -164,6 +166,9 @@ Route::middleware(['auth', 'user-access:Main Admin'])->group(function () {
 
 		// Update Services
 		Route::post('/update-services', [ServiceController::class, 'update'])->name('manage.services.update');
+
+		// Delete Service
+		Route::delete('/services/{service}', [ServiceController::class, 'destroy'])->name('services.destroy');
 	});
 
 	// Manage Promotionals
@@ -188,6 +193,57 @@ Route::middleware(['auth', 'user-access:Main Admin'])->group(function () {
 // * Department Admin Routes
 Route::middleware(['auth', 'user-access:Department Admin'])->group(function () {
 	Route::get('/department-admin/dashboard', [HomeController::class, 'department_admin'])->name('dashboard.department_admin');
+
+	Route::get('/edit-department-account', [DepartmentAccountController::class, 'index'])->name('manage.department_accounts.index');
+
+	Route::get('/edit-department-account/fetch', [DepartmentAccountController::class, 'fetchAccounts'])->name('manage.department_accounts.fetch_accounts');
+
+	// Manage Accounts
+	Route::prefix('department-admin/manage/accounts')->group(function () {
+		// Store Account
+		Route::post('/store-account', [DepartmentAccountController::class, 'store'])->name('manage.accounts.store');
+
+		// View Account
+		Route::post('/view-account', [DepartmentAccountController::class, 'show'])->name('manage.department_accounts.show');
+
+		// List of Accounts
+		Route::get('/edit-account', [DepartmentAccountController::class, 'index'])->name('manage.department_accounts.index');
+		Route::get('/edit-account/fetch', [DepartmentAccountController::class, 'fetchAccounts'])->name('manage.department_accounts.fetch_accounts');
+
+		// Specific Employee to Edit
+		Route::post('/edit-account', [DepartmentAccountController::class, 'edit'])->name('manage.department_accounts.edit');
+
+		// Update Employee Account
+		Route::patch('/update-account', [DepartmentAccountController::class, 'update'])->name('manage.department_accounts.update');
+
+		// Delete Account
+		Route::delete('/delete-account/{id}', [DepartmentAccountController::class, 'destroy'])->name('manage.department_accounts.delete');
+	});
+
+	// Manage Services
+	Route::prefix('department-admin/manage/services')->group(function () {
+
+		// View Department
+		Route::get('/view-department-services', [DepartmentServiceController::class, 'index'])->name('manage.departments-services.index');
+
+		// Store Service from View Department 
+		Route::post('/add-department-service', [ServiceController::class, 'store'])->name('manage.department-services.add');
+
+		// Store Service from Services List
+		Route::post('/add-service-from-list', [ServiceController::class, 'storeServicesFromList'])->name('manage.department-services-from-list.add');
+
+		// Fetch Services
+		Route::get('/fetch-department-services/{id}', [ServiceController::class, 'fetchServices'])->name('manage.department_services.fetch');
+
+		// Fetch Services to Display on the List
+		Route::get('/fetch-department-services-list/fetch', [ServiceController::class, 'fetchToServicesList'])->name('manage.department_services.fetchToList');
+
+		// Update Services
+		Route::post('/update-department-services', [ServiceController::class, 'update'])->name('manage.department_services.update');
+
+		// Delete Service
+		Route::delete('/department-services/{service}', [ServiceController::class, 'destroy'])->name('department_services.destroy');
+	});
 })->name('department_admin');
 
 // * Department Staff Routes
@@ -218,7 +274,7 @@ Route::middleware(['auth', 'user-access:Staff'])->group(function () {
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // * End Shift
-Route::get('/end_shift', [LoginController::class, 'endShift'])->name('end_shift');
+Route::get('/end_shift', [LoginController::class, 'endShift'])->name('end_shift')->middleware('auth');
 
 // Update Work Session
 Route::post('/update-work-session', [WorkSessionController::class, 'updateWorkSession'])->name('work-session.update');

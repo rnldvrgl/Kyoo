@@ -25,7 +25,7 @@
         {{-- Service Details --}}
         <div class="row row-cols-1 align-items-center justify-content-center">
             <div class="col">
-                <div class="card h-100 w-100">
+                <div class="card h-100 w-100 rounded-5">
                     <div class="card-body p-5">
                         {{-- Department --}}
                         <div class="row">
@@ -43,7 +43,7 @@
             </div>
 
             <div class="col">
-                <div class="card h-100 w-100">
+                <div class="card h-100 w-100 rounded-5">
                     <div class="card-body p-5 ">
                         {{-- Transaction --}}
                         <div class="row">
@@ -68,9 +68,9 @@
                     <form method="POST" action="{{ route('select-transaction') }}">
                         @csrf
                         <input type="hidden" name="department_id" value="{{ Session::get('department_id') }}">
-                        <button type="submit" class="btn btn-secondary   btn-lg w-100">
-                            <i class="fa-regular fa-square-plus"></i>
+                        <button type="submit" class="btn btn-secondary btn-lg w-100 rounded-pill">
                             Add Transaction
+                            <i class="fa-regular fa-square-plus ms-2"></i>
                         </button>
                     </form>
                     <p class="mt-2 text-muted text-center">Select additional transactions and click the 'Add
@@ -81,9 +81,10 @@
 
             {{-- Proceed Button --}}
             <div class="col-12 fixed-bottom mb-3 text-end">
-                <a href="{{ route('input-information') }}" class="btn btn-success btn-success btn-lg btn-block">
+                <a href="{{ route('input-information') }}"
+                    class="btn btn-success btn-success btn-lg btn-block rounded-pill">
                     Proceed
-                    <i class="fa-solid fa-chevron-right"></i>
+                    <i class="fa-solid fa-chevron-right ms-2"></i>
                 </a>
             </div>
         </div>

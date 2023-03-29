@@ -32,20 +32,20 @@
     <!-- Main Content -->
     <main class="h-100 px-2 py-3">
         <section class="section">
-            <div class="container-fluid">
-                <div class="row row-cols-1 row-cols-lg-2 align-items-center">
-                    <div class="col {{ count($ticket_data['departments']) > 4 ? 'col-lg-4' : 'col-lg-5' }} mb-4">
+            <div class="container-fluid h-100">
+                <div class="row row-cols-1 row-cols-lg-2 align-items-center h-100">
+                    <div class="col {{ count($ticket_data['departments']) > 4 ? 'col-lg-4' : 'col-lg-5' }} mb-4 h-100">
                         <div
-                            class="row {{ count($ticket_data['departments']) > 4 ? 'row-cols-xl-2 row-cols-lg-1' : 'row-cols-1 row-cols-lg-2 row-cols-xl-1' }}">
+                            class="row {{ count($ticket_data['departments']) > 4 ? 'row-cols-xl-2 row-cols-lg-1' : 'row-cols-1 row-cols-lg-2 row-cols-xl-1' }} h-100">
                             @foreach ($ticket_data['departments'] as $department_data)
                                 <x-current-serving-card :department="$department_data" />
                             @endforeach
                         </div>
                     </div>
-                    {{-- <button class="btn btn-kyoored" id="testButton">TTS Test Button</button> --}}
+
                     <div
                         class="col {{ count($ticket_data['departments']) > 4 ? 'col-lg-8' : 'col-lg-7' }} d-none d-lg-block h-100">
-                        <div class="flex-grow-1 col-auto" style="max-width: 100%;">
+                        <div class="flex-grow-1 col-auto h-100" style="max-width: 100%;">
                             @php
                                 $active_videos = \App\Models\PromotionalVideo::where('is_active', true)->get();
                             @endphp

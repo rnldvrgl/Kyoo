@@ -35,7 +35,7 @@
                         <form method="POST" action="{{ route('select-transaction') }}">
                             @csrf
                             <input type="hidden" name="department_id" value="{{ $department->id }}">
-                            <button type="submit" class="card h-100 w-100 text-kyoodark link-card"
+                            <button type="submit" class="card h-100 w-100 text-kyoodark link-card rounded-5"
                                 id="select-department">
                                 <div class="card-body p-5">
                                     <span class="display-6 fw-bold mb-3">
@@ -55,7 +55,7 @@
             {{-- If no other department is available, display message --}}
             @if ($activeCount === 0)
                 <div class="col-12">
-                    <div class="card h-100 w-100">
+                    <div class="card h-100 w-100 rounded-5">
                         <div class="card-body p-5 text-center">
                             <span class="display-6 fw-bold mb-3 text-kyoored">
                                 <i>No other department is available.</i>
