@@ -16,7 +16,8 @@ class CheckMacAddress
      */
     public function handle(Request $request, Closure $next)
     {
-        $allowedMacAddress = 'D8-5E-D3-66-5C-D5'; // Ronald PC
+        // $allowedMacAddress = 'D8-5E-D3-66-5C-D5'; // Ronald PC
+        $allowedMacAddress = '74-D0-2B-94-2D-2F'; // Lewence PC
         // $allowedMacAddress = '70-85-C2-0B-51-6E'; // Ronald GeoPro
         // $allowedMacAddress = '70-85-C2-0B-51-4C'; // Mark GeoPro
 

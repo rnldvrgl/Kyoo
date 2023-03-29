@@ -6,6 +6,7 @@ use App\Events\ClearanceStatusEvent;
 use App\Models\QueueTicket;
 use App\Events\LiveQueueEvent;
 use App\Events\NewTicketEvent;
+use App\Events\RemoveFromLiveQueueEvent;
 use Illuminate\Support\Facades\Log;
 use App\Events\RequestClearanceEvent;
 
@@ -32,6 +33,8 @@ class QueueTicketObserver
     {
         if ($queueTicket->status == "Serving" || $queueTicket->status == "Calling") {
             event(new LiveQueueEvent($queueTicket));
+        } else if ($queueTicket->status == "Complete"){
+            event(new RemoveFromLiveQueueEvent($queueTicket));
         }
 
         if($queueTicket->clearance_status != null && $queueTicket->clearance_status == "Pending")
