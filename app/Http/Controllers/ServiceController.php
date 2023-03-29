@@ -40,7 +40,7 @@ class ServiceController extends Controller
     // For the Services List
     public function fetchToServicesList()
     {
-        $services = Service::query()->orderBy('department_id');
+        $services = Service::query()->orderBy('department_id', 'desc');
 
         return DataTables::eloquent($services)
             ->smart()
@@ -234,8 +234,10 @@ class ServiceController extends Controller
         return response()->json(['code' => 200, 'success' => 'Services modified successfully.']);
     }
 
-    public function destroy(Service $service)
+    public function destroy($id)
     {
+        $service = Service::findOrFail($id);
+
         $service->delete();
 
         // Redirect to the index page with a success message

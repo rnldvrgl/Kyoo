@@ -181,7 +181,7 @@
                         <div id="res">
                             {{-- Append Success/Error Messages here --}}
                         </div>
-                        <form id="add-services-frm" action="{{ route('manage.services.add') }}" method="POST"
+                        <form id="add-services-frm" action="{{ route('manage.department-services.add') }}" method="POST"
                             autocomplete="off">
 
                             @csrf
@@ -348,8 +348,8 @@
             $('body').on('click', '.delete-service', function(e) {
                 e.preventDefault();
                 let serviceId = $(this).data('id');
-                let serviceUrl = "{{ route('department_services.destroy', ':service') }}".replace(
-                    ':service',
+                let serviceUrl = "{{ route('department_services.destroy', ':id') }}".replace(
+                    ':id',
                     serviceId);
 
                 $.confirm({
@@ -362,17 +362,17 @@
                     typeAnimated: true,
                     buttons: {
                         confirm: {
-                            text: "Yes",
+                            text: "Confirm",
                             btnClass: "btn-success rounded-pill",
-                            confirm: function() {
+                            action: function() {
                                 axios.delete(serviceUrl)
-                                    .then(response => {
+                                    .then((response) => {
                                         console.log(response);
                                         // Remove the service from the DOM
                                         $(this).closest('li').remove();
                                         location.reload();
                                     })
-                                    .catch(error => {
+                                    .catch((error) => {
                                         console.log(error);
                                     });
                             }

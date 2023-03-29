@@ -25,5 +25,5 @@ clearanceStatusChannel
             `);
         }
 
-        console.log(ticket);
+        // console.log(ticket);
     });

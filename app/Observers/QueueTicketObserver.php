@@ -19,7 +19,7 @@ class QueueTicketObserver
      */
     public function created(QueueTicket $queueTicket)
     {
-        event(new NewTicketEvent());
+        event(new NewTicketEvent($queueTicket));
     }
 
     /**

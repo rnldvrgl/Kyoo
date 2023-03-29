@@ -7,5 +7,5 @@ promotionalVideoChannel
     .listen(".new-promotional-video", (e) => {
         let newVideo = e.promotionalVideo;
 
-        console.log(newVideo);
+        // console.log(newVideo);
     });

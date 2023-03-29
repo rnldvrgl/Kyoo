@@ -86,8 +86,6 @@ class DepartmentController extends Controller
      */
     public function store(Request $request)
     {
-        // TODO: Put this validation in the DepartmentRequest
-
         // Message
         $messages = [
             'name.required' => 'Department name is required.',
@@ -100,6 +98,7 @@ class DepartmentController extends Controller
             'code.required' => 'Department code is required.',
             'code.min' => 'The department code field must be at least :min characters long.',
             'code.max' => 'The department code field must not be greater than :max characters long.',
+            'code.unique' => 'This department code is already taken',
         ];
 
         // Validate
@@ -107,7 +106,7 @@ class DepartmentController extends Controller
             'name' => ['required', "regex:/^[a-zA-Z ,.'-]+(?: [a-zA-Z ,.'-]+)*$/", 'min:5', 'max:75', 'unique:departments'],
             'description' => ['required', 'string', 'min:5'],
             'status' => ['nullable'],
-            'code' => ['required', 'min:1', 'max:5']
+            'code' => ['required', 'min:1', 'max:5', 'unique:departments']
         ], $messages);
 
         // check if there is any error
