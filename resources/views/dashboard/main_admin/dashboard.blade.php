@@ -166,25 +166,29 @@
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($completedTicketsByStaffs as $key => $completedTicketsByStaff)
-                                                        <tr>
-                                                            <td>
-                                                                @if ($key == 0)
-                                                                    <i class="fa-solid fa-star gold"
-                                                                        style="color: #ffd700;"></i>
-                                                                @elseif($key == 1)
-                                                                    <i class="fa-solid fa-star silver"
-                                                                        style="color: #808080;"></i>
-                                                                @elseif($key == 2)
-                                                                    <i class="fa-solid fa-star bronze"
-                                                                        style="color: #CD7F32;"></i>
-                                                                @else
-                                                                    {{ $key + 1 }}.
-                                                                @endif
-                                                            </td>
-                                                            <td>{{ $completedTicketsByStaff['name'] }}</td>
-                                                            <td>{{ $completedTicketsByStaff['department'] }}</td>
-                                                            <td>{{ $completedTicketsByStaff['served_count'] }}</td>
-                                                        </tr>
+                                                        @if (
+                                                            $completedTicketsByStaff['department'] != 'College Library' &&
+                                                                $completedTicketsByStaff['department'] != 'High School Library')
+                                                            <tr>
+                                                                <td>
+                                                                    @if ($key == 0)
+                                                                        <i class="fa-solid fa-star gold"
+                                                                            style="color: #ffd700;"></i>
+                                                                    @elseif($key == 1)
+                                                                        <i class="fa-solid fa-star silver"
+                                                                            style="color: #808080;"></i>
+                                                                    @elseif($key == 2)
+                                                                        <i class="fa-solid fa-star bronze"
+                                                                            style="color: #CD7F32;"></i>
+                                                                    @else
+                                                                        {{ $key + 1 }}.
+                                                                    @endif
+                                                                </td>
+                                                                <td>{{ $completedTicketsByStaff['name'] }}</td>
+                                                                <td>{{ $completedTicketsByStaff['department'] }}</td>
+                                                                <td>{{ $completedTicketsByStaff['served_count'] }}</td>
+                                                            </tr>
+                                                        @endif
                                                     @endforeach
                                                 </tbody>
                                             </table>
