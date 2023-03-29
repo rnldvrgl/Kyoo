@@ -105,7 +105,7 @@
                         <div class="col-12">
                             <div class="card rounded-5 shadow-lg py-3">
                                 <div class="container-fluid">
-                                    <div class="card-body">
+                                    <div class="card-body mb-0">
                                         <div class="col-12 mb-2">
                                             <div class="row d-flex align-items-center">
                                                 <div class="col-lg-8">
@@ -136,38 +136,110 @@
                             </div>
                         </div>
 
-                        {{-- Most Selected Services (Pie Chart) --}}
-                        {{-- <div class="col-md-6">
-                            <div class="card rounded-5 shadow-lg py-3">
-                                <div class="container-fluid">
-                                    <div class="card-body">
-                                        <div class="col-12 mb-2">
-                                            <div class="row d-flex align-items-center">
-                                                <div class="col-lg-8">
-                                                    <h5 class="card-title fw-bold">Service Selection Report</h5>
-                                                </div>
-                                                <div class="col-lg-4">
-                                                    <select name="department" id="department-dropdown"
-                                                        class="form-select rounded-5">
-                                                        @foreach ($departments['departments'] as $department)
-                                                            <option value="{{ $department }}">{{ $department->name }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
 
-                                        <div class="chart-container">
-                                            <div id="pie-chart" class="w-100 h-100">
-
+                        {{-- Staffs Completed Tickets (Sort by Most Completed Tickets) --}}
+                        <div class="col-md-7">
+                            <div class="card text-dark rounded-5 shadow-lg pb-3"
+                                style="max-height: 40vh; overflow-y: auto;">
+                                <div
+                                    class="card-header bg-transparent text-kyoodark border-bottom border-kyooblue border-5 py-0">
+                                    <div class="container-fluid">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <h4 class="fw-bold mb-0">Staff Leaderboard</h4>
+                                            <div class="card-icon d-flex justify-content-center align-items-center">
+                                                <i class="fa-solid fa-ranking-star"></i>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                <div class="card-body pb-0" style="max-height: 40vh; overflow-y: auto;">
+                                    <div class="d-flex flex-column justify-content-center mt-3">
+                                        @if ($completedTicketsByStaffs > 0)
+                                            <table class="table table-responsive text-center">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Rank</th>
+                                                        <th>Staff Name</th>
+                                                        <th>Department</th>
+                                                        <th>Completed Tickets</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($completedTicketsByStaffs as $key => $completedTicketsByStaff)
+                                                        <tr>
+                                                            <td>
+                                                                @if ($key == 0)
+                                                                    <i class="fa-solid fa-star gold"
+                                                                        style="color: #ffd700;"></i>
+                                                                @elseif($key == 1)
+                                                                    <i class="fa-solid fa-star silver"
+                                                                        style="color: #808080;"></i>
+                                                                @elseif($key == 2)
+                                                                    <i class="fa-solid fa-star bronze"
+                                                                        style="color: #CD7F32;"></i>
+                                                                @else
+                                                                    {{ $key + 1 }}.
+                                                                @endif
+                                                            </td>
+                                                            <td>{{ $completedTicketsByStaff['name'] }}</td>
+                                                            <td>{{ $completedTicketsByStaff['department'] }}</td>
+                                                            <td>{{ $completedTicketsByStaff['served_count'] }}</td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        @else
+                                            <div class="no-data-message">
+                                                <p class="text-secondary">No recorded data yet.</p>
+                                            </div>
+                                        @endif
+                                    </div>
+                                </div>
                             </div>
-                        </div> --}}
+                        </div>
 
+                        {{-- Feedbacks --}}
+                        <div class="col-md-5">
+                            <div class="card text-dark rounded-5 shadow-lg pb-3"
+                                style="max-height: 40vh; overflow-y: auto;">
+                                <div
+                                    class="card-header bg-transparent text-kyoodark border-bottom border-kyooblue border-5 py-0">
+                                    <div class="container-fluid">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <h4 class="fw-bold mb-0">Feedbacks</h4>
+                                            <div class="card-icon d-flex justify-content-center align-items-center">
+                                                <i class="fa-solid fa-comment-dots"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body pb-0" style="max-height: 40vh; overflow-y: auto;">
+                                    <div class="d-flex flex-column justify-content-center mt-3">
+                                        @if (count($feedbacks) > 0)
+                                            @foreach ($feedbacks as $feedback)
+                                                <div class="card py-2 shadow-sm mb-2">
+                                                    <div
+                                                        class="card-body justify-content-center d-flex flex-column justify-content-center pb-0">
+                                                        <p class="fw-semibold text-kyoodark mb-0">
+                                                            @if ($feedback->name)
+                                                                {{ $feedback->name }}
+                                                            @else
+                                                                Anonymous
+                                                            @endif
+                                                        </p>
+                                                        <p class="card-text">{{ $feedback->feedback }}</p>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        @else
+                                            <div class="d-flex justify-content-center my-3">
+                                                <p class="text-secondary text-center mb-0">No feedback yet.</p>
+                                            </div>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -193,22 +265,26 @@
                     </div>
 
                     {{-- Occupied Departments --}}
-                    <div class="card bg-light text-dark rounded-5 shadow-lg">
-                        <div class="card-body px-4">
+                    <div class="card text-dark rounded-5 shadow-lg" style="max-height: 80vh; overflow-y: auto;">
+                        <div
+                            class="card-header bg-transparent text-kyoodark border-bottom border-warning border-5 py-0">
                             <div class="container-fluid">
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <h5 class="card-title mb-0">Occupied Departments</h5>
+                                    <h4 class="fw-bold mb-0">Occupied Departments</h4>
                                     <div class="card-icon d-flex justify-content-center align-items-center">
                                         <i class="fas fa-building"></i>
                                     </div>
                                 </div>
-
+                            </div>
+                        </div>
+                        <div class="card-body px-4 pt-3" style="max-height: 80vh; overflow-y: auto;">
+                            <div class="container-fluid">
                                 @foreach ($all_data['departments'] as $department)
                                     <div class="card mb-3 border py-3 shadow-sm" style="margin-bottom: 1.5rem;">
                                         <div
                                             class="card-body justify-content-center d-flex flex-column justify-content-center ">
                                             <div class="d-flex justify-content-between">
-                                                <h5 class="fw-bold text-secondary mb-0">{{ $department->name }}
+                                                <h5 class="fw-bold text-kyoodark mb-0">{{ $department->name }}
                                                 </h5>
                                                 <span
                                                     class="badge bg-primary">{{ $department->accounts->where('account_login.status', 'Logged In')->count() }}</span>
@@ -270,7 +346,7 @@
                                                 @endif
                                             @else
                                                 <div class="d-flex justify-content-center mt-3">
-                                                    <p class="text-secondary text-center mb-0">No accounts in this
+                                                    <p class="text-danger text-center mb-0">No accounts in this
                                                         department</p>
                                                 </div>
                                             @endif

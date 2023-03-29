@@ -7,6 +7,7 @@ use App\Models\AccountRole;
 use App\Models\AccountDetails;
 use App\Models\AccountLogin;
 use App\Models\Department;
+use App\Models\Feedback;
 use App\Models\Service;
 use Illuminate\Support\Facades\Auth;
 
@@ -98,8 +99,11 @@ class HomeController extends Controller
 	// TODO: Isang function for dashboard, concat the role
 	public function main_admin(QueueTicketController $queueTicketController, StatisticsController $statsController)
 	{
+		$feedbacks = Feedback::all();
 
 		return view('dashboard.main_admin.dashboard', [
+			'feedbacks' => $feedbacks,
+			'completedTicketsByStaffs' => $statsController->countCompletedTicketsByStaff(),
 			'occupiedDepartment' => $statsController->countOccupiedDepartment(),
 			'totalStaff' =>  $statsController->countTotalStaff(),
 			'activeStaff' => $statsController->countActiveStaff(),

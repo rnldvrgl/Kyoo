@@ -49,18 +49,22 @@ use Illuminate\Support\Facades\Route;
 // * Helper method of Laravel/UI that generates a set of routes to handle authentication functionality
 Auth::routes();
 
-Route::get('/', function () {
-	return view('welcome');
-})->name('landing_page')->middleware('guest');
 
-Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('guest');
+Route::middleware('guest')->group(
+	function () {
+		Route::get('/', function () {
+			return view('welcome');
+		})->name('landing_page');
 
-Route::get('/live_queue', [LiveQueueController::class, 'index'])->name('live_queue')->middleware('guest');
+		Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::get('/frequent_questions', [FaqController::class, 'index'])->name('frequent_questions')->middleware('guest');
+		Route::get('/live_queue', [LiveQueueController::class, 'index'])->name('live_queue');
 
-Route::post('/send-feedback', [FeedbackController::class, 'store'])->name('feedback.store')->middleware('guest');
+		Route::get('/frequent_questions', [FaqController::class, 'index'])->name('frequent_questions');
 
+		Route::post('/send-feedback', [FeedbackController::class, 'store'])->name('feedback.store');
+	}
+);
 Route::get('/testing/{id}', function ($id) {
 	// $queueTicket = QueueTicket::find($id);
 

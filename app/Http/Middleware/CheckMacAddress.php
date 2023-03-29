@@ -16,8 +16,9 @@ class CheckMacAddress
      */
     public function handle(Request $request, Closure $next)
     {
-        // $allowedMacAddress = '70-85-C2-0B-51-6E'; // Replace with your desired MAC address
-        $allowedMacAddress = '70-85-C2-0B-51-4C';
+        $allowedMacAddress = 'D8-5E-D3-66-5C-D5'; // Ronald PC
+        // $allowedMacAddress = '70-85-C2-0B-51-6E'; // Ronald GeoPro
+        // $allowedMacAddress = '70-85-C2-0B-51-4C'; // Mark GeoPro
 
         $clientMacAddress = $this->getClientMacAddress($request);
         if ($clientMacAddress !== $allowedMacAddress) {
