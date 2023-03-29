@@ -25,7 +25,7 @@
         </div>
 
         {{-- Loop through all departments, display department card and increment active count if it's active --}}
-        <div class="row align-items-center justify-content-center">
+        <div class="row align-items-center justify-content-start">
             @php
                 $activeCount = 0;
             @endphp
@@ -40,23 +40,38 @@
                             }
                         }
                     @endphp
-                    <div class="col-md-6 mb-4" data-aos="fade-right" data-aos-delay="50">
-                        <form method="POST" action="{{ route('select-transaction') }}">
-                            @csrf
-                            <input type="hidden" name="department_id" value="{{ $department->id }}">
-                            <button type="submit" class="card text-start h-100 w-100 text-kyoodark link-card rounded-5"
-                                id="select-department" {{ $staffAvailable ? '' : 'disabled' }}>
-                                <div class="card-body p-5">
-                                    @if (!$staffAvailable)
-                                        <p><span class="badge bg-warning">No Active Staff</span></p>
-                                    @endif
+                    @if ($staffAvailable)
+                        <div class="col-md-6 mb-4" data-aos="fade-right" data-aos-delay="50">
+                            <form method="POST" action="{{ route('select-transaction') }}">
+                                @csrf
+                                <input type="hidden" name="department_id" value="{{ $department->id }}">
+                                <button type="submit"
+                                    class="card text-start h-100 w-100 text-kyoodark link-card rounded-5"
+                                    id="select-department">
+                                    <div class="card-body p-5">
+                                        @if (!$staffAvailable)
+                                            <p><span class="badge bg-warning">No Active Staff</span></p>
+                                        @endif
+                                        <span class="display-6 fw-bold mb-3">
+                                            {{ $department->name }}
+                                        </span>
+                                    </div>
+                                </button>
+                            </form>
+                        </div>
+                    @elseif(!$staffAvailable)
+                        <div class="col-md-6 mb-4">
+                            <div class="card h-100 rounded-5">
+                                <div class="card-body p-5 text-muted">
+                                    <p><span class="badge bg-warning">No Active Staff</span></p>
                                     <span class="display-6 fw-bold mb-3">
                                         {{ $department->name }}
                                     </span>
                                 </div>
-                            </button>
-                        </form>
-                    </div>
+                            </div>
+                        </div>
+                    @endif
+
                     {{-- Increment active count --}}
                     @php
                         $activeCount++;
