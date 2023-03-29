@@ -201,7 +201,7 @@ Route::middleware(['auth', 'user-access:Department Admin'])->group(function () {
 	// Manage Accounts
 	Route::prefix('department-admin/manage/accounts')->group(function () {
 		// Store Account
-		Route::post('/store-account', [DepartmentAccountController::class, 'store'])->name('manage.accounts.store');
+		Route::post('/store-account', [DepartmentAccountController::class, 'store'])->name('manage.department_accounts.store');
 
 		// View Account
 		Route::post('/view-account', [DepartmentAccountController::class, 'show'])->name('manage.department_accounts.show');

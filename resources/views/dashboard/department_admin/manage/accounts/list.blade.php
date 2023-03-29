@@ -87,7 +87,7 @@
                             {{-- Append Success/Error Messages here --}}
                         </div>
 
-                        <form id="add-accounts-frm" class="row g-3" action="{{ route('manage.accounts.store') }}"
+                        <form id="add-accounts-frm" class="row g-3" action="{{ route('manage.department_accounts.store') }}"
                             method="POST">
                             @csrf
 

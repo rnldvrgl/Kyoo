@@ -118,18 +118,38 @@ $(document).ready(function () {
     });
 
     // Handle department change
+    // $("#floatingDepartment").on("change", function () {
+    //     var department = $(this).val();
+    //     var courseDropdown = $("#floatingCourse");
+    //     courseDropdown.empty();
+    //     courses[department].forEach(function (course) {
+    //         courseDropdown.append(
+    //             $("<option></option>")
+    //                 .attr("value", course.value)
+    //                 .text(course.text)
+    //         );
+    //     });
+    //     courseDropdown.prop("disabled", false);
+    // });
+
+    // Handle department change
     $("#floatingDepartment").on("change", function () {
         var department = $(this).val();
         var courseDropdown = $("#floatingCourse");
         courseDropdown.empty();
-        courses[department].forEach(function (course) {
-            courseDropdown.append(
-                $("<option></option>")
-                    .attr("value", course.value)
-                    .text(course.text)
-            );
-        });
-        courseDropdown.prop("disabled", false);
+
+        if (courses.hasOwnProperty(department)) {
+            courses[department].forEach(function (course) {
+                courseDropdown.append(
+                    $("<option></option>")
+                        .attr("value", course.value)
+                        .text(course.text)
+                );
+            });
+            courseDropdown.prop("disabled", false);
+        } else {
+            courseDropdown.prop("disabled", true);
+        }
     });
 
     // hide error-message alert when document loads
