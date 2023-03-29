@@ -17,17 +17,15 @@ class PendingTicketsEvent implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $queueTicket;
-    public $services;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($queueTicket, $services)
+    public function __construct($queueTicket)
     {
         $this->queueTicket = $queueTicket;
-        $this->services = $services;
     }
 
     /**
@@ -38,5 +36,10 @@ class PendingTicketsEvent implements ShouldBroadcast
     public function broadcastOn()
     {
         return new Channel('public.pending-tickets');
+    }
+
+    public function broadcastAs()
+    {
+        return "pending-tickets-to-dashboard";
     }
 }

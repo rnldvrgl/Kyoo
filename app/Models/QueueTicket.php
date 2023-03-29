@@ -23,6 +23,8 @@ class QueueTicket extends Model
         'completed_at',
     ];
 
+    protected $with = ['serviceDepartment', 'services'];
+
     public function serviceDepartment()
     {
         return $this->belongsTo(Department::class, 'department_id');

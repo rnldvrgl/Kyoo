@@ -9,8 +9,6 @@
 {{-- Page Title --}}
 @section('mytitle', $department->name . ' Dashboard')
 
-
-
 <x-layout :role='$role'>
     {{-- Dashboard Header Navbar --}}
     <x-dashboard-header :details="$details" :role="$role" :department="$department" />
@@ -59,14 +57,15 @@
                         </div>
 
                         {{-- Pending Tickets --}}
-                        <div class="card-body px-4 pt-4 pb-2 d-flex flex-column justify-content-start"
-                            style="overflow-y: scroll; height: calc(100% - 55px);" id="pending-tab">
+                        <div class="card-body px-4 pt-4 pb-2 d-flex flex-column justify-content-start registrar-pending-tab-{{ $department->id }}"
+                            style="overflow-y: scroll; height: calc(100% - 55px);">
                             <div id="notifications"></div>
 
                             @if (count($pendingTickets) > 0)
                                 @foreach ($pendingTickets as $key => $ticket)
                                     <div class="my-1">
-                                        <x-queue-card id="queue-card-{{ $ticket->id }}" ticketId="{{ $ticket->id }}"
+                                        <x-queue-card 
+                                            id="queue-card-{{ $ticket->id }}" ticketId="{{ $ticket->id }}"
                                             queueNumber="{{ $ticket->ticket_number }}"
                                             queueTime="{{ $ticket->created_at->format('Y-m-d h:i:s A') }}"
                                             studentName="{{ $ticket->student_name }}"
@@ -76,11 +75,12 @@
                                             serviceDepartment="{{ $department->name }}" :position="$loop->index + 1"
                                             clearancestatus="{{ $ticket->clearance_status }}"
                                             hasCurrentServingTicket="{{ $hasCurrentServingTicket }}"
-                                            notes="{{ $ticket->notes }}" />
+                                            notes="{{ $ticket->notes }}" 
+                                        />
                                     </div>
                                 @endforeach
                             @else
-                                <div class="text-center my-auto">
+                                <div class="text-center my-auto pending-tickets">
                                     <p class="fw-bold fs-4 mb-0 text-muted">No corresponding ticket(s)</p>
                                 </div>
                             @endif

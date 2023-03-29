@@ -1,9 +1,10 @@
 const liveQueueChannel = window.Echo.channel("public.live-queue");
 
-    liveQueueChannel.subscribed((e) => {
+liveQueueChannel
+    .subscribed((e) => {
         console.log("Subscribed");
     })
-    .listen("LiveQueueEvent", (e) => {
+    .listen(".live-queue", (e) => {
         let ticket = e.queueTicket;
 
         let ticketDisplay = $("#display-ticket-" + ticket.department_id);
@@ -23,7 +24,5 @@ const liveQueueChannel = window.Echo.channel("public.live-queue");
             ticketDisplay.html(ticketHasSomething);
         }
 
-        // console.log(ticket.ticket_number);
-
-        console.log(ticket)
+        console.log(ticket);
     });

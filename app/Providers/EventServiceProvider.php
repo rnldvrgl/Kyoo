@@ -4,8 +4,10 @@ namespace App\Providers;
 
 use App\Events\LiveQueueEvent;
 use App\Events\PendingTicketsEvent;
+use App\Events\RequestClearanceEvent;
 use App\Listeners\LiveQueue;
 use App\Listeners\NewTicket;
+use App\Listeners\PendingClearance;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -25,8 +27,11 @@ class EventServiceProvider extends ServiceProvider
         LiveQueueEvent::class => [
             LiveQueue::class,
         ],
-        PendingTicketsEvent::class => [
+        NewTicketEvent::class => [
             NewTicket::class,
+        ],
+        RequestClearanceEvent::class => [
+            PendingClearance::class,
         ],
         // Event::class => [Listener::class],
         // ! NOTE: Execute php artisan event:generate after registering the event listener

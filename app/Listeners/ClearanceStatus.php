@@ -2,19 +2,19 @@
 
 namespace App\Listeners;
 
-use App\Events\NewTicketEvent;
+use App\Events\ClearanceStatusEvent;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-class NewTicket
+class ClearanceStatus
 {
     /**
      * Handle the event.
      *
-     * @param  \App\Events\NewTicketEvent  $event
+     * @param  \App\Events\ClearanceStatusEvent  $event
      * @return void
      */
-    public function handle(NewTicketEvent $event)
+    public function handle(ClearanceStatusEvent $event)
     {
         return $event;
     }

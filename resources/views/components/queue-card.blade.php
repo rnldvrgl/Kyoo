@@ -79,10 +79,12 @@
             @if ($serviceDepartmentId == 1)
                 @switch($clearancestatus)
                     @case('Pending')
+                    <div id="clearance-status-{{ $ticketId }}">
                         <span class="badge bg-kyooorange rounded-pill py-3">
                             <i class="fas fa-circle-notch fa-spin me-2"></i>
                             Requesting Clearance ...
                         </span>
+                    </div>
                     @break
 
                     @case('Cleared')

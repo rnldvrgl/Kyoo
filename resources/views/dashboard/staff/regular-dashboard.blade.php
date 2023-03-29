@@ -57,7 +57,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card-body px-4 pt-4 pb-2 d-flex flex-column justify-content-start"
+                        <div class="card-body px-4 pt-4 pb-2 d-flex flex-column justify-content-start regular-staff-pending-tab-{{ $department->id }}"
                             style="overflow-y: scroll; height: calc(100% - 55px);">
 
                             <div id="notifications"></div>

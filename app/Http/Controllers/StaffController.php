@@ -69,8 +69,6 @@ class StaffController extends Controller
 
     public function getServingTicket()
     {
-
-
         $accountId = Auth::user()->id;
         $account = Accounts::find($accountId);
         $departmentId = $account->department_id;

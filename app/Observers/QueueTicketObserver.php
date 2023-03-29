@@ -2,11 +2,12 @@
 
 namespace App\Observers;
 
-use App\Events\LiveQueueEvent;
-use App\Events\PendingTicketsEvent;
+use App\Events\ClearanceStatusEvent;
 use App\Models\QueueTicket;
-use App\Models\QueueTicketService;
+use App\Events\LiveQueueEvent;
+use App\Events\NewTicketEvent;
 use Illuminate\Support\Facades\Log;
+use App\Events\RequestClearanceEvent;
 
 class QueueTicketObserver
 {
@@ -18,12 +19,7 @@ class QueueTicketObserver
      */
     public function created(QueueTicket $queueTicket)
     {
-        if ($queueTicket->status == "Pending") {
-            // Fetch the services of the created queue ticket
-            $services = QueueTicketService::where('ticket_id', $queueTicket->id)->with('service')->get()->pluck('service');
-
-            event(new PendingTicketsEvent($queueTicket, $services));
-        }
+        event(new NewTicketEvent());
     }
 
     /**
@@ -36,6 +32,13 @@ class QueueTicketObserver
     {
         if ($queueTicket->status == "Serving" || $queueTicket->status == "Calling") {
             event(new LiveQueueEvent($queueTicket));
+        }
+
+        if($queueTicket->clearance_status != null && $queueTicket->clearance_status == "Pending")
+        {
+            event(new RequestClearanceEvent($queueTicket));
+        } else if($queueTicket->clearance_status != null && $queueTicket->clearance_status == "Cleared" || $queueTicket->clearance_status == "Not Cleared"){
+            event(new ClearanceStatusEvent($queueTicket));
         }
     }
 

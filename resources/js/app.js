@@ -7,3 +7,9 @@ import "./channels/live-queue.js";
 
 // Kiosk to Registrar Staff Dashboard (Papunta sa Pending Tab)
 import "./channels/kiosk-to-pending-tab.js";
+
+// Registrar to Librarians (College and High School)
+import "./channels/request-clearance.js";
+
+// Librarians to Registrar
+import "./channels/clearance-status.js";

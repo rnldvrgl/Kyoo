@@ -1,68 +1,79 @@
-const pendingTicketsTab = window.Echo.channel("public.pending-tickets");
+const pendingTicketsTab = window.Echo.channel("public.new-pending-ticket");
 
-    pendingTicketsTab.subscribed((e) => {
-        console.log("Subscribed");
-    })
-    .listen("PendingTicketsEvent", (e) => {
-        let ticket = e.queueTicket;
-        let services = e.services;
+pendingTicketsTab.subscribed((e) => {
+    console.log("Subscribed");
+});
 
-        let hasCurrentServingTicket = false;
+pendingTicketsTab.listen(".new-pending-ticket", (e) => {
+    const ticket = e.queueTicket;
+    console.log(ticket);
 
-        // Div where I will append ticketHasSomething
-        let pendingTab = $('#pending-tab');
+    if (ticket.length > 0) {
+        for (const item of ticket) {
+            const {
+                id: rowID,
+                ticket_number: ticketID,
+                created_at: createdAt,
+                student_name: studentName,
+                student_department: department,
+                student_course: course,
+                services,
+            } = item;
 
-        // Content of each card
-        let rowID = ticket.id;
-        let department_id = ticket.department_id;
-        let ticketID = ticket.ticket_number;
-        let createdAt = $.format.date(ticket.created_at, 'Y-m-d h:i:s A');
-        let studentName = ticket.student_name;
-        let department = ticket.student_department;
-        let course = ticket.student_course;
+            const serviceList = services
+                .map(
+                    (service) =>
+                        `<li class="bg-transparent border-0">${service.name}</li>`
+                )
+                .join("");
 
-        // let servicedepartment = ;
-        let clearanceStatus = ticket.clearance_status;
-
-
-        if(ticket){
-            let ticketHasSomething = `
-            <div class="my-1">
-                <div class="card rounded-3 shadow-sm w-100 px-4 py-4" id="queue-card-${rowID}" style="border-left: 8px solid #E67E22; background-color: #f7f7f7;">
-                    <div class="row d-flex justify-content-evenly">
-                        <div class="col-lg-6 mb-4 text-left">
-                            <div class="mb-2">
-                                <h3 class="fw-bold text-center mb-0">${ticketID}</h3>
-                                <small class="text-center d-block">${createdAt}</small>
+            const ticketHasSomething = `
+                <div class="my-1">
+                    <div class="card rounded-3 shadow-sm w-100 px-4 py-4" id="queue-card-${rowID}" 
+                         style="border-left: 8px solid #E67E22; background-color: #f7f7f7;">
+                        <div class="row d-flex justify-content-start">
+                            <div class="col-lg-6 mb-4 text-left">
+                                <div class="mb-2">
+                                    <h3 class="fw-bold text-center mb-0">${ticketID}</h3>
+                                    <small class="text-center d-block">${moment(
+                                        createdAt
+                                    ).format("YYYY-MM-DD hh:mm:ss A")}</small>
+                                </div>
+                                <div class="mb-3">
+                                    <h6 class="fw-bold mb-0">Student Name:</h6>
+                                    <p class="mb-0">${studentName}</p>
+                                </div>
+                                <div class="mb-3">
+                                    <h6 class="fw-bold mb-0">Department:</h6>
+                                    <p class="mb-0">${department}</p>
+                                </div>
+                                <div>
+                                    <h6 class="fw-bold mb-0">Course:</h6>
+                                    <p class="mb-0">${course}</p>
+                                </div>
                             </div>
-                            <div class="mb-3">
-                                <h6 class="fw-bold mb-0">Student Name:</h6>
-                                <p class="mb-0">${studentName}</p>
-                            </div>
-                            <div class="mb-3">
-                                <h6 class="fw-bold mb-0">Department:</h6>
-                                <p class="mb-0">${department}</p>
-                            </div>
-                            <div>
-                                <h6 class="fw-bold mb-0">Course:</h6>
-                                <p class="mb-0">${course}</p>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 h-100">
-                            <div class="mb-4">
-                                <h6 class="fw-bold mb-3">Selected Services:</h6>
-                                <ul class="list-group">
-                                    <li class="bg-transparent border-0">${services}</li>
-                                </ul>
+                            <div class="col-lg-6 h-100">
+                                <div class="mb-4">
+                                    <h6 class="fw-bold mb-3">Selected Services:</h6>
+                                    <ul class="list-group">
+                                        ${serviceList}
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
             `;
 
-            // pendingTab.append(ticketHasSomething);
+            const pendingTab =
+                item.department_id == 1
+                    ? $(".registrar-pending-tab-1")
+                    : $(`.regular-staff-pending-tab-${item.department_id}`);
+
+            pendingTab.append(ticketHasSomething);
+            $(".pending-tickets").html("");
         }
 
-        console.log(e);
-    });
+        $(".ticket-count").html(ticket.length + 1);
+    }
+});

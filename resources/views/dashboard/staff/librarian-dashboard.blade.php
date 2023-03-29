@@ -66,11 +66,14 @@
                             </div>
                         </div>
 
-                        <div class="card-body p-4 d-flex flex-column justify-content-start"
+                        <div class="card-body p-4 d-flex flex-column justify-content-start pending-clearance"
                             style="max-height: 50vh; overflow-y: auto;">
                             <div id="notifications"></div>
                             @switch($department->id)
                                 @case(3)
+                                    <div class="c-pending-clearance">
+                                        {{-- Append Cards here --}}
+                                    </div>
                                     @if ($p_c_clearance_tickets !== null && count($p_c_clearance_tickets) > 0)
                                         @foreach ($p_c_clearance_tickets as $key => $p_c_clearance_ticket)
                                             <div class="my-1">
@@ -88,13 +91,16 @@
                                             </div>
                                         @endforeach
                                     @else
-                                        <div class="text-center my-auto">
+                                        <div class="text-center my-auto no-pending-clearance">
                                             <p class="fw-bold fs-4 mb-0 text-muted">No Pending Clearance(s)</p>
                                         </div>
                                     @endif
                                 @break
 
                                 @case(4)
+                                    <div class="hs-pending-clearance">
+                                        {{-- Append Cards here --}}
+                                    </div>
                                     @if ($p_hs_clearance_tickets !== null && count($p_hs_clearance_tickets) > 0)
                                         @foreach ($p_hs_clearance_tickets as $key => $p_hs_clearance_ticket)
                                             <div class="my-1">
@@ -110,16 +116,17 @@
                                                     serviceDepartment="{{ $department->id }}" :position="$loop->index + 1"
                                                     clearancestatus="{{ $p_hs_clearance_ticket->clearance_status }}" />
                                             </div>
+                                        </div>
                                         @endforeach
                                     @else
-                                        <div class="text-center my-auto">
+                                        <div class="text-center my-auto no-pending-clearance">
                                             <p class="fw-bold fs-4 mb-0 text-muted">No Pending Clearance(s)</p>
                                         </div>
                                     @endif
                                 @break
 
                                 @default
-                                    <div class="text-center my-auto">
+                                    <div class="text-center my-auto no-pending-clearance">
                                         <p class="fw-bold fs-4 mb-0 text-muted">No Pending Clearance(s)</p>
                                     </div>
                                 @break

@@ -2,19 +2,19 @@
 
 namespace App\Listeners;
 
-use App\Events\NewTicketEvent;
+use App\Events\RequestClearanceEvent;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-class NewTicket
+class PendingClearance
 {
     /**
      * Handle the event.
      *
-     * @param  \App\Events\NewTicketEvent  $event
+     * @param  \App\Events\RequestClearanceEvent  $event
      * @return void
      */
-    public function handle(NewTicketEvent $event)
+    public function handle(RequestClearanceEvent $event)
     {
         return $event;
     }

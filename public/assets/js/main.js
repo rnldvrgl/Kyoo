@@ -6,6 +6,10 @@
         $("#loading-screen").fadeOut(500);
     });
 
+    $(document).on("click", ".refresh-btn", function () {
+        window.location.reload();
+    });
+
     // Initialize AOS
     AOS.init();
 

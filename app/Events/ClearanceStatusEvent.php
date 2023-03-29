@@ -10,7 +10,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class LiveQueueEvent implements ShouldBroadcast
+class ClearanceStatusEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -33,11 +33,11 @@ class LiveQueueEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('public.live-queue');
+        return new Channel('public.clearance-status');
     }
 
     public function broadcastAs()
     {
-        return "live-queue";
+        return "clearance-status";
     }
 }

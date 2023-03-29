@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Models\QueueTicket;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -10,7 +11,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class LiveQueueEvent implements ShouldBroadcast
+class NewTicketEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -21,9 +22,10 @@ class LiveQueueEvent implements ShouldBroadcast
      *
      * @return void
      */
-    public function __construct($queueTicket)
+    public function __construct()
     {
-        $this->queueTicket = $queueTicket;
+        $tickets = QueueTicket::where('status', "Pending")->orderBy('created_at', 'asc')->get();
+        $this->queueTicket = $tickets;
     }
 
     /**
@@ -33,11 +35,11 @@ class LiveQueueEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('public.live-queue');
+        return new Channel('public.new-pending-ticket');
     }
 
     public function broadcastAs()
     {
-        return "live-queue";
+        return "new-pending-ticket";
     }
 }
