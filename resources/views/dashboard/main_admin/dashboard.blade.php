@@ -169,11 +169,14 @@
                                                         <tr>
                                                             <td>
                                                                 @if ($key == 0)
-                                                                    <i class="fa-solid fa-star gold"></i>
+                                                                    <i class="fa-solid fa-star gold"
+                                                                        style="color: #ffd700;"></i>
                                                                 @elseif($key == 1)
-                                                                    <i class="fa-solid fa-star-half-alt silver"></i>
+                                                                    <i class="fa-solid fa-star silver"
+                                                                        style="color: #808080;"></i>
                                                                 @elseif($key == 2)
-                                                                    <i class="fa-solid fa-star bronze"></i>
+                                                                    <i class="fa-solid fa-star bronze"
+                                                                        style="color: #CD7F32;"></i>
                                                                 @else
                                                                     {{ $key + 1 }}.
                                                                 @endif
