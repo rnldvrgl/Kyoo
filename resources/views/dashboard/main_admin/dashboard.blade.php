@@ -371,7 +371,7 @@
     <!-- /Main Content -->
 
     {{-- Chart JS --}}
-    <script src="{{ asset('assets/js/chart.js') }}"></script>
+    <script src="{{ asset('assets/js/Chart.js') }}"></script>
 
     {{-- Refresh Page JS --}}
     <script src="{{ asset('assets/js/refreshPage.js') }}"></script>

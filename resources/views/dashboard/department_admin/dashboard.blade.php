@@ -33,6 +33,9 @@
         <h5 class="date mb-3"></h5>
         <section class="section dashboard">
 
+            {{-- Hidden Department ID --}}
+            <input type="hidden" id="department_id" value="{{ $department->id }}">
+
             <div class="row ">
                 <div class="col-lg-8">
                     <div class="row">
@@ -304,7 +307,7 @@
     <!-- /Main Content -->
 
     {{-- Chart JS --}}
-    <script src="{{ asset('assets/js/chart.js') }}"></script>
+    <script src="{{ asset('assets/js/department-chart.js') }}"></script>
 
     {{-- Refresh Page JS --}}
     <script src="{{ asset('assets/js/refreshPage.js') }}"></script>

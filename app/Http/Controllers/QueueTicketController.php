@@ -133,6 +133,19 @@ class QueueTicketController extends Controller
         return response()->json($data);
     }
 
+    // Fetch data based on the year selected from the dropdown for Department
+    public function getDepartmentDataForYear($year, $department_id)
+    {
+        $data = QueueTicket::select(DB::raw('MONTH(date) as month'), DB::raw('COUNT(*) as queue_count'))
+            ->whereYear('date', $year)
+            ->where('department_id', $department_id)
+            ->groupBy(DB::raw('MONTH(date)'))
+            ->orderBy(DB::raw('MONTH(date)'))
+            ->get();
+
+        return response()->json($data);
+    }
+
     // Fetch departments to display on the dropdown
     public function getDepartments()
     {
