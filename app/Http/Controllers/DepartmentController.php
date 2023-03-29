@@ -86,8 +86,6 @@ class DepartmentController extends Controller
      */
     public function store(Request $request)
     {
-        // TODO: Put this validation in the DepartmentRequest
-
         // Message
         $messages = [
             'name.required' => 'Department name is required.',
