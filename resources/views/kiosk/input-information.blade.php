@@ -15,6 +15,7 @@
 
 
     {{-- Main Content --}}
+    {{-- Main Content --}}
     <div class="container-fluid d-flex flex-column gap-5">
         {{-- Input Information Heading --}}
         <div class="row align-items-center">
@@ -70,13 +71,13 @@
                                 </div>
 
                                 <div class="text-center">
+                                    <p id="consent-instruction" class="text-muted mb-3">
+                                        "Before proceeding,
+                                        please read and agree to our data privacy policy below."</p>
                                     <button type="submit" class="btn btn-success btn-lg rounded-pill mb-3"
                                         id="queue_now" disabled>
                                         Queue Now
                                     </button>
-                                    <p id="consent-instruction" class="text-muted mb-0 fw-bold">Please agree to the data
-                                        privacy
-                                        consent below before queuing.</p>
                                 </div>
                             </fieldset>
                         </form>

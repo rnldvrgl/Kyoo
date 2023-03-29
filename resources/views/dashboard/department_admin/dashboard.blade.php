@@ -9,6 +9,7 @@
     $profile_image = $details->profile_image;
 @endphp
 
+
 <x-layout :role='$role'>
     {{-- Dashboard Header Navbar --}}
     <x-dashboard-header :details="$details" :role="$role" :department="$department" />
@@ -304,4 +305,7 @@
 
     {{-- Chart JS --}}
     <script src="{{ asset('assets/js/chart.js') }}"></script>
+
+    {{-- Refresh Page JS --}}
+    <script src="{{ asset('assets/js/refreshPage.js') }}"></script>
 </x-layout>

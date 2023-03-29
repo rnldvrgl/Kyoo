@@ -188,18 +188,20 @@ $(document).ready(function () {
     const queueNowBtn = $("#queue_now");
     const agreeBtn = $("#agree-button");
     const consentInstruction = $("#consent-instruction");
+    const slidingPopup = $("#sliding-popup");
 
     queueNowBtn.prop("disabled", true);
     consentInstruction.show();
 
     agreeBtn.on("click", function () {
         queueNowBtn.prop("disabled", false);
-        consentInstruction.hide();
+        consentInstruction.removeClass("text-muted");
+        consentInstruction.addClass("text-success");
+        consentInstruction.html(
+            "You have agreed to the data privacy consent <i class='fa-solid fa-circle-check ms-2'></i>"
+        );
         agreeBtn.html('<i class="fa-solid fa-circle-check"></i>');
-        agreeBtn
-            .removeClass("btn-kyoored")
-            .addClass("btn-success")
-            .html('<i class="fa-solid fa-circle-check"></i>');
+        slidingPopup.slideUp(1000);
         queueNowBtn.removeAttr("disabled");
     });
 

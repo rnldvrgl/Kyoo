@@ -6,6 +6,7 @@
     $profile_image = $details->profile_image;
 @endphp
 
+
 {{-- Page Title --}}
 @section('mytitle', $department->name . ' Dashboard')
 
@@ -64,8 +65,7 @@
                             @if (count($pendingTickets) > 0)
                                 @foreach ($pendingTickets as $key => $ticket)
                                     <div class="my-1">
-                                        <x-queue-card 
-                                            id="queue-card-{{ $ticket->id }}" ticketId="{{ $ticket->id }}"
+                                        <x-queue-card id="queue-card-{{ $ticket->id }}" ticketId="{{ $ticket->id }}"
                                             queueNumber="{{ $ticket->ticket_number }}"
                                             queueTime="{{ $ticket->created_at->format('Y-m-d h:i:s A') }}"
                                             studentName="{{ $ticket->student_name }}"
@@ -75,8 +75,7 @@
                                             serviceDepartment="{{ $department->name }}" :position="$loop->index + 1"
                                             clearancestatus="{{ $ticket->clearance_status }}"
                                             hasCurrentServingTicket="{{ $hasCurrentServingTicket }}"
-                                            notes="{{ $ticket->notes }}" 
-                                        />
+                                            notes="{{ $ticket->notes }}" />
                                     </div>
                                 @endforeach
                             @else
@@ -196,4 +195,7 @@
 
     {{-- Staff JS --}}
     <script src="{{ asset('assets/js/staff.js') }}"></script>
+
+    {{-- Refresh Page JS --}}
+    <script src="{{ asset('assets/js/refreshPage.js') }}"></script>
 </x-layout>

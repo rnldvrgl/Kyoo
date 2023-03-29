@@ -292,4 +292,7 @@
 
     {{-- Chart JS --}}
     <script src="{{ asset('assets/js/chart.js') }}"></script>
+
+    {{-- Refresh Page JS --}}
+    <script src="{{ asset('assets/js/refreshPage.js') }}"></script>
 </x-layout>
