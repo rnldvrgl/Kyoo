@@ -49,8 +49,7 @@ class StatisticsController extends Controller
 
     public function countCompletedTicketsByStaff()
     {
-        $staffs = Accounts::with('account_details')->where('role_id', 3)->get();
-
+        $staffs = Accounts::with('account_details')->with('department')->where('role_id', 3)->get();
         $completedCounts = [];
 
         foreach ($staffs as $staff) {
@@ -60,7 +59,7 @@ class StatisticsController extends Controller
             )
                 ->where('login_id', $staff->id)
                 ->count();
-            $completedCounts[] = ['name' => $staff->account_details->name, 'served_count' => $servedCount];
+            $completedCounts[] = ['name' => $staff->account_details->name, 'department' => $staff->department->name, 'served_count' => $servedCount];
         }
 
         // sort the staffs by most served ticketsz

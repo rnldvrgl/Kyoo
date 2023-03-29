@@ -137,7 +137,7 @@
                         </div>
 
 
-                        {{-- Staffs Served Tickets (Sort by Most Served Tickets) --}}
+                        {{-- Staffs Completed Tickets (Sort by Most Completed Tickets) --}}
                         <div class="col-md-7">
                             <div class="card text-dark rounded-5 shadow-lg pb-3"
                                 style="max-height: 40vh; overflow-y: auto;">
@@ -145,28 +145,57 @@
                                     class="card-header bg-transparent text-kyoodark border-bottom border-kyooblue border-5 py-0">
                                     <div class="container-fluid">
                                         <div class="d-flex justify-content-between align-items-center">
-                                            <h4 class="fw-bold mb-0">Staff</h4>
+                                            <h4 class="fw-bold mb-0">Staff Leaderboard</h4>
                                             <div class="card-icon d-flex justify-content-center align-items-center">
-                                                <i class="fa-solid fa-comment-dots"></i>
+                                                <i class="fa-solid fa-ranking-star"></i>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="card-body pb-0" style="max-height: 40vh; overflow-y: auto;">
                                     <div class="d-flex flex-column justify-content-center mt-3">
-                                        @foreach ($completedTicketsByStaffs as $completedTicketsByStaff)
-                                            <p>{{ $completedTicketsByStaff->name }}</p>
-                                            <p>{{ $completedTicketsByStaff->served_count }}</p>
-                                        @endforeach
-                                        <div class="d-flex justify-content-center my-3">
-                                            <p class="text-secondary text-center mb-0">No recorded data yet.</p>
-                                        </div>
+                                        @if ($completedTicketsByStaffs > 0)
+                                            <table class="table table-responsive text-center">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Rank</th>
+                                                        <th>Staff Name</th>
+                                                        <th>Department</th>
+                                                        <th>Completed Tickets</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($completedTicketsByStaffs as $key => $completedTicketsByStaff)
+                                                        <tr>
+                                                            <td>
+                                                                @if ($key == 0)
+                                                                    <i class="fa-solid fa-star gold"></i>
+                                                                @elseif($key == 1)
+                                                                    <i class="fa-solid fa-star-half-alt silver"></i>
+                                                                @elseif($key == 2)
+                                                                    <i class="fa-solid fa-star bronze"></i>
+                                                                @else
+                                                                    {{ $key + 1 }}.
+                                                                @endif
+                                                            </td>
+                                                            <td>{{ $completedTicketsByStaff['name'] }}</td>
+                                                            <td>{{ $completedTicketsByStaff['department'] }}</td>
+                                                            <td>{{ $completedTicketsByStaff['served_count'] }}</td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        @else
+                                            <div class="no-data-message">
+                                                <p class="text-secondary">No recorded data yet.</p>
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-
+                        {{-- Feedbacks --}}
                         <div class="col-md-5">
                             <div class="card text-dark rounded-5 shadow-lg pb-3"
                                 style="max-height: 40vh; overflow-y: auto;">
