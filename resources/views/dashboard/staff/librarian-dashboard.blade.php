@@ -212,7 +212,7 @@
             <div class="col col-lg-2 px-2 d-flex flex-column" style="min-height: 100%;">
 
                 {{-- Staff Actions --}}
-                <x-staff-actions />
+                <x-staff-actions status="{{ $login->status }}" />
 
                 {{-- Librarian Stats --}}
                 <x-librarian-stats :countSignedClearances="$count_signed_clearances" :countClearedClearances="$count_completed_clearances" :countUnclearedClearances="$count_uncleared_clearances"

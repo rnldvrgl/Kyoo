@@ -182,7 +182,7 @@
                 <div class="col col-lg-2 px-2 d-flex flex-column" style="min-height: 100%;">
 
                     {{-- Staff Actions --}}
-                    <x-staff-actions />
+                    <x-staff-actions status="{{ $login->status }}" />
 
                     {{-- Serving Stats --}}
                     <x-serving-stats avgServingTime="{{ $avg_serving_time }}"

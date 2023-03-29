@@ -8,14 +8,23 @@
                 End Shift
                 <i class="fa-solid fa-door-closed ms-2"></i>
             </button>
+            @if ($status == 'On Break')
+                <button id="pause-work-btn" type="button" class="btn btn-outline-kyoodarkblue rounded-pill d-none">
+                    Take a Break <i class="fa-solid fa-pause ms-2"></i>
+                </button>
 
-            <button id="pause-work-btn" type="button" class="btn btn-outline-kyoodarkblue rounded-pill">
-                Take a Break <i class="fa-solid fa-pause ms-2"></i>
-            </button>
+                <button id="resume-work-btn" type="button" class="btn btn-success rounded-pill">
+                    Resume Work <i class="fa-solid fa-play ms-2"></i>
+                </button>
+            @else
+                <button id="pause-work-btn" type="button" class="btn btn-outline-kyoodarkblue rounded-pill">
+                    Take a Break <i class="fa-solid fa-pause ms-2"></i>
+                </button>
 
-            <button id="resume-work-btn" type="button" class="btn btn-success rounded-pill d-none">
-                Resume Work <i class="fa-solid fa-play ms-2"></i>
-            </button>
+                <button id="resume-work-btn" type="button" class="btn btn-success rounded-pill d-none">
+                    Resume Work <i class="fa-solid fa-play ms-2"></i>
+                </button>
+            @endif
         </div>
     </div>
 </div>

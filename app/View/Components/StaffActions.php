@@ -6,14 +6,11 @@ use Illuminate\View\Component;
 
 class StaffActions extends Component
 {
-    /**
-     * Create a new component instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public $status;
+
+    public function __construct($status)
     {
-        //
+        $this->status = $status;
     }
 
     /**
