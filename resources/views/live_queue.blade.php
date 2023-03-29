@@ -108,7 +108,7 @@
     <div class="d-none d-lg-block fixed-bottom">
         <div class="bg-kyoodark py-2 text-white">
             <div class="row justify-content-center">
-                <marquee behavior="scroll" direction="left" class="fw-normal" scrollamount="3%">
+                <marquee behavior="scroll" direction="left" class="fw-normal" scrollamount="6%">
                     <span class="d-inline-block text-truncate promotional-text" style="max-width: 90vw;">
                         {{ $promotional_message[0]->text ?? '' }}
                     </span>
