@@ -13,7 +13,7 @@
                 Take a Break <i class="fa-solid fa-pause ms-2"></i>
             </button>
 
-            <button id="resume-work-btn" type="button" class="btn btn-outline-success rounded-pill d-none">
+            <button id="resume-work-btn" type="button" class="btn btn-success rounded-pill d-none">
                 Resume Work <i class="fa-solid fa-play ms-2"></i>
             </button>
         </div>
