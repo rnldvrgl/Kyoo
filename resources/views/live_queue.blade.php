@@ -33,7 +33,7 @@
     <main class="h-100 px-2 py-3">
         <section class="section">
             <div class="container-fluid h-100">
-                <div class="row row-cols-1 row-cols-lg-2 align-items-center h-100">
+                <div class="row row-cols-1 row-cols-lg-2 align-items-start h-100">
                     <div class="col {{ count($ticket_data['departments']) > 4 ? 'col-lg-4' : 'col-lg-5' }} mb-4 h-100">
                         <div
                             class="row {{ count($ticket_data['departments']) > 4 ? 'row-cols-xl-2 row-cols-lg-1' : 'row-cols-1 row-cols-lg-2 row-cols-xl-1' }} h-100">
@@ -109,7 +109,7 @@
         <div class="bg-kyoodark py-2 text-white">
             <div class="row justify-content-center">
                 <marquee behavior="scroll" direction="left" class="fw-normal" scrollamount="3%">
-                    <span class="d-inline-block text-truncate" style="max-width: 90vw;">
+                    <span class="d-inline-block text-truncate promotional-text" style="max-width: 90vw;">
                         {{ $promotional_message[0]->text ?? '' }}
                     </span>
                 </marquee>

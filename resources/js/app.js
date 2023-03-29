@@ -13,3 +13,9 @@ import "./channels/request-clearance.js";
 
 // Librarians to Registrar
 import "./channels/clearance-status.js";
+
+// New Promotional Video
+import "./channels/new-promotional-video.js";
+
+// New Promotional Text
+import "./channels/new-promotional-text.js";
