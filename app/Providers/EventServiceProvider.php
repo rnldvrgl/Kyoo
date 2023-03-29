@@ -6,8 +6,10 @@ use App\Events\ClearanceStatusEvent;
 use App\Events\LiveQueueEvent;
 use App\Events\PromotionalTextEvent;
 use App\Events\PromotionalVideoEvent;
+use App\Events\RemoveFromLiveQueueEvent;
 use App\Events\RequestClearanceEvent;
 use App\Listeners\ClearanceStatus;
+use App\Listeners\IsQueueComplete;
 use App\Listeners\LiveQueue;
 use App\Listeners\NewPromotionalText;
 use App\Listeners\NewTicket;
@@ -31,6 +33,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         LiveQueueEvent::class => [
             LiveQueue::class,
+        ],
+        RemoveFromLiveQueueEvent::class => [
+            IsQueueComplete::class,
         ],
         NewTicketEvent::class => [
             NewTicket::class,
