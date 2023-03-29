@@ -66,5 +66,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'user-access' => \App\Http\Middleware\UserAccess::class,
         'prevent.authenticated.access' => \App\Http\Middleware\PreventAuthenticatedAccess::class,
+        'mac' => \App\Http\Middleware\CheckMacAddress::class,
     ];
 }

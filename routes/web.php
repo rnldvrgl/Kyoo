@@ -288,7 +288,7 @@ Route::middleware('auth')->group(function () {
 
 
 // * Kiosk Routes
-Route::middleware('guest')->group(function () {
+Route::middleware('mac')->group(function () {
 	// Index Kiosk
 	Route::get('/kiosk', [KioskController::class, 'index'])->name('kiosk');
 
