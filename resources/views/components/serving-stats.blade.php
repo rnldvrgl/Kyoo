@@ -5,7 +5,7 @@
     <div class="card-body py-3" style="max-height: 80vh; overflow-y: auto;">
         <div class="d-flex flex-column justify-content-center gap-1 gap-md-2 gap-lg-3">
             <div class="col">
-                <div class="card bg-kyoogreen text-white rounded-5 shadow-lg mb-4">
+                <div class="card bg-success text-white rounded-5 shadow-lg mb-4">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center">
                             <h5 class="card-title text-white mb-0">Completed Tickets</h5>

@@ -3,7 +3,7 @@ var idleInterval = setInterval(timerIncrement, 1000); // check idle time every s
 
 function timerIncrement() {
     idleTime++;
-    if (idleTime >= 10) {
+    if (idleTime >= 15) {
         // set idle time limit to 5 seconds
         location.reload();
     }

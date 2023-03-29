@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\AccountLogin;
 use App\Models\Accounts;
 use App\Models\Department;
+use App\Models\QueueTicket;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -44,6 +45,30 @@ class StatisticsController extends Controller
         })->count();
 
         return $occupiedDepartment;
+    }
+
+    public function countCompletedTicketsByStaff()
+    {
+        $staffs = Accounts::with('account_details')->where('role_id', 3)->get();
+
+        $completedCounts = [];
+
+        foreach ($staffs as $staff) {
+            $servedCount = QueueTicket::where(
+                'status',
+                'Complete'
+            )
+                ->where('login_id', $staff->id)
+                ->count();
+            $completedCounts[] = ['name' => $staff->account_details->name, 'served_count' => $servedCount];
+        }
+
+        // sort the staffs by most served ticketsz
+        usort($completedCounts, function ($a, $b) {
+            return $b['served_count'] - $a['served_count'];
+        });
+
+        return $completedCounts;
     }
 
 
