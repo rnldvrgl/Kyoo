@@ -45,9 +45,9 @@
     <!-- Main Content -->
     <main class="p-3 p-md-5">
         <section class="section">
-            <div class="container">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="col col-lg-8">
+            <div class="container py-4 py-md-3">
+                <div class="d-flex justify-content-between align-items-center flex-wrap">
+                    <div class="col-12 col-md-8">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb bg-transparent">
                                 <li class="breadcrumb-item">
@@ -59,7 +59,7 @@
                             </ol>
                         </nav>
                     </div>
-                    <div class="col col-lg-4">
+                    <div class="col-12 col-md-4">
                         <div class="d-flex">
                             <label for="search-input" class="visually-hidden">Search a question</label>
                             <input type="text" class="form-control rounded-pill" placeholder="Search a question ..."
