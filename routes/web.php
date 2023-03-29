@@ -242,7 +242,7 @@ Route::middleware(['auth', 'user-access:Department Admin'])->group(function () {
 		Route::post('/update-department-services', [ServiceController::class, 'update'])->name('manage.department_services.update');
 
 		// Delete Service
-		Route::delete('/department-services/{service}', [ServiceController::class, 'destroy'])->name('department_services.destroy');
+		Route::delete('/department-services/{id}', [ServiceController::class, 'destroy'])->name('department_services.destroy');
 	});
 })->name('department_admin');
 

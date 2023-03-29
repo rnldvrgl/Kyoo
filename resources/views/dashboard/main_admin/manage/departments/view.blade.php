@@ -350,7 +350,7 @@
             $('body').on('click', '.delete-service', function(e) {
                 e.preventDefault();
                 let serviceId = $(this).data('id');
-                let serviceUrl = "{{ route('services.destroy', ':service') }}".replace(':service',
+                let serviceUrl = "{{ route('services.destroy', ':id') }}".replace(':id',
                     serviceId);
 
                 $.confirm({
@@ -365,7 +365,7 @@
                         confirm: {
                             text: "Yes",
                             btnClass: "btn-success rounded-pill",
-                            confirm: function() {
+                            action: function() {
                                 axios.delete(serviceUrl)
                                     .then(response => {
                                         console.log(response);
@@ -388,7 +388,6 @@
                     }
                 });
             });
-
 
             $('#btn-update-services').on('click', function() {
                 console.log(department_id);
