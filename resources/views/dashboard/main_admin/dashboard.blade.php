@@ -359,9 +359,8 @@
                         </div>
 
                         <div class="col-12 h-100">
-                            {{-- Occupied Departments --}}
-                            <div class="card bg-kyoodark text-white rounded-5 shadow-lg"
-                                style="max-height: 100vh; overflow-y: auto;">
+                            {{-- Feedback --}}
+                            <div class="card bg-kyoodark text-white rounded-5 shadow-lg">
                                 <div
                                     class="card-header bg-transparent text-white border-bottom border-pastel-teal border-5 py-2">
                                     <div class="container-fluid">
@@ -373,20 +372,26 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card-body px-4 pt-3" style="max-height: 100vh; overflow-y: auto;">
+
+                                <div class="card-body px-4 pt-3">
                                     <div class="container-fluid">
                                         @if (count($feedbacks) > 0)
                                             @foreach ($feedbacks as $feedback)
                                                 <div class="card py-2 shadow-sm mb-2">
                                                     <div
                                                         class="card-body justify-content-center d-flex flex-column justify-content-center pb-0">
-                                                        <p class="fw-semibold text-kyoodark mb-0">
-                                                            @if ($feedback->name)
-                                                                {{ $feedback->name }}
-                                                            @else
-                                                                Anonymous
-                                                            @endif
-                                                        </p>
+                                                        <div class="d-flex justify-content-between align-items-center">
+                                                            <p class="fw-semibold text-kyoodark mb-0">
+                                                                @if ($feedback->name)
+                                                                    {{ $feedback->name }}
+                                                                @else
+                                                                    Anonymous
+                                                                @endif
+                                                            </p>
+                                                            <small
+                                                                class="text-muted">{{ $feedback->created_at->format('m-d-Y') }}
+                                                            </small>
+                                                        </div>
                                                         <p class="card-text text-kyoodark">{{ $feedback->feedback }}
                                                         </p>
                                                     </div>
