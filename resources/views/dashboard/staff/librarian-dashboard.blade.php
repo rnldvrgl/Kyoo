@@ -225,5 +225,5 @@
     <script src="{{ asset('assets/js/staff.js') }}"></script>
 
     {{-- Refresh Page JS --}}
-    <script src="{{ asset('assets/js/refreshPage.js') }}"></script>
+    {{-- <script src="{{ asset('assets/js/refreshPage.js') }}"></script> --}}
 </x-layout>

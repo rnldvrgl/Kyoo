@@ -24,7 +24,7 @@ class StatisticsController extends Controller
         return $totalStaff;
     }
 
-    // Count Active Staff
+    // Count Active 
     public function countActiveStaff()
     {
         $activeStaff = Accounts::whereHas('account_login', function ($query) {
@@ -34,6 +34,18 @@ class StatisticsController extends Controller
         })->count();
 
         return $activeStaff;
+    }
+
+    // Count Inactive Staff
+    public function countInactiveStaff()
+    {
+        $inactiveStaff = Accounts::whereHas('account_login', function ($query) {
+            $query->whereIn('status', ['Logged Out', 'On Break']);
+        })->whereHas('account_role', function ($query) {
+            $query->where('name', 'staff');
+        })->count();
+
+        return $inactiveStaff;
     }
 
     public function countOccupiedDepartment()
@@ -47,7 +59,7 @@ class StatisticsController extends Controller
         return $occupiedDepartment;
     }
 
-    public function countCompletedTicketsByStaff()
+    public function getTopThreeStaffByTicketsServed()
     {
         $staffs = Accounts::with('account_details')->with('department')->where('role_id', 3)->get();
         $completedCounts = [];
@@ -59,16 +71,24 @@ class StatisticsController extends Controller
             )
                 ->where('login_id', $staff->id)
                 ->count();
-            $completedCounts[] = ['name' => $staff->account_details->name, 'department' => $staff->department->name, 'served_count' => $servedCount];
+            $completedCounts[] = ['name' => $staff->account_details->name, 'department' => $staff->department->name, 'served_count' => $servedCount, 'profile_image' => $staff->account_details->profile_image];
         }
 
-        // sort the staffs by most served ticketsz
+        // sort the staffs by most served tickets and exclude staff with the department of High School Library and College Library
+        $completedCounts = array_filter($completedCounts, function ($a) {
+            return !in_array($a['department'], ['High School Library', 'College Library']);
+        });
         usort($completedCounts, function ($a, $b) {
             return $b['served_count'] - $a['served_count'];
         });
 
-        return $completedCounts;
+        // return the top 3 staff with the most served tickets
+        $topThreeStaff = array_slice($completedCounts, 0, 3);
+
+        return $topThreeStaff;
     }
+
+
 
 
     // * DEPARTMENT ADMIN

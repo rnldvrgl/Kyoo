@@ -23,7 +23,7 @@
             {{-- Accounts --}}
             <li class="nav-item">
                 <a href="{{ route('manage.accounts.index') }}"
-                    class="nav-link {{ $uri == 'main-admin/manage/accounts/edit-account' || $uri == 'main-admin/manage/accounts/view-account' }}">
+                    class="nav-link {{ $uri == 'main-admin/manage/accounts/edit-account' || $uri == 'main-admin/manage/accounts/view-account' ? 'active' : '' }}">
                     <i class="fa-solid fa-user"></i>
                     <span>Accounts</span>
                 </a>

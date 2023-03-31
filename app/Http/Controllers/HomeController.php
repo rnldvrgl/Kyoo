@@ -103,9 +103,9 @@ class HomeController extends Controller
 
 		return view('dashboard.main_admin.dashboard', [
 			'feedbacks' => $feedbacks,
-			'completedTicketsByStaffs' => $statsController->countCompletedTicketsByStaff(),
+			'topStaff' => $statsController->getTopThreeStaffByTicketsServed(),
 			'occupiedDepartment' => $statsController->countOccupiedDepartment(),
-			'totalStaff' =>  $statsController->countTotalStaff(),
+			'inactiveStaff' =>  $statsController->countInactiveStaff(),
 			'activeStaff' => $statsController->countActiveStaff(),
 			'user_data' => $this->getUserData(),
 			'all_data' => $this->getAllData(),

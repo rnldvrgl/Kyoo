@@ -32,6 +32,9 @@ $custom-colors: (
     "pastel-salmon": #fa8072,
     "pastel-sky-blue": #87ceeb,
     "pastel-mauve": #e0b0ff,
+    "gold" : #ffd700,
+    "silver" : #808080,
+    "bronze" : #CD7F32,
 );
 
 $theme-colors: map-merge($theme-colors, $custom-colors);
