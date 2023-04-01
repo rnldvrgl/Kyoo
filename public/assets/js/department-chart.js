@@ -37,18 +37,27 @@ $(document).ready(function () {
         data.addRows(rows);
 
         var options = {
+            backgroundColor: {
+                fill: "transparent",
+            },
             width: "100%",
             height: "100%",
-            legend: { position: "none" },
+            legend: {
+                position: "none",
+            },
             chartArea: {
                 width: "90%",
                 height: "70%",
             },
             hAxis: {
-                baselineColor: "grey",
+                baselineColor: "#d9d9d9",
+                titleTextStyle: { color: "#fff" },
+                textStyle: { color: "#fff" },
             },
             vAxis: {
-                baselineColor: "grey",
+                baselineColor: "#d9d9d9",
+                titleTextStyle: { color: "#fff" },
+                textStyle: { color: "#fff" },
                 viewWindow: {
                     min: 0,
                 },
@@ -57,7 +66,7 @@ $(document).ready(function () {
             series: {
                 0: {
                     lineWidth: 3,
-                    color: "#A8D1D1",
+                    color: "#b7d6a1",
                     pointShape: "circle",
                 },
             },
