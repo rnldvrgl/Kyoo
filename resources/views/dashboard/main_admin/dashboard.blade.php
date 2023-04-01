@@ -33,8 +33,8 @@
         <h5 class="date mb-3"></h5>
         <section class="section dashboard">
             <div class="row">
-                <div class="col-xxl-9 col-lg-8">
-                    <div class="row d-flex justify-content-stretch">
+                <div class="col-xxl-8 col-lg-7 col-md-12">
+                    <div class="row d-flex justify-content-center align-items-stretch">
                         <div class="col-md-6 col-lg-4 mb-4">
                             <div class="card bg-kyoodark text-white rounded-5 shadow-lg ">
                                 <div class="card-body d-flex flex-column justify-content-between">
@@ -50,7 +50,8 @@
                                         </div>
                                         <hr class="border border-1 border-pastel-yellow my-0">
                                     </div>
-                                    <div class="d-flex justify-content-between align-items-end my-auto">
+                                    <div
+                                        class="d-flex justify-content-between align-items-xxl-end  align-items-center py-3">
                                         <div class="h1 mb-0">{{ $pending_tickets }}</div>
                                         <div class="text-end">
                                             <p class="card-text mb-0">ticket(s)</p>
@@ -59,6 +60,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-md-6 col-lg-4 mb-4">
                             <div class="card bg-kyoodark text-white rounded-5 shadow-lg">
                                 <div class="card-body d-flex flex-column justify-content-between">
@@ -74,7 +76,8 @@
 
                                         <hr class="border border-1 border-pastel-blue my-0">
                                     </div>
-                                    <div class="d-flex justify-content-between align-items-end my-auto">
+                                    <div
+                                        class="d-flex justify-content-between align-items-xxl-end  align-items-center py-3">
                                         <div class="h1 mb-0">{{ $serving_tickets }}</div>
                                         <div class="text-end">
                                             <p class="card-text mb-0">ticket(s)</p>
@@ -83,6 +86,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-md-6 col-lg-4 mb-4">
                             <div class="card bg-kyoodark text-white rounded-5 shadow-lg">
                                 <div class="card-body d-flex flex-column justify-content-between">
@@ -97,7 +101,8 @@
                                         </div>
                                         <hr class="border border-1 border-pastel-mint my-0">
                                     </div>
-                                    <div class="d-flex justify-content-between align-items-end my-auto">
+                                    <div
+                                        class="d-flex justify-content-between align-items-xxl-end  align-items-center py-3">
                                         <div class="h1 mb-0">{{ $served_tickets }}</div>
                                         <div class="text-end">
                                             <p class="card-text mb-0">ticket(s)</p>
@@ -106,7 +111,32 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6 mb-4">
+
+                        <div class="col-md-6 col-lg-4 mb-4">
+                            <div class="card bg-kyoodark text-white rounded-5 shadow-lg">
+                                <div class="card-body d-flex flex-column justify-content-between">
+                                    <div class="div">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <h5 class="card-title mb-0 text-white">On Break Staff</h5>
+                                            <div class="card-icon d-flex justify-content-center align-items-center">
+                                                <i class="fas fa-coffee text-warning"></i>
+                                            </div>
+                                        </div>
+                                        <hr class="border border-1 border-warning my-0">
+                                    </div>
+                                    <div
+                                        class="d-flex justify-content-between align-items-xxl-end  align-items-center py-3">
+                                        <div class="h1 mb-0">{{ $onBreakStaff }}</div>
+                                        <div class="text-end">
+                                            <p class="card-text mb-0">staff(s)</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-6 col-lg-4 mb-4">
                             <div class="card bg-kyoodark text-white rounded-5 shadow-lg">
                                 <div class="card-body d-flex flex-column justify-content-between">
                                     <div class="div">
@@ -119,7 +149,7 @@
                                         <hr class="border border-1 border-success my-0">
                                     </div>
                                     <div
-                                        class="d-flex justify-content-between align-items-xxl-end  align-items-center my-auto">
+                                        class="d-flex justify-content-between align-items-xxl-end  align-items-center py-3">
                                         <div class="h1 mb-0">{{ $activeStaff }}</div>
                                         <div class="text-end">
                                             <p class="card-text mb-0">staff(s)</p>
@@ -128,7 +158,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6 mb-4">
+
+                        <div class="col-md-6 col-lg-4 mb-4">
                             <div class="card bg-kyoodark text-white rounded-5 shadow-lg">
                                 <div class="card-body d-flex flex-column justify-content-between">
                                     <div class="div">
@@ -141,7 +172,7 @@
                                         <hr class="border border-1 border-danger my-0">
                                     </div>
                                     <div
-                                        class="d-flex justify-content-between align-items-xxl-end  align-items-center my-auto">
+                                        class="d-flex justify-content-between align-items-xxl-end  align-items-center py-3">
                                         <div class="h1 mb-0">{{ $inactiveStaff }}</div>
                                         <div class="text-end">
                                             <p class="card-text mb-0">staff(s)</p>
@@ -157,7 +188,7 @@
                                     <div class="card-body d-flex flex-column justify-content-between">
                                         <div>
                                             <div class="d-flex justify-content-between align-items-center py-2">
-                                                <h5 class="card-title mb-0 text-white">Queue Counts Report</h5>
+                                                <h5 class="fw-bold mb-0 text-white">Queue Counts Report</h5>
                                                 <div class="d-flex justify-content-center align-items-center py-2">
                                                     <select name="year" id="year-dropdown"
                                                         class="form-select-sm rounded-5 bg-transparent text-white">
@@ -193,65 +224,78 @@
                                     class="card-header bg-transparent text-white border-bottom border-gold border-5 py-2">
                                     <div class="container-fluid">
                                         <div class="d-flex justify-content-between align-items-center">
-                                            <h4 class="card-title mb-0 text-white">Staff Leaderboard</h4>
+                                            <h4 class="fw-bold mb-0 text-white">Staff Leaderboard</h4>
                                             <div class="card-icon d-flex justify-content-center align-items-center">
                                                 <i class="fa-solid fa-ranking-star text-gold"></i>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card-body pt-3">
-                                    <div class="container-fluid">
-                                        <div class="d-flex justify-content-around  align-items-stretch py-3">
-                                            @php
-                                                $topStaff = array_slice($topStaff, 0, 3);
-                                                $starColors = [
-                                                    'gold' => '#ffd700',
-                                                    'silver' => '#808080',
-                                                    'bronze' => '#CD7F32',
-                                                ];
-                                            @endphp
+                                <div class="container-fluid">
+                                    <div
+                                        class="card-body d-flex justify-content-center align-items-stretch gap-5 py-3">
+                                        @php
+                                            $topStaff = array_slice($topStaff, 0, 3);
+                                            $starColors = [
+                                                'gold' => '#ffd700',
+                                                'silver' => '#808080',
+                                                'bronze' => '#CD7F32',
+                                            ];
+                                        @endphp
 
-                                            @foreach ($topStaff as $index => $staff)
-                                                <div
-                                                    class="col-{{ count($topStaff) == 3 ? ($index == 0 ? '4' : '3') : '3' }}">
-                                                    <div class="card bg-white text-kyoodark text-center rounded-5 py-3 mb-0 {{ count($topStaff) == 3 ? ($index == 0 ? 'h-100' : 'h-75') : 'h-75' }}"
-                                                        style="box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);">
+                                        @for ($i = 0; $i < 3; $i++)
+                                            @php
+                                                $staff = $topStaff[$i] ?? null;
+                                            @endphp
+                                            <div class="col-{{ count($topStaff) == 3 ? ($i == 0 ? '4' : '3') : '3' }}">
+                                                <div class="card bg-white text-kyoodark text-center rounded-5 py-3 mb-0 h-100"
+                                                    style="box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);">
+                                                    @if ($staff)
                                                         <img src="{{ asset('storage/profile_images/' . ($staff['profile_image'] ?? 'avatar.png')) }}"
                                                             class="img-responsive rounded-circle"
                                                             alt="{{ $staff['name'] }}"
-                                                            style="width: 50%; height: 50%; margin: 0 auto; box-shadow: 0 0 10px rgba(0,0,0,.2);">
+                                                            style="width: {{ count($topStaff) == 3 ? ($i == 0 ? '150px' : '130px') : '130px' }}; height: {{ count($topStaff) == 3 ? ($i == 0 ? '150px' : '130px') : '130px' }}; margin: 0 auto; box-shadow: 0 0 10px rgba(0,0,0,.2);">
                                                         <div
                                                             class="card-body pb-0 px-2 d-flex flex-column justify-content-center align-items-center">
                                                             <div class="my-2">
-                                                                <i class="fa-solid fa-star {{ array_keys($starColors)[$index] }} fa-xl"
-                                                                    style="color: {{ $starColors[array_keys($starColors)[$index]] }};"></i>
+                                                                <i class="fa-solid fa-star {{ array_keys($starColors)[$i] }} fa-xl"
+                                                                    style="color: {{ $starColors[array_keys($starColors)[$i]] }};"></i>
                                                             </div>
                                                             <h6
-                                                                class="card-title text-kyoodark my-1 py-0  {{ count($topStaff) == 3 ? ($index == 0 ? 'fs-4 fw-bold' : 'fs-6') : 'fs-6' }}">
+                                                                class="card-title text-kyoodark my-1 py-0  {{ count($topStaff) == 3 ? ($i == 0 ? 'fs-4 fw-bold' : 'fs-6') : 'fs-6' }}">
                                                                 {{ $staff['name'] }}</h6>
-                                                            <p class="card-text mb-0">{{ $staff['department'] }}
-                                                            </p>
+                                                            <p class="card-text mb-0">{{ $staff['department'] }}</p>
                                                             <p class="card-text">{{ $staff['served_count'] }}
-                                                                ticket(s)
-                                                            </p>
+                                                                ticket(s)</p>
                                                         </div>
-                                                    </div>
+                                                    @else
+                                                        <div
+                                                            class="card-body pb-0 px-2 d-flex flex-column justify-content-center align-items-center">
+                                                            <div class="my-2">
+                                                                <i class="fa-solid fa-star {{ array_keys($starColors)[$i] }} fa-xl"
+                                                                    style="color: {{ $starColors[array_keys($starColors)[$i]] }};"></i>
+                                                            </div>
+                                                            <h6
+                                                                class="card-title text-kyoodark my-1 py-0  {{ count($topStaff) == 3 ? ($i == 0 ? 'fs-4 fw-bold' : 'fs-6') : 'fs-6' }}">
+                                                                Not Available</h6>
+                                                        </div>
+                                                    @endif
                                                 </div>
-                                            @endforeach
-                                        </div>
+                                            </div>
+                                        @endfor
                                     </div>
+
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-xxl-3 col-lg-4 rounded-5 bg-white p-3 border"
-                    style="overflow-y: auto; max-height: 168vh;">
+                <div class="col-xxl-4 col-lg-5 col-md-12 rounded-5  px-2">
                     <div class="d-flex flex-column justify-content-stretch align-items-center">
-                        <div class="col-12">
+                        <div class="col-12 mb-4">
                             {{-- Occupied Departments --}}
-                            <div class="card bg-kyoodark text-white rounded-5 shadow-lg">
+                            <div class="card bg-kyoodark text-white rounded-5 shadow-lg"
+                                style="max-height:97vh; overflow-y:auto;">
                                 <div
                                     class="card-header bg-transparent text-white border-bottom border-warning border-5 py-2">
                                     <div class="container-fluid">
@@ -263,7 +307,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card-body px-4 pt-3">
+                                <div class="card-body px-4 pt-3" style="max-height:97vh; overflow-y:auto;">
                                     <div class="container-fluid">
                                         @foreach ($all_data['departments'] as $department)
                                             <div class="card mb-3 border py-3 shadow-sm"
@@ -310,7 +354,7 @@
                                                                                 </h6>
                                                                             </div>
                                                                             <span
-                                                                                class="badge rounded-pill {{ $staffAccount && $staffAccount->account_login && $staffAccount->account_login->status == 'On Break' ? 'bg-kyooyellow' : 'bg-kyoodarkblue' }}">
+                                                                                class="badge rounded-pill d-flex justify-content-center align-items-center {{ $staffAccount && $staffAccount->account_login && $staffAccount->account_login->status == 'On Break' ? 'bg-kyooyellow' : 'bg-kyoodarkblue' }}">
                                                                                 @if ($staffAccount && $staffAccount->account_login)
                                                                                     {{ $staffAccount->account_login->updated_at->diffForHumans() }}
                                                                                     @if ($staffAccount->account_login->status == 'On Break')
@@ -392,7 +436,8 @@
                                                                 class="text-muted">{{ $feedback->created_at->format('m-d-Y') }}
                                                             </small>
                                                         </div>
-                                                        <p class="card-text text-kyoodark">{{ $feedback->feedback }}
+                                                        <p class="card-text text-kyoodark">
+                                                            {{ $feedback->feedback }}
                                                         </p>
                                                     </div>
                                                 </div>

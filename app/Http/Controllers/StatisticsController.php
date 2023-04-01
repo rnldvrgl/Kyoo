@@ -24,6 +24,18 @@ class StatisticsController extends Controller
         return $totalStaff;
     }
 
+    // Count On Break Staff
+    public function countOnBreakStaff()
+    {
+        $onBreakStaff = Accounts::whereHas('account_login', function ($query) {
+            $query->where('status', 'On Break');
+        })->whereHas('account_role', function ($query) {
+            $query->where('name', 'staff');
+        })->count();
+
+        return $onBreakStaff;
+    }
+
     // Count Active 
     public function countActiveStaff()
     {
@@ -40,7 +52,7 @@ class StatisticsController extends Controller
     public function countInactiveStaff()
     {
         $inactiveStaff = Accounts::whereHas('account_login', function ($query) {
-            $query->whereIn('status', ['Logged Out', 'On Break']);
+            $query->where('status', 'Logged Out');
         })->whereHas('account_role', function ($query) {
             $query->where('name', 'staff');
         })->count();

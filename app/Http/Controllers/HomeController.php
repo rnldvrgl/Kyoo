@@ -105,6 +105,7 @@ class HomeController extends Controller
 			'feedbacks' => $feedbacks,
 			'topStaff' => $statsController->getTopThreeStaffByTicketsServed(),
 			'occupiedDepartment' => $statsController->countOccupiedDepartment(),
+			'onBreakStaff' =>  $statsController->countOnBreakStaff(),
 			'inactiveStaff' =>  $statsController->countInactiveStaff(),
 			'activeStaff' => $statsController->countActiveStaff(),
 			'user_data' => $this->getUserData(),
