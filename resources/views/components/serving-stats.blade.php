@@ -2,7 +2,7 @@
     <div class="card-header bg-transparent text-kyoodark border-bottom border-5">
         <h4 class="fw-bold mb-0 text-center">Serving Stats</h4>
     </div>
-    <div class="card-body py-3" style="max-height: 80vh; overflow-y: auto;">
+    <div class="card-body px-1 px-md-2 px-lg-3 py-lg-3" style="max-height: 80vh; overflow-y: auto;">
         <div class="d-flex flex-column justify-content-center gap-1 gap-md-2 gap-lg-3">
             <div class="col">
                 <div class="card bg-success text-white rounded-5 shadow-lg mb-4">

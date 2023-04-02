@@ -38,7 +38,7 @@ $(document).ready(function () {
     }
 
     // Call Queue Number
-    callTicketButtons.click(function () {
+    $(document).on("click", ".call-ticket-btn", function () {
         // Get the ticket ID from the data attribute
         const queueNumber = $(this).data("queue-number");
         const status = $(this).data("status");
@@ -90,7 +90,7 @@ $(document).ready(function () {
     });
 
     // Serve Ticket
-    serveTicketButtons.click(function () {
+    $(document).on("click", ".serve-ticket-btn", function () {
         // Get the ticket ID from the data attribute
         const status = $(this).data("status");
         const ticketId = $(this).data("ticket-id");
@@ -117,7 +117,7 @@ $(document).ready(function () {
     });
 
     // Cancel Ticket
-    cancelTicketButtons.click(function () {
+    $(document).on("click", ".cancel-ticket-btn", function () {
         // Get the ticket ID and status from the data attributes
         const status = $(this).data("status");
         const ticketId = $(this).data("ticket-id");
@@ -259,7 +259,7 @@ $(document).ready(function () {
     });
 
     // Request Clearance Ticket
-    requestClearanceButtons.click(function () {
+    $(document).on("click", ".request-clearance-btn", function () {
         // Get the ticket ID and other data attributes
         const status = $(this).data("status");
         const ticketId = $(this).data("ticket-id");
@@ -396,8 +396,11 @@ $(document).ready(function () {
                 status: "On Break",
             })
             .then(function (response) {
+                pauseTimer();
                 pauseWorkButton.addClass("d-none");
                 resumeWorkButton.removeClass("d-none");
+                $("#action-header").removeClass("bg-success");
+                $("#action-header").addClass("bg-secondary");
             })
             .catch(function (error) {
                 console.error(error);
@@ -417,8 +420,11 @@ $(document).ready(function () {
                 status: "Logged In",
             })
             .then(function (response) {
+                resumeTimer();
                 pauseWorkButton.removeClass("d-none");
                 resumeWorkButton.addClass("d-none");
+                $("#action-header").addClass("bg-success");
+                $("#action-header").removeClass("bg-secondary");
             })
             .catch(function (error) {
                 console.error(error);
@@ -438,23 +444,8 @@ $(document).ready(function () {
                 text: "Yes",
                 btnClass: "btn-success rounded-pill",
                 action: function () {
-                    // Set the CSRF token for AJAX request
-                    axios.defaults.headers.common["X-CSRF-TOKEN"] = $(
-                        'meta[name="csrf-token"]'
-                    ).attr("content");
-
-                    // Send a POST request to the server to update the work status
-                    axios
-                        .post("/update-work-session", {
-                            status: "Logged Out",
-                        })
-                        .then(function (response) {
-                            // Redirect to the login page
-                            window.location.replace("/login");
-                        })
-                        .catch(function (error) {
-                            console.error(error);
-                        });
+                    logout();
+                    location.href = this.$target.attr("href");
                 },
             },
             cancel: {
@@ -464,7 +455,82 @@ $(document).ready(function () {
         },
     });
 
-    // Helper function to format the duration in hh:mm:ss format
+    var startTime;
+    var elapsed = localStorage.getItem("work_elapsed")
+        ? parseInt(localStorage.getItem("work_elapsed"))
+        : 0;
+    var status = localStorage.getItem("work_status")
+        ? localStorage.getItem("work_status")
+        : "Logged In";
+    var intervalId;
+
+    console.log("elapsed: " + elapsed, "status: " + status);
+
+    function startTimer() {
+        startTime = Date.now() - elapsed;
+        intervalId = setInterval(updateTimer, 1000);
+    }
+
+    function updateTimer() {
+        elapsed = Date.now() - startTime;
+        var formattedTime = new Date(elapsed).toISOString().substr(11, 8);
+        document.getElementById("work-timer").textContent = formattedTime;
+
+        // Store the elapsed time in localStorage
+        localStorage.setItem("work_elapsed", elapsed);
+    }
+
+    function pauseTimer() {
+        clearInterval(intervalId);
+        status = "On Break";
+        localStorage.setItem("work_status", status);
+        console.log("elapsed: " + elapsed, "status: " + status);
+    }
+
+    function resumeTimer() {
+        startTimer();
+        status = "Logged In";
+        localStorage.setItem("work_status", status);
+        console.log("elapsed: " + elapsed, "status: " + status);
+    }
+
+    if (status == "Logged In") {
+        startTimer();
+    } else if (status == "On Break") {
+        var formattedTime = new Date(elapsed).toISOString().substr(11, 8);
+        document.getElementById("work-timer").textContent = formattedTime;
+    }
+
+    // Logout Confirmation
+    $("button#logout_account").confirm({
+        title: "Logout Confirmation",
+        content: "Are you sure you want to log out?",
+        theme: "Modern",
+        draggable: false,
+        typeAnimated: true,
+        buttons: {
+            confirm: {
+                text: "Yes",
+                btnClass: "btn-success rounded-pill",
+                action: function () {
+                    logout();
+                    location.href = this.$target.attr("href");
+                },
+            },
+            cancel: {
+                text: "No",
+                btnClass: "btn-outline-kyoored rounded-pill",
+            },
+        },
+    });
+
+    function logout() {
+        clearInterval(intervalId);
+        status = null;
+        elapsed = null;
+        localStorage.clear();
+    }
+
     function formatDuration(duration) {
         var hours = Math.floor(duration / 3600000);
         var minutes = Math.floor((duration - hours * 3600000) / 60000);

@@ -14,6 +14,7 @@ use App\Providers\RouteServiceProvider;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
@@ -82,6 +83,13 @@ class LoginController extends Controller
                         $workSession->login_id = $accountLogin->id;
                         $workSession->start_time = now();
                         $workSession->save();
+
+                        // Store the current time as the work start time
+                        Session::put('work_start_time', Carbon::now());
+                        Session::put('work_status', 'Logged In');
+                        Session::put('work_paused_at', null);
+                        Session::put('work_duration', 0);
+                        Session::save();
 
                         $accountLogin->updateAccountStatus('Logged In');
                 }

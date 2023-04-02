@@ -8,6 +8,7 @@ use App\Models\WorkSession;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class WorkSessionController extends Controller
 {
@@ -35,6 +36,8 @@ class WorkSessionController extends Controller
                     // Pause the work session
                     if (!$workSession->paused_at) {
                         $workSession->paused_at = now();
+                        Session::put('work_status', $status);
+                        Session::put('work_paused_at', $workSession->paused_at);
                         $workSession->save();
                     }
                 } else if ($status === 'Logged Out') {
@@ -49,8 +52,12 @@ class WorkSessionController extends Controller
                 } else {
                     // Resume the work session
                     if ($workSession->paused_at) {
-                        $workSession->paused_duration += Carbon::parse($workSession->paused_at)->diffInSeconds(now());
+                        $paused_at = Carbon::parse(Session::get('work_paused_at'));
+                        $paused_duration = Carbon::now()->diffInSeconds($paused_at);
+                        $workSession->paused_duration += $paused_duration;
                         $workSession->paused_at = null;
+                        Session::put('work_status', 'Logged In');
+                        Session::forget('work_paused_at');
                         $workSession->save();
                     }
                 }

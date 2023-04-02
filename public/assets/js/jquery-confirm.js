@@ -58,28 +58,6 @@ $(document).ready(function () {
         $("#preview-modal").modal("show");
     });
 
-    // Logout Confirmation
-    $("button#logout_account").confirm({
-        title: "Logout Confirmation",
-        content: "Are you sure you want to log out?",
-        theme: "Modern",
-        draggable: false,
-        typeAnimated: true,
-        buttons: {
-            confirm: {
-                text: "Yes",
-                btnClass: "btn-success rounded-pill",
-                action: function () {
-                    location.href = this.$target.attr("href");
-                },
-            },
-            cancel: {
-                text: "No",
-                btnClass: "btn-outline-kyoored rounded-pill",
-            },
-        },
-    });
-
     // Delete Account
     $("#accounts-table").on("click", ".delete-account", function () {
         var id = $(this).data("account-id");
