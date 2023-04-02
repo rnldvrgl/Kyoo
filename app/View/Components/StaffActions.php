@@ -7,10 +7,11 @@ use Illuminate\View\Component;
 class StaffActions extends Component
 {
     public $status;
-
-    public function __construct($status)
+    public $canTakeBreak;
+    public function __construct($status, $canTakeBreak)
     {
         $this->status = $status;
+        $this->canTakeBreak = $canTakeBreak;
     }
 
     /**

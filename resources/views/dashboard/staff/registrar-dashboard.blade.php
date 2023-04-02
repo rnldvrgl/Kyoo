@@ -19,6 +19,11 @@
 
     @php
         $hasCurrentServingTicket = false;
+        $canTakeBreak = true;
+        
+        if (count($pendingTickets) > 0 || count($holdingTickets) > 0 || $servingTicket == true) {
+            $canTakeBreak = false;
+        }
     @endphp
 
     @if ($servingTicket)
@@ -184,7 +189,7 @@
                 <div class="col col-lg-2 px-2 d-flex flex-column" style="min-height: 100%;">
 
                     {{-- Staff Actions --}}
-                    <x-staff-actions status="{{ $login->status }}" />
+                    <x-staff-actions status="{{ $login->status }}" canTakeBreak="{{ $canTakeBreak }}" />
 
                     {{-- Serving Stats --}}
                     <x-serving-stats avgServingTime="{{ $avg_serving_time }}"
