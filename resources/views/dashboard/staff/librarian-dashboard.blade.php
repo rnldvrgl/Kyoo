@@ -4,6 +4,11 @@
     $login = $user_data['login'];
     $department = $user_data['department'];
     $profile_image = $details->profile_image;
+    $canTakeBreak = true;
+    
+    if (count($p_c_clearance_tickets) > 0 || count($p_hs_clearance_tickets) > 0) {
+        $canTakeBreak = false;
+    }
 @endphp
 
 
@@ -212,7 +217,7 @@
             <div class="col col-lg-2 px-2 d-flex flex-column" style="min-height: 100%;">
 
                 {{-- Staff Actions --}}
-                <x-staff-actions status="{{ $login->status }}" />
+                <x-staff-actions status="{{ $login->status }}" canTakeBreak="{{ $canTakeBreak }}" />
 
                 {{-- Librarian Stats --}}
                 <x-librarian-stats :countSignedClearances="$count_signed_clearances" :countClearedClearances="$count_completed_clearances" :countUnclearedClearances="$count_uncleared_clearances"

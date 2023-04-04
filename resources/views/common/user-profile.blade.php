@@ -29,7 +29,19 @@
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
-                        <a href="/">Home</a>
+                        @switch($role->name)
+                            @case('Main Admin')
+                                <a href="{{ route('dashboard.main_admin') }}">Home</a>
+                            @break
+
+                            @case('Department Admin')
+                                <a href="{{ route('dashboard.department_admin') }}">Home</a>
+                            @break
+
+                            @case('Staff')
+                                <a href="{{ route('dashboard.staff') }}">Home</a>
+                            @break
+                        @endswitch
                     </li>
                     <li class="breadcrumb-item active">User Profile</li>
                 </ol>
@@ -188,8 +200,8 @@
                                             <label for="name" class="col-md-4 col-lg-3 col-form-label">Full
                                                 Name</label>
                                             <div class="col-md-8 col-lg-9">
-                                                <input name="name" type="text" class="form-control" id="name"
-                                                    value="{{ $details->name }}"
+                                                <input name="name" type="text" class="form-control"
+                                                    id="name" value="{{ $details->name }}"
                                                     pattern="^[a-zA-Z ,.'-]+(?: [a-zA-Z ,.'-]+)*$" required />
                                             </div>
                                         </div>

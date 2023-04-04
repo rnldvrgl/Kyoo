@@ -9,7 +9,7 @@ The easiest way to get started with Laravel WebSockets is by using it as a [Push
 
 ## Requirements
 
-To make use of the Laravel WebSockets package in combination with Pusher, you first need to install the official Pusher PHP SDK. 
+To make use of the Laravel WebSockets package in combination with Pusher, you first need to install the official Pusher PHP SDK.
 
 If you are not yet familiar with the concept of Broadcasting in Laravel, please take a look at the [Laravel documentation](https://laravel.com/docs/6.0/broadcasting).
 
@@ -38,7 +38,7 @@ To do this, you should add the `host` and `port` configuration key to your `conf
     'options' => [
         'cluster' => env('PUSHER_APP_CLUSTER'),
         'encrypted' => true,
-        'host' => '127.0.0.1',
+        'host' => '192.168.1.103',
         'port' => 6001,
         'scheme' => 'http'
     ],
@@ -102,13 +102,13 @@ When using Laravel WebSockets in combination with a custom SSL certificate, be s
 :::
 
 ```js
-import Echo from "laravel-echo"
+import Echo from "laravel-echo";
 
-window.Pusher = require('pusher-js');
+window.Pusher = require("pusher-js");
 
 window.Echo = new Echo({
-    broadcaster: 'pusher',
-    key: 'your-pusher-key',
+    broadcaster: "pusher",
+    key: "your-pusher-key",
     wsHost: window.location.hostname,
     wsPort: 6001,
     forceTLS: false,

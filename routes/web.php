@@ -278,7 +278,7 @@ Route::middleware(['auth', 'user-access:Staff'])->group(function () {
 })->name('staff');
 
 // * Logout
-Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth');
 
 // * End Shift
 Route::get('/end_shift', [LoginController::class, 'endShift'])->name('end_shift')->middleware('auth');

@@ -52,18 +52,18 @@ When your SSL settings are in place and working, you still need to tell Laravel 
 You can do this by specifying the `forceTLS` property in your JavaScript file, like this:
 
 ```js
-import Echo from "laravel-echo"
+import Echo from "laravel-echo";
 
-window.Pusher = require('pusher-js');
+window.Pusher = require("pusher-js");
 
 window.Echo = new Echo({
-    broadcaster: 'pusher',
-    key: 'your-pusher-key',
+    broadcaster: "pusher",
+    key: "your-pusher-key",
     wsHost: window.location.hostname,
     wsPort: 6001,
     wssPort: 6001,
     disableStats: true,
-    forceTLS: true
+    forceTLS: true,
 });
 ```
 
@@ -79,7 +79,7 @@ When broadcasting events from your Laravel application to the WebSocket server, 
     'app_id' => env('PUSHER_APP_ID'),
     'options' => [
         'cluster' => env('PUSHER_APP_CLUSTER'),
-        'host' => '127.0.0.1',
+        'host' => '192.168.1.103',
         'port' => 6001,
         'scheme' => 'https'
     ],
@@ -134,7 +134,7 @@ You also need to disable SSL verification.
     'app_id' => env('PUSHER_APP_ID'),
     'options' => [
         'cluster' => env('PUSHER_APP_CLUSTER'),
-        'host' => '127.0.0.1',
+        'host' => '192.168.1.103',
         'port' => 6001,
         'scheme' => 'https',
         'curl_options' => [
@@ -149,8 +149,8 @@ Last but not least, you still need to configure Laravel Echo to also use WSS on 
 
 ```js
 window.Echo = new Echo({
-    broadcaster: 'pusher',
-    key: 'your-pusher-key',
+    broadcaster: "pusher",
+    key: "your-pusher-key",
     wsHost: window.location.hostname,
     wsPort: 6001,
     wssPort: 6001,
@@ -209,7 +209,7 @@ server {
   location / {
     try_files /nonexistent @$type;
   }
-  
+
   location @web {
     try_files $uri $uri/ /index.php?$query_string;
   }
@@ -293,7 +293,7 @@ socket.yourapp.tld {
         transparent
         websocket
     }
-    
+
     tls youremail.com
 }
 ```

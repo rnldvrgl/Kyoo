@@ -10,6 +10,7 @@ use App\Observers\PromotionalVideoObserver;
 use App\Observers\QueueTicketObserver;
 use Illuminate\Support\ServiceProvider;
 
+
 class AppServiceProvider extends ServiceProvider
 {
 	/**

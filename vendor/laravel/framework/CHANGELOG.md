@@ -1,6 +1,18 @@
 # Release Notes for 9.x
 
-## [Unreleased](https://github.com/laravel/framework/compare/v9.52.2...9.x)
+## [Unreleased](https://github.com/laravel/framework/compare/v9.52.4...9.x)
+
+
+## [v9.52.4](https://github.com/laravel/framework/compare/v9.52.3...v9.52.4) - 2023-02-22
+
+### Fixed
+- Fixes constructable migrations ([#46223](https://github.com/laravel/framework/pull/46223))
+
+
+## [v9.52.3](https://github.com/laravel/framework/compare/v9.52.2...v9.52.3) - 2023-02-22
+
+### Reverted
+- Revert changes from `Arr::random()` ([cf3eb90](https://github.com/laravel/framework/commit/cf3eb90a6473444bb7a78d1a3af1e9312a62020d))
 
 
 ## [v9.52.2](https://github.com/laravel/framework/compare/v9.52.1...v9.52.2) - 2023-02-21

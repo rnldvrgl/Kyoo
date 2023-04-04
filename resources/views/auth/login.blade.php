@@ -48,10 +48,12 @@
                     <div class="d-grid mb-3">
                         <button type="submit" class="btn btn-kyoored btn-md rounded-pill">{{ __('Login') }}</button>
                     </div>
-                    <div class="d-grid mb-3">
+
+                    {{-- Kiosk --}}
+                    {{-- <div class="d-grid mb-3">
                         <a href="{{ route('kiosk') }}"
                             class="btn btn-outline-light btn-sm rounded-pill">{{ __('Access Kiosk') }}</a>
-                    </div>
+                    </div> --}}
                 </form>
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <a class="btn btn-link text-white rounded-pill btn-sm px-3 mb-2 mb-lg-0"

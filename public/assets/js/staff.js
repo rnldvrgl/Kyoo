@@ -502,7 +502,7 @@ $(document).ready(function () {
     }
 
     // Logout Confirmation
-    $("button#logout_account").confirm({
+    $("#logout_account").confirm({
         title: "Logout Confirmation",
         content: "Are you sure you want to log out?",
         theme: "Modern",

@@ -34,7 +34,7 @@ window.Echo = new Echo({
     broadcaster: "pusher",
     key: "kyoo_key",
     cluster: "mt1",
-    wsHost: "127.0.0.1",
+    wsHost: "192.168.1.103",
     // wsHost: "insert-your-ip-address-here",
     wsPort: 6001,
     forceTLS: false,

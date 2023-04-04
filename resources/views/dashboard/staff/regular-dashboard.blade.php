@@ -4,10 +4,25 @@
     $login = $user_data['login'];
     $department = $user_data['department'];
     $profile_image = $details->profile_image;
+    $hasCurrentServingTicket = false;
+    $canTakeBreak = true;
+    
+    if (count($pendingTickets) > 0 || $servingTicket == true) {
+        $canTakeBreak = false;
+    }
 @endphp
+
+
+@if ($servingTicket)
+    @php
+        $hasCurrentServingTicket = '{{ $servingTicket ? true : false }}';
+    @endphp
+@endif
+
 
 {{-- Page Title --}}
 @section('mytitle', $department->name . ' Dashboard')
+
 
 
 <x-layout :role='$role'>
@@ -16,16 +31,6 @@
 
     {{-- Text To Speech JS --}}
     <script  type="module" src="{{ asset('assets/js/textToSpeech.js') }}"></script>
-
-    @php
-        $hasCurrentServingTicket = false;
-    @endphp
-
-    @if ($servingTicket)
-        @php
-            $hasCurrentServingTicket = '{{ $servingTicket ? true : false }}';
-        @endphp
-    @endif
 
     <main id="main" class="main px-2">
         <section class="section dashboard">
@@ -56,7 +61,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card-body px-4 pt-4 pb-2 d-flex flex-column justify-content-start regular-staff-pending-tab-{{ $department->id }}"
+                        <div class="card-body px-4 pt-4 pb-2 d-flex flex-column justify-content-start"
                             style="overflow-y: scroll; height: calc(100% - 55px);">
 
                             <div id="notifications"></div>
@@ -81,7 +86,7 @@
                                     @endforeach
                                 </div>
                             @else
-                                <div class="text-center my-auto pending-tickets">
+                                <div class="text-center my-auto">
                                     <p class="fw-bold fs-4 mb-0 text-muted">No Pending Ticket(s)</p>
                                 </div>
                             @endif
@@ -189,7 +194,7 @@
                 <div class="col col-lg-2 px-2 d-flex flex-column" style="min-height: 100%;">
 
                     {{-- Staff Actions --}}
-                    <x-staff-actions status="{{ $login->status }}" />
+                    <x-staff-actions status="{{ $login->status }}" canTakeBreak="{{ $canTakeBreak }}" />
 
                     {{-- Serving Stats --}}
                     <x-serving-stats avgServingTime="{{ $avg_serving_time }}"
@@ -202,7 +207,4 @@
 
     {{-- Staff JS --}}
     <script src="{{ asset('assets/js/staff.js') }}"></script>
-
-    {{-- Refresh Page JS --}}
-    {{-- <script src="{{ asset('assets/js/refreshPage.js') }}"></script> --}}
 </x-layout>
