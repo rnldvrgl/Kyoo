@@ -5,22 +5,67 @@ liveQueueChannel
         console.log("Subscribed");
     })
     .listen(".live-queue", (e) => {
-        let ticket = e.queueTicket;
+        let tickets = e.queueTickets;
 
-        let ticketDisplay = $("#display-ticket-" + ticket.department_id);
+        let ticketDisplay = $("#tickets-table");
 
-        let ticketHasSomething = `
-            <div class="d-flex flex-column align-items-center">
-                <h1 class="card-subtitle mb-2" style="font-size: clamp(2rem, 5vw, 3rem);">
-                ${ticket.ticket_number}
-                </h1>
-                <span class="text-primary fw-semibold"
-                    style="font-size: clamp(0.8rem, 2vw, 1.2rem);">Currently
-                    Serving</span>
-            </div>
-        `;
+        let ticketHTML = "";
 
-        ticketDisplay.html(ticketHasSomething);
+        tickets.forEach((ticket) => {
+            let ticketHasSomething = `
+                <div class="card shadow-none mb-2 py-3 rounded-5 ${
+                    ticket.ticket_status === "Calling"
+                        ? "flicker bg-pastel-blue"
+                        : ""
+                } border"
+                    data-aos="slide-right">
+                    <div class="card-body pb-0">
+                        <div class="row">
+                            <div class="col-5 d-flex justify-content-start align-items-center">
+                                <h5 class="mb-0 fw-semibold ">${
+                                    ticket.department_name
+                                }</h5>
+                            </div>
+                            <div class="col-5 d-flex justify-content-start align-items-center">
+                                <h5 class="text-kyoodark fw-bold mb-0 ${
+                                    ticket.ticket_status === "Calling"
+                                        ? "flicker"
+                                        : ""
+                                }">
+                                    ${ticket.ticket_number}</h5>
+                            </div>
+                            <div class="col-2 d-flex justify-content-start align-items-center">
+                                <span
+                                    class="badge rounded-pill
+                                    ${
+                                        ticket.ticket_status === "Pending"
+                                            ? "bg-warning"
+                                            : ticket.ticket_status === "Calling"
+                                            ? "bg-primary"
+                                            : ticket.ticket_status === "Serving"
+                                            ? "bg-info"
+                                            : ticket.ticket_status === "On Hold"
+                                            ? "bg-success"
+                                            : ticket.ticket_status ===
+                                              "Complete"
+                                            ? "bg-danger"
+                                            : ticket.ticket_status ===
+                                              "Cancelled"
+                                            ? "bg-danger"
+                                            : ""
+                                    }">
+                                    ${ticket.ticket_status}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
 
-        // console.log(ticket);
+            ticketHTML += ticketHasSomething;
+        });
+
+        ticketDisplay.html(ticketHTML);
+
+        // console.log(tickets);
     });

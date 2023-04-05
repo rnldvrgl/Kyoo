@@ -38,7 +38,7 @@ To do this, you should add the `host` and `port` configuration key to your `conf
     'options' => [
         'cluster' => env('PUSHER_APP_CLUSTER'),
         'encrypted' => true,
-        'host' => '192.168.1.103',
+        'host' => '127.0.0.1',
         'port' => 6001,
         'scheme' => 'http'
     ],

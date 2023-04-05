@@ -7,6 +7,7 @@ use App\Models\PromotionalText;
 use App\Models\PromotionalVideo;
 use App\Models\QueueTicket;
 use App\Models\Video;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
@@ -40,34 +41,36 @@ class LiveQueueController extends Controller
     // Live Queue Index Page
     public function index()
     {
-        // Get all departments
+        // // Get all departments
+        // $departments = Department::whereNotIn('id', [3, 4])->get();
 
-        $departments = Department::whereNotIn('id', [3, 4])->get();
+        // $ticket_data = [
+        //     'departments' => []
+        // ];
+
+        // // Loop through each department and get the current ticket number
+        // foreach ($departments as $department) {
+        //     // Get the current ticket for this department
+        //     $current_ticket = QueueTicket::where('department_id', $department->id)
+        //         ->whereIn('status', ['Serving', 'Calling'])
+        //         ->first();
+
+        //     // Set the ticket number to null if no current ticket
+        //     $ticket_number = $current_ticket ? $current_ticket->ticket_number : null;
+
+        //     // Assign the ticket number to the department object
+        //     $department->ticket_number = $ticket_number;
+
+        //     // Add the department object to the array
+        //     $ticket_data['departments'][] = $department;
+        // }
+
 
         $promotional_message = PromotionalText::all();
-        $ticket_data = [
-            'departments' => []
-        ];
 
-        // Loop through each department and get the current ticket number
-        foreach ($departments as $department) {
-            // Get the current ticket for this department
-            $current_ticket = QueueTicket::where('department_id', $department->id)
-                ->whereIn('status', ['Serving', 'Calling'])
-                ->first();
-
-            // Set the ticket number to null if no current ticket
-            $ticket_number = $current_ticket ? $current_ticket->ticket_number : null;
-
-            // Assign the ticket number to the department object
-            $department->ticket_number = $ticket_number;
-
-            // Add the department object to the array
-            $ticket_data['departments'][] = $department;
-        }
-
+        $tickets_data = QueueTicket::with('serviceDepartment')->whereDate('created_at', Carbon::today())->get();
 
         // Return view with departments data
-        return view('live_queue', compact('ticket_data', 'promotional_message'));
+        return view('live_queue', compact('tickets_data', 'promotional_message'));
     }
 }

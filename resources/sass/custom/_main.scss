@@ -74,3 +74,23 @@
 .card-body::-webkit-scrollbar-thumb {
 	background-color: #808080;
 }
+
+// LIVE QUEUE 
+
+@keyframes flickerAnimation {
+	0% {
+		opacity: 1;
+	}
+
+	50% {
+		opacity: 0.5;
+	}
+
+	100% {
+		opacity: 1;
+	}
+}
+
+.flicker {
+	animation: flickerAnimation 1.5s ease-in-out infinite;
+}

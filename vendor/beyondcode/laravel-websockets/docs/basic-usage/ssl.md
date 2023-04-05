@@ -79,7 +79,7 @@ When broadcasting events from your Laravel application to the WebSocket server, 
     'app_id' => env('PUSHER_APP_ID'),
     'options' => [
         'cluster' => env('PUSHER_APP_CLUSTER'),
-        'host' => '192.168.1.103',
+        'host' => '127.0.0.1',
         'port' => 6001,
         'scheme' => 'https'
     ],
@@ -134,7 +134,7 @@ You also need to disable SSL verification.
     'app_id' => env('PUSHER_APP_ID'),
     'options' => [
         'cluster' => env('PUSHER_APP_CLUSTER'),
-        'host' => '192.168.1.103',
+        'host' => '127.0.0.1',
         'port' => 6001,
         'scheme' => 'https',
         'curl_options' => [
