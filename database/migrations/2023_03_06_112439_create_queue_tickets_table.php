@@ -31,6 +31,7 @@ return new class extends Migration
             $table->dateTime('hold_at')->nullable();
             $table->dateTime('completed_at')->nullable();
             $table->string('notes')->nullable();
+            $table->string('transfer_notes')->nullable();
             $table->date('date');
             $table->timestamps();
         });

@@ -54,18 +54,25 @@
                                                     $tickets_data = $sorted_tickets->take(13)->toArray();
                                                     $waiting_tickets = $sorted_tickets
                                                         ->slice(13)
-                                                        ->take(6)
+                                                        ->take(7)
                                                         ->toArray();
                                                 @endphp
                                                 {{-- {{ dd($tickets_data) }} --}}
-                                                @foreach ($tickets_data as $ticket_data)
-                                                    <x-live-tickets
-                                                        departmentName="{{ $ticket_data['service_department']['name'] }}"
-                                                        ticketNumber="{{ $ticket_data['ticket_number'] }}"
-                                                        ticketStatus="{{ $ticket_data['status'] }}" />
-                                                @endforeach
+                                                @if (count($tickets_data) > 0)
+                                                    @foreach ($tickets_data as $ticket_data)
+                                                        <x-live-tickets
+                                                            departmentName="{{ $ticket_data['service_department']['name'] }}"
+                                                            ticketNumber="{{ $ticket_data['ticket_number'] }}"
+                                                            ticketStatus="{{ $ticket_data['status'] }}" />
+                                                    @endforeach
+                                                @else
+                                                    <div class="d-flex justify-content-center align-items-center py-5">
+                                                        <h1 class="text-muted fw-light mb-0">
+                                                            No Tickets Found
+                                                        </h1>
+                                                    </div>
+                                                @endif
                                             </tbody>
-
                                         </table>
                                     </div>
                                 </div>
@@ -118,7 +125,7 @@
                                     }
                                 </style>
                             @else
-                                <div class="card border py-5 shadow-sm">
+                                <div class="card border py-5 shadow-sm rounded-5">
                                     <div class="d-flex justify-content-center align-items-center">
                                         <h1 class="text-danger fw-light mb-0">
                                             No active promotional video found.
@@ -127,40 +134,54 @@
                                 </div>
                             @endif
                         </div>
-                        <div class="col h-100" style="max-width: 100%; max-height: 50vh;">
-                            <div class="card rounded-5 h-100" style="max-width: 100%; max-height: 50vh;">
-                                <div class="card-body pb-0 h-100" style="max-width: 100%; max-height: 50vh;">
-                                    <div class="table-responsive">
-                                        <table class="table table-striped table-hover">
-                                            <h6 class="card-title pt-3 pb-2">Pending Tickets</h6>
-                                            <tbody>
-                                                @foreach ($waiting_tickets as $waiting_ticket)
-                                                    <div class="card shadow-none mb-2 py-2 rounded-5 {{ $waiting_ticket['status'] == 'Calling' ? 'flicker bg-pastel-blue' : '' }} border"
-                                                        data-aos="slide-right">
-                                                        <div class="card-body pb-0">
-                                                            <div class="row">
-                                                                <div
-                                                                    class="col d-flex justify-content-start align-items-center">
-                                                                    <h6 class="mb-0 fw-semibold ">
-                                                                        {{ $waiting_ticket['service_department']['name'] }}
-                                                                    </h6>
-                                                                </div>
-                                                                <div
-                                                                    class="col d-flex justify-content-start align-items-center">
-                                                                    <h6
-                                                                        class="text-kyoodark fw-bold mb-0 {{ $waiting_ticket['status'] == 'Calling' ? 'flicker' : '' }}">
-                                                                        {{ $waiting_ticket['ticket_number'] }}</h6>
+                        @if (count($waiting_tickets) > 0)
+                            <div class="col h-100" style="max-width: 100%; max-height: 50vh;">
+                                <div class="card rounded-5 h-100" style="max-width: 100%; max-height: 50vh;">
+                                    <div class="card-body pb-0 h-100" style="max-width: 100%; max-height: 50vh;">
+                                        <div class="table-responsive pt-3">
+                                            <table class="table table-striped table-hover">
+                                                <tbody>
+                                                    @foreach ($waiting_tickets as $waiting_ticket)
+                                                        <div class="card shadow-none mb-2 py-2 rounded-5 {{ $waiting_ticket['status'] == 'Calling' ? 'flicker bg-pastel-blue' : '' }} border"
+                                                            data-aos="slide-right">
+                                                            <div class="card-body pb-0">
+                                                                <div class="row">
+                                                                    <div
+                                                                        class="col-lg-5 d-flex justify-content-start align-items-center">
+                                                                        <h6 class="mb-0 fw-semibold ">
+                                                                            {{ $waiting_ticket['service_department']['name'] }}
+                                                                        </h6>
+                                                                    </div>
+                                                                    <div
+                                                                        class="col-lg-5  d-flex justify-content-start align-items-center">
+                                                                        <h6
+                                                                            class="text-kyoodark fw-bold mb-0 {{ $waiting_ticket['status'] == 'Calling' ? 'flicker' : '' }}">
+                                                                            {{ $waiting_ticket['ticket_number'] }}</h6>
+                                                                    </div>
+                                                                    <div
+                                                                        class="col-lg-2  d-flex justify-content-start align-items-center">
+                                                                        <span
+                                                                            class="badge rounded-pill
+                                                                            @if ($waiting_ticket['status'] == 'Pending') bg-warning
+                                                                            @elseif($waiting_ticket['status'] == 'Calling') bg-primary
+                                                                            @elseif($waiting_ticket['status'] == 'Serving') bg-success
+                                                                            @elseif($waiting_ticket['status'] == 'On Hold') bg-info
+                                                                            @elseif($waiting_ticket['status'] == 'Complete') bg-danger
+                                                                            @elseif($waiting_ticket['status'] == 'Cancelled') bg-danger @endif">
+                                                                            {{ $waiting_ticket['status'] }}
+                                                                        </span>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        @endif
                     </div>
 
                 </div>
@@ -171,10 +192,10 @@
 
     <!-- Marquee Text  -->
     <div class="d-none d-lg-block fixed-bottom">
-        <div class="bg-kyoodark py-2 text-white">
+        <div class="bg-kyoodark py-3 text-white">
             <div class="row justify-content-center">
-                <marquee behavior="scroll" direction="left" class="fw-normal" scrollamount="6%">
-                    <span class="d-inline-block text-truncate promotional-text" style="max-width: 90vw;">
+                <marquee behavior="scroll" direction="left" class="fw-normal" scrollamount="8%">
+                    <span class="d-inline-block text-truncate promotional-text fs-5">
                         {{ $promotional_message[0]->text ?? '' }}
                     </span>
                 </marquee>
