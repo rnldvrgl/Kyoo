@@ -132,6 +132,28 @@ $(document).ready(function () {
         });
     });
 
+    // Logout Confirmation
+    $("#logout_main_account").confirm({
+        title: "Logout Confirmation",
+        content: "Are you sure you want to log out?",
+        theme: "Modern",
+        draggable: false,
+        typeAnimated: true,
+        buttons: {
+            confirm: {
+                text: "Yes",
+                btnClass: "btn-success rounded-pill",
+                action: function () {
+                    location.href = this.$target.attr("href");
+                },
+            },
+            cancel: {
+                text: "No",
+                btnClass: "btn-outline-kyoored rounded-pill",
+            },
+        },
+    });
+
     // Delete Department
     $("#departments-table").on("click", ".delete-department", function () {
         var id = $(this).data("department-id");

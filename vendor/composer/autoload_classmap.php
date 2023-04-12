@@ -91,6 +91,7 @@ return array(
     'App\\View\\Components\\DepartmentCard' => $baseDir . '/app/View/Components/DepartmentCard.php',
     'App\\View\\Components\\HoldTicket' => $baseDir . '/app/View/Components/HoldTicket.php',
     'App\\View\\Components\\LibrarianStats' => $baseDir . '/app/View/Components/LibrarianStats.php',
+    'App\\View\\Components\\LiveTickets' => $baseDir . '/app/View/Components/LiveTickets.php',
     'App\\View\\Components\\PendingClearanceCard' => $baseDir . '/app/View/Components/PendingClearanceCard.php',
     'App\\View\\Components\\QueueCard' => $baseDir . '/app/View/Components/QueueCard.php',
     'App\\View\\Components\\ServedTicket' => $baseDir . '/app/View/Components/ServedTicket.php',

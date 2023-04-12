@@ -60,7 +60,7 @@
                             <hr class="dropdown-divider" />
                         </li>
                         <li>
-                            <button id="logout_account" class="dropdown-item d-flex align-items-center logout-link"
+                            <button id="logout_main_account" class="dropdown-item d-flex align-items-center logout-link"
                                 href="{{ route('logout') }}">
                                 <i class="fa-solid fa-arrow-right-from-bracket"></i>
                                 {{ __('Sign Out') }}
