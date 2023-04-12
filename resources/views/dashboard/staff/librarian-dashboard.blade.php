@@ -147,9 +147,16 @@
                         <div class="container-fluid">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h4 class="fw-bold mb-0">Signed Clearances</h4>
-                                <span class="badge bg-kyooblue text-kyooblue  rounded-circle p-1">
-                                    <i class="fa-regular fa-circle"></i>
-                                </span>
+
+                                <div class="d-flex justify-content-center align-items-center">
+                                    {{-- Export Button --}}
+                                    <button type="button" class="me-3" data-bs-toggle="modal"
+                                    data-bs-target="#exportModal">Export</button>
+
+                                    <span class="badge bg-kyooblue text-kyooblue  rounded-circle p-1">
+                                        <i class="fa-regular fa-circle"></i>
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -209,6 +216,74 @@
                             @break
 
                         @endswitch
+                    </div>
+                </div>
+            </div>
+
+            {{-- Filters Modal --}}
+            <div class="modal fade" id="exportModal" tabindex="-1" aria-labelledby="exportModalLabel"
+            aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exportModalLabel">Export Ticket</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="#" method="POST"
+                                autocomplete="off">
+
+                                @csrf
+                                
+                                <div class="form-floating mb-3 rounded-pill ">
+                                    <select class="form-select" name="department" id="floatingDepartment"
+                                        aria-label="Department">
+                                        <option value="" selected disabled>Select Department</option>
+                                        @if ($department->name == "College Library")
+                                            <option value="Graduate School">Graduate School</option>
+                                            <option value="College">College</option>
+                                        @elseif($department->name == "High School Library")
+                                            <option value="Senior High School">Senior High School</option>
+                                            <option value="Junior High School">Junior High School</option>
+                                        @endif
+                                    </select>
+                                    <label for="floatingDepartment">Department</label>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    <select class="form-select" name="course" id="floatingCourse" aria-label="Course">
+                                        <option value="" selected disabled>Select Course</option>
+                                    </select>
+                                    <label for="floatingCourse">Course</label>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    <select class="form-select" name="clearance_status" id="floatingClearanceStatus" aria-label="Clearance Status">
+                                        <option value="" selected disabled>Select Status</option>
+                                        <option value="Pending">Pending</option>
+                                        <option value="Not Cleared">Not Cleared</option>
+                                        <option value="Cleared">Cleared</option>
+                                    </select>
+                                    <label for="floatingClearanceStatus">Clearance Status</label>
+                                </div>
+                    
+                                <div class="row">
+                                    <div class="col-6 form-floating mb-3">
+                                        <input class="form-control" type="date" name="start_date" id="floatingStartDate">
+                                        <label for="floatingStartDate">Start Date</label>
+                                    </div>
+    
+                                    <div class="col-6 form-floating mb-3">
+                                        <input class="form-control" type="date" name="end_date" id="floatingEndDate">    
+                                        <label for="floatingEndDate">End Date</label>
+                                    </div>
+                                </div>
+
+                                <button class="flex btn btn-primary" type="submit">
+                                    Filter
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
