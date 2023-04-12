@@ -460,8 +460,8 @@ class ComposerStaticInita6cfa5fce8bb348edcfb67f612f71051
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-factory/src',
-            1 => __DIR__ . '/..' . '/psr/http-message/src',
+            0 => __DIR__ . '/..' . '/psr/http-message/src',
+            1 => __DIR__ . '/..' . '/psr/http-factory/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -859,6 +859,7 @@ class ComposerStaticInita6cfa5fce8bb348edcfb67f612f71051
         'App\\View\\Components\\DepartmentCard' => __DIR__ . '/../..' . '/app/View/Components/DepartmentCard.php',
         'App\\View\\Components\\HoldTicket' => __DIR__ . '/../..' . '/app/View/Components/HoldTicket.php',
         'App\\View\\Components\\LibrarianStats' => __DIR__ . '/../..' . '/app/View/Components/LibrarianStats.php',
+        'App\\View\\Components\\LiveTickets' => __DIR__ . '/../..' . '/app/View/Components/LiveTickets.php',
         'App\\View\\Components\\PendingClearanceCard' => __DIR__ . '/../..' . '/app/View/Components/PendingClearanceCard.php',
         'App\\View\\Components\\QueueCard' => __DIR__ . '/../..' . '/app/View/Components/QueueCard.php',
         'App\\View\\Components\\ServedTicket' => __DIR__ . '/../..' . '/app/View/Components/ServedTicket.php',
