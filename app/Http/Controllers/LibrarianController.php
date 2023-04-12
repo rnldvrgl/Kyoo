@@ -7,6 +7,7 @@ use App\Models\QueueTicket;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Rap2hpoutre\FastExcel\FastExcel;
 
 class LibrarianController extends Controller
 {
@@ -36,6 +37,57 @@ class LibrarianController extends Controller
         );
     }
 
+    public function fetchFilteredLibrarianTicket(Request $request)
+    {
+        // Declare them variables
+        $student_department = $request->department;
+        $student_course = $request->course;
+        $clearance_status = $request->clearance_status;
+        $startDate = $request->start_date;
+        $endDate = $request->end_date;
+
+        // Query the Model
+        $query = QueueTicket::query();
+
+        // Check if they are empty
+        if(empty($student_department) && empty($student_course) && empty($clearance_status)){
+            return response()->json(['msg' => 'Please provide at least one filter.']);
+            // return redirect('/librarian/dashboard')->with('library-msg', 'Please provide at least one filter.');
+        }
+    
+        // Dropdown Filters
+        if (!empty($student_department)) {
+            $query->where('student_department', $student_department);
+        }
+
+        if (!empty($student_course)) {
+            $query->where('student_course' ,$student_course);
+        }
+
+        if (!empty($clearance_status)) {
+            $query->where('clearance_status', $clearance_status);
+        }
+    
+        // Date Filters
+        if (!empty($startDate)) {
+            $query->whereDate('created_at', '>=', $startDate);
+        }
+    
+        if (!empty($endDate)) {
+            $query->whereDate('created_at', '<=', $endDate);
+        }
+
+        $tickets = $query->get(['id', 'student_name', 'student_department', 'student_course', 'clearance_status', 'created_at']);
+            
+        if ($tickets->isEmpty()) {
+            return response()->json(['msg' => 'No tickets found with the specified filters.']);
+            // return redirect('/librarian/dashboard')->with('library-msg', 'No tickets found with the specified filters.');
+        }
+    
+        (new FastExcel($tickets))->download('librarian-ticket.csv');
+
+        return response()->json(['msg' => 'Excel has been downloaded.']);
+    }
 
     public function getCollegesPendingClearance()
     {
@@ -171,4 +223,5 @@ class LibrarianController extends Controller
 
         return ['unclearedCollegeCount' => $unclearedCollegeCount, 'unclearedHSCount' => $unclearedHSCount];
     }
+
 }

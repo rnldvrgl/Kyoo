@@ -263,6 +263,7 @@ Route::middleware(['auth', 'user-access:Staff'])->group(function () {
 
 	// Librarian Index Dashboard
 	Route::get('/librarian/dashboard', [LibrarianController::class, 'index'])->name('dashboard.librarian');
+	Route::post('/export-librarian-ticket', [LibrarianController::class, 'fetchFilteredLibrarianTicket'])->name('export-librarian-ticket'); // Export Librarian Ticket
 
 	// Update Ticket Status
 	Route::put('/tickets/update-status/{status}', [QueueTicketController::class, 'updateStatus'])->name('tickets.updateStatus');

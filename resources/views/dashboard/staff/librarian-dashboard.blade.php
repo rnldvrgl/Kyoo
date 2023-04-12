@@ -230,7 +230,17 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form action="#" method="POST"
+                            @if (session('library-msg'))
+                                <div class="alert alert-danger" role="alert">
+                                    {{ session('library-msg') }}
+                                </div>
+                            @endif
+
+                            <div id="res">
+                                {{-- Insert Message here --}}
+                            </div>
+
+                            <form id="export-librarian-ticket" action="{{ route('export-librarian-ticket') }}" method="POST"
                                 autocomplete="off">
 
                                 @csrf
@@ -279,8 +289,9 @@
                                     </div>
                                 </div>
 
-                                <button class="flex btn btn-primary" type="submit">
+                                <button class="flex btn btn-primary" type="submit" id="btn-submit-filter">
                                     Filter
+                                    <i class="fa-solid fa-filter"></i>
                                 </button>
                             </form>
                         </div>
