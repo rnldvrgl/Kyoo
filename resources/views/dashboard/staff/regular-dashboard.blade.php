@@ -81,6 +81,7 @@
                                                 serviceDepartment="{{ $department->name }}" :position="$loop->index + 1"
                                                 clearancestatus="{{ $ticket->clearance_status }}"
                                                 hasCurrentServingTicket="{{ $hasCurrentServingTicket }}"
+                                                transferNotes="{{ $ticket->transfer_notes }}"
                                                 notes="{{ $ticket->notes }}" />
                                         </div>
                                     @endforeach
@@ -121,6 +122,7 @@
                                         clearancestatus="{{ $servingTicket->clearance_status }}"
                                         serviceDepartmentId="{{ $department->id }}"
                                         serviceDepartment="{{ $department->name }}"
+                                        transferNotes="{{ $servingTicket->transfer_notes }}"
                                         notes="{{ $servingTicket->notes }}" />
                                 @else
                                     <div class="text-center">

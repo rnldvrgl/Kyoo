@@ -280,14 +280,6 @@ class QueueTicketController extends Controller
                 $ticket->clearance_status = $clearanceStatus;
             }
 
-            // Check the actual clearance status of the ticket
-            // $actualClearanceStatus = $ticket->clearance_status;
-
-            // Only update the clearance status in the session if it's different from the actual clearance status
-            // if ($clearanceStatus !== $actualClearanceStatus) {
-            //     session(['clearance_status' => $actualClearanceStatus]);
-            // }
-
             // Update the ticket status
             $ticket->status = $status;
 
@@ -310,7 +302,8 @@ class QueueTicketController extends Controller
                 $course = $request->student_course;
                 $department_id = $department->id;
                 $service_id = $service->id;
-                $notes = $request->transfer_notes;
+                $transfer_notes = $request->transfer_notes;
+                $notes = $request->notes;
 
                 // retrieve department code
                 $department_code = '';
@@ -332,7 +325,6 @@ class QueueTicketController extends Controller
                     $daily_counter->save();
                 }
                 $next_ticket_number = $daily_counter->ticket_number;
-                $daily_counter_ticket_number = $department_code . sprintf('%03d', $next_ticket_number);
 
                 // update daily counter
                 $daily_counter->ticket_number = $next_ticket_number + 1;
@@ -350,6 +342,7 @@ class QueueTicketController extends Controller
                 $new_ticket->status = 'Pending';
                 $new_ticket->date = $today;
                 $new_ticket->notes = $notes;
+                $new_ticket->transfer_notes = $transfer_notes;
                 $new_ticket->save();
 
                 // save selected services to queue_ticket_service table
@@ -404,7 +397,16 @@ class QueueTicketController extends Controller
                     $printer->setEmphasis(false);
 
                     $serviceModel = Service::where('id', $service_id)->first();
-                    $printer->text("- " . $serviceModel->name . "\n");
+                    $printer->text("- " . $serviceModel->name . "\n\n");
+
+
+                    // Print Notes
+                    $printer->setJustification(Printer::JUSTIFY_CENTER);
+                    $printer->setEmphasis(true);
+                    $printer->text($notes . "\n");
+                    $printer->setJustification(Printer::JUSTIFY_LEFT);
+                    $printer->setEmphasis(false);
+                    $printer->text("Payment Note: " . $transfer_notes . "\n\n");
 
                     // Print footer
                     $printer->setJustification(Printer::JUSTIFY_CENTER);

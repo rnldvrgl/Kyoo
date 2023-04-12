@@ -233,29 +233,59 @@ $(document).ready(function () {
         const student_name = $(this).data("student-name");
         const student_course = $(this).data("student-course");
         const student_department = $(this).data("student-department");
-        const transfer_notes = "Transferred from Registrar";
+        const notes = "Transferred from Registrar";
 
-        axios.defaults.headers.common["X-CSRF-TOKEN"] = $(
-            'meta[name="csrf-token"]'
-        ).attr("content");
+        $.confirm({
+            type: "green",
+            title: "Transfer Confirmation",
+            icon: "fa-solid fa-credit-card",
+            closeIcon: true,
+            content:
+                '<div class="form-floating mb-3">' +
+                '<div id="transfer-notes-div" class="form-floating mb-3">' +
+                '<input type="text" id="transfer-notes" class="form-control" placeholder="Note for Transferring">' +
+                '<label for="transfer-notes">Note for Transferring</label>' +
+                "</div>" +
+                "<p>Are you sure you want to transfer this ticket?</p>",
+            theme: "Modern",
+            draggable: false,
+            typeAnimated: true,
+            buttons: {
+                confirm: {
+                    btnClass: "btn-success",
+                    action: function () {
+                        // Get the notes from the input field if "Other" is selected
+                        const transfer_notes = $("#transfer-notes").val();
 
-        axios
-            .put("/tickets/update-status/" + status, {
-                ticketId: ticketId,
-                student_name: student_name,
-                student_course: student_course,
-                student_department: student_department,
-                transfer_notes: transfer_notes,
-            })
-            .then(function (response) {
-                console.log(response);
+                        // Send PUT request to update ticket status with notes
+                        axios.defaults.headers.common["X-CSRF-TOKEN"] = $(
+                            'meta[name="csrf-token"]'
+                        ).attr("content");
 
-                // Auto Refresh Page
-                location.reload();
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+                        axios
+                            .put("/tickets/update-status/" + status, {
+                                ticketId: ticketId,
+                                notes: notes,
+                                ticketId: ticketId,
+                                student_name: student_name,
+                                student_course: student_course,
+                                student_department: student_department,
+                                transfer_notes: transfer_notes,
+                                notes: notes,
+                            })
+                            .then(function (response) {
+                                console.log(response);
+
+                                // Auto Refresh Page
+                                location.reload();
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                            });
+                    },
+                },
+            },
+        });
     });
 
     // Request Clearance Ticket

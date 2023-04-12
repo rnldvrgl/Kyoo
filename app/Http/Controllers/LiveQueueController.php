@@ -41,31 +41,6 @@ class LiveQueueController extends Controller
     // Live Queue Index Page
     public function index()
     {
-        // // Get all departments
-        // $departments = Department::whereNotIn('id', [3, 4])->get();
-
-        // $ticket_data = [
-        //     'departments' => []
-        // ];
-
-        // // Loop through each department and get the current ticket number
-        // foreach ($departments as $department) {
-        //     // Get the current ticket for this department
-        //     $current_ticket = QueueTicket::where('department_id', $department->id)
-        //         ->whereIn('status', ['Serving', 'Calling'])
-        //         ->first();
-
-        //     // Set the ticket number to null if no current ticket
-        //     $ticket_number = $current_ticket ? $current_ticket->ticket_number : null;
-
-        //     // Assign the ticket number to the department object
-        //     $department->ticket_number = $ticket_number;
-
-        //     // Add the department object to the array
-        //     $ticket_data['departments'][] = $department;
-        // }
-
-
         $promotional_message = PromotionalText::all();
 
         $tickets_data = QueueTicket::with('serviceDepartment')->whereDate('created_at', Carbon::today())->get();

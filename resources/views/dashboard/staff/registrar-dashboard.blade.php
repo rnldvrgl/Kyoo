@@ -82,6 +82,7 @@
                                             serviceDepartment="{{ $department->name }}" :position="$loop->index + 1"
                                             clearancestatus="{{ $ticket->clearance_status }}"
                                             hasCurrentServingTicket="{{ $hasCurrentServingTicket }}"
+                                            transfer_notes="{{ $ticket->transfer_notes }}"
                                             notes="{{ $ticket->notes }}" />
                                     </div>
                                 @endforeach
@@ -119,7 +120,9 @@
                                     course="{{ $servingTicket->student_course }}" :services="$servingTicket->services->pluck('name')->toArray()"
                                     clearancestatus="{{ $servingTicket->clearance_status }}"
                                     serviceDepartmentId="{{ $department->id }}"
-                                    serviceDepartment="{{ $department->name }}" notes="{{ $servingTicket->notes }}" />
+                                    serviceDepartment="{{ $department->name }}"
+                                    transfer_notes="{{ $servingTicket->transfer_notes }}"
+                                    notes="{{ $servingTicket->notes }}" />
                             @else
                                 <div class="text-center">
                                     <p class="fw-bold fs-4 mb-0 text-muted" style="overflow-wrap: break-word;">No Ticket

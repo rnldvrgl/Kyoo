@@ -40,6 +40,16 @@
                     </small>
                 </div>
             @endif
+
+            {{-- Transfer Notes --}}
+            @if ($transferNotes)
+                <div class="alert alert-kyooblue d-flex justify-content-center align-items-center p-2 mx-auto"
+                    role="alert">
+                    <small class="text-center">
+                        {{ $transferNotes }}
+                    </small>
+                </div>
+            @endif
         </div>
     </div>
 
@@ -79,12 +89,12 @@
             @if ($serviceDepartmentId == 1)
                 @switch($clearancestatus)
                     @case('Pending')
-                    {{-- <div id="clearance-status-{{ $ticketId }}"> --}}
+                        {{-- <div id="clearance-status-{{ $ticketId }}"> --}}
                         <span id="clearance-status-{{ $ticketId }}" class="badge bg-kyooorange rounded-pill py-3">
                             <i class="fas fa-circle-notch fa-spin me-2"></i>
                             Requesting Clearance ...
                         </span>
-                    {{-- </div> --}}
+                        {{-- </div> --}}
                     @break
 
                     @case('Cleared')

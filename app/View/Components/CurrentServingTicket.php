@@ -17,8 +17,9 @@ class CurrentServingTicket extends Component
     public $serviceDepartment;
     public $serviceDepartmentId;
     public $notes;
+    public $transferNotes;
 
-    public function __construct($ticketId, $queueNumber, $queueTime, $studentName, $department, $course, $services, $clearancestatus, $serviceDepartment, $serviceDepartmentId, $notes)
+    public function __construct($ticketId, $queueNumber, $queueTime, $studentName, $department, $course, $services, $clearancestatus, $serviceDepartment, $serviceDepartmentId, $notes, $transferNotes)
     {
         $this->ticketId = $ticketId;
         $this->queueNumber = $queueNumber;
@@ -31,6 +32,7 @@ class CurrentServingTicket extends Component
         $this->serviceDepartment = $serviceDepartment;
         $this->serviceDepartmentId = $serviceDepartmentId;
         $this->notes = $notes;
+        $this->transferNotes = $transferNotes;
     }
 
     /**
