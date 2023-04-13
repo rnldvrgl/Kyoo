@@ -125,10 +125,10 @@
                                     }
                                 </style>
                             @else
-                                <div class="card border py-5 shadow-sm rounded-5">
+                                <div class="card border p-5 shadow-sm rounded-5">
                                     <div class="d-flex justify-content-center align-items-center">
-                                        <h1 class="text-danger fw-light mb-0">
-                                            No active promotional video found.
+                                        <h1 class="text-danger fw-light mb-0 text-center">
+                                            Unfortunately, we could not locate any active promotional videos.
                                         </h1>
                                     </div>
                                 </div>
@@ -192,10 +192,10 @@
 
     <!-- Marquee Text  -->
     <div class="d-none d-lg-block fixed-bottom">
-        <div class="bg-kyoodark py-3 text-white">
+        <div class="bg-kyoodark py-2 text-white">
             <div class="row justify-content-center">
-                <marquee behavior="scroll" direction="left" class="fw-normal" scrollamount="8%">
-                    <span class="d-inline-block text-truncate promotional-text fs-5">
+                <marquee behavior="scroll" direction="left" class="fw-normal" scrollamount="2" loop="-1">
+                    <span class="d-inline-block promotional-text fs-5">
                         {{ $promotional_message[0]->text ?? '' }}
                     </span>
                 </marquee>

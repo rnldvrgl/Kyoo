@@ -2,95 +2,109 @@
   # Main
   --------------------------------------------------------------*/
 #main {
-	margin-top: 60px;
-	padding: 20px 30px;
-	transition: all 0.3s;
+    margin-top: 60px;
+    padding: 20px 30px;
+    transition: all 0.3s;
 }
 
 @media (max-width: 1199px) {
-	#main {
-		padding: 20px;
-	}
+    #main {
+        padding: 20px;
+    }
 }
-
 
 /*--------------------------------------------------------------
   # Page Title
   --------------------------------------------------------------*/
 .pagetitle {
-	margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 
 .pagetitle h1 {
-	font-size: 24px;
-	margin-bottom: 0;
-	font-weight: 600;
-	color: #323232;
+    font-size: 24px;
+    margin-bottom: 0;
+    font-weight: 600;
+    color: #323232;
 }
 
 /*--------------------------------------------------------------
   # Back to top button
   --------------------------------------------------------------*/
 .back-to-top {
-	position: fixed;
-	visibility: hidden;
-	opacity: 0;
-	right: 25px;
-	bottom: 25px;
-	z-index: 9998;
-	background: #8C3D3D;
-	width: 40px;
-	height: 40px;
-	border-radius: 50%;
-	transition: all 0.4s;
+    position: fixed;
+    visibility: hidden;
+    opacity: 0;
+    right: 25px;
+    bottom: 25px;
+    z-index: 9998;
+    background: #8c3d3d;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    transition: all 0.4s;
 }
 
 .back-to-top i {
-	font-size: 24px;
-	color: #fff;
-	line-height: 0;
+    font-size: 24px;
+    color: #fff;
+    line-height: 0;
 }
 
 .back-to-top:hover {
-	background: #520101;
-	color: #fff;
+    background: #520101;
+    color: #fff;
 }
 
 .back-to-top.active {
-	visibility: visible;
-	opacity: 1;
+    visibility: visible;
+    opacity: 1;
 }
 
 .btn-link {
-	text-decoration: none;
+    text-decoration: none;
 }
 
 .card-body::-webkit-scrollbar {
-	width: 5px;
-	height: 8px;
-	background-color: #fff;
+    width: 5px;
+    height: 8px;
+    background-color: #fff;
 }
 
 .card-body::-webkit-scrollbar-thumb {
-	background-color: #808080;
+    background-color: #808080;
 }
 
-// LIVE QUEUE 
+// LIVE QUEUE
 
-@keyframes flickerAnimation {
+.promotional-text {
+	animation: scroll-left 60s linear infinite;
+	animation-fill-mode: forwards;
+}
+
+@keyframes scroll-left {
 	0% {
-		opacity: 1;
-	}
-
-	50% {
-		opacity: 0.5;
+		transform: translateX(0%);
 	}
 
 	100% {
-		opacity: 1;
+		transform: translateX(-100%);
 	}
 }
 
+@keyframes flickerAnimation {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
 .flicker {
-	animation: flickerAnimation 1.5s ease-in-out infinite;
+    animation: flickerAnimation 1.5s ease-in-out infinite;
 }

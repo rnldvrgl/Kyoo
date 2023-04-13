@@ -29,7 +29,7 @@
                         <label for="email" class="form-label">{{ __('Email Address') }}</label>
                         <input id="email" type="email"
                             class="form-control rounded-pill @error('email') is-invalid @enderror" name="email"
-                            value="{{ old('email') }}" required autocomplete="email" autofocus>
+                            value="{{ old('email') }}" autocomplete="email" autofocus>
                         @error('email')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -39,7 +39,7 @@
                         <label for="password" class="form-label">{{ __('Password') }}</label>
                         <input id="password" type="password"
                             class="form-control rounded-pill @error('password') is-invalid @enderror" name="password"
-                            required autocomplete="current-password">
+                            autocomplete="current-password">
                         @error('password')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror

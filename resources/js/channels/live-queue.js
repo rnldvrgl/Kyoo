@@ -67,5 +67,5 @@ liveQueueChannel
 
         ticketDisplay.html(ticketHTML);
 
-        // console.log(tickets);
+        console.log(tickets);
     });

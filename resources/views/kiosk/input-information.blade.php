@@ -15,7 +15,6 @@
 
 
     {{-- Main Content --}}
-    {{-- Main Content --}}
     <div class="container-fluid d-flex flex-column gap-5">
         {{-- Input Information Heading --}}
         <div class="row align-items-center">

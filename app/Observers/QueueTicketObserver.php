@@ -31,16 +31,15 @@ class QueueTicketObserver
      */
     public function updated(QueueTicket $queueTicket)
     {
-        if ($queueTicket->status == "Serving" || $queueTicket->status == "Calling") {
+        if ($queueTicket->status == "Serving" || $queueTicket->status == "Calling" || $queueTicket->status == "Pending") {
             event(new LiveQueueEvent($queueTicket));
-        } else if ($queueTicket->status == "Complete"){
+        } else if ($queueTicket->status == "Complete" || $queueTicket->status == "Cancelled") {
             event(new RemoveFromLiveQueueEvent($queueTicket));
         }
 
-        if($queueTicket->clearance_status != null && $queueTicket->clearance_status == "Pending")
-        {
+        if ($queueTicket->clearance_status != null && $queueTicket->clearance_status == "Pending") {
             event(new RequestClearanceEvent($queueTicket));
-        } else if($queueTicket->clearance_status != null && $queueTicket->clearance_status == "Cleared" || $queueTicket->clearance_status == "Not Cleared"){
+        } else if ($queueTicket->clearance_status != null && $queueTicket->clearance_status == "Cleared" || $queueTicket->clearance_status == "Not Cleared") {
             event(new ClearanceStatusEvent($queueTicket));
         }
     }
