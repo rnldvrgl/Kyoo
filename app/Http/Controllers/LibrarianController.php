@@ -7,6 +7,7 @@ use App\Models\QueueTicket;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Rap2hpoutre\FastExcel\FastExcel;
 
 class LibrarianController extends Controller
@@ -51,8 +52,7 @@ class LibrarianController extends Controller
 
         // Check if they are empty
         if(empty($student_department) && empty($student_course) && empty($clearance_status)){
-            return response()->json(['msg' => 'Please provide at least one filter.']);
-            // return redirect('/librarian/dashboard')->with('library-msg', 'Please provide at least one filter.');
+            return response()->json(['code' => 400, 'msg' => 'Please provide at least one filter.']);
         }
     
         // Dropdown Filters
@@ -80,13 +80,19 @@ class LibrarianController extends Controller
         $tickets = $query->get(['id', 'student_name', 'student_department', 'student_course', 'clearance_status', 'created_at']);
             
         if ($tickets->isEmpty()) {
-            return response()->json(['msg' => 'No tickets found with the specified filters.']);
-            // return redirect('/librarian/dashboard')->with('library-msg', 'No tickets found with the specified filters.');
+            return response()->json(['code' => 400, 'msg' => 'No tickets found with the specified filters.']);
         }
-    
-        (new FastExcel($tickets))->download('librarian-ticket.csv');
+        
+        // return (new FastExcel($tickets))->download('librarian-ticket.csv');
 
-        return response()->json(['msg' => 'Excel has been downloaded.']);
+        // Export the tickets to a CSV file
+        $fileName = 'librarian-ticket.csv';
+        (new FastExcel($tickets))->export(storage_path('app/public/' . $fileName));
+
+        // Get the URL to the exported file
+        $url = Storage::url($fileName);
+
+        return response()->json(['code' => 200, 'msg' => 'Export Successful', 'url' => $url, 'fileName' => $fileName]);
     }
 
     public function getCollegesPendingClearance()

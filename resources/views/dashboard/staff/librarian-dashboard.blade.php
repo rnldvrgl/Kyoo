@@ -230,11 +230,6 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            @if (session('library-msg'))
-                                <div class="alert alert-danger" role="alert">
-                                    {{ session('library-msg') }}
-                                </div>
-                            @endif
 
                             <div id="res">
                                 {{-- Insert Message here --}}

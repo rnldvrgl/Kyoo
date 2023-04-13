@@ -20,23 +20,49 @@ $(document).ready(function () {
             processData: false,
             contentType: false,
             success: (response) => {
-                if (response != null) {
-                    let success =
-                        '<div class="alert alert-success">Excel has been downloaded!</div>';
-
-                    $("#res").html(success);
-                } else {
+                if (response.code === 400) {
                     let error =
                         '<div class="alert alert-danger">' +
                         response.msg +
                         "</div>";
-
                     $("#res").html(error);
+                } else if (response.code === 200) {
+                    console.log(response.url, " ", response.fileName);
+                    // If successful download
+                    let success = `<div class="alert alert-success">${response.msg}</div>`;
+                    $("#res").html(success);
+
+                    setTimeout(() => {
+                        $("#res").html("");
+                    }, 1500);
+
+                    // Assuming your file URL is stored in a variable called "fileUrl"
+                    let fileUrl = response.url;
+
+                    // Create the anchor tag
+                    let downloadLink = document.createElement("a");
+
+                    // Set the href attribute to the file URL
+                    downloadLink.href = fileUrl;
+
+                    // Set the download attribute to the file name
+                    downloadLink.download = response.fileName;
+
+                    // Simulate a click on the anchor tag to initiate the download
+                    downloadLink.click();
                 }
 
                 $("#btn-submit-filter").attr("disabled", false);
                 $("#btn-submit-filter").html(
                     'Filter <i class="fa-solid fa-filter"></i>'
+                );
+
+                // Clear input fields
+                $("#export-librarian-ticket")[0].reset();
+                // Reset the "Course" select element
+                let courseSelect = $("#floatingCourse");
+                courseSelect.html(
+                    "<option value='' selected disabled>Select Course</option>"
                 );
             },
             error: (xhr, status, error) => {
