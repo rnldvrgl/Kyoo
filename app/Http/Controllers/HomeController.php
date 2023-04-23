@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Accounts;
-use App\Models\AccountRole;
-use App\Models\AccountDetails;
-use App\Models\AccountLogin;
-use App\Models\Department;
-use App\Models\Feedback;
+use Carbon\Carbon;
 use App\Models\Service;
+use App\Models\Accounts;
+use App\Models\Feedback;
+use App\Models\Department;
+use App\Models\AccountRole;
+use App\Models\AccountLogin;
+use App\Models\AccountDetails;
 use Illuminate\Support\Facades\Auth;
-
 class HomeController extends Controller
 {
 	/**
@@ -101,6 +101,22 @@ class HomeController extends Controller
 	{
 		$feedbacks = Feedback::all();
 
+		$result = Accounts::whereHas('account_role', function ($query) {
+			$query->where('name', 'staff');
+		})->count();
+
+		$occupiedDepartment = Department::where('id', '=', 1)->whereHas('accounts', function ($query) {
+            $query->whereHas('account_login', function ($query) {
+                $query->where('status', '=', 'Logged In');
+            });
+        })->count();
+
+		$today = Carbon::today()->format("m-d-Y");
+
+		dd("report-" . $today . ".csv");
+
+		// TODO: StaffStatus and Department for Main Admin Export
+
 		return view('dashboard.main_admin.dashboard', [
 			'feedbacks' => $feedbacks,
 			'topStaff' => $statsController->getTopThreeStaffByTicketsServed(),
@@ -117,6 +133,7 @@ class HomeController extends Controller
 			'cancelled_tickets' => $queueTicketController->countCancelledTickets(),
 			'years' => $queueTicketController->getYear(),
 			'departments' => $queueTicketController->getDepartments(),
+			'allDepartments' => Department::all('name'),
 		]);
 	}
 

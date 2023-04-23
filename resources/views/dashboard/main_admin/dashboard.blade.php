@@ -30,7 +30,75 @@
                 </ol>
             </nav>
         </div>
+
+        {{-- Date --}}
         <h5 class="date mb-3"></h5>
+
+        {{-- ! Export Button --}}
+        <button type="button" class="me-3" data-bs-toggle="modal" data-bs-target="#exportModal">Generate Report</button>
+
+        <div class="modal fade" id="exportModal" tabindex="-1" aria-labelledby="exportModalLabel"
+        aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exportModalLabel">Generate Report</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div id="res">
+                            {{-- Insert Message here --}}
+                        </div>
+
+                        <form id="export-main-admin-ticket" action="" method="POST"
+                            autocomplete="off">
+
+                            @csrf
+                            
+                            <div class="form-floating mb-3 rounded-pill ">
+                                <select class="form-select" name="staffStatus" id="floatingStaffStatus"
+                                    aria-label="StaffStatus">
+                                    <option value="" selected disabled>Select Staff Status</option>
+                                    <option value="On Break">On Break</option>
+                                    <option value="Active">Active</option>
+                                    <option value="Inactive">Inactive</option>
+                                </select>
+                                <label for="floatingStaffStatus">Staff Status</label>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <select class="form-select" name="department" id="floatingDepartment" aria-label="Department">
+                                    <option value="" selected disabled>Select Department</option>
+                                    @foreach ($allDepartments as $department)
+                                        <option value="{{ $department->id }}">{{ $department->name }}</option>
+                                    @endforeach
+                                </select>
+                                <label for="floatingDepartment">Department</label>
+                            </div>
+                
+                            {{-- <div class="row">
+                                <div class="col-6 form-floating mb-3">
+                                    <input class="form-control" type="date" name="start_date" id="floatingStartDate">
+                                    <label for="floatingStartDate">Start Date</label>
+                                </div>
+
+                                <div class="col-6 form-floating mb-3">
+                                    <input class="form-control" type="date" name="end_date" id="floatingEndDate">    
+                                    <label for="floatingEndDate">End Date</label>
+                                </div>
+                            </div> --}}
+
+                            <button class="flex btn btn-primary" type="submit" id="btn-submit-filter">
+                                Filter
+                                <i class="fa-solid fa-filter"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <section class="section dashboard">
             <div class="row">
                 <div class="col-xxl-8 col-lg-7 col-md-12">
@@ -190,6 +258,10 @@
                                             <div class="d-flex justify-content-between align-items-center py-2">
                                                 <h5 class="fw-bold mb-0 text-white">Queue Counts Report</h5>
                                                 <div class="d-flex justify-content-center align-items-center py-2">
+
+                                                    {{-- ! Export Button --}}
+                                                    <button type="button" class="me-3">Export</button>
+
                                                     <select name="year" id="year-dropdown"
                                                         class="form-select-sm rounded-5 bg-transparent text-white">
                                                         @if (count($years['years']) > 0)
