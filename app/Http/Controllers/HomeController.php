@@ -95,27 +95,10 @@ class HomeController extends Controller
 		return $data;
 	}
 
-
 	// TODO: Isang function for dashboard, concat the role
 	public function main_admin(QueueTicketController $queueTicketController, StatisticsController $statsController)
 	{
 		$feedbacks = Feedback::all();
-
-		$result = Accounts::whereHas('account_role', function ($query) {
-			$query->where('name', 'staff');
-		})->count();
-
-		$occupiedDepartment = Department::where('id', '=', 1)->whereHas('accounts', function ($query) {
-            $query->whereHas('account_login', function ($query) {
-                $query->where('status', '=', 'Logged In');
-            });
-        })->count();
-
-		$today = Carbon::today()->format("m-d-Y");
-
-		dd("report-" . $today . ".csv");
-
-		// TODO: StaffStatus and Department for Main Admin Export
 
 		return view('dashboard.main_admin.dashboard', [
 			'feedbacks' => $feedbacks,
@@ -133,7 +116,7 @@ class HomeController extends Controller
 			'cancelled_tickets' => $queueTicketController->countCancelledTickets(),
 			'years' => $queueTicketController->getYear(),
 			'departments' => $queueTicketController->getDepartments(),
-			'allDepartments' => Department::all('name'),
+			'allDepartments' => Department::all(['id', 'name']),
 		]);
 	}
 

@@ -12,6 +12,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KioskController;
 use App\Http\Controllers\LibrarianController;
 use App\Http\Controllers\LiveQueueController;
+use App\Http\Controllers\MainAdminExportController;
 use App\Http\Controllers\PromotionalController;
 use App\Http\Controllers\QueueTicketController;
 use App\Http\Controllers\RegistrarController;
@@ -84,6 +85,8 @@ Route::middleware(['auth', 'user-access:Main Admin'])->group(function () {
 
 	// Fetch Data based on Year
 	Route::get('/fetch-department-data/{year}', [QueueTicketController::class, 'getDataForDepartment'])->name('dashboard.fetch_services');
+
+	Route::post('/export-main-admin-ticket', [MainAdminExportController::class, 'fetchFilteredMainAdminData'])->name('export-main-admin-ticket'); // Generate Main Admin Report
 
 	// Manage Accounts
 	Route::prefix('main-admin/manage/accounts')->group(function () {

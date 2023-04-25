@@ -51,7 +51,7 @@
                             {{-- Insert Message here --}}
                         </div>
 
-                        <form id="export-main-admin-ticket" action="" method="POST"
+                        <form id="export-main-admin-report" action="{{ route('export-main-admin-ticket') }}" method="POST"
                             autocomplete="off">
 
                             @csrf
@@ -61,8 +61,8 @@
                                     aria-label="StaffStatus">
                                     <option value="" selected disabled>Select Staff Status</option>
                                     <option value="On Break">On Break</option>
-                                    <option value="Active">Active</option>
-                                    <option value="Inactive">Inactive</option>
+                                    <option value="Logged In">Logged In</option>
+                                    <option value="Logged Out">Logged Out</option>
                                 </select>
                                 <label for="floatingStaffStatus">Staff Status</label>
                             </div>

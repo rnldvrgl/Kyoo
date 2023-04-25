@@ -20,6 +20,10 @@ class AccountLogin extends Model
         'remember_token',
     ];
 
+    protected $with = [
+        'accounts'
+    ];
+
     public function accounts()
     {
         return $this->belongsTo(Accounts::class, 'login_id');

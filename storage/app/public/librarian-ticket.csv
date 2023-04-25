@@ -1,3 +1,2 @@
 ﻿id,student_name,student_department,student_course,clearance_status,created_at,service_department
-1,"John Doe","Graduate School",Master,,2023-04-21T06:07:35.000000Z,
-5,"Sam Doe","Graduate School",Master,,2023-04-21T06:41:02.000000Z,
+2,"Jane Doe",College,"Bachelor of Science in Information Technology",,2023-04-21T06:16:39.000000Z,
