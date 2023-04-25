@@ -1,6 +1,3 @@
-﻿ID,Name,Department,Status
-2,"Roma VonRueden",Registrar,"Logged Out"
-4,"Mr. Mortimer Parker",Cashier,"Logged Out"
-5,"Jermey Tremblay II",Cashier,"Logged Out"
-6,"Prof. Lexi Mayert","College Library","Logged Out"
-7,"Rosa Auer","High School Library","Logged Out"
+﻿Name,Department,Status
+"Mr. Mortimer Parker",Cashier,"Logged Out"
+"Jermey Tremblay II",Cashier,"Logged Out"

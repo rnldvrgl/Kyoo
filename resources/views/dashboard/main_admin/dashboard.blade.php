@@ -43,6 +43,10 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exportModalLabel">Generate Report</h5>
+
+                        {{-- Give this a margin-left --}}
+                        <span style="margin-left: 1rem;" title="Leave the filters blank to export all data."><i class="fa-solid fa-circle-question" style="color: #0080ff;"></i></span>
+
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -90,8 +94,13 @@
                             </div> --}}
 
                             <button class="flex btn btn-primary" type="submit" id="btn-submit-filter">
-                                Filter
-                                <i class="fa-solid fa-filter"></i>
+                                Generate
+                                <i class="fa-solid fa-clipboard"></i>
+                            </button>
+
+                            <button type="reset" class="btn btn-kyoored">
+                                Clear Filter
+                                <i class="fa-regular fa-trash-can"></i>
                             </button>
                         </form>
                     </div>

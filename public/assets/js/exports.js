@@ -27,7 +27,9 @@ $(document).ready(function () {
                         "</div>";
                     $("#res").html(error);
                 } else if (response.code === 200) {
-                    console.log(response.url, " ", response.fileName);
+                    // * Start Download
+                    downloadURL(response);
+
                     // If successful download
                     let success = `<div class="alert alert-success">${response.msg}</div>`;
                     $("#res").html(success);
@@ -35,21 +37,6 @@ $(document).ready(function () {
                     setTimeout(() => {
                         $("#res").html("");
                     }, 1500);
-
-                    // Assuming your file URL is stored in a variable called "fileUrl"
-                    let fileUrl = response.url;
-
-                    // Create the anchor tag
-                    let downloadLink = document.createElement("a");
-
-                    // Set the href attribute to the file URL
-                    downloadLink.href = fileUrl;
-
-                    // Set the download attribute to the file name
-                    downloadLink.download = response.fileName;
-
-                    // Simulate a click on the anchor tag to initiate the download
-                    downloadLink.click();
                 }
 
                 $("#btn-submit-filter").attr("disabled", false);
@@ -89,7 +76,7 @@ $(document).ready(function () {
         });
         $("#btn-submit-filter").attr("disabled", true);
         $("#btn-submit-filter").html(
-            "<i class='fa-solid fa-circle-notch fa-spin'></i> Filtering ..."
+            "<i class='fa-solid fa-circle-notch fa-spin'></i> Generating ..."
         );
         $.ajax({
             type: "POST",
@@ -106,7 +93,9 @@ $(document).ready(function () {
                         "</div>";
                     $("#res").html(error);
                 } else if (response.code === 200) {
-                    console.log(response.url, " ", response.fileName);
+                    // * Start Download
+                    downloadURL(response);
+
                     // If successful download
                     let success = `<div class="alert alert-success">${response.msg}</div>`;
                     $("#res").html(success);
@@ -114,35 +103,15 @@ $(document).ready(function () {
                     setTimeout(() => {
                         $("#res").html("");
                     }, 1500);
-
-                    // Assuming your file URL is stored in a variable called "fileUrl"
-                    let fileUrl = response.url;
-
-                    // Create the anchor tag
-                    let downloadLink = document.createElement("a");
-
-                    // Set the href attribute to the file URL
-                    downloadLink.href = fileUrl;
-
-                    // Set the download attribute to the file name
-                    downloadLink.download = response.fileName;
-
-                    // Simulate a click on the anchor tag to initiate the download
-                    downloadLink.click();
                 }
 
                 $("#btn-submit-filter").attr("disabled", false);
                 $("#btn-submit-filter").html(
-                    'Filter <i class="fa-solid fa-filter"></i>'
+                    'Generate <i class="fa-solid fa-filter"></i>'
                 );
 
                 // Clear input fields
-                $("#export-librarian-ticket")[0].reset();
-                // Reset the "Course" select element
-                let courseSelect = $("#floatingCourse");
-                courseSelect.html(
-                    "<option value='' selected disabled>Select Course</option>"
-                );
+                $("#export-main-admin-report")[0].reset();
             },
             error: (xhr, status, error) => {
                 // handle error response
@@ -152,8 +121,26 @@ $(document).ready(function () {
                         "</div>"
                 );
                 $("#btn-submit-filter").attr("disabled", false);
-                $("#btn-submit-filter").html("Filter");
+                $("#btn-submit-filter").html("Generate");
             },
         });
     });
 });
+
+// Download function
+function downloadURL(response) {
+    // Assuming your file URL is stored in a variable called "fileUrl"
+    let fileUrl = response.url;
+
+    // Create the anchor tag
+    let downloadLink = document.createElement("a");
+
+    // Set the href attribute to the file URL
+    downloadLink.href = fileUrl;
+
+    // Set the download attribute to the file name
+    downloadLink.download = response.fileName;
+
+    // Simulate a click on the anchor tag to initiate the download
+    downloadLink.click();
+}

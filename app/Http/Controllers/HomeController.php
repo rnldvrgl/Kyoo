@@ -98,6 +98,14 @@ class HomeController extends Controller
 	// TODO: Isang function for dashboard, concat the role
 	public function main_admin(QueueTicketController $queueTicketController, StatisticsController $statsController)
 	{
+		$accounts = Accounts::whereHas('account_login', function($query){
+			$query->where('status', '=', 'Logged In');
+		})
+			->where('department_id', '=', 1)
+			->get();
+
+		// dd($accounts);
+
 		$feedbacks = Feedback::all();
 
 		return view('dashboard.main_admin.dashboard', [
