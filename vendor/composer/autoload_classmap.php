@@ -34,6 +34,7 @@ return array(
     'App\\Http\\Controllers\\KioskController' => $baseDir . '/app/Http/Controllers/KioskController.php',
     'App\\Http\\Controllers\\LibrarianController' => $baseDir . '/app/Http/Controllers/LibrarianController.php',
     'App\\Http\\Controllers\\LiveQueueController' => $baseDir . '/app/Http/Controllers/LiveQueueController.php',
+    'App\\Http\\Controllers\\MainAdminExportController' => $baseDir . '/app/Http/Controllers/MainAdminExportController.php',
     'App\\Http\\Controllers\\PromotionalController' => $baseDir . '/app/Http/Controllers/PromotionalController.php',
     'App\\Http\\Controllers\\QueueTicketController' => $baseDir . '/app/Http/Controllers/QueueTicketController.php',
     'App\\Http\\Controllers\\RegistrarController' => $baseDir . '/app/Http/Controllers/RegistrarController.php',

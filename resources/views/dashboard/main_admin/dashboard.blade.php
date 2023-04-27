@@ -35,17 +35,18 @@
         <h5 class="date mb-3"></h5>
 
         {{-- ! Export Button --}}
-        <button type="button" class="me-3" data-bs-toggle="modal" data-bs-target="#exportModal">Generate Report</button>
+        <button type="button" class="me-3" data-bs-toggle="modal" data-bs-target="#exportModal">Generate
+            Report</button>
 
-        <div class="modal fade" id="exportModal" tabindex="-1" aria-labelledby="exportModalLabel"
-        aria-hidden="true">
+        <div class="modal fade" id="exportModal" tabindex="-1" aria-labelledby="exportModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exportModalLabel">Generate Report</h5>
 
                         {{-- Give this a margin-left --}}
-                        <span style="margin-left: 1rem;" title="Leave the filters blank to export all data."><i class="fa-solid fa-circle-question" style="color: #0080ff;"></i></span>
+                        <span style="margin-left: 1rem;" title="Leave the filters blank to export dashboard data."><i
+                                class="fa-solid fa-circle-question" style="color: #0080ff;"></i></span>
 
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
@@ -55,45 +56,66 @@
                             {{-- Insert Message here --}}
                         </div>
 
-                        <form id="export-main-admin-report" action="{{ route('export-main-admin-ticket') }}" method="POST"
-                            autocomplete="off">
+                        <form id="export-main-admin-report" action="{{ route('export-main-admin-ticket') }}"
+                            method="POST" autocomplete="off">
 
                             @csrf
-                            
-                            <div class="form-floating mb-3 rounded-pill ">
-                                <select class="form-select" name="staffStatus" id="floatingStaffStatus"
-                                    aria-label="StaffStatus">
-                                    <option value="" selected disabled>Select Staff Status</option>
-                                    <option value="On Break">On Break</option>
-                                    <option value="Logged In">Logged In</option>
-                                    <option value="Logged Out">Logged Out</option>
-                                </select>
-                                <label for="floatingStaffStatus">Staff Status</label>
-                            </div>
 
-                            <div class="form-floating mb-3">
-                                <select class="form-select" name="department" id="floatingDepartment" aria-label="Department">
-                                    <option value="" selected disabled>Select Department</option>
-                                    @foreach ($allDepartments as $department)
-                                        <option value="{{ $department->id }}">{{ $department->name }}</option>
-                                    @endforeach
-                                </select>
-                                <label for="floatingDepartment">Department</label>
-                            </div>
-                
-                            {{-- <div class="row">
-                                <div class="col-6 form-floating mb-3">
-                                    <input class="form-control" type="date" name="start_date" id="floatingStartDate">
-                                    <label for="floatingStartDate">Start Date</label>
+                            {{-- Tickets --}}
+                            <div class="row">
+                                <strong>Ticket Status</strong>
+                                <div class="form-floating rounded-pill mb-3">
+                                    <select class="form-select" name="ticketStatus" id="floatingTicketStatus"
+                                        aria-label="TicketStatus">
+                                        <option value="" selected disabled>Select Ticket Status</option>
+                                        <option value="Pending">Pending</option>
+                                        <option value="Serving">Serving</option>
+                                        <option value="Complete">Complete</option>
+                                        <option value="Cancelled">Cancelled</option>
+                                    </select>
+                                    <label for="floatingTicketStatus">Staff Status</label>
                                 </div>
 
                                 <div class="col-6 form-floating mb-3">
-                                    <input class="form-control" type="date" name="end_date" id="floatingEndDate">    
-                                    <label for="floatingEndDate">End Date</label>
+                                    <input class="form-control" type="date" name="ticketStartDate"
+                                        id="floatingTicketStartDate">
+                                    <label for="floatingTicketStartDate">Start Date</label>
                                 </div>
-                            </div> --}}
 
-                            <button class="flex btn btn-primary" type="submit" id="btn-submit-filter">
+                                <div class="col-6 form-floating mb-3">
+                                    <input class="form-control" type="date" name="ticketEndDate"
+                                        id="floatingTicketEndDate">
+                                    <label for="floatingTicketEndDate">End Date</label>
+                                </div>
+                            </div>
+
+                            {{-- Staff --}}
+                            <div class="row">
+                                <strong>Staff Status</strong>
+                                <div class="col-6 form-floating rounded-pill mb-3">
+                                    <select class="form-select" name="staffStatus" id="floatingStaffStatus"
+                                        aria-label="StaffStatus">
+                                        <option value="" selected disabled>Select Staff Status</option>
+                                        <option value="On Break">On Break</option>
+                                        <option value="Logged In">Logged In</option>
+                                        <option value="Logged Out">Logged Out</option>
+                                    </select>
+                                    <label for="floatingStaffStatus">Staff Status</label>
+                                </div>
+
+                                <div class="col-6 form-floating mb-3">
+                                    <select class="form-select" name="department" id="floatingDepartment"
+                                        aria-label="Department">
+                                        <option value="" selected disabled>Select Department</option>
+                                        @foreach ($allDepartments as $department)
+                                            <option value="{{ $department->id }}">{{ $department->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    <label for="floatingDepartment">Department</label>
+                                </div>
+                            </div>
+
+                            <button class="btn btn-primary flex" type="submit" id="btn-submit-filter">
                                 Generate
                                 <i class="fa-solid fa-clipboard"></i>
                             </button>
@@ -113,7 +135,7 @@
                 <div class="col-xxl-8 col-lg-7 col-md-12">
                     <div class="row d-flex justify-content-center align-items-stretch">
                         <div class="col-md-6 col-lg-4 mb-4">
-                            <div class="card bg-kyoodark text-white rounded-5 shadow-lg ">
+                            <div class="card bg-kyoodark rounded-5 text-white shadow-lg">
                                 <div class="card-body d-flex flex-column justify-content-between">
                                     <div class="div">
                                         <div class="d-flex justify-content-between align-items-center">
@@ -125,10 +147,10 @@
                                                 <i class="fa-solid fa-stopwatch text-pastel-yellow"></i>
                                             </div>
                                         </div>
-                                        <hr class="border border-1 border-pastel-yellow my-0">
+                                        <hr class="border-1 border-pastel-yellow my-0 border">
                                     </div>
                                     <div
-                                        class="d-flex justify-content-between align-items-xxl-end  align-items-center py-3">
+                                        class="d-flex justify-content-between align-items-xxl-end align-items-center py-3">
                                         <div class="h1 mb-0">{{ $pending_tickets }}</div>
                                         <div class="text-end">
                                             <p class="card-text mb-0">ticket(s)</p>
@@ -139,7 +161,7 @@
                         </div>
 
                         <div class="col-md-6 col-lg-4 mb-4">
-                            <div class="card bg-kyoodark text-white rounded-5 shadow-lg">
+                            <div class="card bg-kyoodark rounded-5 text-white shadow-lg">
                                 <div class="card-body d-flex flex-column justify-content-between">
                                     <div class="div">
                                         <div class="d-flex justify-content-between align-items-center">
@@ -151,10 +173,10 @@
                                             </div>
                                         </div>
 
-                                        <hr class="border border-1 border-pastel-blue my-0">
+                                        <hr class="border-1 border-pastel-blue my-0 border">
                                     </div>
                                     <div
-                                        class="d-flex justify-content-between align-items-xxl-end  align-items-center py-3">
+                                        class="d-flex justify-content-between align-items-xxl-end align-items-center py-3">
                                         <div class="h1 mb-0">{{ $serving_tickets }}</div>
                                         <div class="text-end">
                                             <p class="card-text mb-0">ticket(s)</p>
@@ -165,21 +187,21 @@
                         </div>
 
                         <div class="col-md-6 col-lg-4 mb-4">
-                            <div class="card bg-kyoodark text-white rounded-5 shadow-lg">
+                            <div class="card bg-kyoodark rounded-5 text-white shadow-lg">
                                 <div class="card-body d-flex flex-column justify-content-between">
                                     <div class="div">
                                         <div class="d-flex justify-content-between align-items-center">
-                                            <h5 class="card-title mb-0 text-white ">Served <span
+                                            <h5 class="card-title mb-0 text-white">Served <span
                                                     class="text-muted d-block d-xxl-inline-block">
                                                     | Today</span></h5>
                                             <div class="card-icon d-flex justify-content-center align-items-center">
                                                 <i class="fas fa-clipboard-check text-pastel-mint"></i>
                                             </div>
                                         </div>
-                                        <hr class="border border-1 border-pastel-mint my-0">
+                                        <hr class="border-1 border-pastel-mint my-0 border">
                                     </div>
                                     <div
-                                        class="d-flex justify-content-between align-items-xxl-end  align-items-center py-3">
+                                        class="d-flex justify-content-between align-items-xxl-end align-items-center py-3">
                                         <div class="h1 mb-0">{{ $served_tickets }}</div>
                                         <div class="text-end">
                                             <p class="card-text mb-0">ticket(s)</p>
@@ -190,7 +212,7 @@
                         </div>
 
                         <div class="col-md-6 col-lg-4 mb-4">
-                            <div class="card bg-kyoodark text-white rounded-5 shadow-lg">
+                            <div class="card bg-kyoodark rounded-5 text-white shadow-lg">
                                 <div class="card-body d-flex flex-column justify-content-between">
                                     <div class="div">
                                         <div class="d-flex justify-content-between align-items-center">
@@ -199,10 +221,10 @@
                                                 <i class="fas fa-coffee text-warning"></i>
                                             </div>
                                         </div>
-                                        <hr class="border border-1 border-warning my-0">
+                                        <hr class="border-1 border-warning my-0 border">
                                     </div>
                                     <div
-                                        class="d-flex justify-content-between align-items-xxl-end  align-items-center py-3">
+                                        class="d-flex justify-content-between align-items-xxl-end align-items-center py-3">
                                         <div class="h1 mb-0">{{ $onBreakStaff }}</div>
                                         <div class="text-end">
                                             <p class="card-text mb-0">staff(s)</p>
@@ -214,7 +236,7 @@
 
 
                         <div class="col-md-6 col-lg-4 mb-4">
-                            <div class="card bg-kyoodark text-white rounded-5 shadow-lg">
+                            <div class="card bg-kyoodark rounded-5 text-white shadow-lg">
                                 <div class="card-body d-flex flex-column justify-content-between">
                                     <div class="div">
                                         <div class="d-flex justify-content-between align-items-center">
@@ -223,10 +245,10 @@
                                                 <i class="fas fa-user-check text-success"></i>
                                             </div>
                                         </div>
-                                        <hr class="border border-1 border-success my-0">
+                                        <hr class="border-1 border-success my-0 border">
                                     </div>
                                     <div
-                                        class="d-flex justify-content-between align-items-xxl-end  align-items-center py-3">
+                                        class="d-flex justify-content-between align-items-xxl-end align-items-center py-3">
                                         <div class="h1 mb-0">{{ $activeStaff }}</div>
                                         <div class="text-end">
                                             <p class="card-text mb-0">staff(s)</p>
@@ -237,7 +259,7 @@
                         </div>
 
                         <div class="col-md-6 col-lg-4 mb-4">
-                            <div class="card bg-kyoodark text-white rounded-5 shadow-lg">
+                            <div class="card bg-kyoodark rounded-5 text-white shadow-lg">
                                 <div class="card-body d-flex flex-column justify-content-between">
                                     <div class="div">
                                         <div class="d-flex justify-content-between align-items-center">
@@ -246,10 +268,10 @@
                                                 <i class="fas fa-user-times text-danger"></i>
                                             </div>
                                         </div>
-                                        <hr class="border border-1 border-danger my-0">
+                                        <hr class="border-1 border-danger my-0 border">
                                     </div>
                                     <div
-                                        class="d-flex justify-content-between align-items-xxl-end  align-items-center py-3">
+                                        class="d-flex justify-content-between align-items-xxl-end align-items-center py-3">
                                         <div class="h1 mb-0">{{ $inactiveStaff }}</div>
                                         <div class="text-end">
                                             <p class="card-text mb-0">staff(s)</p>
@@ -260,17 +282,13 @@
                         </div>
 
                         <div class="col-12 mb-4">
-                            <div class="card bg-kyoodark text-white rounded-5 shadow-lg">
+                            <div class="card bg-kyoodark rounded-5 text-white shadow-lg">
                                 <div class="containter-fluid">
                                     <div class="card-body d-flex flex-column justify-content-between">
                                         <div>
                                             <div class="d-flex justify-content-between align-items-center py-2">
                                                 <h5 class="fw-bold mb-0 text-white">Queue Counts Report</h5>
                                                 <div class="d-flex justify-content-center align-items-center py-2">
-
-                                                    {{-- ! Export Button --}}
-                                                    <button type="button" class="me-3">Export</button>
-
                                                     <select name="year" id="year-dropdown"
                                                         class="form-select-sm rounded-5 bg-transparent text-white">
                                                         @if (count($years['years']) > 0)
@@ -289,7 +307,7 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <hr class="border border-1 border-pastel-green my-0">
+                                            <hr class="border-1 border-pastel-green my-0 border">
                                         </div>
                                         <div class="chart-container mt-3">
                                             <div id="line-chart"></div>
@@ -299,10 +317,10 @@
                             </div>
                         </div>
 
-                        <div class="col-12 mb-4 h-100">
-                            <div class="card bg-kyoodark text-white rounded-5 shadow-lg">
+                        <div class="col-12 h-100 mb-4">
+                            <div class="card bg-kyoodark rounded-5 text-white shadow-lg">
                                 <div
-                                    class="card-header bg-transparent text-white border-bottom border-gold border-5 py-2">
+                                    class="card-header border-bottom border-gold border-5 bg-transparent py-2 text-white">
                                     <div class="container-fluid">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <h4 class="fw-bold mb-0 text-white">Staff Leaderboard</h4>
@@ -328,8 +346,9 @@
                                             @php
                                                 $staff = $topStaff[$i] ?? null;
                                             @endphp
-                                            <div class="col-{{ count($topStaff) == 3 ? ($i == 0 ? '4' : '3') : '3' }}">
-                                                <div class="card bg-white text-kyoodark text-center rounded-5 py-3 mb-0 h-100"
+                                            <div
+                                                class="col-{{ count($topStaff) == 3 ? ($i == 0 ? '4' : '3') : '3' }}">
+                                                <div class="card text-kyoodark rounded-5 h-100 mb-0 bg-white py-3 text-center"
                                                     style="box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);">
                                                     @if ($staff)
                                                         <img src="{{ asset('storage/profile_images/' . ($staff['profile_image'] ?? 'avatar.png')) }}"
@@ -337,13 +356,13 @@
                                                             alt="{{ $staff['name'] }}"
                                                             style="width: {{ count($topStaff) == 3 ? ($i == 0 ? '150px' : '130px') : '130px' }}; height: {{ count($topStaff) == 3 ? ($i == 0 ? '150px' : '130px') : '130px' }}; margin: 0 auto; box-shadow: 0 0 10px rgba(0,0,0,.2);">
                                                         <div
-                                                            class="card-body pb-0 px-2 d-flex flex-column justify-content-center align-items-center">
+                                                            class="card-body d-flex flex-column justify-content-center align-items-center px-2 pb-0">
                                                             <div class="my-2">
                                                                 <i class="fa-solid fa-star {{ array_keys($starColors)[$i] }} fa-xl"
                                                                     style="color: {{ $starColors[array_keys($starColors)[$i]] }};"></i>
                                                             </div>
                                                             <h6
-                                                                class="card-title text-kyoodark my-1 py-0  {{ count($topStaff) == 3 ? ($i == 0 ? 'fs-4 fw-bold' : 'fs-6') : 'fs-6' }}">
+                                                                class="card-title text-kyoodark {{ count($topStaff) == 3 ? ($i == 0 ? 'fs-4 fw-bold' : 'fs-6') : 'fs-6' }} my-1 py-0">
                                                                 {{ $staff['name'] }}</h6>
                                                             <p class="card-text mb-0">{{ $staff['department'] }}</p>
                                                             <p class="card-text">{{ $staff['served_count'] }}
@@ -351,13 +370,13 @@
                                                         </div>
                                                     @else
                                                         <div
-                                                            class="card-body pb-0 px-2 d-flex flex-column justify-content-center align-items-center">
+                                                            class="card-body d-flex flex-column justify-content-center align-items-center px-2 pb-0">
                                                             <div class="my-2">
                                                                 <i class="fa-solid fa-star {{ array_keys($starColors)[$i] }} fa-xl"
                                                                     style="color: {{ $starColors[array_keys($starColors)[$i]] }};"></i>
                                                             </div>
                                                             <h6
-                                                                class="card-title text-kyoodark my-1 py-0  {{ count($topStaff) == 3 ? ($i == 0 ? 'fs-4 fw-bold' : 'fs-6') : 'fs-6' }}">
+                                                                class="card-title text-kyoodark {{ count($topStaff) == 3 ? ($i == 0 ? 'fs-4 fw-bold' : 'fs-6') : 'fs-6' }} my-1 py-0">
                                                                 Not Available</h6>
                                                         </div>
                                                     @endif
@@ -371,14 +390,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xxl-4 col-lg-5 col-md-12 rounded-5  px-2">
+                <div class="col-xxl-4 col-lg-5 col-md-12 rounded-5 px-2">
                     <div class="d-flex flex-column justify-content-stretch align-items-center">
                         <div class="col-12 mb-4">
                             {{-- Occupied Departments --}}
-                            <div class="card bg-kyoodark text-white rounded-5 shadow-lg"
+                            <div class="card bg-kyoodark rounded-5 text-white shadow-lg"
                                 style="max-height:97vh; overflow-y:auto;">
                                 <div
-                                    class="card-header bg-transparent text-white border-bottom border-warning border-5 py-2">
+                                    class="card-header border-bottom border-warning border-5 bg-transparent py-2 text-white">
                                     <div class="container-fluid">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <h4 class="fw-bold mb-0">Occupied Departments</h4>
@@ -394,7 +413,7 @@
                                             <div class="card mb-3 border py-3 shadow-sm"
                                                 style="margin-bottom: 1.5rem;">
                                                 <div
-                                                    class="card-body justify-content-center d-flex flex-column justify-content-center ">
+                                                    class="card-body justify-content-center d-flex flex-column justify-content-center">
                                                     <div class="d-flex justify-content-between">
                                                         <h5 class="fw-bold text-kyoodark mb-0">
                                                             {{ $department->name }}
@@ -454,7 +473,7 @@
                                                             </div>
                                                         @else
                                                             <div class="d-flex justify-content-center mt-3">
-                                                                <p class="text-secondary text-center mb-0">All
+                                                                <p class="text-secondary mb-0 text-center">All
                                                                     accounts
                                                                     in
                                                                     this
@@ -463,7 +482,7 @@
                                                         @endif
                                                     @else
                                                         <div class="d-flex justify-content-center mt-3">
-                                                            <p class="text-danger text-center mb-0">No accounts in
+                                                            <p class="text-danger mb-0 text-center">No accounts in
                                                                 this
                                                                 department</p>
                                                         </div>
@@ -485,9 +504,9 @@
 
                         <div class="col-12 h-100">
                             {{-- Feedback --}}
-                            <div class="card bg-kyoodark text-white rounded-5 shadow-lg">
+                            <div class="card bg-kyoodark rounded-5 text-white shadow-lg">
                                 <div
-                                    class="card-header bg-transparent text-white border-bottom border-pastel-teal border-5 py-2">
+                                    class="card-header border-bottom border-pastel-teal border-5 bg-transparent py-2 text-white">
                                     <div class="container-fluid">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <h4 class="fw-bold mb-0">Feedbacks</h4>
@@ -502,7 +521,7 @@
                                     <div class="container-fluid">
                                         @if (count($feedbacks) > 0)
                                             @foreach ($feedbacks as $feedback)
-                                                <div class="card py-2 shadow-sm mb-2">
+                                                <div class="card mb-2 py-2 shadow-sm">
                                                     <div
                                                         class="card-body justify-content-center d-flex flex-column justify-content-center pb-0">
                                                         <div class="d-flex justify-content-between align-items-center">
@@ -525,7 +544,7 @@
                                             @endforeach
                                         @else
                                             <div class="d-flex justify-content-center my-3">
-                                                <p class="text-secondary text-center mb-0">No feedback yet.</p>
+                                                <p class="text-secondary mb-0 text-center">No feedback yet.</p>
                                             </div>
                                         @endif
                                     </div>

@@ -121,7 +121,10 @@ $(document).ready(function () {
                         "</div>"
                 );
                 $("#btn-submit-filter").attr("disabled", false);
-                $("#btn-submit-filter").html("Generate");
+                $("#btn-submit-filter").html(`
+                    Generate
+                    <i class="fa-solid fa-clipboard"></i>
+                `);
             },
         });
     });

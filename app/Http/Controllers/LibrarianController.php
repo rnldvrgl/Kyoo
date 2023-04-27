@@ -77,7 +77,7 @@ class LibrarianController extends Controller
             $query->whereDate('created_at', '<=', $endDate);
         }
 
-        $tickets = $query->get(['id', 'student_name', 'student_department', 'student_course', 'clearance_status', 'created_at']);
+        $tickets = $query->get(['student_name', 'student_department', 'student_course', 'clearance_status', 'created_at']);
             
         if ($tickets->isEmpty()) {
             return response()->json(['code' => 400, 'msg' => 'No tickets found with the specified filters.']);

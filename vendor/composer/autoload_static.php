@@ -816,6 +816,7 @@ class ComposerStaticInita6cfa5fce8bb348edcfb67f612f71051
         'App\\Http\\Controllers\\KioskController' => __DIR__ . '/../..' . '/app/Http/Controllers/KioskController.php',
         'App\\Http\\Controllers\\LibrarianController' => __DIR__ . '/../..' . '/app/Http/Controllers/LibrarianController.php',
         'App\\Http\\Controllers\\LiveQueueController' => __DIR__ . '/../..' . '/app/Http/Controllers/LiveQueueController.php',
+        'App\\Http\\Controllers\\MainAdminExportController' => __DIR__ . '/../..' . '/app/Http/Controllers/MainAdminExportController.php',
         'App\\Http\\Controllers\\PromotionalController' => __DIR__ . '/../..' . '/app/Http/Controllers/PromotionalController.php',
         'App\\Http\\Controllers\\QueueTicketController' => __DIR__ . '/../..' . '/app/Http/Controllers/QueueTicketController.php',
         'App\\Http\\Controllers\\RegistrarController' => __DIR__ . '/../..' . '/app/Http/Controllers/RegistrarController.php',
