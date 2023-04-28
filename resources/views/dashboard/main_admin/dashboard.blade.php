@@ -9,6 +9,8 @@
     $profile_image = $details->profile_image;
 @endphp
 
+{{-- {{ dd($months) }} --}}
+
 <x-layout :role='$role'>
     {{-- Dashboard Header Navbar --}}
     <x-dashboard-header :details="$details" :role="$role" />
@@ -79,15 +81,17 @@
                                 <div class="col-6 form-floating mb-3">
                                     <input class="form-control" type="date" name="ticketStartDate"
                                         id="floatingTicketStartDate">
-                                    <label for="floatingTicketStartDate">Start Date</label>
+                                    <label for="floatingTicketStartDate">From</label>
                                 </div>
 
                                 <div class="col-6 form-floating mb-3">
                                     <input class="form-control" type="date" name="ticketEndDate"
                                         id="floatingTicketEndDate">
-                                    <label for="floatingTicketEndDate">End Date</label>
+                                    <label for="floatingTicketEndDate">To</label>
                                 </div>
                             </div>
+
+                            <hr>
 
                             {{-- Staff --}}
                             <div class="row">
@@ -112,6 +116,65 @@
                                         @endforeach
                                     </select>
                                     <label for="floatingDepartment">Department</label>
+                                </div>
+                            </div>
+
+                            <hr>
+
+                            {{-- Queue Counts --}}
+                            <div class="row">
+                                <strong>Queue Counts</strong>
+                                <div class="col-6 form-floating mb-3">
+                                    <input class="form-control" type="date" name="queueStartDate"
+                                        id="floatingQueueCountStartDate">
+                                    <label for="floatingQueueCountStartDate">From</label>
+                                </div>
+
+                                <div class="col-6 form-floating mb-3">
+                                    <input class="form-control" type="date" name="queueEndDate"
+                                        id="floatingQueueCountEndDate">
+                                    <label for="floatingQueueCountEndDate">To</label>
+                                </div>
+                            </div>
+
+                            <hr>
+
+                            {{-- Occupied Departments --}}
+                            <strong>Occupied Departments</strong>
+                            <div class="form-floating mb-3">
+                                <select class="form-select" name="occupiedDepartment" id="floatingOccupiedDepartment"
+                                    aria-label="OccupiedDepartment">
+                                    <option value="" selected disabled>Select Department</option>
+                                    @foreach ($allDepartments as $department)
+                                        <option value="{{ $department->id }}">{{ $department->name }}</option>
+                                    @endforeach
+                                </select>
+                                <label for="floatingOccupiedDepartment">Department</label>
+                            </div>
+
+                            <hr>
+
+                            {{-- Feedback --}}
+                            <div class="row">
+                                <strong>Feedback</strong>
+                                <div class="col-6 form-floating mb-3">
+                                    <input type="radio" name="anonymity" id="anonymous" value="anonymous"> Anonymous
+                                </div>
+
+                                <div class="col-6 form-floating mb-3">
+                                    <input type="radio" name="anonymity" id="named" value="named"> Named
+                                </div>
+
+                                <div class="col-6 form-floating mb-3">
+                                    <input class="form-control" type="date" name="feedbackStartDate"
+                                        id="floatingFeedbackStartDate">
+                                    <label for="floatingFeedbackStartDate">From</label>
+                                </div>
+
+                                <div class="col-6 form-floating mb-3">
+                                    <input class="form-control" type="date" name="feedbackEndDate"
+                                        id="floatingFeedbackEndDate">
+                                    <label for="floatingFeedbackEndDate">To</label>
                                 </div>
                             </div>
 
@@ -287,7 +350,7 @@
                                     <div class="card-body d-flex flex-column justify-content-between">
                                         <div>
                                             <div class="d-flex justify-content-between align-items-center py-2">
-                                                <h5 class="fw-bold mb-0 text-white">Queue Counts Report</h5>
+                                                <h5 class="fw-bold mb-0 text-white">Queue Counts Chart</h5>
                                                 <div class="d-flex justify-content-center align-items-center py-2">
                                                     <select name="year" id="year-dropdown"
                                                         class="form-select-sm rounded-5 bg-transparent text-white">

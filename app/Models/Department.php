@@ -16,6 +16,12 @@ class Department extends Model
         'status'
     ];
 
+    // protected $with = [
+    //     'accounts',
+    //     'services',
+    //     'serviceDepartmentTickets'
+    // ];
+
     public function accounts()
     {
         return $this->hasMany(Accounts::class);

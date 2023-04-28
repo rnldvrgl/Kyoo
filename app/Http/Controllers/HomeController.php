@@ -8,9 +8,12 @@ use App\Models\Accounts;
 use App\Models\Feedback;
 use App\Models\Department;
 use App\Models\AccountRole;
+use App\Models\QueueTicket;
 use App\Models\AccountLogin;
 use App\Models\AccountDetails;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
 class HomeController extends Controller
 {
 	/**
@@ -98,14 +101,6 @@ class HomeController extends Controller
 	// TODO: Isang function for dashboard, concat the role
 	public function main_admin(QueueTicketController $queueTicketController, StatisticsController $statsController)
 	{
-		$accounts = Accounts::whereHas('account_login', function($query){
-			$query->where('status', '=', 'Logged In');
-		})
-			->where('department_id', '=', 1)
-			->get();
-
-		// dd($accounts);
-
 		$feedbacks = Feedback::all();
 
 		return view('dashboard.main_admin.dashboard', [
@@ -125,6 +120,7 @@ class HomeController extends Controller
 			'years' => $queueTicketController->getYear(),
 			'departments' => $queueTicketController->getDepartments(),
 			'allDepartments' => Department::all(['id', 'name']),
+			'months' => $queueTicketController->getMonthWithName(),
 		]);
 	}
 

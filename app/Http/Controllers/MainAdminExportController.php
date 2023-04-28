@@ -6,6 +6,9 @@ use Carbon\Carbon;
 use App\Models\Accounts;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\AccountLogin;
+use App\Models\Department;
+use App\Models\Feedback;
 use App\Models\QueueTicket;
 use Rap2hpoutre\FastExcel\FastExcel;
 use Rap2hpoutre\FastExcel\SheetCollection;
@@ -22,6 +25,8 @@ class MainAdminExportController extends Controller
      */
     public function fetchFilteredMainAdminData(Request $request)
     {
+        // dd($request);
+
         // Ticket Status
         $ticketStatus = $request->ticketStatus;
         $ticketStartDate = $request->ticketStartDate;
@@ -31,17 +36,37 @@ class MainAdminExportController extends Controller
         $staffStatus = $request->staffStatus;
         $department_id = $request->department;
 
+        // Queue Counts
+        $queueStartDate = $request->queueStartDate;
+        $queueEndDate = $request->queueEndDate;
+
+        // Occupied Departments
+        $occupiedDepartment_id = $request->occupiedDepartment;
+
+        // Feedback
+        $anonymity = $request->anonymity;
+        $feedbackStartDate = $request->feedbackStartDate;
+        $feedbackEndDate = $request->feedbackEndDate;        
+
+        // Processes
         $filteredTicketData = $this->getTicketData($ticketStatus, $ticketStartDate, $ticketEndDate);
         $filteredStaffData = $this->getStaffData($staffStatus, $department_id);
-
-        // TODO: Occupied Departments, Feedbacks (All), and Staff Leaderboard (All)
-
-        // dd($filteredStaffData);
+        $filteredQueueCountsData = $this->getQueueCountsData($queueStartDate, $queueEndDate);
+        $staffLeaderboardData = $this->getStaffLeaderboardData();
+        $occupiedDepartmentsData = $this->getOccupiedDepartmentData($occupiedDepartment_id);
+        $filteredFeedbackData = $this->getFeedbackData($anonymity, $feedbackStartDate, $feedbackEndDate);
+        
+        // Test each process here
+        // dd($filteredFeedbackData);
 
         // Create new sheets for each filtered Data
         $results = new SheetCollection([
             "Tickets" => $filteredTicketData,
             "Staff Status" => $filteredStaffData,
+            "Queue Counts" => $filteredQueueCountsData,
+            "Staff Leaderboards" => $staffLeaderboardData,
+            "Occupied Departments" => $occupiedDepartmentsData,
+            "Feedbacks" => $filteredFeedbackData,
         ]);
 
         // dd($results);
@@ -59,6 +84,219 @@ class MainAdminExportController extends Controller
         
         // Return response
         return response()->json(['code' => 200, 'msg' => 'Export Successful', 'url' => $url, 'fileName' => $fileName]);
+        // return redirect('/main-admin/dashboard');
+    }
+    
+    /**
+     * getFeedbackData
+     *
+     * @param  mixed $anonymity
+     * @param  mixed $feedbackStartDate
+     * @param  mixed $feedbackEndDate
+     * @return void
+     */
+    public function getFeedbackData($anonymity, $feedbackStartDate, $feedbackEndDate)
+    {
+        $query = Feedback::query();
+
+        // if empty, fetch all feedbacks
+        if(empty($anonymity) && empty($feedbackStartDate) && empty($feedbackEndDate)){
+            $query->get();
+        }
+
+        if(!empty($anonymity) && $anonymity == "anonymous"){
+            $query->where('name', null);
+        }
+        
+        if(!empty($anonymity) && $anonymity == "named"){
+            $query->where('name', '!=', null);
+        }
+
+        // if only $feedbackStartDate is not empty
+        if (!empty($feedbackStartDate) && empty($feedbackEndDate)) {
+            $query->where('date', '>=', $feedbackStartDate);
+        }
+
+        // if only $feedbackEndDate is not empty
+        if (empty($feedbackStartDate) && !empty($feedbackEndDate)) {
+            $query->where('date', '<=', $feedbackEndDate);
+        }
+
+        // if both date range not empty
+        if(!empty($feedbackStartDate) && !empty($feedbackEndDate)){
+            $query->whereBetween('date', [$feedbackStartDate, $feedbackEndDate]);
+        }
+        
+        $feedbacks = $query->get();
+
+        $array = [];
+
+        foreach($feedbacks as $feedback){
+            $toExcel = array(
+                "Name" => $feedback->name == null ? "Anonymous" : $feedback->name,
+                "Feedback" => $feedback->feedback,
+                "Date Sent" => Carbon::parse($feedback->created_at)->format('Y-m-d H:i:s'),
+            );
+
+            array_push($array, $toExcel);
+        }
+
+        return $array;
+    }
+    
+    /**
+     * getOccupiedDepartmentData
+     *
+     * @param  mixed $occupiedDepartment_id
+     * @return void
+     */
+    public function getOccupiedDepartmentData($occupiedDepartment_id)
+    {
+        // if empty
+        if(empty($occupiedDepartment_id))
+        {
+            $occupiedDepartments = Accounts::whereHas('account_login', function($query){
+                $query->where('status', 'Logged In');
+            })->whereNotNull('department_id')->get();
+        }
+        // If not empty
+        else {
+            $occupiedDepartments = Accounts::whereHas('account_login', function($query){
+                $query->where('status', 'Logged In');
+            })
+            ->whereHas('department', function($query) use ($occupiedDepartment_id) {
+                $query->where('id', $occupiedDepartment_id);
+            })
+            ->get();
+        }
+
+        $total = Accounts::whereHas('account_login', function($query){
+            $query->where('status', 'Logged In');
+        })->whereNotNull('department_id')->count();
+
+        $array = [];
+
+        $departments = [];
+        
+        foreach ($occupiedDepartments as $department) {
+            $departmentName = $department->department->name;
+
+            // Avoid duplication of department
+            if (!in_array($departmentName, $departments)) {
+                $departments[] = $departmentName;
+                $toExcel = array(
+                    "Department" => $departmentName,
+                    "Occupants" => $occupiedDepartments->where('department_id', $department->department_id)->count(),
+                );
+                array_push($array, $toExcel);
+            }
+        }        
+
+        $collectedArray = collect($array);
+
+        $collectedArray->prepend([
+            'Total Occupied Departments' => $total,
+        ]);
+
+        return $collectedArray;
+    }
+    
+    /**
+     * getStaffLeaderboardData
+     *
+     * @return void
+     */
+    public function getStaffLeaderboardData()
+    {
+        $staffs = Accounts::with('account_details')->with('department')->where('role_id', 3)->get();
+        $completedCounts = [];
+
+        foreach ($staffs as $staff) {
+            $servedCount = QueueTicket::where(
+                'status',
+                'Complete'
+            )
+                ->where('login_id', $staff->id)
+                ->count();
+            $completedCounts[] = ['name' => $staff->account_details->name, 'department' => $staff->department->name, 'served_count' => $servedCount, 'profile_image' => $staff->account_details->profile_image];
+        }
+
+        // sort the staffs by most served tickets and exclude staff with the department of High School Library and College Library
+        $completedCounts = array_filter($completedCounts, function ($a) {
+            return !in_array($a['department'], ['High School Library', 'College Library']);
+        });
+        usort($completedCounts, function ($a, $b) {
+            return $b['served_count'] - $a['served_count'];
+        });
+
+        // return the top 3 staff with the most served tickets
+        $topThreeStaff = array_slice($completedCounts, 0, 3);
+
+        $array = [];
+
+        foreach ($topThreeStaff as $staff) {
+            $toExcel = array(
+                "Name" => $staff['name'],
+                "Department" => $staff['department'],
+                "Total Served" => $staff['served_count']
+            );
+
+            array_push($array, $toExcel);
+        }
+
+        return $array;
+    }
+    
+    /**
+     * getQueueCountsData
+     *
+     * @param  mixed $queueStartDate
+     * @param  mixed $queueEndDate
+     * @return void
+     */
+    public function getQueueCountsData($queueStartDate, $queueEndDate)
+    {
+        $query = QueueTicket::query();
+
+        // if empty, count all queue
+        if(empty($queueStartDate) && empty($queueEndDate)){
+            $query->get();
+
+            $key = "Total Queues";
+        }
+
+        // if only $queueStartDate is not empty
+        if (!empty($queueStartDate) && empty($queueEndDate)) {
+            $query->where('date', '>=', $queueStartDate);
+
+            $key = "Total Queues starting from $queueStartDate";
+        }
+
+        // if only $queueEndDate is not empty
+        if (empty($queueStartDate) && !empty($queueEndDate)) {
+            $query->where('date', '<=', $queueEndDate);
+
+            $key = "Total Queues until $queueEndDate";
+        }
+
+        // if date not empty
+        if(!empty($queueStartDate) && !empty($queueEndDate)){
+            $query->whereBetween('date', [$queueStartDate, $queueEndDate]);
+
+            $key = "Total Queues starting from $queueStartDate until $queueEndDate";
+        }
+
+        $queues = $query->get()->count();
+
+        $array = [];
+
+        $toExcel = array(
+            $key => $queues,
+        );
+
+        array_push($array, $toExcel);
+
+        return $array;
     }
     
     /**
@@ -80,7 +318,7 @@ class MainAdminExportController extends Controller
 
         // if ticketStatus not empty
         if(!empty($ticketStatus)){
-            $query->where('status', '=', $ticketStatus)->get();
+            $query->where('status', $ticketStatus)->get();
         }
 
         // if only $ticketStartDate is not empty
@@ -99,8 +337,6 @@ class MainAdminExportController extends Controller
         }
 
         $tickets = $query->get();
-
-        // dd($tickets);
 
         $array = [];
 
@@ -143,13 +379,13 @@ class MainAdminExportController extends Controller
         // if empty staffStatus
         if (!empty($staffStatus)) {
             $query->whereHas('account_login', function($query) use ($staffStatus){
-                $query->where('status', '=', $staffStatus);
+                $query->where('status', $staffStatus);
             });
         }
 
         // if empty department_id
         if (!empty($department_id)) {
-            $query->where('department_id', '=', $department_id);
+            $query->where('department_id', $department_id);
         }
 
         // Fetch the result
