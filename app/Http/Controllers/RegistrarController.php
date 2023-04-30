@@ -25,7 +25,6 @@ class RegistrarController extends Controller
         $avg_serving_time = $queueTicketController->getAverageServiceTime();
         $avg_wait_time = $queueTicketController->getAverageWaitingTime();
 
-
         return view(
             'dashboard.staff.registrar-dashboard',
             [
@@ -39,6 +38,11 @@ class RegistrarController extends Controller
                 'holdingTickets' => $holdingTickets
             ]
         );
+    }
+
+    public function fetchFilteredRegistrarData()
+    {
+        // To Confirm pa if may filter si Registrar Staff sa Reports
     }
 
     public function getPendingTickets()

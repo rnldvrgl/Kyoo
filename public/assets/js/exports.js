@@ -76,7 +76,7 @@ $(document).ready(function () {
         });
         $("#btn-submit-filter").attr("disabled", true);
         $("#btn-submit-filter").html(
-            "<i class='fa-solid fa-circle-notch fa-spin'></i> Generating ..."
+            "<i class='fa-solid fa-circle-notch fa-spin'></i> Exporting ..."
         );
         $.ajax({
             type: "POST",
@@ -107,7 +107,7 @@ $(document).ready(function () {
 
                 $("#btn-submit-filter").attr("disabled", false);
                 $("#btn-submit-filter").html(
-                    'Generate <i class="fa-solid fa-filter"></i>'
+                    'Export <i class="fa-solid fa-filter"></i>'
                 );
 
                 // Clear input fields
@@ -122,7 +122,135 @@ $(document).ready(function () {
                 );
                 $("#btn-submit-filter").attr("disabled", false);
                 $("#btn-submit-filter").html(`
-                    Generate
+                    Export
+                    <i class="fa-solid fa-clipboard"></i>
+                `);
+            },
+        });
+    });
+
+    // Export Department Admin Report
+    $("#export-department-admin-report").submit(function (e) {
+        e.preventDefault();
+        var formData = new FormData(this);
+        $.ajaxSetup({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+        });
+        $("#btn-submit-filter").attr("disabled", true);
+        $("#btn-submit-filter").html(
+            "<i class='fa-solid fa-circle-notch fa-spin'></i> Exporting ..."
+        );
+        $.ajax({
+            type: "POST",
+            url: this.action,
+            data: formData,
+            cache: false,
+            processData: false,
+            contentType: false,
+            success: (response) => {
+                if (response.code === 400) {
+                    let error =
+                        '<div class="alert alert-danger">' +
+                        response.msg +
+                        "</div>";
+                    $("#res").html(error);
+                } else if (response.code === 200) {
+                    // * Start Download
+                    downloadURL(response);
+
+                    // If successful download
+                    let success = `<div class="alert alert-success">${response.msg}</div>`;
+                    $("#res").html(success);
+
+                    setTimeout(() => {
+                        $("#res").html("");
+                    }, 1500);
+                }
+
+                $("#btn-submit-filter").attr("disabled", false);
+                $("#btn-submit-filter").html(
+                    'Export <i class="fa-solid fa-clipboard"></i>'
+                );
+
+                // Clear input fields
+                $("#export-department-admin-report")[0].reset();
+            },
+            error: (xhr, status, error) => {
+                // handle error response
+                $("#res").html(
+                    '<div class="row alert alert-danger">' +
+                        "An error occurred performing the filter. Please try again later." +
+                        "</div>"
+                );
+                $("#btn-submit-filter").attr("disabled", false);
+                $("#btn-submit-filter").html(`
+                    Export
+                    <i class="fa-solid fa-clipboard"></i>
+                `);
+            },
+        });
+    });
+
+    // Export Staff Report
+    $("#export-staff-data").submit(function (e) {
+        e.preventDefault();
+        var formData = new FormData(this);
+        $.ajaxSetup({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+        });
+        $("#btn-submit").attr("disabled", true);
+        $("#btn-submit").html(
+            "<i class='fa-solid fa-circle-notch fa-spin'></i> Exporting ..."
+        );
+        $.ajax({
+            type: "POST",
+            url: this.action,
+            data: formData,
+            cache: false,
+            processData: false,
+            contentType: false,
+            success: (response) => {
+                if (response.code === 400) {
+                    let error =
+                        '<div class="d-flex justify-content-center"><div class="alert alert-danger">' +
+                        response.msg +
+                        "</div></div>";
+                    $("#res").html(error);
+                } else if (response.code === 200) {
+                    // * Start Download
+                    downloadURL(response);
+
+                    // If successful download
+                    let success = `<div class="d-flex justify-content-center"><div class="alert alert-success">${response.msg}</div></div>`;
+                    $("#res").html(success);
+
+                    setTimeout(() => {
+                        $("#res").html("");
+                    }, 1500);
+                }
+
+                $("#btn-submit").attr("disabled", false);
+                $("#btn-submit").html(
+                    'Export Report <i class="fa-solid fa-clipboard"></i>'
+                );
+
+                // Clear input fields
+                $("#export-main-admin-report")[0].reset();
+            },
+            error: (xhr, status, error) => {
+                // handle error response
+                $("#res").html(
+                    '<div class="d-flex justify-content-center"><div class="row alert alert-danger">' +
+                        "An error occurred while exporting the report. Please try again later." +
+                        "</div></div>"
+                );
+                $("#btn-submit").attr("disabled", false);
+                $("#btn-submit").html(`
+                    Export Report
                     <i class="fa-solid fa-clipboard"></i>
                 `);
             },

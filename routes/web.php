@@ -4,6 +4,7 @@ use App\Events\LiveQueueEvent;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DepartmentAccountController;
+use App\Http\Controllers\DepartmentAdminController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DepartmentServiceController;
 use App\Http\Controllers\FaqController;
@@ -208,6 +209,9 @@ Route::middleware(['auth', 'user-access:Department Admin'])->group(function () {
 	// Fetch Department Data use for the Chart based on Year
 	Route::get('/fetch-department-queue-data/{year}/{department}', [QueueTicketController::class, 'getDepartmentDataForYear'])->name('dashboard.department_fetch_queues');
 
+	// Export Department Admin Data
+	Route::post('/export-department-admin-data', [DepartmentAdminController::class, 'fetchFilteredDepartmentAdminData'])->name('export-department-admin-report');
+
 	// Manage Accounts
 	Route::prefix('department-admin/manage/accounts')->group(function () {
 		// Store Account
@@ -267,6 +271,7 @@ Route::middleware(['auth', 'user-access:Staff'])->group(function () {
 	// Librarian Index Dashboard
 	Route::get('/librarian/dashboard', [LibrarianController::class, 'index'])->name('dashboard.librarian');
 	Route::post('/export-librarian-ticket', [LibrarianController::class, 'fetchFilteredLibrarianTicket'])->name('export-librarian-ticket'); // Export Librarian Ticket
+	Route::post('/export-staff-data', [StaffController::class, 'fetchFilteredRegularStaffData'])->name('export-staff-data'); // Export Staff Data
 
 	// Update Ticket Status
 	Route::put('/tickets/update-status/{status}', [QueueTicketController::class, 'updateStatus'])->name('tickets.updateStatus');

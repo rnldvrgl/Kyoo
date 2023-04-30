@@ -15,6 +15,8 @@ use Rap2hpoutre\FastExcel\SheetCollection;
 
 use Illuminate\Support\Facades\Storage;
 
+use function PHPUnit\Framework\isNull;
+
 class MainAdminExportController extends Controller
 {    
     /**
@@ -57,7 +59,7 @@ class MainAdminExportController extends Controller
         $filteredFeedbackData = $this->getFeedbackData($anonymity, $feedbackStartDate, $feedbackEndDate);
         
         // Test each process here
-        // dd($filteredFeedbackData);
+        // dd($occupiedDepartmentsData);
 
         // Create new sheets for each filtered Data
         $results = new SheetCollection([
@@ -150,7 +152,7 @@ class MainAdminExportController extends Controller
      * @param  mixed $occupiedDepartment_id
      * @return void
      */
-    public function getOccupiedDepartmentData($occupiedDepartment_id)
+    public function getOccupiedDepartmentData($occupiedDepartment_id, $role = "")
     {
         // if empty
         if(empty($occupiedDepartment_id))
@@ -159,6 +161,7 @@ class MainAdminExportController extends Controller
                 $query->where('status', 'Logged In');
             })->whereNotNull('department_id')->get();
         }
+
         // If not empty
         else {
             $occupiedDepartments = Accounts::whereHas('account_login', function($query){
@@ -170,9 +173,18 @@ class MainAdminExportController extends Controller
             ->get();
         }
 
-        $total = Accounts::whereHas('account_login', function($query){
-            $query->where('status', 'Logged In');
-        })->whereNotNull('department_id')->count();
+        if($role == "Department Admin"){
+            $total = Accounts::whereHas('account_login', function($query){
+                $query->where('status', 'Logged In');
+            })->where('department_id', $occupiedDepartment_id)
+                ->whereNotNull('department_id')
+                ->count();
+        } else {
+            $total = Accounts::whereHas('account_login', function($query){
+                $query->where('status', 'Logged In');
+            })->whereNotNull('department_id')
+                ->count();
+        }
 
         $array = [];
 
@@ -254,7 +266,7 @@ class MainAdminExportController extends Controller
      * @param  mixed $queueEndDate
      * @return void
      */
-    public function getQueueCountsData($queueStartDate, $queueEndDate)
+    public function getQueueCountsData($queueStartDate, $queueEndDate, $department_id = "")
     {
         $query = QueueTicket::query();
 
@@ -263,6 +275,11 @@ class MainAdminExportController extends Controller
             $query->get();
 
             $key = "Total Queues";
+        }
+
+        // department_id exists
+        if(!empty($department_id)){
+            $query->where('department_id', $department_id);
         }
 
         // if only $queueStartDate is not empty
@@ -307,13 +324,18 @@ class MainAdminExportController extends Controller
      * @param  mixed $ticketEndDate
      * @return void
      */
-    public function getTicketData($ticketStatus, $ticketStartDate, $ticketEndDate)
+    public function getTicketData($ticketStatus, $ticketStartDate, $ticketEndDate, $department_id = "")
     {
         $query = QueueTicket::query();
 
         // if empty, fetch all tickets
         if(empty($ticketStatus) && empty($ticketStartDate) && empty($ticketEndDate)){
             $query->get();
+        }
+
+        // Added this since I used this method on DepartmentAdminController
+        if(!empty($department_id)){
+            $query->where('department_id', $department_id);
         }
 
         // if ticketStatus not empty

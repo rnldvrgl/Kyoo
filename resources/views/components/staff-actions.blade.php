@@ -3,10 +3,10 @@
 @endphp
 
 <div class="card rounded-5 mb-3">
-    <div class="card-header {{ $status == 'On Break' ? 'bg-secondary' : 'bg-success' }} text-white border-bottom border-5"
+    <div class="card-header {{ $status == 'On Break' ? 'bg-secondary' : 'bg-success' }} border-bottom border-5 text-white"
         id="action-header">
         <h4 class="fw-bold text-center">Staff Actions</h4>
-        <p class="text-center mb-0" id="work-timer"></p>
+        <p class="mb-0 text-center" id="work-timer"></p>
     </div>
     <div class="card-body d-flex justify-content-center align-items-center py-sm-1 py-md-2 py-lg-3">
         <div class="d-grid w-100 gap-1">
@@ -34,6 +34,19 @@
                 {{ !$canTakeBreak ? 'Not Available' : 'End Shift' }}
                 <i class="fa-solid fa-door-closed ms-2"></i>
             </button>
+
+            {{-- Form for Staff --}}
+            <form action="{{ route('export-staff-data') }}" method="post" id="export-staff-data">
+                @csrf
+
+                <input type="hidden" name="loginID" value="{{ $attributes['login'] }}">
+
+                <button type="submit" class="btn btn-kyooblue rounded-pill text-white" id="btn-submit">
+                    Export Report
+                    <i class="fa-regular fa-clipboard"></i>
+                </button>
+            </form>
+            {{-- End Form --}}
         </div>
     </div>
 </div>

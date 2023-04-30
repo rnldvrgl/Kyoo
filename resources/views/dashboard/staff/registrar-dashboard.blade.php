@@ -36,12 +36,15 @@
     {{-- {{ dd(session('work_start_time')) }} --}}
     <main id="main" class="main px-2">
         <section class="section dashboard">
+            <div id="res">
+                {{-- Append message here --}}
+            </div>
             <div class="d-flex justify-content-center" style="max-height: 90vh;">
                 {{-- 1st Column --}}
-                <div class="col col-lg-4 px-2 flex-grow-1" style="min-height: 100%;">
+                <div class="col col-lg-4 flex-grow-1 px-2" style="min-height: 100%;">
                     {{-- Pending Tickets --}}
                     <div class="card h-100 rounded-5 shadow-lg">
-                        <div class="card-header bg-transparent text-kyoodark border-bottom border-kyooorange border-5">
+                        <div class="card-header text-kyoodark border-bottom border-kyooorange border-5 bg-transparent">
                             <div class="container-fluid">
                                 <div class="d-flex justify-content-between align-items-center">
                                     @if (count($pendingTickets) == 0 || count($pendingTickets) == 1)
@@ -65,7 +68,7 @@
                         </div>
 
                         {{-- Pending Tickets --}}
-                        <div class="card-body px-4 pt-4 pb-2 d-flex flex-column justify-content-start registrar-pending-tab-{{ $department->id }}"
+                        <div class="card-body d-flex flex-column justify-content-start registrar-pending-tab-{{ $department->id }} px-4 pt-4 pb-2"
                             style="overflow-y: scroll; height: calc(100% - 55px);">
                             <div id="notifications"></div>
 
@@ -86,8 +89,8 @@
                                     </div>
                                 @endforeach
                             @else
-                                <div class="text-center my-auto pending-tickets">
-                                    <p class="fw-bold fs-4 mb-0 text-muted">No corresponding ticket(s)</p>
+                                <div class="pending-tickets my-auto text-center">
+                                    <p class="fw-bold fs-4 text-muted mb-0">No corresponding ticket(s)</p>
                                 </div>
                             @endif
                         </div>
@@ -95,10 +98,10 @@
                 </div>
 
                 {{-- 2nd Column --}}
-                <div class="col col-lg-6 px-2 d-flex flex-column" style="min-height: 100%;">
+                <div class="col col-lg-6 d-flex flex-column px-2" style="min-height: 100%;">
                     {{-- Current Serving Ticket --}}
-                    <div class="card rounded-5 shadow-lg mb-3" style="flex: 1;">
-                        <div class="card-header bg-transparent text-kyoodark border-bottom border-success border-5">
+                    <div class="card rounded-5 mb-3 shadow-lg" style="flex: 1;">
+                        <div class="card-header text-kyoodark border-bottom border-success border-5 bg-transparent">
                             <div class="container-fluid">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <h4 class="fw-bold mb-0">Current Serving Ticket</h4>
@@ -108,7 +111,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card-body p-4 d-flex flex-column justify-content-center align-items-center">
+                        <div class="card-body d-flex flex-column justify-content-center align-items-center p-4">
                             @if ($servingTicket)
                                 <x-current-serving-ticket id="current-ticket-{{ $servingTicket->id }}"
                                     ticketId="{{ $servingTicket->id }}"
@@ -122,7 +125,7 @@
                                     serviceDepartment="{{ $department->name }}" notes="{{ $servingTicket->notes }}" />
                             @else
                                 <div class="text-center">
-                                    <p class="fw-bold fs-4 mb-0 text-muted" style="overflow-wrap: break-word;">No Ticket
+                                    <p class="fw-bold fs-4 text-muted mb-0" style="overflow-wrap: break-word;">No Ticket
                                         is
                                         Currently Serving</p>
                                     <p class="fs-6 text-muted mb-0" style="overflow-wrap: break-word;">Please call a
@@ -133,10 +136,9 @@
                         </div>
                     </div>
 
-
                     {{-- For Payment Tickets --}}
                     <div class="card rounded-5 mb-0 shadow-lg" style="flex: 1;max-height: 40vh; overflow-y: auto;">
-                        <div class="card-header bg-transparent text-kyoodark border-bottom border-kyooblue border-5">
+                        <div class="card-header text-kyoodark border-bottom border-kyooblue border-5 bg-transparent">
                             <div class="container-fluid">
                                 <div class="d-flex justify-content-between align-items-center">
                                     @if (count($holdingTickets) == 0 || count($holdingTickets) == 1)
@@ -152,14 +154,14 @@
                                             </span>
                                         </h4>
                                     @endif
-                                    <span class="badge bg-kyooblue text-kyooblue  rounded-circle p-1">
+                                    <span class="badge bg-kyooblue text-kyooblue rounded-circle p-1">
                                         <i class="fa-regular fa-circle"></i>
                                     </span>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="card-body p-4 d-flex justify-content-start align-items-center flex-column gap-2"
+                        <div class="card-body d-flex justify-content-start align-items-center flex-column gap-2 p-4"
                             style="max-height: 40vh; overflow-y: auto;">
                             @if (count($holdingTickets) > 0)
                                 <div class="container-fluid">
@@ -174,8 +176,8 @@
                                     @endforeach
                                 </div>
                             @else
-                                <div class="text-center my-auto">
-                                    <p class="fw-bold fs-4 mb-0 text-muted text-center">No Tickets Transferred</p>
+                                <div class="my-auto text-center">
+                                    <p class="fw-bold fs-4 text-muted mb-0 text-center">No Tickets Transferred</p>
                                     <p class="fs-6 text-muted text-center">There are currently no tickets transferred
                                         for paying.</p>
                                 </div>
@@ -186,10 +188,12 @@
 
 
                 {{-- 3rd Column --}}
-                <div class="col col-lg-2 px-2 d-flex flex-column" style="min-height: 100%;">
+                <div class="col col-lg-2 d-flex flex-column px-2" style="min-height: 100%;">
 
                     {{-- Staff Actions --}}
-                    <x-staff-actions status="{{ $login->status }}" canTakeBreak="{{ $canTakeBreak }}" />
+                    <x-staff-actions status="{{ $login->status }}" canTakeBreak="{{ $canTakeBreak }}"
+                        role="{{ $role->name }}" department="{{ $department->name }}"
+                        login="{{ $login->id }}" />
 
                     {{-- Serving Stats --}}
                     <x-serving-stats avgServingTime="{{ $avg_serving_time }}"

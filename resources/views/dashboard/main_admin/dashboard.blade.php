@@ -37,14 +37,14 @@
         <h5 class="date mb-3"></h5>
 
         {{-- ! Export Button --}}
-        <button type="button" class="me-3" data-bs-toggle="modal" data-bs-target="#exportModal">Generate
+        <button type="button" class="me-3" data-bs-toggle="modal" data-bs-target="#exportModal">Export
             Report</button>
 
         <div class="modal fade" id="exportModal" tabindex="-1" aria-labelledby="exportModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exportModalLabel">Generate Report</h5>
+                        <h5 class="modal-title" id="exportModalLabel">Export Report</h5>
 
                         {{-- Give this a margin-left --}}
                         <span style="margin-left: 1rem;" title="Leave the filters blank to export dashboard data."><i
@@ -158,7 +158,8 @@
                             <div class="row">
                                 <strong>Feedback</strong>
                                 <div class="col-6 form-floating mb-3">
-                                    <input type="radio" name="anonymity" id="anonymous" value="anonymous"> Anonymous
+                                    <input type="radio" name="anonymity" id="anonymous" value="anonymous">
+                                    Anonymous
                                 </div>
 
                                 <div class="col-6 form-floating mb-3">
@@ -179,7 +180,7 @@
                             </div>
 
                             <button class="btn btn-primary flex" type="submit" id="btn-submit-filter">
-                                Generate
+                                Export
                                 <i class="fa-solid fa-clipboard"></i>
                             </button>
 
