@@ -33,12 +33,19 @@
             </nav>
         </div>
 
-        {{-- Date --}}
-        <h5 class="date mb-3"></h5>
 
-        {{-- ! Export Button --}}
-        <button type="button" class="me-3" data-bs-toggle="modal" data-bs-target="#exportModal">Export
-            Report</button>
+        <div class="d-flex justify-content-between align-items-center">
+            {{-- Date --}}
+            <h5 class="date mb-3"></h5>
+
+            {{-- Export Button --}}
+            <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#exportModal">
+                Export
+                Report
+                <i class="fa-solid fa-file-arrow-down ms-2"></i>
+            </button>
+        </div>
+
 
         <div class="modal fade" id="exportModal" tabindex="-1" aria-labelledby="exportModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
@@ -65,37 +72,35 @@
 
                             {{-- Tickets --}}
                             <div class="row">
-                                <strong>Ticket Status</strong>
-                                <div class="form-floating rounded-pill mb-3">
-                                    <select class="form-select" name="ticketStatus" id="floatingTicketStatus"
-                                        aria-label="TicketStatus">
+                                <strong class="mb-1">Ticket Status</strong>
+                                <div class="form-floating rounded-pill mb-3 px-1">
+                                    <select class="form-select form-control" name="ticketStatus"
+                                        id="floatingTicketStatus" aria-label="TicketStatus">
                                         <option value="" selected disabled>Select Ticket Status</option>
                                         <option value="Pending">Pending</option>
                                         <option value="Serving">Serving</option>
                                         <option value="Complete">Complete</option>
                                         <option value="Cancelled">Cancelled</option>
                                     </select>
-                                    <label for="floatingTicketStatus">Staff Status</label>
+                                    <label class="form-label" for="floatingTicketStatus">Ticket Status</label>
                                 </div>
 
-                                <div class="col-6 form-floating mb-3">
+                                <div class="col-6 form-floating mb-3 px-1">
                                     <input class="form-control" type="date" name="ticketStartDate"
                                         id="floatingTicketStartDate">
                                     <label for="floatingTicketStartDate">From</label>
                                 </div>
 
-                                <div class="col-6 form-floating mb-3">
+                                <div class="col-6 form-floating mb-3 px-1">
                                     <input class="form-control" type="date" name="ticketEndDate"
                                         id="floatingTicketEndDate">
                                     <label for="floatingTicketEndDate">To</label>
                                 </div>
                             </div>
 
-                            <hr>
-
                             {{-- Staff --}}
                             <div class="row">
-                                <strong>Staff Status</strong>
+                                <strong class="mb-1">Staff Status</strong>
                                 <div class="col-6 form-floating rounded-pill mb-3">
                                     <select class="form-select" name="staffStatus" id="floatingStaffStatus"
                                         aria-label="StaffStatus">
@@ -119,7 +124,6 @@
                                 </div>
                             </div>
 
-                            <hr>
 
                             {{-- Queue Counts --}}
                             <div class="row">
@@ -137,7 +141,6 @@
                                 </div>
                             </div>
 
-                            <hr>
 
                             {{-- Occupied Departments --}}
                             <strong>Occupied Departments</strong>
@@ -152,7 +155,6 @@
                                 <label for="floatingOccupiedDepartment">Department</label>
                             </div>
 
-                            <hr>
 
                             {{-- Feedback --}}
                             <div class="row">
@@ -179,15 +181,17 @@
                                 </div>
                             </div>
 
-                            <button class="btn btn-primary flex" type="submit" id="btn-submit-filter">
-                                Export
-                                <i class="fa-solid fa-clipboard"></i>
-                            </button>
+                            <div class="d-flex justify-content-end align-items-center">
+                                <button type="reset" class="btn btn-kyoored">
+                                    Clear Filter
+                                    <i class="fa-regular fa-trash-can ms-2"></i>
+                                </button>
 
-                            <button type="reset" class="btn btn-kyoored">
-                                Clear Filter
-                                <i class="fa-regular fa-trash-can"></i>
-                            </button>
+                                <button class="btn btn-primary ms-2" type="submit" id="btn-submit-filter">
+                                    Export
+                                    <i class="fa-solid fa-file-arrow-down ms-2"></i>
+                                </button>
+                            </div>
                         </form>
                     </div>
                 </div>
