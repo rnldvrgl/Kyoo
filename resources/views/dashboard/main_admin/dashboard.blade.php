@@ -76,7 +76,7 @@
                                 <div class="form-floating rounded-pill mb-3 px-1">
                                     <select class="form-select form-control" name="ticketStatus"
                                         id="floatingTicketStatus" aria-label="TicketStatus">
-                                        <option value="" selected disabled>Select Ticket Status</option>
+                                        <option value="" selected>All Tickets</option>
                                         <option value="Pending">Pending</option>
                                         <option value="Serving">Serving</option>
                                         <option value="Complete">Complete</option>
@@ -85,7 +85,7 @@
                                     <label class="form-label" for="floatingTicketStatus">Ticket Status</label>
                                 </div>
 
-                                <div class="col-6 form-floating mb-3 px-1">
+                                {{-- <div class="col-6 form-floating mb-3 px-1">
                                     <input class="form-control" type="date" name="ticketStartDate"
                                         id="floatingTicketStartDate">
                                     <label for="floatingTicketStartDate">From</label>
@@ -95,7 +95,7 @@
                                     <input class="form-control" type="date" name="ticketEndDate"
                                         id="floatingTicketEndDate">
                                     <label for="floatingTicketEndDate">To</label>
-                                </div>
+                                </div> --}}
                             </div>
 
                             {{-- Staff --}}
@@ -104,7 +104,7 @@
                                 <div class="col-6 form-floating rounded-pill mb-3">
                                     <select class="form-select" name="staffStatus" id="floatingStaffStatus"
                                         aria-label="StaffStatus">
-                                        <option value="" selected disabled>Select Staff Status</option>
+                                        <option value="" selected>All Staff Status</option>
                                         <option value="On Break">On Break</option>
                                         <option value="Logged In">Logged In</option>
                                         <option value="Logged Out">Logged Out</option>
@@ -115,7 +115,7 @@
                                 <div class="col-6 form-floating mb-3">
                                     <select class="form-select" name="department" id="floatingDepartment"
                                         aria-label="Department">
-                                        <option value="" selected disabled>Select Department</option>
+                                        <option value="" selected>All Department</option>
                                         @foreach ($allDepartments as $department)
                                             <option value="{{ $department->id }}">{{ $department->name }}</option>
                                         @endforeach
@@ -126,7 +126,7 @@
 
 
                             {{-- Queue Counts --}}
-                            <div class="row">
+                            {{-- <div class="row">
                                 <strong>Queue Counts</strong>
                                 <div class="col-6 form-floating mb-3">
                                     <input class="form-control" type="date" name="queueStartDate"
@@ -139,7 +139,7 @@
                                         id="floatingQueueCountEndDate">
                                     <label for="floatingQueueCountEndDate">To</label>
                                 </div>
-                            </div>
+                            </div> --}}
 
 
                             {{-- Occupied Departments --}}
@@ -147,7 +147,7 @@
                             <div class="form-floating mb-3">
                                 <select class="form-select" name="occupiedDepartment" id="floatingOccupiedDepartment"
                                     aria-label="OccupiedDepartment">
-                                    <option value="" selected disabled>Select Department</option>
+                                    <option value="" selected>All Department</option>
                                     @foreach ($allDepartments as $department)
                                         <option value="{{ $department->id }}">{{ $department->name }}</option>
                                     @endforeach
@@ -159,25 +159,33 @@
                             {{-- Feedback --}}
                             <div class="row">
                                 <strong>Feedback</strong>
-                                <div class="col-6 form-floating mb-3">
+                                <div class="col-4 form-floating mb-3">
+                                    <input type="radio" name="anonymity" id="all" value="all" checked>
+                                    All
+                                </div>
+
+                                <div class="col-4 form-floating mb-3">
                                     <input type="radio" name="anonymity" id="anonymous" value="anonymous">
                                     Anonymous
                                 </div>
 
-                                <div class="col-6 form-floating mb-3">
+                                <div class="col-4 form-floating mb-3">
                                     <input type="radio" name="anonymity" id="named" value="named"> Named
                                 </div>
+                            </div>
 
+                            {{-- General Date --}}
+                            <div class="row">
+                                <strong>Date</strong>
                                 <div class="col-6 form-floating mb-3">
-                                    <input class="form-control" type="date" name="feedbackStartDate"
-                                        id="floatingFeedbackStartDate">
-                                    <label for="floatingFeedbackStartDate">From</label>
+                                    <input class="form-control" type="date" name="startDate"
+                                        id="floatingStartDate">
+                                    <label for="floatingStartDate">From</label>
                                 </div>
 
                                 <div class="col-6 form-floating mb-3">
-                                    <input class="form-control" type="date" name="feedbackEndDate"
-                                        id="floatingFeedbackEndDate">
-                                    <label for="floatingFeedbackEndDate">To</label>
+                                    <input class="form-control" type="date" name="endDate" id="floatingEndDate">
+                                    <label for="floatingEndDate">To</label>
                                 </div>
                             </div>
 

@@ -35,18 +35,25 @@
                 <i class="fa-solid fa-door-closed ms-2"></i>
             </button>
 
-            {{-- Form for Staff --}}
-            <form action="{{ route('export-staff-data') }}" method="post" id="export-staff-data">
-                @csrf
+            @if ($attributes['department'] == 'College Library' || $attributes['department'] == 'High School Library')
+                {{-- Export Button --}}
+                <button type="button" class="btn btn-kyooblue rounded-pill text-white" data-bs-toggle="modal"
+                    data-bs-target="#exportModal">Export
+                    Report</button>
+            @else
+                {{-- Form for Staff --}}
+                <form action="{{ route('export-staff-data') }}" method="post" id="export-staff-data">
+                    @csrf
 
-                <input type="hidden" name="loginID" value="{{ $attributes['login'] }}">
+                    <input type="hidden" name="loginID" value="{{ $attributes['login'] }}">
 
-                <button type="submit" class="btn btn-kyooblue rounded-pill text-white" id="btn-submit">
-                    Export Report
-                    <i class="fa-regular fa-clipboard"></i>
-                </button>
-            </form>
-            {{-- End Form --}}
+                    <button type="submit" class="btn btn-kyooblue rounded-pill text-white" id="btn-submit">
+                        Export Report
+                        <i class="fa-regular fa-clipboard"></i>
+                    </button>
+                </form>
+                {{-- End Form --}}
+            @endif
         </div>
     </div>
 </div>

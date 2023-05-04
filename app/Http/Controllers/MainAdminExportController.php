@@ -15,6 +15,7 @@ use Rap2hpoutre\FastExcel\SheetCollection;
 
 use Illuminate\Support\Facades\Storage;
 
+use function PHPUnit\Framework\isEmpty;
 use function PHPUnit\Framework\isNull;
 
 class MainAdminExportController extends Controller
@@ -31,35 +32,39 @@ class MainAdminExportController extends Controller
 
         // Ticket Status
         $ticketStatus = $request->ticketStatus;
-        $ticketStartDate = $request->ticketStartDate;
-        $ticketEndDate = $request->ticketEndDate;
+        // $ticketStartDate = $request->ticketStartDate;
+        // $ticketEndDate = $request->ticketEndDate;
 
         // Staff Status
         $staffStatus = $request->staffStatus;
         $department_id = $request->department;
 
         // Queue Counts
-        $queueStartDate = $request->queueStartDate;
-        $queueEndDate = $request->queueEndDate;
+        // $queueStartDate = $request->queueStartDate;
+        // $queueEndDate = $request->queueEndDate;
 
         // Occupied Departments
         $occupiedDepartment_id = $request->occupiedDepartment;
 
         // Feedback
         $anonymity = $request->anonymity;
-        $feedbackStartDate = $request->feedbackStartDate;
-        $feedbackEndDate = $request->feedbackEndDate;        
+        // $feedbackStartDate = $request->feedbackStartDate;
+        // $feedbackEndDate = $request->feedbackEndDate;
+        
+        // Date
+        $startDate = $request->startDate;
+        $endDate = $request->endDate;
 
         // Processes
-        $filteredTicketData = $this->getTicketData($ticketStatus, $ticketStartDate, $ticketEndDate);
+        $filteredTicketData = $this->getTicketData($ticketStatus, $startDate, $endDate);
         $filteredStaffData = $this->getStaffData($staffStatus, $department_id);
-        $filteredQueueCountsData = $this->getQueueCountsData($queueStartDate, $queueEndDate);
+        $filteredQueueCountsData = $this->getQueueCountsData($startDate, $endDate);
         $staffLeaderboardData = $this->getStaffLeaderboardData();
         $occupiedDepartmentsData = $this->getOccupiedDepartmentData($occupiedDepartment_id);
-        $filteredFeedbackData = $this->getFeedbackData($anonymity, $feedbackStartDate, $feedbackEndDate);
+        $filteredFeedbackData = $this->getFeedbackData($anonymity, $startDate, $endDate);
         
         // Test each process here
-        // dd($occupiedDepartmentsData);
+        // dd($filteredFeedbackData);
 
         // Create new sheets for each filtered Data
         $results = new SheetCollection([
@@ -77,7 +82,7 @@ class MainAdminExportController extends Controller
             return response()->json(['code' => 400, 'msg' => 'No data found with the specified filters.']);
         }
 
-        // Export the tickets to a CSV file
+        // Export the tickets to a xlsx file
         $fileName = "main-admin-report.xlsx";
         (new FastExcel($results))->export(storage_path('app/public/' . $fileName));
 
@@ -101,8 +106,7 @@ class MainAdminExportController extends Controller
     {
         $query = Feedback::query();
 
-        // if empty, fetch all feedbacks
-        if(empty($anonymity) && empty($feedbackStartDate) && empty($feedbackEndDate)){
+        if(!empty($anonymity) && $anonymity == "all"){
             $query->get();
         }
 
@@ -116,31 +120,42 @@ class MainAdminExportController extends Controller
 
         // if only $feedbackStartDate is not empty
         if (!empty($feedbackStartDate) && empty($feedbackEndDate)) {
-            $query->where('date', '>=', $feedbackStartDate);
+            $query->whereDate('created_at', '>=', $feedbackStartDate);
         }
 
         // if only $feedbackEndDate is not empty
         if (empty($feedbackStartDate) && !empty($feedbackEndDate)) {
-            $query->where('date', '<=', $feedbackEndDate);
+            $query->whereDate('created_at', '<=', $feedbackEndDate);
         }
 
         // if both date range not empty
         if(!empty($feedbackStartDate) && !empty($feedbackEndDate)){
-            $query->whereBetween('date', [$feedbackStartDate, $feedbackEndDate]);
+            $query->whereDate('created_at', [$feedbackStartDate, $feedbackEndDate]);
         }
         
         $feedbacks = $query->get();
 
         $array = [];
 
-        foreach($feedbacks as $feedback){
+        // If $feedbacks returns empty array
+        if($feedbacks->isEmpty()){
             $toExcel = array(
-                "Name" => $feedback->name == null ? "Anonymous" : $feedback->name,
-                "Feedback" => $feedback->feedback,
-                "Date Sent" => Carbon::parse($feedback->created_at)->format('Y-m-d H:i:s'),
+                "Message" => "No data found within the specified date range.",
             );
 
             array_push($array, $toExcel);
+        } 
+        // if not empty
+        else {
+            foreach($feedbacks as $feedback){
+                $toExcel = array(
+                    "Name" => $feedback->name == null ? "Anonymous" : $feedback->name,
+                    "Feedback" => $feedback->feedback,
+                    "Date Sent" => Carbon::parse($feedback->created_at)->format('Y-m-d H:i:s'),
+                );
+    
+                array_push($array, $toExcel);
+            }
         }
 
         return $array;
@@ -307,11 +322,22 @@ class MainAdminExportController extends Controller
 
         $array = [];
 
-        $toExcel = array(
-            $key => $queues,
-        );
+        // If $queues returns empty array
+        if(empty($queues)){
+            $toExcel = array(
+                "Message" => "No data found within the specified date range.",
+            );
 
-        array_push($array, $toExcel);
+            array_push($array, $toExcel);
+        } 
+        // if not empty
+        else {
+            $toExcel = array(
+                $key => $queues,
+            );
+    
+            array_push($array, $toExcel);
+        }
 
         return $array;
     }
@@ -362,18 +388,29 @@ class MainAdminExportController extends Controller
 
         $array = [];
 
-        foreach($tickets as $ticket){
+        // If $tickets returns empty array
+        if($tickets->isEmpty()){
             $toExcel = array(
-                "Ticket Number" => $ticket->ticket_number,
-                "Name" => $ticket->student_name,
-                "Department" => $ticket->student_department,
-                "Course" => $ticket->student_course,
-                "Status" => $ticket->status,
-                "Date Created" => Carbon::parse($ticket->created_at)->format('Y-m-d H:i:s'),
-                "Number of Services" => $ticket->services->count(),
+                "Message" => "No data found within the specified date range.",
             );
 
             array_push($array, $toExcel);
+        } 
+        // if not empty
+        else {
+            foreach($tickets as $ticket){
+                $toExcel = array(
+                    "Ticket Number" => $ticket->ticket_number,
+                    "Name" => $ticket->student_name,
+                    "Department" => $ticket->student_department,
+                    "Course" => $ticket->student_course,
+                    "Status" => $ticket->status,
+                    "Date Created" => Carbon::parse($ticket->created_at)->format('Y-m-d H:i:s'),
+                    "Number of Services" => $ticket->services->count(),
+                );
+    
+                array_push($array, $toExcel);
+            }
         }
 
         return $array;

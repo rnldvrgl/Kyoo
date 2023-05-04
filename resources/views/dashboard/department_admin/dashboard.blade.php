@@ -30,17 +30,23 @@
                 </ol>
             </nav>
         </div>
-        <h5 class="date mb-3"></h5>
         <section class="section dashboard">
+
+            <div class="d-flex justify-content-between align-items-center">
+                {{-- Date --}}
+                <h5 class="date mb-3"></h5>
+
+                {{-- Export Button --}}
+                <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal"
+                    data-bs-target="#exportModal">Export
+                    Report</button>
+            </div>
 
             {{-- Hidden Department ID --}}
             <input type="hidden" id="department_id" value="{{ $department->id }}">
 
             <div class="row">
                 <div class="col-lg-8">
-                    {{-- ! Export Button --}}
-                    <button type="button" class="me-3" data-bs-toggle="modal" data-bs-target="#exportModal">Export
-                        Report</button>
                     <div class="row">
                         {{-- Pending --}}
                         <div class="col-xxl-4 col-md-6">
@@ -330,31 +336,17 @@
                                     <input type="hidden" name="role" value="{{ $role->name }}">
 
                                     {{-- Tickets --}}
-                                    <div class="row">
-                                        <strong>Ticket Status</strong>
-                                        <div class="form-floating rounded-pill mb-3">
-                                            <select class="form-select" name="ticketStatus" id="floatingTicketStatus"
-                                                aria-label="TicketStatus">
-                                                <option value="" selected disabled>Select Ticket Status</option>
-                                                <option value="Pending">Pending</option>
-                                                <option value="Serving">Serving</option>
-                                                <option value="Complete">Complete</option>
-                                                <option value="Cancelled">Cancelled</option>
-                                            </select>
-                                            <label for="floatingTicketStatus">Staff Status</label>
-                                        </div>
-
-                                        <div class="col-6 form-floating mb-3">
-                                            <input class="form-control" type="date" name="ticketStartDate"
-                                                id="floatingTicketStartDate">
-                                            <label for="floatingTicketStartDate">From</label>
-                                        </div>
-
-                                        <div class="col-6 form-floating mb-3">
-                                            <input class="form-control" type="date" name="ticketEndDate"
-                                                id="floatingTicketEndDate">
-                                            <label for="floatingTicketEndDate">To</label>
-                                        </div>
+                                    <strong>Ticket Status</strong>
+                                    <div class="form-floating rounded-pill mb-3">
+                                        <select class="form-select" name="ticketStatus" id="floatingTicketStatus"
+                                            aria-label="TicketStatus">
+                                            <option value="" selected disabled>All Ticket Status</option>
+                                            <option value="Pending">Pending</option>
+                                            <option value="Serving">Serving</option>
+                                            <option value="Complete">Complete</option>
+                                            <option value="Cancelled">Cancelled</option>
+                                        </select>
+                                        <label for="floatingTicketStatus">Staff Status</label>
                                     </div>
 
                                     <hr>
@@ -364,7 +356,7 @@
                                     <div class="form-floating rounded-pill mb-3">
                                         <select class="form-select" name="staffStatus" id="floatingStaffStatus"
                                             aria-label="StaffStatus">
-                                            <option value="" selected disabled>Select Staff Status</option>
+                                            <option value="" selected disabled>All Staff Status</option>
                                             <option value="On Break">On Break</option>
                                             <option value="Logged In">Logged In</option>
                                             <option value="Logged Out">Logged Out</option>
@@ -376,19 +368,19 @@
 
                                     <hr>
 
-                                    {{-- Queue Counts --}}
+                                    {{-- Date --}}
                                     <div class="row">
-                                        <strong>Queue Counts</strong>
+                                        <strong>Date</strong>
                                         <div class="col-6 form-floating mb-3">
-                                            <input class="form-control" type="date" name="queueStartDate"
-                                                id="floatingQueueCountStartDate">
-                                            <label for="floatingQueueCountStartDate">From</label>
+                                            <input class="form-control" type="date" name="startDate"
+                                                id="floatingStartDate">
+                                            <label for="floatingStartDate">From</label>
                                         </div>
 
                                         <div class="col-6 form-floating mb-3">
-                                            <input class="form-control" type="date" name="queueEndDate"
-                                                id="floatingQueueCountEndDate">
-                                            <label for="floatingQueueCountEndDate">To</label>
+                                            <input class="form-control" type="date" name="endDate"
+                                                id="floatingEndDate">
+                                            <label for="floatingEndDate">To</label>
                                         </div>
                                     </div>
 

@@ -40,11 +40,6 @@ class RegistrarController extends Controller
         );
     }
 
-    public function fetchFilteredRegistrarData()
-    {
-        // To Confirm pa if may filter si Registrar Staff sa Reports
-    }
-
     public function getPendingTickets()
     {
         $accountId = Auth::user()->id;

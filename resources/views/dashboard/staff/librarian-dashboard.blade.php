@@ -237,10 +237,12 @@
 
                                 @csrf
 
+                                <input type="hidden" name="library_type" value="{{ $department->name }}">
+
                                 <div class="form-floating rounded-pill mb-3">
                                     <select class="form-select" name="department" id="floatingDepartment"
                                         aria-label="Department">
-                                        <option value="" selected disabled>Select Department</option>
+                                        <option value="" selected>Select Department</option>
                                         @if ($department->name == 'College Library')
                                             <option value="Graduate School">Graduate School</option>
                                             <option value="College">College</option>
@@ -275,19 +277,24 @@
                                     <div class="col-6 form-floating mb-3">
                                         <input class="form-control" type="date" name="start_date"
                                             id="floatingStartDate">
-                                        <label for="floatingStartDate">Start Date</label>
+                                        <label for="floatingStartDate">From</label>
                                     </div>
 
                                     <div class="col-6 form-floating mb-3">
                                         <input class="form-control" type="date" name="end_date"
                                             id="floatingEndDate">
-                                        <label for="floatingEndDate">End Date</label>
+                                        <label for="floatingEndDate">To</label>
                                     </div>
                                 </div>
 
                                 <button class="btn btn-primary flex" type="submit" id="btn-submit-filter">
                                     Filter
                                     <i class="fa-solid fa-filter"></i>
+                                </button>
+
+                                <button type="reset" class="btn btn-kyoored">
+                                    Clear Filter
+                                    <i class="fa-regular fa-trash-can"></i>
                                 </button>
                             </form>
                         </div>
@@ -299,7 +306,8 @@
             <div class="col col-lg-2 d-flex flex-column px-2" style="min-height: 100%;">
 
                 {{-- Staff Actions --}}
-                <x-staff-actions status="{{ $login->status }}" canTakeBreak="{{ $canTakeBreak }}" />
+                <x-staff-actions status="{{ $login->status }}" canTakeBreak="{{ $canTakeBreak }}"
+                    role="{{ $role->name }}" department="{{ $department->name }}" login="{{ $login->id }}" />
 
                 {{-- Librarian Stats --}}
                 <x-librarian-stats :countSignedClearances="$count_signed_clearances" :countClearedClearances="$count_completed_clearances" :countUnclearedClearances="$count_uncleared_clearances"

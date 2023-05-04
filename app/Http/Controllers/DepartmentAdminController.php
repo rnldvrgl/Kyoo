@@ -22,9 +22,6 @@ class DepartmentAdminController extends Controller
     // Declare a property
     public $department_queue_ticket_data;
 
-    /**
-     * 
-     */
 
     public function fetchFilteredDepartmentAdminData(Request $request, MainAdminExportController $mainadmin)
     {
@@ -32,27 +29,30 @@ class DepartmentAdminController extends Controller
 
         // Ticket Status
         $ticketStatus = $request->ticketStatus;
-        $ticketStartDate = $request->ticketStartDate;
-        $ticketEndDate = $request->ticketEndDate;
+        // $ticketStartDate = $request->ticketStartDate;
+        // $ticketEndDate = $request->ticketEndDate;
 
         // Staff Status
         $staffStatus = $request->staffStatus;
         $department_id = $request->department;
 
         // Queue Counts
-        $queueStartDate = $request->queueStartDate;
-        $queueEndDate = $request->queueEndDate;
+        // $queueStartDate = $request->queueStartDate;
+        // $queueEndDate = $request->queueEndDate;
 
         // Occupied Departments
         $occupiedDepartment_id = $request->occupiedDepartment;
+
+        $startDate = $request->startDate;
+        $endDate = $request->endDate;
 
         // Hidden Role
         $role = $request->role;
 
         // Processes
-        $filteredTicketData = $mainadmin->getTicketData($ticketStatus, $ticketStartDate, $ticketEndDate, $department_id);
+        $filteredTicketData = $mainadmin->getTicketData($ticketStatus, $startDate, $endDate, $department_id);
         $filteredStaffData = $mainadmin->getStaffData($staffStatus, $department_id);
-        $filteredQueueCountsData = $mainadmin->getQueueCountsData($queueStartDate, $queueEndDate, $department_id);
+        $filteredQueueCountsData = $mainadmin->getQueueCountsData($startDate, $endDate, $department_id);
         $occupiedDepartmentsData = $mainadmin->getOccupiedDepartmentData($occupiedDepartment_id, $role);
 
         // Test each Processes here
