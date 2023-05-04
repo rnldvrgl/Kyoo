@@ -2,21 +2,84 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Models\AccountLogin;
+use Carbon\Carbon;
 use App\Models\Accounts;
 use App\Models\Department;
 use App\Models\QueueTicket;
-use Carbon\Carbon;
+use App\Models\AccountLogin;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Rap2hpoutre\FastExcel\FastExcel;
+use Illuminate\Support\Facades\Storage;
+use Rap2hpoutre\FastExcel\SheetCollection;
+use App\Http\Controllers\MainAdminExportController;
 
 class DepartmentAdminController extends Controller
 {
     // * FOR DEPARTMENT ADMIN DASHBOARD * //
     // Declare a property
     public $department_queue_ticket_data;
+
+
+    public function fetchFilteredDepartmentAdminData(Request $request, MainAdminExportController $mainadmin)
+    {
+        // dd($request);
+
+        // Ticket Status
+        $ticketStatus = $request->ticketStatus;
+        // $ticketStartDate = $request->ticketStartDate;
+        // $ticketEndDate = $request->ticketEndDate;
+
+        // Staff Status
+        $staffStatus = $request->staffStatus;
+        $department_id = $request->department;
+
+        // Queue Counts
+        // $queueStartDate = $request->queueStartDate;
+        // $queueEndDate = $request->queueEndDate;
+
+        // Occupied Departments
+        $occupiedDepartment_id = $request->occupiedDepartment;
+
+        $startDate = $request->startDate;
+        $endDate = $request->endDate;
+
+        // Hidden Role
+        $role = $request->role;
+
+        // Processes
+        $filteredTicketData = $mainadmin->getTicketData($ticketStatus, $startDate, $endDate, $department_id);
+        $filteredStaffData = $mainadmin->getStaffData($staffStatus, $department_id);
+        $filteredQueueCountsData = $mainadmin->getQueueCountsData($startDate, $endDate, $department_id);
+        $occupiedDepartmentsData = $mainadmin->getOccupiedDepartmentData($occupiedDepartment_id, $role);
+
+        // Test each Processes here
+        // dd($filteredTicketData);
+        
+        // Create new sheets for each filtered Data
+        $results = new SheetCollection([
+            "Tickets" => $filteredTicketData,
+            "Staff Status" => $filteredStaffData,
+            "Queue Counts" => $filteredQueueCountsData,
+            "Occupied Departments" => $occupiedDepartmentsData,
+        ]);
+
+        if($results->isEmpty()){
+            return response()->json(['code' => 400, 'msg' => 'No data found with the specified filters.']);
+        }
+
+        // Export the tickets to a CSV file
+        $fileName = "department-admin-report.xlsx";
+        (new FastExcel($results))->export(storage_path('app/public/' . $fileName));
+
+        // Get the URL to the exported file
+        $url = Storage::url($fileName);
+        
+        // Return response
+        return response()->json(['code' => 200, 'msg' => 'Export Successful', 'url' => $url, 'fileName' => $fileName]);
+    }
 
     // Fetch all queue tickets data for the department
     public function getDepartmentQueueTickets()

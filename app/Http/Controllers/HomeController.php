@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Accounts;
-use App\Models\AccountRole;
-use App\Models\AccountDetails;
-use App\Models\AccountLogin;
-use App\Models\Department;
-use App\Models\Feedback;
+use Carbon\Carbon;
 use App\Models\Service;
+use App\Models\Accounts;
+use App\Models\Feedback;
+use App\Models\Department;
+use App\Models\AccountRole;
+use App\Models\QueueTicket;
+use App\Models\AccountLogin;
+use App\Models\AccountDetails;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -95,7 +98,6 @@ class HomeController extends Controller
 		return $data;
 	}
 
-
 	// TODO: Isang function for dashboard, concat the role
 	public function main_admin(QueueTicketController $queueTicketController, StatisticsController $statsController)
 	{
@@ -117,6 +119,8 @@ class HomeController extends Controller
 			'cancelled_tickets' => $queueTicketController->countCancelledTickets(),
 			'years' => $queueTicketController->getYear(),
 			'departments' => $queueTicketController->getDepartments(),
+			'allDepartments' => Department::all(['id', 'name']),
+			'months' => $queueTicketController->getMonthWithName(),
 		]);
 	}
 

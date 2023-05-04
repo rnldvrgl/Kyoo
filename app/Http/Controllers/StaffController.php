@@ -8,6 +8,8 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Rap2hpoutre\FastExcel\FastExcel;
 
 class StaffController extends Controller
 {
@@ -25,8 +27,6 @@ class StaffController extends Controller
         $avg_serving_time = $queueTicketController->getAverageServiceTime();
         $avg_wait_time = $queueTicketController->getAverageWaitingTime();
 
-
-
         return view(
             'dashboard.staff.regular-dashboard',
             [
@@ -41,6 +41,67 @@ class StaffController extends Controller
                 'servedTickets' => $servedTickets,
             ]
         );
+    }
+
+    public function fetchFilteredRegularStaffData(Request $request)
+    {
+        // dd($request);
+
+        $loginID = $request->loginID;
+
+        // Process
+        $staffData = $this->getStaffData($loginID);
+
+        // dd($staffData);
+
+        if(empty($staffData)){
+            return response()->json(['code' => 400, 'msg' => "Unfortunately, you still don't have any record for today."]);
+        }
+
+        // Export the tickets to a xlsx file
+        $fileName = "my-report.xlsx";
+        (new FastExcel($staffData))->export(storage_path('app/public/' . $fileName));
+
+        // Get the URL to the exported file
+        $url = Storage::url($fileName);
+        
+        // Return response
+        return response()->json(['code' => 200, 'msg' => 'Export Successful', 'url' => $url, 'fileName' => $fileName]);
+    }
+    
+    /**
+     * getStaffData
+     *
+     * @param  mixed $loginID
+     * @return array
+     */
+    public function getStaffData($loginID)
+    {
+        $query = QueueTicket::query();
+
+        $today = Carbon::now()->format('Y-m-d');
+
+        $query->where('login_id', $loginID)->where('date', $today);
+
+        $staffData = $query->get();
+
+        $array = [];
+
+        foreach($staffData as $data){
+            $toExcel = array(
+                "Ticket Number" => $data->ticket_number,
+                "Name" => $data->student_name,
+                "Department" => $data->student_department,
+                "Course" => $data->student_course,
+                "Status" => $data->status,
+                "Date Created" => Carbon::parse($data->created_at)->format('Y-m-d H:i:s'),
+                "Number of Services" => $data->services->count(),
+            );
+
+            array_push($array, $toExcel);
+        }
+
+        return $array;
     }
 
     public function getPendingTickets()
