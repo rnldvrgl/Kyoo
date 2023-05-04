@@ -25,7 +25,6 @@ class RegistrarController extends Controller
         $avg_serving_time = $queueTicketController->getAverageServiceTime();
         $avg_wait_time = $queueTicketController->getAverageWaitingTime();
 
-
         return view(
             'dashboard.staff.registrar-dashboard',
             [

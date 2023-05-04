@@ -11,6 +11,8 @@ class QueueTicketService extends Model
 
     protected $table = 'queue_ticket_service';
 
+    protected $with = ['ticket', 'service'];
+
     public function ticket()
     {
         return $this->belongsTo(QueueTicket::class);

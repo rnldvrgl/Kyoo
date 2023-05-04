@@ -103,6 +103,57 @@ class QueueTicketController extends Controller
         return $cancelledCount;
     }
 
+    // Fetch month to display on the dropdown
+    public function getMonth()
+    {
+        $months = QueueTicket::distinct()
+            ->pluck('date')
+            ->map(function ($date) {
+                return Carbon::parse($date)->month;
+            })
+            ->unique()
+            ->sort('date', 'desc')
+            ->values()
+            ->toArray();
+
+        rsort($months); // sort by months value
+
+        return compact('months');
+    }
+
+    // Fetch month with name to display on the dropdown
+    public function getMonthWithName()
+    {
+        $months = QueueTicket::distinct()
+			->pluck('date')
+			->map(function ($date) {
+				$month = Carbon::parse($date)->month;
+				$name = date("F", mktime(0, 0, 0, $month, 1));
+				return (object) [
+					'number' => $month,
+					'name' => $name,
+				];
+			})
+			->unique('number')
+			->sortByDesc('number')
+			->values()
+			->toArray();
+        
+		$monthsArr = [];
+		
+		foreach($months as $month)
+		{
+			$arr = array(
+				'number' => $month->number,
+				'name' => $month->name
+			);
+
+			array_push($monthsArr, $arr);
+		}
+
+        return $monthsArr;
+    }
+
     // Fetch year to display on the dropdown
     public function getYear()
     {

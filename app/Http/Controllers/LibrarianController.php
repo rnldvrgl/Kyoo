@@ -7,6 +7,8 @@ use App\Models\QueueTicket;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Rap2hpoutre\FastExcel\FastExcel;
 
 class LibrarianController extends Controller
 {
@@ -36,6 +38,86 @@ class LibrarianController extends Controller
         );
     }
 
+    public function fetchFilteredLibrarianTicket(Request $request)
+    {
+        // Declare them variables
+        $student_department = $request->department;
+        $student_course = $request->course;
+        $clearance_status = $request->clearance_status;
+        $startDate = $request->start_date;
+        $endDate = $request->end_date;
+        $libraryType = $request->library_type;
+
+        // Query the Model
+        $query = QueueTicket::query();
+
+        // Check if they are empty
+        if(empty($student_department) && empty($student_course) && empty($clearance_status)){
+            // return response()->json(['code' => 400, 'msg' => 'Please provide at least one filter.']);
+            if($libraryType == "College Library"){
+                $query->where('student_department', 'Graduate School')->orWhere('student_department', 'College')->get();
+            } else if ($libraryType == "High School Library"){
+                $query->where('student_department', 'Senior High School')->orWhere('student_department', 'Junior High School')->get();
+            }
+        }
+    
+        // Dropdown Filters
+        if (!empty($student_department)) {
+            $query->where('student_department', $student_department);
+        }
+
+        if (!empty($student_course)) {
+            $query->where('student_course' ,$student_course);
+        }
+
+        if (!empty($clearance_status)) {
+            $query->where('clearance_status', $clearance_status);
+        }
+    
+        // Date Filters
+        if (!empty($startDate)) {
+            $query->whereDate('created_at', '>=', $startDate);
+        }
+    
+        if (!empty($endDate)) {
+            $query->whereDate('created_at', '<=', $endDate);
+        }
+
+        $results = $query->get();
+
+        // dd($results);
+        
+        if ($results->isEmpty()) {
+            return response()->json(['code' => 400, 'msg' => 'No tickets found with the specified filters.']);
+        }
+
+        $array = [];
+
+        foreach ($results as $ticket) {
+            $toExcel = array(
+                "Student Name" => $ticket->student_name,
+                "Student Department" => $ticket->student_department,
+                "Student Course" => $ticket->student_course,
+                "Clearance Status" => $ticket->clearance_status,
+                "Date" => Carbon::parse($ticket->created_at)->format('Y-m-d H:i:s'),
+            );
+
+            array_push($array, $toExcel);
+        }
+
+        $tickets = collect($array);
+        
+        // dd($tickets);
+        
+        // Export the tickets to a CSV file
+        $fileName = 'librarian-ticket.csv';
+        (new FastExcel($tickets))->export(storage_path('app/public/' . $fileName));
+
+        // Get the URL to the exported file
+        $url = Storage::url($fileName);
+
+        return response()->json(['code' => 200, 'msg' => 'Export Successful', 'url' => $url, 'fileName' => $fileName]);
+    }
 
     public function getCollegesPendingClearance()
     {
@@ -171,4 +253,5 @@ class LibrarianController extends Controller
 
         return ['unclearedCollegeCount' => $unclearedCollegeCount, 'unclearedHSCount' => $unclearedHSCount];
     }
+
 }
