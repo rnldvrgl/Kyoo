@@ -64,7 +64,7 @@ class MainAdminExportController extends Controller
         $filteredFeedbackData = $this->getFeedbackData($anonymity, $startDate, $endDate);
         
         // Test each process here
-        // dd($filteredFeedbackData);
+        // dd($filteredTicketData);
 
         // Create new sheets for each filtered Data
         $results = new SheetCollection([
@@ -91,7 +91,6 @@ class MainAdminExportController extends Controller
         
         // Return response
         return response()->json(['code' => 200, 'msg' => 'Export Successful', 'url' => $url, 'fileName' => $fileName]);
-        // return redirect('/main-admin/dashboard');
     }
     
     /**
@@ -176,7 +175,6 @@ class MainAdminExportController extends Controller
                 $query->where('status', 'Logged In');
             })->whereNotNull('department_id')->get();
         }
-
         // If not empty
         else {
             $occupiedDepartments = Accounts::whereHas('account_login', function($query){
@@ -450,20 +448,27 @@ class MainAdminExportController extends Controller
         // Fetch the result
         $accounts = $query->get();
 
-        if ($accounts->isEmpty()) {
-            return response()->json(['code' => 400, 'msg' => 'No accounts found with the specified filters.']);
-        }
-
         $array = [];
 
-        foreach($accounts as $account){
+        // If $tickets returns empty array
+        if($accounts->isEmpty()){
             $toExcel = array(
-                "Name" => $account->account_details->name,
-                "Department" => $account->department->name,
-                "Status" => $account->account_login->status,
+                "Message" => "No data found within the specified date range.",
             );
 
             array_push($array, $toExcel);
+        } 
+        // if not empty
+        else {
+            foreach($accounts as $account){
+                $toExcel = array(
+                    "Name" => $account->account_details->name,
+                    "Department" => $account->department->name,
+                    "Status" => $account->account_login->status,
+                );
+    
+                array_push($array, $toExcel);
+            }
         }
 
         return $array;
