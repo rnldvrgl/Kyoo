@@ -49,15 +49,14 @@ class LibrarianController extends Controller
         $libraryType = $request->library_type;
 
         // Query the Model
-        $query = QueueTicket::query();
+        $query = QueueTicket::query()->whereNotNull('clearance_status');
 
         // Check if they are empty
         if(empty($student_department) && empty($student_course) && empty($clearance_status)){
-            // return response()->json(['code' => 400, 'msg' => 'Please provide at least one filter.']);
             if($libraryType == "College Library"){
-                $query->where('student_department', 'Graduate School')->orWhere('student_department', 'College')->get();
+                $query->where('student_department', 'Graduate School')->orWhere('student_department', 'College')->whereNotNull('clearance_status');
             } else if ($libraryType == "High School Library"){
-                $query->where('student_department', 'Senior High School')->orWhere('student_department', 'Junior High School')->get();
+                $query->where('student_department', 'Senior High School')->orWhere('student_department', 'Junior High School')->whereNotNull('clearance_status');
             }
         }
     
@@ -75,17 +74,19 @@ class LibrarianController extends Controller
         }
     
         // Date Filters
-        if (!empty($startDate)) {
-            $query->whereDate('created_at', '>=', $startDate);
+        if (!empty($startDate) && empty($endDate)) {
+            $query->whereDate('date', '>=', $startDate);
         }
     
-        if (!empty($endDate)) {
-            $query->whereDate('created_at', '<=', $endDate);
+        if (empty($startDate) && !empty($endDate)) {
+            $query->whereDate('date', '<=', $endDate);
+        }
+
+        if (!empty($startDate) && !empty($endDate)) {
+            $query->whereBetween('date', [$startDate, $endDate]);
         }
 
         $results = $query->get();
-
-        // dd($results);
         
         if ($results->isEmpty()) {
             return response()->json(['code' => 400, 'msg' => 'No tickets found with the specified filters.']);

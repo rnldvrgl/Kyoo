@@ -1,4 +1,4 @@
-<div class="card rounded-5 shadow w-100 px-4 pt-3 pb-4 mb-0"
+<div class="card rounded-5 w-100 mb-0 px-4 pt-3 pb-4 shadow"
     style="border-left: 8px solid #a7d2ad; background-color: #f7f7f7; height: fit-content;">
     <div class="actions">
         <a class="icon" href="#" data-bs-toggle="dropdown"><i class="fa-solid fa-ellipsis-vertical"></i></a>
@@ -28,8 +28,8 @@
             </li>
         </ul>
     </div>
-    <h3 class="fw-bold text-center mb-0">{{ $queueNumber }}</h3>
-    <small class="text-center d-block">{{ $queueTime }}</small>
+    <h3 class="fw-bold mb-0 text-center">{{ $queueNumber }}</h3>
+    <small class="d-block text-center">{{ $queueTime }}</small>
     <div class="mb-3">
         <h6 class="fw-bold mb-0">Student Name</h6>
         <p class="mb-0">{{ $studentName }}</p>
@@ -46,7 +46,7 @@
     <h6 class="fw-bold mb-3">Selected Services</h6>
     <ul class="list-group mb-3">
         @foreach ($services as $service)
-            <li class="list-group-item bg-white border">
+            <li class="list-group-item border bg-white">
                 {{ $service }}
             </li>
         @endforeach
@@ -54,7 +54,7 @@
 
     {{-- Notes --}}
     @if ($notes)
-        <div class="alert alert-primary d-flex justify-content-center align-items-center p-2 mx-auto" role="alert">
+        <div class="alert alert-primary d-flex justify-content-center align-items-center mx-auto p-2" role="alert">
             <i class="fa-solid fa-circle-info me-2"></i>
             <small class="text-center">
                 {{ $notes }}
@@ -64,14 +64,14 @@
 
 
     {{-- Transfer Notes --}}
-    @if ($transfer_notes)
+    {{-- @if ($transfer_notes)
         <div class="alert alert-kyooblue d-flex justify-content-center align-items-center p-2 mx-auto" role="alert">
             <i class="fa-solid fa-circle-info me-2"></i>
             <small class="text-center">
                 {{ $transfer_notes }}
             </small>
         </div>
-    @endif
+    @endif --}}
 
     @if ($serviceDepartmentId == 1)
         @switch($clearancestatus)
@@ -99,7 +99,7 @@
             @break
 
             @default
-                <button class="request-clearance-btn btn btn-outline-kyooorange rounded-pill py-3 btn-sm" type="button"
+                <button class="request-clearance-btn btn btn-outline-kyooorange rounded-pill btn-sm py-3" type="button"
                     data-queue-number="{{ $queueNumber }}" data-ticket-id="{{ $ticketId }}"
                     data-servicedepartment="{{ $serviceDepartment }}">
                     <i class="fas fa-question-circle me-2"></i>
