@@ -38,8 +38,10 @@
             @if ($attributes['department'] == 'College Library' || $attributes['department'] == 'High School Library')
                 {{-- Export Button --}}
                 <button type="button" class="btn btn-kyooblue rounded-pill text-white" data-bs-toggle="modal"
-                    data-bs-target="#exportModal">Export
-                    Report</button>
+                    data-bs-target="#exportModal">
+                    Export Report
+                    <i class="fa-solid fa-file-arrow-down ms-2"></i>
+                </button>
             @else
                 {{-- Form for Staff --}}
                 <form action="{{ route('export-staff-data') }}" method="post" id="export-staff-data">
@@ -47,9 +49,9 @@
 
                     <input type="hidden" name="loginID" value="{{ $attributes['login'] }}">
 
-                    <button type="submit" class="btn btn-kyooblue rounded-pill text-white" id="btn-submit">
+                    <button type="submit" class="btn btn-kyooblue rounded-pill w-100 text-white" id="btn-submit">
                         Export Report
-                        <i class="fa-regular fa-clipboard"></i>
+                        <i class="fa-solid fa-file-arrow-down ms-2"></i>
                     </button>
                 </form>
                 {{-- End Form --}}
